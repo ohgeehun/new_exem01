@@ -1,0 +1,151 @@
+@charset "UTF-8";
+
+/*
+------------------------------------------------------------
+File Name : common.css
+Version : CSS2.1 (+ 3.0)
+Date : 2012 / JAN.
+Explanation : Front Contents - common
+Modify Date: 2012 / 01 / 18
+------------------------------------------------------------
+*/
+
+/*	default(common) */
+html{overflow-x:auto; overflow-y:scroll; }
+html, body, div, ul, li, dl, dt, dd, ol, p, h1, h2, h3, h4, h5, h6, form, fieldset, table, tr, td, input, button {margin:0; padding:0; }
+body{width:100%; height:auto; font:"굴림", "Gulim", "돋움", "Dotum", Arial, Tahoma, sans-serif; color:#606060; font-size:12px; background-color:#fff; }
+ul, ol, li, dl, dt, dd {list-style:none; }
+img, fieldset, form, button {border:0; }
+button{cursor:pointer; }
+button span{position:absolute; left:-999em; }
+img{vertical-align:top; }
+address,em, i{font-style:normal; }
+a:link, a:visited{text-decoration:none; color:#606060; }
+a:hover, a:active{text-decoration:none; color:#1a82cd; }
+
+#accessibility, .hidden, .blind, hr, legend, caption{position:absolute; left:-999em; overflow:hidden; height:0; width:0; margin:0; padding:0; font:0/0 arial; }
+.clear{clear:both; background-color:transparent; height:0; overflow:hidden; }
+.alnR{text-align:right; margin-bottom:8px; }
+.duoLine{border-top: 1px solid #dbdbdb; border-bottom: 1px solid #dbdbdb; }/* 전체그룹 */
+.txt {font:"굴림", "Gulim", "돋움", "Dotum", Arial, Tahoma, sans-serif; color:#606060; font-size:10px;}
+
+/* default definition */ 
+* {margin:0; padding:0; line-height:1.6em; font-family:돋움, sans-serif; color:#424242; font-size:12px; }
+ul, ol, li, dl, dt, dd, form { list-style-image:none; list-style-position:outside; list-style-type:none; border:0px; margin:0px; padding:0px;}
+html {min-height:100%; margin:0; text-align:center;  padding:0;}
+ h3 {font-size:14px; margin-bottom:-5px; text-align:left; padding-left:10px;}
+ 
+a:link, a:visited {color:#22639f; text-decoration:none;}
+a:hover, a:active {color:#444; text-decoration:none;}
+ img {border:0;vertical-align:middle;}
+ input  {vertical-align:middle;  padding:1px 5px 3px; line-height:120%;}
+  input  img{vertical-align:middle;  }
+ .color_b{color:#0089CC; font-weight:bold;}
+ 
+ 
+ 
+ #wrap {width:100%;  height:100%; margin:0 auto; }
+ .login{width:572px; height:127px; border:2px solid #2689D7; padding:20px;margin-left:30px}
+ .content{ width:700px; padding-left:20px; padding-right:20px;margin:0 auto; float:left;}
+ .btn{background:url("../images/btn.gif") repeat-x; width:60px; height:23px; color:#fff;font-weight:bold; border:2px solid #195BAC; padding:2px; cursor:pointer;}
+ .btn2{background:url("../images/btn.gif") repeat-x; width:120px; height:23px; color:#fff;font-weight:bold; border:2px solid #195BAC; padding:2px;}
+ .btn_r{text-align:right;}
+ 
+ .con{width:1000px; margin:0 auto;}
+ .left{width:204px; margin:10px 3px 0 20px; float:left;}
+ .left_admin {background:url("../images/admin_bg.gif") no-repeat; width:197px; height:113px;text-align:left; }
+ .left_menu{background:url("../images/left_center.gif") repeat-y; width:197px; text-align:left;  }
+ .menu_icon {font-size:13px; padding-left:15px; color:#636363; background:url("../images/left_icon.gif") no-repeat 0 3px; width:100px;}
+ .con_icon {font-size:13px; margin:0; padding:20px; color:#636363; background:url("../images/content_icon.gif") no-repeat 0 22px; }
+ 
+ 
+ .table_1 .th_bot{border-bottom:1px solid #92C2D6;}
+.table_1 th{ background-color:#D5E8F0; border-right:1px solid #92C2D6; border-left:1px solid #92C2D6; border-top:1px solid #92C2D6;color:#024B6E;
+text-align:center; }
+.table_1 td{border-top:1px solid #92C2D6;  border-right:1px solid #92C2D6; padding:6px; text-align:left; }
+.table_1 .bor_t{border-top:1px solid #92C2D6;}
+.table_1 .bor_b{border:none; width:10px;}
+.table_1 .bor_r{border-bottom:none; border-right:none;}
+.table_1 .bor_bn{border-bottom:none; border-left:none;}
+
+.table{table-layout:fixed}
+
+.table_1 , .table_2{border-collapse:collapse; }
+
+.table_2 th{ background-color:#D5E8F0; border-bottom:1px solid #92C2D6; border-left:1px solid #92C2D6; border-top:1px solid #92C2D6;color:#024B6E;
+text-align:center; padding:5px;
+}
+
+.table_2 td{  border-left:1px solid #92C2D6; padding:6px;  border-bottom:1px solid #92C2D6; word-break:break-all; }
+.table_2 .bor_l{border-left:1px solid #92C2D6;}
+.table_2 .bor_r{border-right:1px solid #92C2D6;}
+.table_2 .bor_b{border-bottom:none;}
+
+.number{text-align:center;  margin-top:20px; }
+
+.navi{background:url("../images/navi_bg.gif") no-repeat 0 25%; width:1000px; height:100px; margin-bottom:10px; margin:0 auto;}
+.head{background:url("../images/navi_bg_x.gif") repeat-x; height:100px; margin-bottom:10px;}
+.top{margin-top:10px; text-align:right; }
+
+.text1{text-align:left;}
+.p_l20{margin-left:20px;}
+.p_l70{margin-left:70px;#margin-left:70px;_margin-left:50px;}
+
+
+.png {
+ 
+ -moz-opacity:0.5;
+ -khtml-opacity: 0.5;
+ opacity: 0.5;
+}
+
+.menuTitle {
+	color:#636363; background:url("../images/icon1.gif") no-repeat 0px 4px; 
+}
+
+.icoTd {
+	color:#636363; background:url("../images/icon1.gif") no-repeat 0px 4px; 
+}
+
+.menuTitle_i h3 {
+	font-size:14px; margin-bottom:5px; text-align:left; padding-left:10px;
+}
+
+.searchArea {
+	height: 40px;
+	vertical-align: middle;
+}
+
+.sSType {
+	width:80px;
+	display:inline-table;
+}
+
+.sTypeBtn {
+	width:60px;
+	display:inline-table;
+	text-align: right;
+}
+
+.sType_on {
+	width:100px;
+	display:inline-table;
+}
+.sType_on input {
+}
+.sType_on select {
+	width:100px;
+	height:21px;
+}
+
+.sType_off {
+	width:100px;
+	display:none;
+}
+.sType_off input {
+}
+.sType_off select {
+	width:100px;
+	height:21px;
+}
+

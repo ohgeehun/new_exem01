@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+    "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="dept">
+	<typeAlias alias="deptBean" 
+			   type="com.exem9.lms.web.department.bean.DeptBean" />	
+	
+	<select id="getdeptinfo" resultClass="DeptBean">
+	SELECT DEPARTMENT_ID AS deptId,
+	       DEPARTMENT_NAME AS deptNm
+	FROM XM_DEPARTMENT
+	</select> 		
+</sqlMap>

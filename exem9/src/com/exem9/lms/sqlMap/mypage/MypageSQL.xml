@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+    "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="mypage">
+	<typeAlias alias="MypageBean" 
+			   type="com.exem9.lms.web.mypage.bean.MypageBean" />
+	<typeAlias alias="DbmsBean" 
+			   type="com.exem9.lms.web.dbms.bean.DbmsBean" />
+	<typeAlias alias="PosiBean" 
+			   type="com.exem9.lms.web.position.bean.PosiBean" />		
+			   
+	<select id="getUserinfo" parameterClass="String" resultClass="MypageBean">
+	SELECT  user_id as userId,
+	        user_name AS userNm,
+			user_password AS userPw,
+			(select team_name from xm_team xt where xt.team_id = xm.user_team_id) as userTeam,
+			user_flag as userFlag,
+			(select dbms_name from xm_dbms xd where xd.dbms_id = xm.user_dbms_id) as userDbms,
+			user_level as userLevel,
+			(select department_name from xm_department xdt where xdt.department_id = xm.user_department_id) as userDept,
+			(select position_name from xm_position xp where xp.position_id = xm.user_position_id) as userPosi,
+			user_phone as userPhone,
+			user_mail as userMail,
+			user_hint as userHint,
+			user_point as userPoint			
+	FROM XM_MEMBER xm
+	WHERE user_id = #userId#
+	</select> 
+	
+	<select id="getdbmsinfo" parameterClass="String" resultClass="DbmsBean">
+	SELECT A.DBMS_ID AS dbmsId,
+	       A.DBMS_NAME AS dbmsNm,
+	       A.DEPARTMENT_ID AS deptId 
+	FROM XM_DBMS A, XM_MEMBER B	
+	WHERE B.USER_DEPARTMENT_ID = A.DEPARTMENT_ID
+	AND B.user_id = #userId#
+	</select> 
+	
+	<select id="getposiinfo" resultClass="PosiBean">
+	SELECT POSITION_ID AS posiId,
+		   POSITION_NAME AS posiNm
+	FROM XM_POSITION
+	</select> 
+	
+	<update id="updateUserInfo" parameterClass="java.util.HashMap">
+	UPDATE XM_MEMBER SET USER_DBMS_id = #userDbms#,
+		                 USER_POSITION_id = #userPosi#,
+		                 USER_PHONE = #userPhone#,
+		                 USER_MAIL = #userMail#
+    WHERE USER_ID = #userId#		                 
+	</update> 
+	
+	<update id="updateUserPw" parameterClass="java.util.HashMap">
+	UPDATE XM_MEMBER SET USER_PASSWORD = #userNewPw#		                
+    WHERE USER_ID = #userId#	                 
+	</update> 
+	
+	<select id="getUserPw" parameterClass="java.util.HashMap" resultClass="String">
+	SELECT USER_PASSWORD 
+	FROM XM_MEMBER
+	WHERE USER_ID = #userId#	                 
+	</select> 
+</sqlMap>

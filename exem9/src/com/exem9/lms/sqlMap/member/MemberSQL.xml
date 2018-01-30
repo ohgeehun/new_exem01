@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+    "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="member">
+	<typeAlias alias="MemberBean" 
+			   type="com.exem9.lms.web.member.bean.MemberBean" />	
+			   
+	<resultMap class="MemberBean" id="uMemberMap">
+		<result property="userId" column="user_id"/>
+		<result property="userPw" column="user_password"/>
+		<result property="userTeam" column="user_team_id"/>
+		<result property="userFlag" column="user_flag"/>
+		<result property="userDbms" column="user_dbms_id"/>		
+		<result property="userDept" column="user_department_id"/>
+		<result property="userPosi" column="user_position_id"/>
+		<result property="userNm" column="user_name"/>
+		<result property="userPhone" column="user_phone"/>
+		<result property="userMail" column="user_mail"/>
+		<result property="userHint" column="user_hint"/>
+		<result property="userPoint" column="user_point"/>
+	</resultMap>
+	
+	<select id="getTeammember" parameterClass="java.util.HashMap" resultClass="MemberBean">
+	SELECT XM.user_id as userId,
+	       XM.user_name as userNm,
+	       XM.user_mail as userMail,
+	       XM.user_phone as userPhone	       
+	FROM XM_MEMBER XM, MX_TEAM XT
+	WHERE XM.TEAM_ID = XT.TEAM_ID
+	AND XT.TEAM_NAME = #teamNm#
+	</select> 		
+	
+	
+	<select id="getUsermember" parameterClass="java.util.HashMap" resultClass="MemberBean">
+	SELECT user_id as userId,
+	       user_name as userNm,
+		   user_mail as userMail,
+		   user_phone as userPhone	       
+	FROM XM_MEMBER
+	WHERE user_team_id = #userTeam#		
+	</select> 		
+	
+	<select id="getSalsemember" resultClass="MemberBean">
+	SELECT user_id as userId,
+	       user_name as userNm,
+		   user_mail as userMail,
+		   user_phone as userPhone	       
+	FROM XM_MEMBER
+	WHERE user_department_id = 4		
+	</select>
+	
+	<select id="getteamuser" parameterClass="java.util.HashMap" resultClass="MemberBean">
+	SELECT user_id as userId,
+	       user_name as userNm,
+		   user_mail as userMail,
+		   user_phone as userPhone	       
+	FROM XM_MEMBER
+	WHERE user_team_id = #teamId#		
+	</select> 		 
+	
+	<select id="getteamuser1" parameterClass="java.util.HashMap" resultClass="MemberBean">
+	SELECT user_id as userId,
+	       user_name as userNm,
+		   user_mail as userMail,
+		   user_phone as userPhone	       
+	FROM XM_MEMBER
+	WHERE user_team_id = #teamId#		
+	and user_id != #userId#
+	</select> 	
+</sqlMap>

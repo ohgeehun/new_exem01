@@ -1,0 +1,160 @@
+@CHARSET "EUC-KR";
+
+<style type='text/css'>
+body {
+	font-size: 12pt; font-family: Malgun Gothic, arial;
+}
+table {
+	width:100%;
+	max-width:400px;
+	font-size: 12pt; font-family: Malgun Gothic, arial;
+}
+.button {
+	font-size: 12pt;
+	font-family: Malgun Gothic, arial;
+}
+
+.c1_button {
+	font-size: 15pt;
+	font-family: Malgun Gothic, arial;
+	background-color:#2E9AFE;
+	color:white;
+	border: 0px solid #000;
+    border-color: #aaa #444 #444 #aaa;
+   
+}
+
+.c2_button {
+	font-size: 13pt;
+	font-family: Malgun Gothic, arial;
+	background-color:#31B404;
+	color:white;
+	border: 0px solid #000;
+    border-color: #aaa #444 #444 #aaa;
+   
+}
+
+.c3_button {
+	font-size: 13pt;
+	font-family: Malgun Gothic, arial;
+	background-color:#00BFFF;
+	color:white;
+	border: 0px solid #000;
+    border-color: #aaa #444 #444 #aaa;
+   
+}
+.save_button {
+	font-size: 18pt;
+	font-family: Malgun Gothic, arial;
+	background-color:#31B404;
+	color:white;
+	border: 0px solid #000;
+    border-color: #aaa #444 #444 #aaa;  
+}
+.delete_button {
+	font-size: 14pt;
+	font-family: Malgun Gothic, arial;
+	background-color:#FF8000;
+	color:white;
+	border: 0px solid #000;
+    border-color: #aaa #444 #444 #aaa;  
+}
+
+.title_color {
+	background-color:#2E2E2E;   
+}
+
+.td_color {
+	background-color:#FFFFFF;   
+}
+
+.line  {
+	border-bottom:1px solid grey;
+}
+
+.2line  {
+	border-bottom:1px solid grey;
+	border-top:1px solid grey;
+} 
+
+.top_line  {	
+	border-top:1px solid grey;
+}
+
+
+.td_color_with_line {
+	border-bottom:1px solid grey;
+	background-color:#FFFFFF
+} 
+
+.td_point_color {	
+	background-color:#D7DF01
+} 
+
+.td_point_color_with_line {
+	border-bottom:1px solid grey;
+	background-color:#D7DF01
+} 
+
+.lbutton {
+	font-size: 30pt;
+	font-family: Malgun Gothic, arial;
+	width:100%;
+	max-width:400px;	
+    padding: 2px 4px;
+    text-decoration: none;
+    border: 0px solid #000;
+    border-color: #aaa #444 #444 #aaa;
+    color: #000 
+}
+
+.mbutton {
+	font-size: 30pt;
+	font-family: Malgun Gothic, arial;
+	width:50%;
+	max-width:200px;	
+    padding: 2px 4px;
+    text-decoration: none;
+    border: 0px solid #000;
+    border-color: #aaa #444 #444 #aaa;
+    color: #000;
+    align: center
+}
+
+.sbutton {
+	font-size: 10pt;
+	font-family: Malgun Gothic, arial;
+	background-color: transparent; 
+    padding: 2px 4px;
+    text-decoration: none;
+    border: 0px solid #000;
+    border-color: #aaa #444 #444 #aaa;
+    color: #000 
+}
+
+.menubutton {
+	font-size: 15pt;
+	font-family: Malgun Gothic, arial;
+	background-color: transparent; 
+    padding: 2px 4px;
+    text-decoration: none;
+    border: 0px solid #000;
+    border-color: #aaa #444 #444 #aaa;
+    color: #000; 
+}
+
+
+.input {
+	font-size: 12pt;
+	font-family: Malgun Gothic, arial;
+}
+.slist {
+	font-size: 10pt;
+	font-family: Malgun Gothic, arial;
+}		
+.title {
+    font-family: ¸¼Àº°íµñ, ¸¼Àº °íµñ,  Malgun Gothic, arial;
+    color:white;
+    font-size:14px;
+}
+</style>

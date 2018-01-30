@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc
+						http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+						http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+						http://www.springframework.org/schema/context
+						http://www.springframework.org/schema/context/spring-context-3.0.xsd
+						http://www.directwebremoting.org/schema/spring-dwr
+						http://www.directwebremoting.org/schema/spring-dwr-3.0.xsd
+						http://www.springframework.org/schema/task
+						http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing 
+		infrastructure -->
+
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<mvc:annotation-driven />
+	
+	<!-- Enables the All request Urls 
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<beans:bean class="com.talkon.dbkn.framework.LoginCheckInterceptor" />
+		</mvc:interceptor>	
+	</mvc:interceptors>
+	 -->
+	<!-- Enables the exceptional Urls -->
+	<!-- <mvc:mapping path="/characters/*/url1" /> -->
+	<!-- 세션이 추가될 경우 아래에  진입 URL 을 추가함  -->
+			
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
+		up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<context:annotation-config />
+
+	<context:component-scan base-package="com.exem9.lms" />
+
+	<dwr:configuration />
+
+	<dwr:annotation-config id="top-level" />
+
+	<dwr:url-mapping />
+
+	<dwr:controller id="dwrController" debug="true" />
+
+	<dwr:annotation-scan base-package="com.exem9.lms.*"
+		scanDataTransferObject="true" scanRemoteProxy="true" />
+	<!-- ajaxViewResolver -->
+	<beans:bean id="ajaxViewResolver" class="com.exem9.lms.util.AjaxViewResolver">
+		<beans:property name="ajaxView">
+			<beans:bean class="com.exem9.lms.util.AjaxView"></beans:bean>
+		</beans:property>
+		<beans:property name="ajaxPrefix" value="ajax_"></beans:property>
+	</beans:bean>
+	
+	<beans:bean id="jsonViewResolver" class="com.exem9.lms.util.JsonViewResolver">
+		<beans:property name="jsonView">
+			<beans:bean class="com.exem9.lms.util.JsonView"></beans:bean>
+		</beans:property>
+		<beans:property name="jsonPrefix" value="json_"></beans:property>
+	</beans:bean>
+
+	<beans:bean
+		class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"></beans:bean>
+
+	<beans:bean
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<beans:property name="order" value="1" />
+		<beans:property name="alwaysUseFullPath" value="true" />
+		<beans:property name="mappings">
+			<beans:props>
+				<beans:prop key="/dwr/**/*">dwrController</beans:prop>
+			</beans:props>
+		</beans:property>
+	</beans:bean>
+	<!-- <beans:bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"> 
+		<beans:property name="order" value="2" /> </beans:bean>
+
+	<beans:bean
+		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+		<beans:property name="order" value="2" />
+	</beans:bean>
+ -->
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
+		in the /WEB-INF/views directory -->
+	<beans:bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/view/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+
+	<beans:bean
+		class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
+
+	<!-- Exception Resolver -->
+	<beans:bean id="exceptionMapping" 	class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<beans:property name="exceptionMappings">
+			<beans:props>
+				<beans:prop key="java.lang.Exception">/exception/EXCEPTION_INFO</beans:prop>
+				<beans:prop 
+					key="com.exem9.lms.exception.UserNotFoundException">
+					/exception/USER_NOT_FOUND_EXCEPTION
+				</beans:prop>
+			</beans:props>
+		</beans:property>
+	</beans:bean>
+
+	<!-- MultipartResolver -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="50000000"></beans:property>
+	</beans:bean>
+
+	<!-- Daily Batch
+	
+	<task:scheduler id="scheduler" pool-size="50"/> 
+ 
+    <task:scheduled-tasks scheduler="scheduler"> 
+        <task:scheduled ref="DailyBatchController" method="startDailyBatch" cron="0 30 2 * * ?"/>
+        <task:scheduled ref="DailyBatchController" method="reCheckBatch" cron="0 30 4 * * ?"/>
+    </task:scheduled-tasks> -->
+ 	
+    <!-- job bean 
+    <beans:bean id="DailyBatchController" class="com.exem9.lms.batch.DailyBatchController" />-->
+    
+</beans:beans>

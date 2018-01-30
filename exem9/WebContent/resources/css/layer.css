@@ -1,0 +1,32 @@
+@charset "UTF-8";
+
+/*
+------------------------------------------------------------
+File Name : layer.css
+Version : CSS2.1 (+ 3.0)
+Date : 2012 / JAN.
+Explanation : Front Contents - Layer + Popup + Rollover + DIM
+Modify Date:  2012 / 01 / 18
+------------------------------------------------------------
+*/
+
+body.layer{background:none; }
+
+/* DIM add */
+.dimWrap, .confirmWrap, .loadingWrap, .dataShareWrap{position:fixed; top:0; left:0; width:100%; height:100%; z-index:5000; font:64.5% "굴림", "Gulim", "돋움", "Dotum", Arial, Tahoma, sans-serif; color:#606060;  }
+.overlay, .confirmoverlay{position:absolute; top:0; left:0; width:100%; height:100%; background:#000; opacity:.5; filter:alpha(opacity=50);  z-index:7000; }
+#overlay, #confirmoverlay{position:absolute; top:50%; left:50%; width:348px; height:auto; margin:-100px 0 0 -174px; background:url('/Analytics/resources/images/front/common/bg_layer.png') repeat-x left bottom;  z-index:7000; }
+.dimWrap .close, .confirmWrap .close{position:absolute; top:7px; right:10px; z-index:7000; }
+.dimWrap .close a, .confirmWrap .close a{display:block; padding:3px; }
+.dimWrap h2.txt, .confirmWrap h2.txt{height:32px; padding-left:14px; color:#2c2c2c; font-size:1.2em; line-height:2.6em; background:#888 url('/Analytics/resources/images/front/common/bg_layer_title.png') no-repeat left top; }
+.dimWrap .contWrap, .confirmWrap .contWrap{clear:both; width:auto; height:auto; padding:10px; border:1px solid #959595; border-top:none; }
+.dimWrap .alimTxt, .confirmWrap .alimTxt{height:auto; padding:26px 0; line-height:1.5em; font-size:1.2em; text-align:center; }
+.dimWrap .btn, .confirmWrap .btn{clear:both; margin:0 auto 2px; text-align:center; }
+.dimWrap .btn li, .confirmWrap .btn li{display:inline-block; display:inline; margin-right:4px; }
+.confirmBtn{width:81px; height:27px; background:url('/Analytics/resources/images/front/common/btn_confirm.png') no-repeat; }
+.cancelBtn{width:81px; height:27px; background:url('/Analytics/resources/images/front/common/btn_cancel.png') no-repeat; }
+.closeBtn{width:16px; height:16px; background:url('/Analytics/resources/images/front/common/btn_close.png') no-repeat 3px 3px; }
+
+/* loading */
+.loadingBg{position:absolute; top:0; left:0; width:100%; height:100%; background:#000; opacity:.5; filter:alpha(opacity=50);  z-index:6500; }
+#loading{position:absolute; top:50%; left:50%; width:32px; height:auto; margin:-32px 0 0 -32px; background:none; z-index:6500; }

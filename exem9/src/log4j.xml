@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+	<!-- Console 에서 출력하는 형태 정의 함 ConversionPattern 의 value 에 따라 출력되는 타입이 다름 File 참조 -->
+	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{HH:mm:ss.SSS}] %-5p %C{1}.%M(%F:%L) - %m%n" />
+		</layout>
+	</appender>
+
+	<!-- 파일로 출력하는 형태를 정의함 -->
+	<appender name="FILE" class="org.apache.log4j.FileAppender">
+		<param name="File" value="c:/tomcat-log/" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{HH:mm:ss.SSS}] %-5p %C{1}.%M(%F:%L) - %m%n" />
+		</layout>
+	</appender>
+	
+	<logger name="com.exem9.lms.*" additivity="false">
+		<!-- <level value="DEBUG" /> -->
+		<level value="DEBUG" />
+		<appender-ref ref="CONSOLE" />
+	</logger>
+	
+	<!-- Spring Framework Log -->
+	<logger name="org.springframework.web" additivity="false">
+		<!-- <level value="DEBUG" /> -->
+		<level value="DEBUG" />
+		<appender-ref ref="CONSOLE" />
+	</logger>
+	
+	<!-- Root -->
+	<root>
+		<level value="DEBUG" />
+		<appender-ref ref="CONSOLE" />
+	</root>
+	
+</log4j:configuration> 

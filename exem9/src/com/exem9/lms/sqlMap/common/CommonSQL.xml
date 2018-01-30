@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+    "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="common">
+	<!-- <typeAlias alias="codeBean" type="com.exem9.lms.common.bean.CodeBean"/> -->
+	<typeAlias alias="supoBean" type="com.exem9.lms.web.common.bean.SupoBean"/>
+	
+	
+<!-- 	<resultMap class="codeBean" id="codeBeans">
+		<result property="sCd" column="CD_S" />
+		<result property="cdNm" column="CD_NM" />
+	</resultMap>
+	 -->
+	<!-- 공통코드 목록 취득 -->
+<!-- 	<select id="getCode" parameterClass="String" resultMap="codeBeans">
+		SELECT CD_S, CD_NM
+		FROM common_code
+		WHERE CD_L = #lCd#
+		ORDER BY CD_SORT
+	</select>
+	
+	<select id="getCodeCount" parameterClass="String" resultClass="Integer">
+		SELECT COUNT(*) AS CNT
+		FROM COMMON_CODE
+		WHERE CD_L = #lCd#
+	</select> -->
+	
+	<select id="getSupoLevel" resultClass="supoBean">
+		SELECT SUPPORT_LEVEL_ID AS supoId,
+			   SUPPORT_LEVEL_NAME AS supoNm
+		FROM XM_SUPPORT_LEVEL 
+	</select>
+	
+	<select id="getSupoVisit" parameterClass="java.util.HashMap" resultClass="supoBean">
+		SELECT XSV.SUPPORT_VISIT_ID AS supoVisitId,
+			   XSV.SUPPORT_VISIT_NAME AS supoVisitNm, 
+			   XSL.SUPPORT_LEVEL_NAME AS supoNm	   			    
+		FROM XM_SUPPORT_VISIT XSV INNER JOIN XM_SUPPORT_LEVEL XSL	
+		ON XSV.SUPPORT_LEVEL_ID = XSL.SUPPORT_LEVEL_ID	
+		WHERE 1 = 1
+		<isNotEmpty property="supoId">
+		AND XSV.SUPPORT_LEVEL_ID = #supoId#			
+		</isNotEmpty>	
+	</select>
+</sqlMap>
+
+
+
+
+

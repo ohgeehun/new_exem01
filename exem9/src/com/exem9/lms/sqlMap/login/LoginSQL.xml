@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+    "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="login">
+	<typeAlias alias="loginBean" type="com.exem9.lms.web.login.bean.LoginBean" />
+		
+	<resultMap class="loginBean" id="uInfoMap">
+		<result property="userId" column="user_id"/>
+		<result property="userPw" column="user_password"/>
+		<result property="userTeam" column="user_team"/>
+		<result property="userFlag" column="user_flag"/>
+		<result property="userDbms" column="user_dbms"/>
+		<result property="userLevel" column="user_level"/>
+		<result property="userDept" column="user_department"/>
+		<result property="userPosi" column="user_position"/>
+		<result property="userNm" column="user_name"/>
+	</resultMap>
+	
+	   
+	<!-- <select id="getUserInfo" parameterClass="loginBean"	resultClass="loginBean">
+ 	SELECT  user_nm AS userId,
+			user_pw AS userPw
+    FROM XM_MEMBER
+	WHERE user_nm = #userId# 
+ 	AND user_pw = #userPw# 
+	</select> -->
+	
+<!-- 	<select id="getUserInfo" parameterClass="java.util.HashMap" resultMap="uInfoMap">
+		SELECT  user_id,
+				user_flag,
+				(select dbms_name from xm_dbms xd where xd.dbms_id = xm.user_dbms_id) as user_dbms,
+				user_level,
+				(select department_name from xm_department xdt where xdt.department_id = xm.user_department_id) as user_department,
+				(select position_name from xm_position xp where xp.position_id = xm.user_position_id) as user_position,
+				(select team_name from xm_team xt where xt.team_id = xm.user_team_id) as user_team,
+				user_password,
+				user_name
+    	FROM XM_MEMBER xm
+		WHERE user_id = #userId# 
+ 		AND user_password = #userPw# 
+	</select> -->
+	
+	<select id="getUserInfo" parameterClass="java.util.HashMap" resultMap="uInfoMap">
+	SELECT  user_id,
+			user_flag,
+			user_dbms_id as user_dbms,
+			user_level,
+			user_department_id as user_department,
+			user_position_id as user_position,
+			user_team_id as user_team,
+			user_password,
+			user_name
+   	FROM XM_MEMBER xm
+	WHERE user_id = #userId# 
+		<!-- AND user_password = #userPw#  -->
+	</select>
+	
+</sqlMap>

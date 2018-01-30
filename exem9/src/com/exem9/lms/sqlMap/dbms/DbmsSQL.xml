@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+    "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="dbms">
+	<typeAlias alias="DbmsBean" 
+			   type="com.exem9.lms.web.dbms.bean.DbmsBean" />	
+   	<typeAlias alias="teamBean" 
+			   type="com.exem9.lms.web.team.bean.TeamBean" />				   
+	
+	<select id="getdbmsinfo" resultClass="DbmsBean">
+	SELECT DBMS_ID AS dbmsId,
+	       DBMS_NAME AS dbmsNm,
+	       DEPARTMENT_ID AS deptId
+	FROM XM_DBMS
+	</select> 
+	
+	<select id="getUserinfo" parameterClass="java.util.HashMap" resultClass="DbmsBean">
+	SELECT DBMS_ID AS dbmsId,
+	       DBMS_NAME AS dbmsNm,
+	       DEPARTMENT_ID AS deptId
+	FROM XM_DBMS
+	WHERE DEPARTMENT_ID = #userDept#	
+	</select> 		
+	
+	<select id="getdeptdbms" parameterClass="java.util.HashMap" resultClass="DbmsBean">
+	SELECT DBMS_ID AS dbmsId,
+	       DBMS_NAME AS dbmsNm,
+	       DEPARTMENT_ID AS deptId
+	FROM XM_DBMS
+	WHERE DEPARTMENT_ID = #deptId#
+	</select> 
+	
+ 	<select id="getdbmsteam" parameterClass="java.util.HashMap" resultClass="teamBean">
+	SELECT XT.TEAM_NAME AS teamNm,
+		   XT.TEAM_ID AS teamId,	
+		   XT.DEPARTMENT_ID AS deptId
+	FROM XM_TEAM XT JOIN XM_DBMS XD
+	ON XT.DEPARTMENT_ID = XD.DEPARTMENT_ID
+	WHERE XD.DBMS_NAME = #dbmsNm#
+	</select>  
+</sqlMap>

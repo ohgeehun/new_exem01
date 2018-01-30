@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+
+	<settings useStatementNamespaces="true" enhancementEnabled="true"
+		maxTransactions="50" maxRequests="100" maxSessions="100" />
+	<!-- 공통쿼리 -->
+	<sqlMap resource="/com/exem9/lms/sqlMap/common/CommonSQL.xml" />
+	<!-- Login쿼리 -->
+	<sqlMap resource="/com/exem9/lms/sqlMap/login/LoginSQL.xml" />
+	<!-- Mypage쿼리 -->
+	<sqlMap resource="/com/exem9/lms/sqlMap/mypage/MypageSQL.xml" />
+	<!-- Customer쿼리 -->
+	<sqlMap resource="/com/exem9/lms/sqlMap/customer/CustomerSQL.xml" />
+	<!-- department쿼리 -->
+	<sqlMap resource="/com/exem9/lms/sqlMap/department/DeptSQL.xml" />
+	<!-- dbms쿼리 -->
+	<sqlMap resource="/com/exem9/lms/sqlMap/dbms/DbmsSQL.xml" />
+	<!-- team쿼리 -->
+	<sqlMap resource="/com/exem9/lms/sqlMap/team/TeamSQL.xml" />
+	<!-- member쿼리 -->
+	<sqlMap resource="/com/exem9/lms/sqlMap/member/MemberSQL.xml" />
+</sqlMapConfig>
+ 

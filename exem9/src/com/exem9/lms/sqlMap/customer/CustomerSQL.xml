@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+    "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="customer">
+	<typeAlias alias="customerBean" 
+			   type="com.exem9.lms.web.customer.bean.CustomerBean"/> 
+	<typeAlias alias="supoBean" 
+			   type="com.exem9.lms.web.common.bean.SupoBean" />
+	<typeAlias alias="customermemberBean" 
+			   type="com.exem9.lms.web.customer.bean.CustomerMemberBean"/>  
+			   		   
+    <resultMap class="customerBean" id="cusInfoMap">
+		<result property="cusId" column="customer_id"/>
+		<result property="cusNm" column="customer_name"/>
+		<result property="proId" column="project_id"/>
+		<result property="proNm" column="project_name"/>
+		<result property="cus1Nm" column="customer1_name"/>
+		<result property="cus1Phone" column="cususer_phone"/>
+		<result property="cus1Mail" column="cususer_mail"/>
+		<result property="cus2Nm" column="customer2_name"/>
+		<result property="cusLoca" column="customer_location"/>
+		<result property="salseId" column="salesman_id"/>		
+		<result property="etc" column="etc"/>
+		<result property="createUserId" column="create_user"/>
+		<result property="createDate" column="create_date"/>
+		<result property="lastUpUserId" column="last_update_user"/>
+		<result property="lastUpDate" column="last_update_date"/>
+	</resultMap>
+	
+	<select id="getcusinfo" parameterClass="java.util.HashMap" resultMap="cusInfoMap">
+		select  u.customer_id,
+		        u.customer_name, 
+		        u.project_id,
+		        u.project_name,	
+		        u.customer1_name,	
+		        xcm.cususer_phone,
+		        xcm.cususer_mail,	       
+		        u.customer2_name,
+		        u.customer_location,	       
+		        u.salesman_id,
+		        u.etc,
+		        u.create_user,
+		        u.create_date,
+		        u.last_update_user,
+		        u.last_update_date,
+		        u.row_num
+		from 
+		(select customer_id,
+		       customer_name, 
+		       project_id,
+		       project_name,	
+		       customer1_name,
+		       customer2_name,
+		       customer_location,	       
+		       salesman_id,
+		       etc,
+		       create_user,
+		       create_date,
+		       last_update_user,
+		       last_update_date,
+		       ROW_NUMBER() OVER (ORDER BY customer_name asc) as row_num    
+		from xm_customer xc
+		where 1 = 1
+	<!-- 	<isNotEmpty property="supoState">
+		and support_state_id  = #supoState#
+		</isNotEmpty>
+		<isNotEmpty property="userDept">
+		and department_id  = #userDept#
+		</isNotEmpty>
+		<isNotEmpty property="userDbms">
+		and dbms_id  = #userDbms#
+		</isNotEmpty> -->		
+		<isNotEmpty property="selectTextVal">
+			<!-- 검색조건이 고객사 -->
+			<isEqual property="selectBtnVal" compareValue="1"> 
+				and customer_name like '%' || #selectTextVal# || '%'
+			</isEqual>
+			 <!-- 검색조건이 담당엔지니어 -->
+			<isEqual property="selectBtnVal" compareValue="2">
+				and (user1_name like '%' || #selectTextVal# || '%'
+				     or user2_name like '%' || #selectTextVal# || '%')
+			</isEqual>
+			 <!-- 검색조건이 영업대표-->
+			<isEqual property="selectBtnVal" compareValue="3">
+				and salesman_id in (select user_id from xm_member where user_name like '%' || #selectTextVal# || '%')
+			</isEqual>
+		</isNotEmpty>
+		)u left outer join xm_customer_member xcm
+		on u.customer1_name = xcm.cususer_name
+		and u.customer_id = xcm.customer_id
+		<isNotEmpty property="pageNo">
+		WHERE u.row_num BETWEEN #startNo# AND #endNo# 
+		</isNotEmpty>
+		<isEmpty property="pageNo">
+		WHERE u.row_num BETWEEN 1 AND #viewCount#
+		</isEmpty>
+		order by u.customer_name, u.project_name asc
+	</select> 
+
+<!--  	<select id="getsupoinfo" resultClass="SupoBean">
+	select support_level_id as supoId,
+       	   support_level_name as supoNm 
+	from xm_support_level  	
+	</select>  -->
+	
+	<select id="getNCount" parameterClass="java.util.HashMap" resultClass="Integer">
+	select count(customer_id)
+		from 
+		(select customer_id<!-- ,
+		       customer_name, 
+		       (select department_name from xm_department xd where xd.department_id = xc.department_id) as department_id,
+		       (select team_name from xm_team xt where xt.team_id = xc.team_id) as team_id,
+		       (select dbms_name from xm_dbms xd where xd.dbms_id = xc.dbms_id) as dbms_id,
+		       user1_name,
+		       user2_name,   
+		       user1_phone,  
+		       user2_phone,
+		       user1_mail,
+		       user2_mail,
+		       salesman_name,  
+		       salesman_phone,
+		       salesman_mail,  
+		       (select support_level_name from xm_support_level xsl where xsl.support_level_id = xc.support_state_id) as support_state_id,
+		       support_visit_freq,
+		       support_start_date,
+		       support_end_date,
+		       customer_location,
+		       customer1_name,
+		       customer1_phone,
+		       customer2_phone,
+		       customer1_mail,
+		       customer2_mail,
+		       etc,
+		       create_user,
+		       create_date,
+		       last_update_user,
+		       last_update_date,
+		       ROW_NUMBER() OVER (ORDER BY customer_name asc) as row_num   -->  
+		from xm_customer xc
+		where 1 = 1
+		<!-- <isNotEmpty property="supoState">
+		and support_state_id  = #supoState#
+		</isNotEmpty>
+		<isNotEmpty property="userDept">
+		and department_id  = #userDept#
+		</isNotEmpty>
+		<isNotEmpty property="userDbms">
+		and dbms_id  = #userDbms#
+		</isNotEmpty> -->		
+		<isNotEmpty property="selectTextVal">
+			<!-- 검색조건이 고객사 -->
+			<isEqual property="selectBtnVal" compareValue="1"> 
+				and customer_name like '%' || #selectTextVal# || '%'
+			</isEqual>
+			 <!-- 검색조건이 담당엔지니어 -->
+			<isEqual property="selectBtnVal" compareValue="2">
+				and (user1_name like '%' || #selectTextVal# || '%'
+				     or user2_name like '%' || #selectTextVal# || '%')
+			</isEqual>
+			 <!-- 검색조건이 영업대표-->
+			<isEqual property="selectBtnVal" compareValue="3">
+				and salesman_id in (select user_id from xm_member where user_name like '%' || #selectTextVal# || '%')
+			</isEqual>
+		</isNotEmpty>
+		)u<!-- 
+		<isNotEmpty property="pageNo">
+		WHERE u.row_num BETWEEN #startNo# AND #endNo# 
+		</isNotEmpty>
+		<isEmpty property="pageNo">
+		WHERE u.row_num BETWEEN 1 AND #viewCount#
+		</isEmpty> -->
+	</select>
+	
+	
+	<update id="updateCusInfo" parameterClass="java.util.HashMap">
+	UPDATE XM_CUSTOMER 
+	SET customer1_name = (select cususer_name from xm_customer_member where cususer_id = #cususer#),
+	    customer_location = #cuslocation#,
+	    salesman_id =  #salseman#,	 
+	    ETC = #etc#, 
+	    LAST_UPDATE_USER = #userId#,
+	    LAST_UPDATE_DATE = current_date::date
+	WHERE PROJECT_ID = #cusproId#
+	</update>
+	
+	<select id="getcusNminfo" resultClass="customerBean">
+	SELECT distinct  customer_name as cusNm
+		  <!--  customer_id as cusId -->		  
+	from xm_customer	
+	group by customer_id, customer_name
+	order by customer_name asc
+	</select>
+	
+	<select id="getcusNmProinfo" parameterClass="java.util.HashMap" resultClass="customerBean">
+	SELECT distinct xc.project_id as proId,
+		   xc.project_name as proNm,	
+		   xc.customer_id as cusId,
+		   xc.customer_location as cusLoca,
+		   xc.customer1_name as cus1Nm
+	from xm_customer xc		 	
+	where xc.customer_name = #cusNm#
+	<isNotEmpty property="cusProNm">
+	and xc.project_name = #cusProNm#
+	</isNotEmpty>
+	<!-- group by project_id, project_name, customer_id -->
+	order by xc.project_name asc
+	</select>
+	
+	<select id="getcusNmUserinfo" parameterClass="java.util.HashMap" resultClass="customermemberBean">
+	select distinct xcm.cususer_id as cususerId,
+		   xcm.cususer_name as cususerNm	       
+	from xm_customer_member xcm, xm_customer xc
+	where xcm.customer_id = xc.customer_id
+	and xc.customer_name =  #cusNm#
+	</select>
+	
+	<select id="getcusUserinfo" parameterClass="java.util.HashMap" resultClass="customermemberBean">
+	SELECT cususer_name as cususerNm,
+		   cususer_phone as cususerPhone,
+		   cususer_mail as cususerMail,
+		   customer_id as cusId,
+		   cususer_id as cususerId 
+	from xm_customer_member	
+	where 1 = 1
+	<isNotEmpty property="cusUser">
+	and cususer_name = #cusUser#
+	</isNotEmpty>
+	<isNotEmpty property="cusId">
+	and customer_id = #cusId#
+	</isNotEmpty>
+	<isNotEmpty property="cusUserId">
+	and cususer_id = #cusUserId#
+	</isNotEmpty>		
+	</select>	
+	
+	<!-- 고객사 등록시 기존 고객사, 기존 담당자에 신규 프로젝트만 추가되는 경우 -->	
+	<update id="insertCusinfo1" parameterClass="java.util.HashMap">
+	 INSERT INTO XM_CUSTOMER (customer_id, customer_name, project_id, project_name,
+	 						  customer1_name, customer_location, salesman_id,							  
+							  etc, create_user, create_date, 
+							  last_update_user, last_update_date)
+			 	      VALUES (#cusNm_hidden#, #cusNm#, NEXTVAL('xm_project_next_val'), #cusproNm#, 
+			 	      	      #cususerNm#,  #cuslocation#, #salesmanId#, 
+			 	      	      #etc#, #userId#, current_date::date, 
+			 	      	      null,null)                
+	</update> 
+	
+<!-- 	<update id="insertCusinfo2" parameterClass="java.util.HashMap">
+	INSERT INTO XM_CUSTOMER VALUES(#cusNm_hidden#, #cusNm#, NEXTVAL('xm_project_next_val'), #cusproNm#, #deptNm#, 
+		                            #teamNm#, #dbmsNm#, #user1Nm#, #user2Nm#, #salesmanNm#,
+		                            #supolevel#, #supovisit#, #supoinsdate#, #supostartdate#, #supoenddate#,
+		                            #cuslocation#, #cususerNm#, #etc#, #userId#, current_date::date,
+		                            null,null)     		                 
+	</update>  -->
+	
+	<!-- 고객사 등록시 기존 고객사에 신규 담당자 인서트시 사용하는 쿼리 -->
+	<update id="insertCusinfo2" parameterClass="java.util.HashMap">
+	<isNotEmpty property="cususerNm">
+		INSERT INTO XM_CUSTOMER_MEMBER VALUES(NEXTVAL('xm_customer_member_next_val'),#cususerNm#,#cususerPhone#,#cususerMail#,#cusNm_hidden#)
+	</isNotEmpty>			                 
+	</update> 
+	
+	<!-- 신규 고객사 신규 담당자 인서트 시 -->
+	<update id="insertCusinfo3" parameterClass="java.util.HashMap">
+	 INSERT INTO XM_CUSTOMER  (customer_id, customer_name, project_id, project_name,
+	                           salesman_id, 	 							 
+							  customer_location, customer1_name, etc, create_user, create_date, 
+							  last_update_user, last_update_date) 	 
+	 						  VALUES(NEXTVAL('xm_customer_next_val'), #cusNm#, NEXTVAL('xm_project_next_val'), #cusproNm#,
+		                             #salesmanId#,	
+		                            #cuslocation#, #cususerNm#, #etc#, #userId#, current_date::date,
+		                            null,null)      		                 
+	</update> 
+	
+	<!-- 신규 고객사 신규 담당자 인서트 시 -->
+	<update id="insertCusinfo4" parameterClass="java.util.HashMap">
+	<isNotEmpty property="cususerNm">
+		INSERT INTO XM_CUSTOMER_MEMBER VALUES(NEXTVAL('xm_customer_member_next_val'),#cususerNm#,#cususerPhone#,#cususerMail#,(select distinct customer_id from xm_customer where customer_name = #cusNm#))		                 
+	</isNotEmpty>		
+	</update> 
+</sqlMap>

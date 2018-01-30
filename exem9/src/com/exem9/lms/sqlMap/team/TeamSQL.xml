@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+    "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="team">
+	<typeAlias alias="TeamBean" 
+			   type="com.exem9.lms.web.team.bean.TeamBean" />	
+	
+	<select id="getUserteam" parameterClass="java.util.HashMap" resultClass="TeamBean">
+	SELECT TEAM_ID AS teamId,
+	       TEAM_NAME AS teamNm,
+	       DEPARTMENT_ID AS deptId
+	FROM XM_TEAM
+	WHERE TEAM_ID in((SELECT DISTINCT USER_TEAM_ID FROM XM_MEMBER WHERE USER_DEPARTMENT_ID = #userDept#))	
+	</select> 		
+	
+	<select id="getDeptteam" parameterClass="java.util.HashMap" resultClass="TeamBean">
+	select xt.team_id as teadId,
+	       xt.team_name as teamNm,
+	       xt.department_id as deptId
+	from xm_team xt, xm_dbms xd
+	where xt.department_id  = xd.department_id
+	and xd.dbms_name = #dbmsNm#
+	</select> 	
+</sqlMap>
