@@ -31,7 +31,7 @@ public class MemberController {
 	public IMemberService iMemberService;
 	
 	
-	@RequestMapping(value = "/member")
+	@RequestMapping(value = "/member_edit")
 	public ModelAndView member(HttpServletRequest request, 
 							   HttpServletResponse response,
 							   ModelAndView modelAndView) throws Throwable{
@@ -45,7 +45,28 @@ public class MemberController {
 		} else {
 			
 			modelAndView.addObject("dept_list", dept_list);
-			modelAndView.setViewName("member/member");
+			modelAndView.setViewName("member/member_edit");
+		}
+				
+		return modelAndView;
+	}
+	
+	
+	@RequestMapping(value = "/member_insert")
+	public ModelAndView customer_insert(HttpServletRequest request, 
+							   HttpServletResponse response,
+							   ModelAndView modelAndView) throws Throwable{
+		
+		HttpSession session=request.getSession();
+		
+		List<DeptBean> dept_list = iMemberService.getdept();
+		
+		if(session.getAttribute("sUserId")==null) {
+			throw new UserNotFoundException("자동 로그아웃 됐습니다.");
+		} else {
+			
+			modelAndView.addObject("dept_list", dept_list);
+			modelAndView.setViewName("member/member_insert");
 		}
 				
 		return modelAndView;

@@ -40,7 +40,7 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 	$("#memeberBtn").bind("click", function(){
-		location.href = "member";
+		location.href = "member_edit";
 	});
 });
 
