@@ -12,6 +12,7 @@
 		<result property="userTeam" column="user_team_id"/>
 		<result property="userFlag" column="user_flag"/>
 		<result property="userDbms" column="user_dbms_id"/>		
+		<result property="userLevel" column="user_level"/>
 		<result property="userDept" column="user_department_id"/>
 		<result property="userPosi" column="user_position_id"/>
 		<result property="userNm" column="user_name"/>
@@ -70,4 +71,26 @@
 	WHERE user_team_id = #teamId#		
 	and user_id != #userId#
 	</select> 	
+	
+	<select id="getmeminfo" parameterClass="java.util.HashMap" resultClass="MemberBean">
+	   SELECT 
+		   user_id, 
+		   user_password, 
+		   user_name, 
+		   user_team_id, 
+		   user_flag, 
+		   user_dbms_id, 
+	       user_level, 
+	       user_department_id, 
+	       user_phone, 
+	       user_mail, 
+	       user_position_id, 
+	       user_hint, 
+	       user_point
+  	   FROM xm_member u
+  	   where 1=1
+	   order by u.user_department_id, u.user_name asc
+	</select>
+
+	
 </sqlMap>

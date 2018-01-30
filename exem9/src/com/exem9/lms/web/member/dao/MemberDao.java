@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.exem9.lms.web.customer.bean.CustomerBean;
 import com.exem9.lms.web.member.bean.MemberBean;
 import com.exem9.lms.web.mypage.bean.MypageBean;
 import com.exem9.lms.web.team.bean.TeamBean;
@@ -39,5 +40,10 @@ public class MemberDao implements IMemberDao{
 	public List<MemberBean> getTeammember(HashMap params) throws Throwable {
 		// TODO Auto-generated method stub
 		return sqlMapClient.queryForList("member.getTeammember",params);
+	}
+	
+	public List<MemberBean> getmeminfo(HashMap params) throws Throwable {
+		// TODO Auto-generated method stub
+		return sqlMapClient.queryForList("member.getmeminfo", params);
 	}
 }

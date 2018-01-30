@@ -11,6 +11,7 @@ public class MemberBean {
 	private String userTeam;
 	private String userFlag;
 	private String userDbms;
+	private String userLevel;
 	private String userDept;
 	private String userPosi;
 	private String userPhone;
@@ -89,6 +90,12 @@ public class MemberBean {
 	}
 	public void setUserHint(String userHint) {
 		this.userHint = userHint;
+	}
+	public String getUserLevel() {
+		return userLevel;
+	}
+	public void setUserLevel(String userLevel) {
+		this.userLevel = userLevel;
 	}
 	
 	

@@ -3,6 +3,7 @@ package com.exem9.lms.web.member.dao;
 import java.util.HashMap;
 import java.util.List;
 
+import com.exem9.lms.web.customer.bean.CustomerBean;
 import com.exem9.lms.web.member.bean.MemberBean;
 import com.exem9.lms.web.mypage.bean.MypageBean;
 import com.exem9.lms.web.team.bean.TeamBean;
@@ -19,4 +20,5 @@ public interface IMemberDao {
 	
 	public List<MemberBean> getTeammember(HashMap params) throws Throwable;
 	
+	public List<MemberBean> getmeminfo(HashMap params)throws Throwable ;
 }
