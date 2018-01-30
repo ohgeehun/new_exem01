@@ -219,8 +219,7 @@ function getTeaminfoCallBack(res){
 	        } ,
 	        events: {
 	        	change : function(e){    
-        			var teamNm = $("#team_id").val();   		 
-        			alert(teamNm);        			
+        			var teamNm = $("#team_id").val();   		
         		
         			IMatService.getTeammember(teamNm, getUserinfoCallBack);	      
 	        	}

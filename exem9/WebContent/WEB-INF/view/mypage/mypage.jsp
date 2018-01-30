@@ -22,7 +22,7 @@
 <style type="text/css">
  table, td, th {    
     border: 1px solid #ddd;
-    text-align: left;
+    text-align: left;    
 }
 
 table {

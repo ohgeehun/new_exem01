@@ -17,6 +17,8 @@
 		<result property="userNm" column="user_name"/>
 	</resultMap>
 	
+	
+	
 	   
 	<!-- <select id="getUserInfo" parameterClass="loginBean"	resultClass="loginBean">
  	SELECT  user_nm AS userId,

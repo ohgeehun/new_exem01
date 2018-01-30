@@ -28,6 +28,7 @@
 	WHERE user_id = #userId#
 	</select> 
 	
+	
 	<select id="getdbmsinfo" parameterClass="String" resultClass="DbmsBean">
 	SELECT A.DBMS_ID AS dbmsId,
 	       A.DBMS_NAME AS dbmsNm,

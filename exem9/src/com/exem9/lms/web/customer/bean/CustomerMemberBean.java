@@ -20,7 +20,7 @@ public class CustomerMemberBean {
 		return cususerNm;
 	}
 	public void setCususerNm(String cususerNm) {
-		this.cususerNm = cususerNm;
+		this.cususerNm = cususerNm;		
 	}
 	public String getCususerPhone() {
 		return cususerPhone;
