@@ -141,26 +141,26 @@ $(document).ready(function(){
 });
 
 /*팀 셀렉트 박스 변경 시 담당엔지니어 정보변경 이벤트*/
-function edit_team_select_change_event(value){	
+/* function edit_team_select_change_event(value){	
 	var userTeam =  $("#edit_team_list_select_"+value+"").val();
 	
 	$("#cusId_hidden_id").val(value);
 
 	ICustomerService.getUsermember(userTeam,editCusUser1Callback); 
-}
+} */
 
 /*계약조건 셀렉트 박스 변경 시 방문주기 변경 이벤트*/
-function edit_supo_select_change_event(value){	
+/* function edit_supo_select_change_event(value){	
 	var supoState =  $("#edit_supo_list_select_"+value+"").val();
 	
 	$("#cusId_hidden_id").val(value);
 
 	ICustomerService.getSupovisit(supoState,editsupoVisitCallback); 
-}
+} */
 
 /* 고객사 리스트 정보 총 row 정보 가져오기에 대한 응답 데이터 처리(tfoot 처리)*/
-function NcountCallBack(res){
-	$("#nowPage").val(res.nowPage);
+/*function NcountCallBack(res){
+ 	$("#nowPage").val(res.nowPage);
 		var resHtml = "";
 		resHtml += "<tr>";
 		resHtml += "	<td colspan='6'>";
@@ -182,10 +182,9 @@ function NcountCallBack(res){
 	    resHtml += " <input type='button' id='edit_update_btn' value='변경'></input></td>";	    
 	    resHtml += "</tr>";
     $("#cus_list_tf").html(resHtml);
-}
-
+} */
+/* 
 function editCusUser1Callback(res){
-	/* alert("리턴메시지"+$("#cusId_hidden_id").val());  */
 	var cusproId = $("#cusId_hidden_id").val();
 	var resHtml = "";
 	var resHtm2 = "";	
@@ -223,11 +222,11 @@ function editCusUser1Callback(res){
 	
    $("#edit_user1_list_select_"+cusproId+"").html(resHtml); 
    $("#edit_user2_list_select_"+cusproId+"").html(resHtm2);
-}
+} */
 
 
-function editsupoVisitCallback(res){
-	/* alert("리턴메시지"+$("#cusId_hidden_id").val());  */
+/* function editsupoVisitCallback(res){
+
 	var cusproId = $("#cusId_hidden_id").val();
 	var resHtml = "";
 	
@@ -245,7 +244,7 @@ function editsupoVisitCallback(res){
 		}
 	}	
    $("#edit_supoVisit_list_select_"+cusproId+"").html(resHtml); 
-}
+} */
 
 function CusupdateCallBack(res){ //고객사 정보  변경 성공 여부
 	if(res == "FAILED"){

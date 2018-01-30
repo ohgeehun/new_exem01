@@ -61,14 +61,15 @@ public class MatService implements IMatService{
 		return iDbmsDao.getdbms();
 	}*/
 
-	public List<MemberBean> getTeammember(String teamNm) throws Throwable {
-		
+	public List<MemberBean> getTeammember(String teamId, String user1Id)
+			throws Throwable {
+
 		HashMap params = new HashMap();
-		params.put("teamNm",teamNm);
+		params.put("teamId",Integer.parseInt(teamId));
+		params.put("user1Id",Integer.parseInt(user1Id));
 		
 		return iMemberDao.getTeammember(params);
 	}
-
 /*	public List<TeamBean> getuserteam(String userDept) throws Throwable {
 		// TODO Auto-generated method stub
 		HashMap params = new HashMap();
@@ -79,10 +80,10 @@ public class MatService implements IMatService{
 	}*/
 	
 	//고객사 정보 등록시 담당부서에 해당 하는 팀정보 가져오기
-	public List<TeamBean> getdeptteam(String dbmsNm) throws Throwable {
+	public List<TeamBean> getdeptteam(String dbmsId) throws Throwable {
 		// TODO Auto-generated method stub
 		HashMap params = new HashMap();
-		params.put("dbmsNm",dbmsNm);
+		params.put("dbmsId",Integer.parseInt(dbmsId));
 		
 		
 		return iTeamDao.getdeptteam(params);
@@ -92,4 +93,6 @@ public class MatService implements IMatService{
 		// TODO Auto-generated method stub
 		return iDbmsDao.getdbms();
 	}
+
+
 }

@@ -28,10 +28,11 @@
 	       XM.user_phone as userPhone	       
 	FROM xm_member xm, xm_team xt		
 	WHERE xm.USER_TEAM_ID = xt.TEAM_ID
-	AND xt.TEAM_NAME = #teamNm#			
-	</select>		
-	
-	
+	AND xt.TEAM_ID = #teamId#		
+	<isNotEmpty property="user1Nm">
+	and xm.user_Id != #user1Id#	
+	</isNotEmpty>
+	</select>			
 	
 	<select id="getUsermember" parameterClass="java.util.HashMap" resultClass="MemberBean">
 	SELECT user_id as userId,

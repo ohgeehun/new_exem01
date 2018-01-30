@@ -15,11 +15,11 @@
 	</select> 		
 	
 	<select id="getDeptteam" parameterClass="java.util.HashMap" resultClass="TeamBean">
-	select xt.team_id as teadId,
+	select xt.team_id as teamId,
 	       xt.team_name as teamNm,
 	       xt.department_id as deptId
 	from xm_team xt, xm_dbms xd
 	where xt.department_id  = xd.department_id
-	and xd.dbms_name = #dbmsNm#
+	and xd.dbms_id = #dbmsId#
 	</select> 	
 </sqlMap>

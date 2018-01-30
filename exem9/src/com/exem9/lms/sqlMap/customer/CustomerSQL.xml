@@ -197,7 +197,8 @@
 		   xc.project_name as proNm,	
 		   xc.customer_id as cusId,
 		   xc.customer_location as cusLoca,
-		   xc.customer1_name as cus1Nm
+		   xc.customer1_name as cus1Nm,
+		   (select user_id from xm_member where user_id = xc.salesman_id) as salseId
 	from xm_customer xc		 	
 	where xc.customer_name = #cusNm#
 	<isNotEmpty property="cusProNm">

@@ -236,7 +236,7 @@ function removeChar(event) {
 		event.target.value = event.target.value.replace(/[^0-9]/g, "");
 }
 
-/* function dept_select_change_event(){
+/*  function dept_select_change_event(){
 	var deptId = $("#dept_select_id").val();	
 	
 	if(deptId == 0){
@@ -369,8 +369,8 @@ function supochangeCallBack(res){
 	}
 	
 	$("#visit_select_id").html(text);
-}
-*/
+} */
+
 function cusNminfoCallBack(res){
 	var availableTags = [];
 	

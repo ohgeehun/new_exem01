@@ -17,13 +17,13 @@ public interface IMatService {
 	public List<SupoBean> getSupovisit(String supoId)throws Throwable;
 
 	/*  */
-	public List<MemberBean> getTeammember(String teamNm) throws Throwable ;
+	public List<MemberBean> getTeammember(String teamId, String user1Id) throws Throwable ;
 	
 	/*고객사 수정 이벤트 담당부서(팀) 리스트 데이터 가져오기 (TeamDao 연계) */
 /*	public List<TeamBean> getuserteam(String userDept)throws Throwable;*/
 	
 	/*고객사 정보 등록시 담당팀 리스트 가져오기*/
-	public List<TeamBean> getdeptteam(String dbmsNm) throws Throwable;
+	public List<TeamBean> getdeptteam(String dbmsId) throws Throwable;
 	
 	/*고객사 관리 검색 조건 중 업무 리스트 정보 가져오기 (DbmsDao 연계)*/
 	public List<DbmsBean> getdbms() throws Throwable;
