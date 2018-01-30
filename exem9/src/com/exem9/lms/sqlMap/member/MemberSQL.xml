@@ -26,9 +26,9 @@
 	       XM.user_name as userNm,
 	       XM.user_mail as userMail,
 	       XM.user_phone as userPhone	       
-	FROM XM_MEMBER XM, MX_TEAM XT
-	WHERE XM.TEAM_ID = XT.TEAM_ID
-	AND XT.TEAM_NAME = #teamNm#
+	FROM xm_member xm, xm_team xt		
+	WHERE xm.USER_TEAM_ID = xt.TEAM_ID
+	AND xt.TEAM_NAME = #teamNm#		
 	</select> 		
 	
 	
