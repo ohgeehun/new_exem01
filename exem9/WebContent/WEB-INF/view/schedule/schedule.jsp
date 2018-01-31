@@ -14,8 +14,9 @@
 <script type="text/javascript" src="resources/script/jquery/jquery-1.8.2.min.js"></script>
 <script type="text/javascript" src="resources/script/jquery/jquery-ui-1.8.min.js"></script>
 <script type="text/javascript" src="resources/script/jquery/jquery.form.js"></script>
-<script type="text/javascript" src="resources/script/jquery/fullcalendar.min.js"></script>
+
 <script type="text/javascript" src="resources/script/jquery/moment.min.js"></script>
+<script type="text/javascript" src="resources/script/jquery/fullcalendar.min.js"></script>
 <!-- DWR setting -->
 <script type="text/javascript" src="dwr/engine.js"></script>
 <script type="text/javascript" src="dwr/util.js"></script>

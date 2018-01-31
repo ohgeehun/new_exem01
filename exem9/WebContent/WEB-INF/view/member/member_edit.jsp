@@ -273,7 +273,7 @@ function editcusMemberCallback(res){
 					<c:forEach var="mem" items="${mem_list_info}">											
 						<tr>
 							<td>
-								<input type="checkbox" name="chk" id="checkbox_id" value="${mem.userId}"/>
+								<input type="checkbox" name="chk" value="${mem.userId}"/>
 							</td>						
 							<td>
 								${mem.userId}

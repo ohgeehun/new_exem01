@@ -407,7 +407,7 @@ function editcusMemberCallback(res){
 				<tbody id="cus_list_tb">
 					<c:forEach var="cli" items="${cus_list_info}">											
 						<tr>
-							<td><input type="checkbox" name="chk" id="checkbox_id" value="${cli.proId}"/>
+							<td><input type="checkbox" name="chk" value="${cli.proId}"/>
 						<%-- 	<input type="hidden" id="checkbox_hidden_id_${cli.proId}" value="${cli.proId}"/>	 --%>							
 							</td>						
 							<td>${cli.cusNm}</td>

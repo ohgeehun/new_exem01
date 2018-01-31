@@ -41,8 +41,8 @@ var userDbms = "<%=(String)session.getAttribute("sUserDbms")%>";
 var temp = [];
 $(document).ready(function(){
 
-	$("#mat_insert").bind("click", function(){	
-	   	location.href = "maintenance_insert";
+	$("#mat_managed").bind("click", function(){	
+	   	location.href = "maintenance";
 	});
 	
 /* 	$("#user1_id").bind("click", function(){
