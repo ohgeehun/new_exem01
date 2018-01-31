@@ -16,7 +16,7 @@ public class DbmsDao implements IDbmsDao{
 	public SqlMapClient sqlMapClient;
 
 
-	public List getdbms() throws Throwable {
+	public List<DbmsBean> getdbms() throws Throwable {
 		// TODO Auto-generated method stub
 		return sqlMapClient.queryForList("dbms.getdbmsinfo");
 	}

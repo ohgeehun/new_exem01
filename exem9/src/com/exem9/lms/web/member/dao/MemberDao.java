@@ -53,4 +53,14 @@ public class MemberDao implements IMemberDao{
 		// TODO Auto-generated method stub
 		return count;
 	}
+	
+	/*신규 사용자 등록시*/
+	public String insertMeminfo(HashMap params) throws Throwable {
+		String result = "FAILED";
+		
+		if(sqlMapClient.update("member.insertMeminfo", params) > 0){
+			result = "SUCCESS";
+		}
+		return result;
+	}
 }

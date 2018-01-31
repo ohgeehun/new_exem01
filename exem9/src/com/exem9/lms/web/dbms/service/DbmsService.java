@@ -32,10 +32,9 @@ public class DbmsService implements IDbmsService{
 	public IDbmsDao iDbmsDao;
 	
 
-/*	public List getdbms() throws Throwable {
+	public List getdbms() throws Throwable {
 		
 		// TODO Auto-generated method stub
 		return iDbmsDao.getdbms();
-	}*/
-
+	}
 }

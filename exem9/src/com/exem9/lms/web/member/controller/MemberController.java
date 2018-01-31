@@ -19,6 +19,7 @@ import com.exem9.lms.exception.UserNotFoundException;
 import com.exem9.lms.web.common.bean.LineBoardBean;
 import com.exem9.lms.web.customer.bean.CustomerBean;
 import com.exem9.lms.web.customer.bean.CustomerMemberBean;
+import com.exem9.lms.web.dbms.bean.DbmsBean;
 import com.exem9.lms.web.dbms.service.IDbmsService;
 import com.exem9.lms.web.department.service.IDeptService;
 import com.exem9.lms.web.department.bean.DeptBean;
@@ -42,6 +43,8 @@ public class MemberController {
 	public ITeamService iTeamService;
 	@Autowired
 	public IPosiService iPosiService;
+	@Autowired
+	public IDbmsService iDbmsService;
 	
 	@Autowired
 	public ICustomerService iCustomerService;
@@ -60,6 +63,7 @@ public class MemberController {
 			List<DeptBean> dept_list = iDeptService.getdept();
 			List<TeamBean> team_list = iTeamService.getteam();
 			List<PosiBean> posi_list = iPosiService.getposi();
+			List<DbmsBean> dbms_list = iDbmsService.getdbms();
 			
 			List<CustomerBean> cus_list_info = iCustomerService.getcusinfo("0","",1);
 			List<MemberBean> edit_salseman_list = iCustomerService.getSalsemember(); 
@@ -71,6 +75,7 @@ public class MemberController {
 			modelAndView.addObject("dept_list", dept_list);
 			modelAndView.addObject("team_list", team_list);
 			modelAndView.addObject("posi_list", posi_list);
+			modelAndView.addObject("dbms_list", dbms_list);
 			
 			modelAndView.addObject("startPage", lbb.getStartPage());
 			modelAndView.addObject("endPage", lbb.getEndPage());
@@ -96,13 +101,19 @@ public class MemberController {
 		
 		HttpSession session=request.getSession();
 		
-		List<DeptBean> dept_list = iMemberService.getdept();
-		
 		if(session.getAttribute("sUserId")==null) {
 			throw new UserNotFoundException("자동 로그아웃 됐습니다.");
 		} else {
+			List<DeptBean> dept_list = iDeptService.getdept();
+			List<TeamBean> team_list = iTeamService.getteam();
+			List<PosiBean> posi_list = iPosiService.getposi();
+			List<DbmsBean> dbms_list = iDbmsService.getdbms();
 			
 			modelAndView.addObject("dept_list", dept_list);
+			modelAndView.addObject("team_list", team_list);
+			modelAndView.addObject("posi_list", posi_list);
+			modelAndView.addObject("dbms_list", dbms_list);
+			
 			modelAndView.setViewName("member/member_insert");
 		}
 				

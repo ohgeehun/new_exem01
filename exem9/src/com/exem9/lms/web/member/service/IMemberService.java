@@ -19,4 +19,10 @@ public interface IMemberService {
 	
 	/*사용자(직원) 리스트 Row 갯수 가져오기(페이지 처리)*/
 	public LineBoardBean getNCount(String selectBtnVal, String selectTextVal, int nowPage) throws Throwable;
+	
+	/*사용자 등록 insertMemInfo 이벤트*/
+	public String insertMeminfo(String user_id,String user_name, String user_password,
+								String user_team_id,String user_dbms_id,
+								String user_department_id, String user_phone,String user_mail, String user_position_id,
+								String user_point) throws Throwable ;
 }

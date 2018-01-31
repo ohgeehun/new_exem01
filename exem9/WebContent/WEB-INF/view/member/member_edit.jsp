@@ -262,6 +262,7 @@ function editcusMemberCallback(res){
 						<td><p>이름</p></td>
 						<td>부서</td>
 						<td>팀</td>
+						<td>업무</td>
 						<td>직급</td>
 						<td>연락처</td>																	
 						<td>메일</td>
@@ -316,6 +317,23 @@ function editcusMemberCallback(res){
 									</c:forEach>			
 								</select>
 							</td>
+							<td>
+								<select>
+									<c:if test="${mem.userDbms == ''}">
+										<option value="0" selected>지정필요.</option>
+									</c:if>
+									<c:forEach var="dbms" items="${dbms_list}">
+												<c:choose>
+													<c:when test="${dbms.dbmsId  == mem.userDbms}">
+														<option value="${dbms.dbmsId}" selected>${dbms.dbmsNm}</option>
+													</c:when>
+													<c:otherwise>
+														<option value="${dbms.dbmsId}">${dbms.dbmsNm}</option>	
+													</c:otherwise>
+												</c:choose>
+									</c:forEach>			
+								</select>
+							</td>
 							<td>							
 								<select>
 									<c:if test="${mem.userPosi == ''}">
@@ -365,7 +383,7 @@ function editcusMemberCallback(res){
 								<a href="#" id="nextVal">다음</a>
 							</c:if>
 						</td>
-						<td colspan="3">
+						<td colspan="4">
 							  <input type="password" placeholder="정보 수정 비밀번호 입력." id="editPw" required>&nbsp;&nbsp;
 							  <input type="button" id="edit_update_btn" value="변경"></input>
 						</td>

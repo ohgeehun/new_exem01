@@ -15,13 +15,13 @@
 <script type="text/javascript" src="resources/script/jquery/jquery-ui-1.8.custom.js"></script>  
 <script type="text/javascript" src="resources/script/jquery/jquery.form.js"></script>
 
-<!-- <script src="resources/script/jquery/jquery-latest.min.js"></script> 
 <script src="resources/script/jquery/jquery.prettydropdowns.js"></script> 
 
 <!-- DWR setting -->
 <script type="text/javascript" src="dwr/engine.js"></script>
 <script type="text/javascript" src="dwr/util.js"></script>
 <script type="text/javascript" src="dwr/interface/ICustomerService.js"></script> 
+<script type="text/javascript" src="dwr/interface/IMemberService.js"></script>
 
 <script>
 var userId = "<%=(String)session.getAttribute("sUserId")%>";
@@ -41,41 +41,35 @@ $(document).ready(function(){
 	    });
 	 
 	// 검증에 사용할 함수명들을 배열에 담아준다.
-/* 	var idFuncArray = ["isAlphabetForSpan", "spaceCheck"]; */
 	var idFuncArray = ["spaceCheck","spaceCheck1"];
-	/* var idFuncArray1 = ["spaceCheck1"]; */
 	// 1. span태그 obj, 2. input태그 obj, 3. 위에서 정의한 함수명 배열, 4. 검증에 걸렸을 때 나타날 텍스트, 5. 검증을 통과했을 때 나타날 텍스트, 6. span태그의 좌측 폭 위치.
-	spanValidation($("#idSpan"), $("#cusName_id"), idFuncArray, "고객사명은 특수문자, 공백없이 입력하십시오!", "등록 가능한 형식의 고객사명입니다.", "5px");
-	/* spanValidation($("#idSpan1"), $("#cusproName_id"), idFuncArray1, "프로젝트명은 특수문자없이 입력하십시오!", "등록 가능한 형식의 프로젝트명입니다.", "5px"); */
+	spanValidation($("#idSpan"), $("#cusName_id"), idFuncArray, "로그인ID는 영문으로 입력하십시오!", "등록 가능한 형식입니다.", "5px");
 	
 	/* 고객사 등록 버튼 이벤트 */
     $("#edit_update_btn").bind("click", function(){   	
     	
-    	var cusNm_hidden = $("#cusName_hidden_id").val();
-    	var cusUser_hidden = $("#cusNm_hidden_id").val();
+    	var user_id = $("#user_id").val();
+    	var user_name = $("#user_name").val();
+    	var user_password = $("#user_password").val();
+    	var user_team_id = $("#user_team_id").val();
+    	var user_dbms_id = $("#user_dbms_id").val();
+    	var user_department_id = $("#user_department_id").val();
+    	var user_phone = $("#user_phone").val();
+    	var user_mail = $("#user_mail").val();
+    	var user_position_id = $("#user_position_id").val();
+    	var usr_point = $("#usr_point").val();  	
     	
-    	var cusNm = $("#cusName_id").val();
-    	var cusproNm = $("#cusproName_id").val();
-    	
-    	var cususerNm = $("#cusNm_id").val();
-    	var cususerPhone = $("#cusPhone_id").val();
-    	var cususerMail = $("#cusMail_id").val();
-    	var cuslocation = $("#cuslocation_id").val();
-    	
-    	var salesmanId = $("#salesman_select_id").val();  	
-    	
-    	var etc = $("#etc_id").val();   	
-    	
-     	if(cusNm == ""){     		
-     		alert("고객사명을 입력해주세요.");	   		
+     	if(user_id == ""){     		
+     		alert("로그인ID를 입력해주세요.");	   		
      	}else{
-			if(cusproNm == ""){
-				alert("프로젝트명을 입력해주세요.");
+			if(user_name == ""){
+				alert("이름을 입력해주세요.");
      		}else{
-     			ICustomerService.insertCusinfo(cusNm_hidden, cusUser_hidden,  
-	                       cusNm, cusproNm,  
-	                       cususerNm, cususerPhone, cususerMail, cuslocation, 
-	                       salesmanId, etc, insertCusinfoCallBack); 
+     			IMemberService.insertMeminfo(user_id, user_name, user_password,
+						user_team_id, user_dbms_id,
+						user_department_id, user_phone, 
+						user_mail, user_position_id, 
+						usr_point, insertMeminfoCallBack)
      		}     	
      	}    	
     });
@@ -236,141 +230,6 @@ function removeChar(event) {
 		event.target.value = event.target.value.replace(/[^0-9]/g, "");
 }
 
-/*  function dept_select_change_event(){
-	var deptId = $("#dept_select_id").val();	
-	
-	if(deptId == 0){
-		var teamId = 0;
-		ICustomerService.getdeptteam(deptId, deptchangeCallBack);
-		$("#team_select_id").prop("disabled",true);
-		ICustomerService.getdeptdbms(deptId, dept1changeCallBack);
-		$("#dbms_select_id").prop("disabled",true);
-		ICustomerService.getteamuser(teamId, teamchangeCallBack);	
-		$("#user1_select_id").prop("disabled",true);
-		$("#user2_select_id").prop("disabled",true);
-	}else{
-		ICustomerService.getdeptteam(deptId, deptchangeCallBack);		
-		$("#team_select_id").prop("disabled",false);		
-		ICustomerService.getdeptdbms(deptId, dept1changeCallBack);
-		$("#dbms_select_id").prop("disabled",false);
-		
-	}	
-} 
-
-function deptchangeCallBack(res){
-	var text = "";			
-	
-		text += "<option value='0' selected>지정하지않음.</option>";
-	for(var i = 0; i < res.length; i++){			
-		 
-		text += "<option value="+res[i].teamId+">"+res[i].teamNm+"</option>";
-	 	
-	}
-	
-	$("#team_select_id").html(text);
-}
-
-function dept1changeCallBack(res){
-	var text = "";			
-	
-	text += "<option value='0' selected>지정하지않음.</option>";
-	for(var i = 0; i < res.length; i++){			
-		 
-		text += "<option value="+res[i].dbmsId+">"+res[i].dbmsNm+"</option>";
-	 	
-	}
-	
-	$("#dbms_select_id").html(text);
-}
-
-function team_select_change_event(){
-	var teamId = $("#team_select_id").val();
-
-	if(teamId == 0){
-		ICustomerService.getteamuser(teamId, teamchangeCallBack);	
-		$("#user1_select_id").prop("disabled",true);
-		$("#user2_select_id").prop("disabled",true);
-		
-	}else{
-		ICustomerService.getteamuser(teamId, teamchangeCallBack);
-		
-		$("#user1_select_id").prop("disabled",false);		
-	}
-}
-
-function teamchangeCallBack(res){
-	var text = "";			
-	
-	text += "<option value='0' selected>지정하지않음.</option>";
-	for(var i = 0; i < res.length; i++){		 
-		text += "<option value="+res[i].userId+">"+res[i].userNm+"</option>";	 	
-	}	
-	
-	$("#user1_select_id").html(text);	
-	$("#user2_select_id").html(text);	
-	$("#user2_select_id").prop("disabled",true);
-}
-
-function user1_select_change_event(){
-	var teamId = $("#team_select_id").val();
-	var userId = $("#user1_select_id").val();
-	
-	if(userId == 0){
-		ICustomerService.getteamuser(teamId, teamchangeCallBack);		
-	}else{
-		
-		ICustomerService.getteamuser1(teamId, userId, user1changeCallBack);
-		$("#user2_select_id").prop("disabled",false);		
-	}
-}
-
-function user1changeCallBack(res){
-	var text = "";			
-	
-	text += "<option value='0' selected>지정하지않음.</option>";
-	for(var i = 0; i < res.length; i++){			
-		 
-		text += "<option value="+res[i].userId+">"+res[i].userNm+"</option>";	 	
-	}
-	
-	$("#user2_select_id").html(text);
-}
-
-function support_select_change_event(){
-	var supoId = $("#support_select_id").val();
-	var text = "";
-	
-	if(supoId == 3){ //프리세일즈 ID : 3
-		ICustomerService.getSupovisit(supoId,supochangeCallBack);		
-		$("#visit_select_id").prop("disabled",true);	
-		
-		text += "<tr><td>비고</td><td><textarea id='etc_id' rows='5' cols='30' name='contents'></textarea></td></tr>";
-
-		$("#cus_list_tb").html(text);
-	}else{
-		ICustomerService.getSupovisit(supoId,supochangeCallBack);		
-		$("#visit_select_id").prop("disabled",false);	
-		
-		text += "<tr><td>계약시작일</td><td><input id='supoStartDate_id' type='date' value=''></td></tr>";
-		text += "<tr><td>계약종료일</td><td><input id='supoEndDate_id' type='date' value=''></td></tr>";
-		
-		text += "<tr><td>비고</td><td><textarea id='etc_id' rows='5' cols='30' name='contents'></textarea></td></tr>";
-	
-		$("#cus_list_tb").html(text);
-	}		
-}
-
-function supochangeCallBack(res){
-	var text = "";			
-	
-	for(var i = 0; i < res.length; i++){			
-		 
-		text += "<option value="+res[i].supoVisitId+">"+res[i].supoVisitNm+"</option>";	 	
-	}
-	
-	$("#visit_select_id").html(text);
-} */
-
 function cusNminfoCallBack(res){
 	var availableTags = [];
 	
@@ -392,9 +251,7 @@ function cusNmProinfoCallBack(res){
 		    $("#cusName_hidden_id").val(res[i].cusId); 
 			$("#cuslocation_id").val(res[i].cusLoca);
 		}
-/* 		$( "#cusproName_id" ).autocomplete({
-			  source: availableTags
-		}); */
+
 	}else{
 		$("#cusName_hidden_id").val("0");
 		$("#cuslocation_id").val("");
@@ -440,13 +297,13 @@ function cusUserinfoCallBack(res){
 	}
 }
 
-function insertCusinfoCallBack(res){
+function insertMeminfoCallBack(res){
 	if(res == "FAILED"){
 		alert("실패");
-		location.href = "customer_insert";
+		location.href = "member_insert";
 	}else if(res == "SUCCESS"){
 		alert("성공");
-		location.href = "customer_insert";
+		location.href = "member_insert";
 	}
 }
 </script>
@@ -491,76 +348,86 @@ th, td {
 						<td>로그인ID*</td>
 						<td>							
 							<div id="div_cusName_id">
-								<input type="hidden" id="cusName_hidden_id" value="0"/>
-								<input id='cusName_id' value=""  style='text-transform: uppercase' onblur="onblur_event();"></input>
+								<input id='user_id' value=""  style='text-transform: uppercase' onblur="onblur_event();"></input>
 								<span id="idSpan" class="redText"></span>	
 							</div>									
 						</td>
 					</tr>
 					<tr>
 						<td>이름*</td>
-						<td><input type='text' id='cusproName_id' value="" style='text-transform: uppercase'>			
+						<td><input type='text' id='user_name' value="" style='text-transform: uppercase'>			
+						<span id="idSpan1" class="redText"></span>
+						</td>	
+					</tr>
+					<tr>
+						<td>패스워드*</td>
+						<td><input type='text' id='user_password' value="password">			
 						<span id="idSpan1" class="redText"></span>
 						</td>	
 					</tr>	
 					<tr>
 						<td>부서</td>												
-						<td><input type="hidden" id="cusNm_hidden_id" value="0"/>
-						<input type='text' id='cusNm_id' value=""  style='text-transform: uppercase'></td>															
+						<td>
+							<select id='user_department_id'>
+								<option value="0" selected>지정하지않음.</option>
+							    <c:forEach var="dept" items="${dept_list}">
+				 	    			<option value="${dept.deptId}">${dept.deptNm}</option>		 	    	
+				 	    		</c:forEach>	
+							</select>
+						</td>															
 					</tr>			
 					<tr>
-						<td>팀</td>						
-						<td><input type='text' id='cusPhone_id' value="" onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' style='ime-mode:disabled;'></td>															
+						<td>팀*</td>						
+						<td>
+							<select id='user_team_id'>
+								<option value="0" selected>지정하지않음.</option>
+							    <c:forEach var="team" items="${team_list}">
+				 	    			<option value="${team.teamId}">${team.teamNm}</option>		 	    	
+				 	    		</c:forEach>	
+							</select>
+						</td>															
 					</tr>
 					<tr>
 						<td>업무</td>						
-						<td><input type='text' id='cusMail_id' value=""></td>													
-					</tr>		
+						<td>
+							<select id='user_dbms_id'>
+								<option value="0" selected>지정하지않음.</option>
+							    <c:forEach var="dbms" items="${dbms_list}">
+				 	    			<option value="${dbms.dbmsId}">${dbms.dbmsNm}</option>		 	    	
+				 	    		</c:forEach>	
+							</select>
+						</td>															
+					</tr>
 					<tr>
 						<td>직급</td>						
-						<td><input type='text' id='cuslocation_id' value=""  style='text-transform: uppercase'></td>														
+						<td>
+							<select id='user_position_id'>
+								<option value="0" selected>지정하지않음.</option>
+							    <c:forEach var="posi" items="${posi_list}">
+				 	    			<option value="${posi.posiId}">${posi.posiNm}</option>		 	    	
+				 	    		</c:forEach>	
+							</select>
+						</td>														
 					</tr>
 					<tr>
 						<td>연락처</td>
 						<td>
-						<select id='salesman_select_id'>
-							<option value="0" selected>지정하지않음.</option>
-						    <c:forEach var="sl" items="${salseman_list}">
-			 	    			<option value="${sl.userId}">${sl.userNm}</option>		 	    	
-			 	    		</c:forEach>	
-						</select>
+							<input type='text' id='user_phone' value="" style='text-transform: uppercase'>
 						</td>									
 					</tr>
 					<tr>
 						<td>메일</td>
 						<td>
-						<select id='salesman_select_id'>
-							<option value="0" selected>지정하지않음.</option>
-						    <c:forEach var="sl" items="${salseman_list}">
-			 	    			<option value="${sl.userId}">${sl.userNm}</option>		 	    	
-			 	    		</c:forEach>	
-						</select>
+							<input type='text' id='user_mail' value="" style='text-transform: uppercase'>
 						</td>									
 					</tr>
 					<tr>
 						<td>포인트</td>
 						<td>
-						<select id='salesman_select_id'>
-							<option value="0" selected>지정하지않음.</option>
-						    <c:forEach var="sl" items="${salseman_list}">
-			 	    			<option value="${sl.userId}">${sl.userNm}</option>		 	    	
-			 	    		</c:forEach>	
-						</select>
+							<input type='text' id='user_point' value="0">
 						</td>									
 					</tr>							
 				</thead>
-				<tbody id="cus_list_tb">
-					<tr>
-						<td>비고</td>						
-						<td><textarea id="etc_id" rows="5" cols="30" name="contents"></textarea></td>													
-					</tr>																											
-				</tbody>
-				<tfoot id="cus_list_tf"> 					
 					<tr>	
 					<td colspan="2">
 						  <input type="password" placeholder="등록 비밀번호 입력." id="editPw" required>&nbsp;&nbsp;

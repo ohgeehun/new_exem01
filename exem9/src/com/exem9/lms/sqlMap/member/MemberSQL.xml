@@ -98,4 +98,15 @@
 		where 1 = 1
 	</select>
 	
+	<!-- 신규 사용자 인서트 시 -->
+	<update id="insertMeminfo" parameterClass="java.util.HashMap">
+	 INSERT INTO XM_MEMBER (
+            user_id, user_password, user_name, user_team_id, user_flag, user_dbms_id, 
+            user_level, user_department_id, user_phone, user_mail, user_position_id, 
+            user_hint, user_point)
+    VALUES (#user_id#, #user_password#, #user_name#, #user_team_id#, null, #user_dbms_id#, 
+            null, #user_department_id#, #user_phone#, #user_mail#, #user_position_id#, 
+            null, #user_point#)  
+	 </update> 
+	
 </sqlMap>
