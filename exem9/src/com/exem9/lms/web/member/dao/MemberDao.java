@@ -46,4 +46,11 @@ public class MemberDao implements IMemberDao{
 		// TODO Auto-generated method stub
 		return sqlMapClient.queryForList("member.getmeminfo", params);
 	}
+	
+	public int getNCount(HashMap params) throws Throwable {
+		
+		int count = (Integer) sqlMapClient.queryForObject("member.getNCount", params);
+		// TODO Auto-generated method stub
+		return count;
+	}
 }

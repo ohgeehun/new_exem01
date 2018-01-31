@@ -23,5 +23,7 @@
 	<sqlMap resource="/com/exem9/lms/sqlMap/team/TeamSQL.xml" />
 	<!-- member쿼리 -->
 	<sqlMap resource="/com/exem9/lms/sqlMap/member/MemberSQL.xml" />
+	<!-- Position 쿼리(직급) -->
+	<sqlMap resource="/com/exem9/lms/sqlMap/position/PosiSQL.xml" />
 </sqlMapConfig>
  

@@ -72,7 +72,7 @@
 	and user_id != #userId#
 	</select> 	
 	
-	<select id="getmeminfo" parameterClass="java.util.HashMap" resultClass="MemberBean">
+	<select id="getmeminfo" parameterClass="java.util.HashMap" resultMap="uMemberMap">
 	   SELECT 
 		   user_id, 
 		   user_password, 
@@ -92,5 +92,10 @@
 	   order by u.user_department_id, u.user_name asc
 	</select>
 
+	<select id="getNCount" parameterClass="java.util.HashMap" resultClass="Integer">
+	select count(user_id)
+		from xm_member xm
+		where 1 = 1
+	</select>
 	
 </sqlMap>

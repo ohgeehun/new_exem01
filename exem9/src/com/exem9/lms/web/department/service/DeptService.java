@@ -31,10 +31,10 @@ public class DeptService implements IDeptService{
 	public IDeptDao iDeptDao;
 	
 
-/*	public List getdept() throws Throwable {
+	public List getdept() throws Throwable {
 		
 		// TODO Auto-generated method stub
 		return iDeptDao.getdept();
 	}
-*/
+
 }

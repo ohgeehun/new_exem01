@@ -7,6 +7,6 @@ import com.exem9.lms.web.mypage.bean.MypageBean;
 
 public interface IPosiService {	
 	
-	/*public List getdept() throws Throwable;	*/
+	public List getposi() throws Throwable;	
 	
 }

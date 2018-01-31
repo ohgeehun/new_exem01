@@ -254,8 +254,7 @@ function editcusMemberCallback(res){
 	 	</table> 	
 	
 		<div id="customer_list">		
-		 	
-			<table id="cus_list">	
+	 		<table id="cus_list">	
 				<thead id="cus_list_th">
 					<tr>
 						<td>전체선택</br><input style="width:20px;" type="checkbox"  id="checkall"/></td>
@@ -263,7 +262,6 @@ function editcusMemberCallback(res){
 						<td><p>이름</p></td>
 						<td>부서</td>
 						<td>팀</td>
-						<td>업무</td>
 						<td>직급</td>
 						<td>연락처</td>																	
 						<td>메일</td>
@@ -273,63 +271,77 @@ function editcusMemberCallback(res){
 				<tbody id="cus_list_tb">
 					<c:forEach var="mem" items="${mem_list_info}">											
 						<tr>
-							<td><input type="checkbox" name="chk" id="checkbox_id" value="${cli.proId}"/>
-													
-							</td>						
-							<td>${cli.cusNm}</td>
-							<td>${cli.proNm}</td>							
 							<td>
-								<input type="hidden" id="select_cus_hidden_id_${cli.proId}" value=""/>
-								<select id="edit_cus_list_select_${cli.proId}" onchange="edit_cus_select_change_event(${cli.proId})">
-									<c:if test="${cli.cus1Nm == ''}">
+								<input type="checkbox" name="chk" id="checkbox_id" value="${mem.userId}"/>
+							</td>						
+							<td>
+								${mem.userId}
+							</td>
+							<td>
+								${mem.userNm}						
+							</td>							
+							<td>
+								<select>
+									<c:if test="${mem.userDept == ''}">
 										<option value="0" selected>지정필요.</option>
 									</c:if>
-									<c:forEach var="cmli" items="${cus_member_list_info}">										
-									 	    <c:if test="${cli.cusId  == cmli.cusId}"> 
+									<c:forEach var="dept" items="${dept_list}">										
 												<c:choose>
-													<c:when test="${cli.cus1Nm == cmli.cususerNm}">
-														<option value="${cmli.cususerId}" selected>${cmli.cususerNm}</option>
+													<c:when test="${dept.deptId  == mem.userDept}">
+														<option value="${dept.deptId}" selected>${dept.deptNm}</option>
 													</c:when>
 													<c:otherwise>
-														<option value="${cmli.cususerId}">${cmli.cususerNm}</option>	
+														<option value="${dept.deptId}">${dept.deptNm}</option>	
 													</c:otherwise>
 												</c:choose>		
-										    </c:if>			 																	
 									</c:forEach>			
-								</select> 										
+								</select>
 							</td>
 							<td>
-								<p id="edit_cus_phone_${cli.proId}"> ${mem.userId}</p>			
-							</td>							
-											
-							<td>
-								<p id="edit_cus_mail_${cli.proId}">${mem.userNm}</p>	
-							</td>
-							
-							<td>
-								<input type="text" id="cuslocation_id_${cli.proId}" value="${mem.userPw}">								
-							</td>																		
-					
-							<td>
-							
-								<select id="edit_salseman_list_select_${cli.proId}">
-									<c:if test="${cli.salseId == '0'}">
+								<select>
+									<c:if test="${mem.userTeam == ''}">
 										<option value="0" selected>지정필요.</option>
 									</c:if>
-									<c:forEach var="esl" items="${edit_salseman_list}">
-										<c:choose>
-											<c:when test="${esl.userId == cli.salseId}">
-												<option value="${esl.userId}" selected>${esl.userNm}</option>
-											</c:when>
-											<c:otherwise>
-												<option value="${esl.userId}">${esl.userNm}</option>	
-											</c:otherwise>
-										</c:choose>										
-									</c:forEach>	
+									<c:forEach var="team" items="${team_list}">
+										<c:if test="${team.deptId  == mem.userDept}">										
+												<c:choose>
+													<c:when test="${team.teamId  == mem.userTeam}">
+														<option value="${team.teamId}" selected>${team.teamNm}</option>
+													</c:when>
+													<c:otherwise>
+														<option value="${team.teamId}">${team.teamNm}</option>	
+													</c:otherwise>
+												</c:choose>
+										</c:if>		
+									</c:forEach>			
+								</select>
+							</td>
+							<td>							
+								<select>
+									<c:if test="${mem.userPosi == ''}">
+										<option value="0" selected>지정필요.</option>
+									</c:if>
+									<c:forEach var="posi" items="${posi_list}">
+											<c:choose>
+												<c:when test="${posi.posiId  == mem.userPosi}">
+													<option value="${posi.posiId}" selected>${posi.posiNm}</option>
+												</c:when>
+												<c:otherwise>
+													<option value="${posi.posiId}">${posi.posiNm}</option>	
+												</c:otherwise>
+											</c:choose>
+									</c:forEach>			
 								</select>
 							</td>			
-							<td><textarea id="etc_id_${cli.proId}" rows="3" cols="30" name="contents">${cli.etc}</textarea></td>
-							<td>${cli.proNm}</td>
+							<td>
+								${mem.userPhone}
+							</td>
+							<td>
+								${mem.userMail}
+							</td>
+							<td>																		
+								${mem.userPoint}
+							</td>
 						</tr>					
 					</c:forEach>										
 				</tbody>
@@ -353,14 +365,13 @@ function editcusMemberCallback(res){
 								<a href="#" id="nextVal">다음</a>
 							</c:if>
 						</td>
-						<td colspan="4">
+						<td colspan="3">
 							  <input type="password" placeholder="정보 수정 비밀번호 입력." id="editPw" required>&nbsp;&nbsp;
 							  <input type="button" id="edit_update_btn" value="변경"></input>
 						</td>
 					</tr>					
 				</tfoot>
-	 		</table>	
-	 		
+	 		</table>
 		</div>
 	</div>
 	</form>

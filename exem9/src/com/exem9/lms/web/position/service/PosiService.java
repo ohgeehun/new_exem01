@@ -30,12 +30,10 @@ public class PosiService implements IPosiService{
 	
 	@Autowired
 	public IPosiDao iPosiDao;
-	
 
-/*	public List getdept() throws Throwable {
+	public List getposi() throws Throwable {
 		
 		// TODO Auto-generated method stub
 		return iPosiDao.getposi();
-	}*/
-
+	}
 }

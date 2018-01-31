@@ -21,4 +21,6 @@ public interface IMemberDao {
 	public List<MemberBean> getTeammember(HashMap params) throws Throwable;
 	
 	public List<MemberBean> getmeminfo(HashMap params)throws Throwable ;
+	
+	public int getNCount(HashMap params) throws Throwable;
 }

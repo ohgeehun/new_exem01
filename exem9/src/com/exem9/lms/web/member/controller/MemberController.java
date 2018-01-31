@@ -24,6 +24,9 @@ import com.exem9.lms.web.department.service.IDeptService;
 import com.exem9.lms.web.department.bean.DeptBean;
 import com.exem9.lms.web.member.bean.MemberBean;
 import com.exem9.lms.web.member.service.IMemberService;
+import com.exem9.lms.web.position.bean.PosiBean;
+import com.exem9.lms.web.position.service.IPosiService;
+import com.exem9.lms.web.team.bean.TeamBean;
 import com.exem9.lms.web.team.service.ITeamService;
 
 import com.exem9.lms.web.customer.service.ICustomerService;
@@ -33,6 +36,12 @@ import com.exem9.lms.web.customer.service.ICustomerService;
 public class MemberController {
 	@Autowired
 	public IMemberService iMemberService;
+	@Autowired
+	public IDeptService iDeptService;
+	@Autowired
+	public ITeamService iTeamService;
+	@Autowired
+	public IPosiService iPosiService;
 	
 	@Autowired
 	public ICustomerService iCustomerService;
@@ -47,23 +56,29 @@ public class MemberController {
 		if(session.getAttribute("sUserId")==null) {
 			throw new UserNotFoundException("자동 로그아웃 됐습니다.");
 		} else {						
-			List<CustomerBean> cus_list_info = iCustomerService.getcusinfo("0","",1);
+			List<MemberBean> mem_list_info = iMemberService.getmeminfo("0","",1);
+			List<DeptBean> dept_list = iDeptService.getdept();
+			List<TeamBean> team_list = iTeamService.getteam();
+			List<PosiBean> posi_list = iPosiService.getposi();
 			
+			List<CustomerBean> cus_list_info = iCustomerService.getcusinfo("0","",1);
 			List<MemberBean> edit_salseman_list = iCustomerService.getSalsemember(); 
 			List<CustomerMemberBean> cus_member_list_info = iCustomerService.getcusUserinfo("", "0", "0");
 			
-			List<MemberBean> mem_list_info = iMemberService.getmeminfo("0","",1);
-			
-			LineBoardBean lbb = iCustomerService.getNCount("0","",1);
+			LineBoardBean lbb = iMemberService.getNCount("0","",1);
 		
+			modelAndView.addObject("mem_list_info", mem_list_info);
+			modelAndView.addObject("dept_list", dept_list);
+			modelAndView.addObject("team_list", team_list);
+			modelAndView.addObject("posi_list", posi_list);
+			
 			modelAndView.addObject("startPage", lbb.getStartPage());
 			modelAndView.addObject("endPage", lbb.getEndPage());
 			modelAndView.addObject("maxPage", lbb.getMaxPage());
 			modelAndView.addObject("nowPage", lbb.getNowPage());
 			
 			modelAndView.addObject("sUserId", session.getAttribute("sUserId"));
-			//modelAndView.addObject("cus_list_info", cus_list_info);
-			modelAndView.addObject("mem_list_info", mem_list_info);
+			modelAndView.addObject("cus_list_info", cus_list_info);
 			modelAndView.addObject("edit_salseman_list", edit_salseman_list);
 			modelAndView.addObject("cus_member_list_info", cus_member_list_info);
 			

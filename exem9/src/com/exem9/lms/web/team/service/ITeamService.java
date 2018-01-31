@@ -1,12 +1,13 @@
 package com.exem9.lms.web.team.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.exem9.lms.web.mypage.bean.MypageBean;
 
 
 public interface ITeamService {	
-/*	
-	public List getteam() throws Throwable;	
-	*/
+	public List getdeptteam2(HashMap params) throws Throwable;	
+	
+	public List getteam() throws Throwable;
 }

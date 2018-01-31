@@ -6,7 +6,7 @@ import com.exem9.lms.web.mypage.bean.MypageBean;
 
 
 public interface IDeptService {	
-/*	
+
 	public List getdept() throws Throwable;	
-	*/
+	
 }

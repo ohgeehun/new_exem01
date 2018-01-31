@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import com.exem9.lms.common.CommonProperties;
 import com.exem9.lms.util.BCrypt;
+import com.exem9.lms.web.common.bean.LineBoardBean;
 import com.exem9.lms.web.dbms.dao.IDbmsDao;
 import com.exem9.lms.web.department.bean.DeptBean;
 import com.exem9.lms.web.department.dao.IDeptDao;
@@ -69,6 +70,47 @@ public class MemberService implements IMemberService{
 	}
 	
 
+	public LineBoardBean getNCount(String selectBtnVal, String selectTextVal, int nowPage) throws Throwable {
+		
+		HashMap params = new HashMap();
+			
+		params.put("selectBtnVal", Integer.parseInt(selectBtnVal));
+		params.put("selectTextVal",selectTextVal);
+		
+		int nCount = iMemberDao.getNCount(params);
+		int maxPage=0;
+		int startPage=0;
+		int endPage=0;
+		int nowpage=0;
+		
+		if(nowPage == 0){
+			nowpage = 1;
+		}else if(nowPage != 0){
+			nowpage = nowPage;
+		}		
+		
+		if(nCount % CommonProperties.VIEWCOUNT == 0){
+			maxPage = nCount / CommonProperties.VIEWCOUNT;
+		}else{
+			maxPage = (nCount / CommonProperties.VIEWCOUNT) + 1;
+		}
+		
+		startPage = nowpage / CommonProperties.PAGECOUNT + 1;
+		endPage = startPage + CommonProperties.PAGECOUNT -1;
+		
+		if(endPage > maxPage){
+			endPage = maxPage;
+		}		
+		
+		LineBoardBean lbb = new LineBoardBean();
+		lbb.setStartPage(startPage);
+		lbb.setEndPage(endPage);
+		lbb.setMaxPage(maxPage);
+		lbb.setNowPage(nowpage);
+		return lbb;
+	}
+	
+	
 /*	public List getteam() throws Throwable {
 		
 		// TODO Auto-generated method stub

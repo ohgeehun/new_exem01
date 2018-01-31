@@ -14,10 +14,8 @@ public class PosiDao implements IPosiDao{
 	@Autowired
 	public SqlMapClient sqlMapClient;
 
-
-/*	public List getdept() throws Throwable {
+	public List getposi() throws Throwable {
 		// TODO Auto-generated method stub
-		return sqlMapClient.queryForList("dept.getdeptinfo");
-	}*/
-	
+		return sqlMapClient.queryForList("posi.getposi");
+	}
 }
