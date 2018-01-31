@@ -95,7 +95,7 @@ public class MemberController {
 	
 	
 	@RequestMapping(value = "/member_insert")
-	public ModelAndView customer_insert(HttpServletRequest request, 
+	public ModelAndView member_insert(HttpServletRequest request, 
 							   HttpServletResponse response,
 							   ModelAndView modelAndView) throws Throwable{
 		

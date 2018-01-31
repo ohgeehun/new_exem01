@@ -73,8 +73,9 @@ function calendarEvent(eventData){
 <div class="row">
 	 <div class="column side">
 		   <h4>일정 관리 페이지</h4></br>
-		   <a href="#" id="">내 일정 관리</a></br>		    
-		   <a href="#" id="">팀 일정</a></br>
+		   <a href="#" id="sch_insert">일정 등록</a></br>
+		   <a href="#" id="my_sch">내 일정 관리</a></br>		    
+		   <a href="#" id="team_sch">팀 일정</a></br>
 	 </div>
 	 <div class="column middle">
 		<div id='calendar'>		

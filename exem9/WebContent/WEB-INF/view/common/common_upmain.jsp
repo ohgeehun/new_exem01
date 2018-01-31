@@ -22,7 +22,7 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 	$("#scheduleBtn").bind("click", function(){
-		location.href = "schedule";
+		location.href = "my_schedule";
 	});
 });
 
