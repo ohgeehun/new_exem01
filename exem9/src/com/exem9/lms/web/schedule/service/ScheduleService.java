@@ -1,11 +1,12 @@
 package com.exem9.lms.web.schedule.service;
 
+import java.util.List;
+
 import org.directwebremoting.annotations.RemoteProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
-import com.exem9.lms.web.mypage.dao.IMypageDao;
+import com.exem9.lms.web.schedule.dao.ISchDao;
 
 
 @RemoteProxy(name="IScheduleService")
@@ -13,7 +14,12 @@ import com.exem9.lms.web.mypage.dao.IMypageDao;
 public class ScheduleService implements IScheduleService{
 	
 	@Autowired
-	public IMypageDao iMypageDao;
+	public ISchDao iSchDao;
 	
+	public List getsch() throws Throwable {
+		
+		// TODO Auto-generated method stub
+		return iSchDao.getsch();
+	}
 	
 }

@@ -22,6 +22,7 @@ import com.exem9.lms.web.dbms.bean.DbmsBean;
 import com.exem9.lms.web.dbms.service.IDbmsService;
 import com.exem9.lms.web.department.bean.DeptBean;
 import com.exem9.lms.web.position.bean.PosiBean;
+import com.exem9.lms.web.schedule.bean.SchBean;
 import com.exem9.lms.web.schedule.service.IScheduleService;
 import com.exem9.lms.web.team.bean.TeamBean;
 
@@ -74,8 +75,6 @@ public class ScheduleController {
 			modelAndView.addObject("cusPjtNm_list", cusPjtNm_list);
 			modelAndView.addObject("cate_list", cate_list);
 			
-			System.out.println( "---------------------------------------------------   : " + cate_list.get(0).getCatNm() );
-			
 			modelAndView.setViewName("schedule/schedule_insert");
 		}
 				
@@ -92,6 +91,12 @@ public class ScheduleController {
 		if(session.getAttribute("sUserId")==null) {
 			throw new UserNotFoundException("자동 로그아웃 됐습니다.");
 		} else {
+			
+			List<SchBean> sch_list = iScheduleService.getsch();
+			modelAndView.addObject("sch_list", sch_list);
+			
+			System.out.println( "---------------------------------------------------   : " + sch_list.get(0).getSchCusId() );
+			
 			modelAndView.setViewName("schedule/my_schedule");
 		}
 				

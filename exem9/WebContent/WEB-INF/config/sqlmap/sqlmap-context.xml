@@ -27,5 +27,7 @@
 	<sqlMap resource="/com/exem9/lms/sqlMap/position/PosiSQL.xml" />
 	<!-- Category 쿼리(일정 스케쥴 유형) -->
 	<sqlMap resource="/com/exem9/lms/sqlMap/category/CateSQL.xml" />
+	<!-- 일정 스케쥴 목록 조회 -->
+	<sqlMap resource="/com/exem9/lms/sqlMap/schedule/CateSQL.xml" />
 </sqlMapConfig>
  

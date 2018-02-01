@@ -47,47 +47,21 @@ $(document).ready(function(){
 
 <script>
 $(function(){
-	calendarEvent();
+
 });
 
-function calendarEvent(eventData){
-	$("#calendar").html("");
-	var date = new Date();
-	var d = date.getDate();
-	var m = date.getMonth();
-	var y = date.getFullYear();
-	var calendar = $('#calendar').fullCalendar({
-		header: {
-			left :"",
-			center: "title",
-			right: "today prev,next"
-		},
-		editable: true,
-		titleFromat:{
-			month: "yyyy년 MMMM",
-			week: "[yyyy] MMM dd일{[yyyy]MMMdd일}",
-			day: "yyyy년 MMMd일 dddd"
-		},
-		allDayDefault:false,
-		defaultView:"month",
-		editable:false,
-		monthNames:["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
-		monthNamesShort:["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
-		dayNames:["일요일","월요일","화요일","수요일","목요일","금요일","토요일"],
-		dayNamesShort:["일","월","화","수","목","금","토"],
-		buttonText:{
-			today:"오늘",
-			month:"월별",
-			week:"주별",
-			day:"일별"
-		},
-		events:eventData,
-		timeFromat:"HH:mm",
-	});
-}
 </script>
-<style>
 
+<style>
+#customer_list td,tr {    
+    border: 2px solid #ddd;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    padding-left: 5px;
+    font-size: 10px;
+}
 </style>
 
 </head>
@@ -100,10 +74,182 @@ function calendarEvent(eventData){
 		   <a href="#" id="my_sch">내 일정 보기</a></br>		    
 		   <a href="#" id="team_sch">팀 일정 보기</a></br>
 	 </div>
+	 
 	 <div class="column middle">
-		<div id='calendar'>		
+		<div class="column middle">
+	 	<div align="center"><h3>내 일정 정보</h3></div>
+	 	
+		<input type="hidden" id="nowPage" name="pageNo" value="${nowPage}"/>
+		<input type="hidden" id="userId_hidden_id" value=""/>				
+	 	</br>
+	 	
+	 	<table>
+	 	<tr>
+	 	<td>
+		 	<div>	 		
+	
+			</div>
+	 	</td>
+	 	<td>	 	  
+		 	<div>	 		 	
 		
+			</div>
+	 	</td>
+	 	<td>
+		
+	 	</td>
+	 
+	 	<td>
+	 		<div>
+	 			<select id="cus_select4" name="selectBtnVal">
+	 					<option value="0" selected>검색조건없음</option>
+						<option value="1">로그인ID</option>						
+						<option value="2">이름</option>
+						<option value="3">부서</option>
+						<option value="4">팀</option>
+				</select>
+	 		</div>
+	 	</td>
+	 	<td>	 		
+		 	<div>			 		
+		 	    <input type="text" id="select_text" name="selectTextVal" value="검색 조건을 선택하세요."></input>
+		 	    <input type="button" id="select_btn" value="검색"></input>
+			</div>
+	 	</td>	 
+	 	</tr>
+	 	</table> 	
+	
+		<div id="customer_list">		
+	 		<table id="cus_list">	
+				<thead id="cus_list_th">
+					<tr>
+						<td>전체선택</br><input style="width:20px;" type="checkbox"  id="checkall"/></td>
+						<td><p>고객사명</p></td>
+						<td><p>프로젝트 명</p></td>
+						<td>지원일시<br>(시작)</td>
+						<td>지원일시<br>(종료)</td>
+						<td>지원 유형(범주)</td>
+						<td>요청내역 및 지원목적</td>
+					</tr>					
+				</thead>
+				<tbody id="cus_list_tb">
+					<c:forEach var="sch" items="${sch_list}">											
+						<tr>
+							<td>
+								<input type="checkbox" name="chk" value="${mem.userId}"/>
+							</td>						
+							<td>
+								${sch.schCusNm}
+							</td>
+							<td>
+								${sch.schPjtNm}						
+							</td>							
+							<td>
+								${sch.start_time}	
+								<select>
+									<c:if test="${mem.userDept == ''}">
+										<option value="0" selected>지정필요.</option>
+									</c:if>
+									<c:forEach var="dept" items="${dept_list}">										
+												<c:choose>
+													<c:when test="${dept.deptId  == mem.userDept}">
+														<option value="${dept.deptId}" selected>${dept.deptNm}</option>
+													</c:when>
+													<c:otherwise>
+														<option value="${dept.deptId}">${dept.deptNm}</option>	
+													</c:otherwise>
+												</c:choose>		
+									</c:forEach>			
+								</select>
+							</td>
+							<td>
+								${sch.end_time}
+								<select>
+									<c:if test="${mem.userTeam == ''}">
+										<option value="0" selected>지정필요.</option>
+									</c:if>
+									<c:forEach var="team" items="${team_list}">
+										<c:if test="${team.deptId  == mem.userDept}">										
+												<c:choose>
+													<c:when test="${team.teamId  == mem.userTeam}">
+														<option value="${team.teamId}" selected>${team.teamNm}</option>
+													</c:when>
+													<c:otherwise>
+														<option value="${team.teamId}">${team.teamNm}</option>	
+													</c:otherwise>
+												</c:choose>
+										</c:if>		
+									</c:forEach>			
+								</select>
+							</td>
+							<td>
+								${sch.category_name}
+								<select>
+									<c:if test="${mem.userDbms == ''}">
+										<option value="0" selected>지정필요.</option>
+									</c:if>
+									<c:forEach var="dbms" items="${dbms_list}">
+												<c:choose>
+													<c:when test="${dbms.dbmsId  == mem.userDbms}">
+														<option value="${dbms.dbmsId}" selected>${dbms.dbmsNm}</option>
+													</c:when>
+													<c:otherwise>
+														<option value="${dbms.dbmsId}">${dbms.dbmsNm}</option>	
+													</c:otherwise>
+												</c:choose>
+									</c:forEach>			
+								</select>
+							</td>
+							<td>
+								${sch.contents}							
+								<select>
+									<c:if test="${mem.userPosi == ''}">
+										<option value="0" selected>지정필요.</option>
+									</c:if>
+									<c:forEach var="posi" items="${posi_list}">
+											<c:choose>
+												<c:when test="${posi.posiId  == mem.userPosi}">
+													<option value="${posi.posiId}" selected>${posi.posiNm}</option>
+												</c:when>
+												<c:otherwise>
+													<option value="${posi.posiId}">${posi.posiNm}</option>	
+												</c:otherwise>
+											</c:choose>
+									</c:forEach>			
+								</select>
+							</td>			
+						</tr>					
+					</c:forEach>										
+				</tbody>
+				<tfoot id="cus_list_tf"> 
+					<tr>
+						<td colspan="6">
+							<c:if test="${nowPage > 1}">
+								<a href="#" id="backVal">이전</a>
+							</c:if>
+							<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
+								<c:choose>
+									<c:when test="${nowPage==i}">
+										<a id="${i}" name="moreArea">${i}</a>
+									</c:when>
+									<c:otherwise>
+										<a href="#" id="${i}" name="moreArea">${i}</a>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+							<c:if test="${maxPage > nowPage}">
+								<a href="#" id="nextVal">다음</a>
+							</c:if>
+						</td>
+						<td colspan="1">
+							  <input type="password" placeholder="정보 수정 비밀번호 입력." id="editPw" required>&nbsp;&nbsp;
+							  <input type="button" id="edit_update_btn" value="변경"></input>
+						</td>
+					</tr>					
+				</tfoot>
+	 		</table>
 		</div>
+		
 	</div>
 </div>
 	<c:import url="/main_botview"></c:import>
