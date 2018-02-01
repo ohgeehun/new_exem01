@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+    "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="cate">
+	<typeAlias alias="CateBean" 
+			   type="com.exem9.lms.web.category.bean.CateBean" />	
+	
+	<resultMap class="CateBean" id="CateMap">
+		<result property="catId" column="category_id"/>
+		<result property="catNm" column="category_name"/>
+	</resultMap>
+	
+	<select id="getcate" resultMap="CateMap">
+	select category_id, category_name from xm_category
+		where division_name='컨설팅본부'
+		order by division_name, category_class,category_name
+	</select>  	
+</sqlMap>

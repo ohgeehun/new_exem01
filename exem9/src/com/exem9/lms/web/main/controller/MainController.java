@@ -26,7 +26,8 @@ public class MainController {
 			HttpServletRequest request, HttpServletResponse response,
 			ModelAndView modelAndView) throws Throwable {
 		
-		modelAndView.setViewName("main");
+		//modelAndView.setViewName("main");
+		modelAndView.setViewName("/schedule/my_schedule");
 		
 		return modelAndView;
 	}	

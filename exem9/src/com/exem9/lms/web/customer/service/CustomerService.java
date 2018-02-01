@@ -18,6 +18,8 @@ import com.exem9.lms.web.common.bean.SupoBean;
 import com.exem9.lms.web.common.dao.ICommonDao;
 import com.exem9.lms.web.customer.bean.CustomerBean;
 import com.exem9.lms.web.customer.bean.CustomerMemberBean;
+import com.exem9.lms.web.customer.bean.CustomerNmBean;
+import com.exem9.lms.web.customer.bean.CustomerPjtNmBean;
 import com.exem9.lms.web.customer.dao.ICustomerDao;
 import com.exem9.lms.web.dbms.bean.DbmsBean;
 import com.exem9.lms.web.department.bean.DeptBean;
@@ -66,8 +68,6 @@ public class CustomerService implements ICustomerService{
 		// TODO Auto-generated method stub
 		return iDeptDao.getdept();
 	}
-
-
 
 	public List<SupoBean> getsupo() throws Throwable {
 		// TODO Auto-generated method stub
@@ -286,5 +286,16 @@ public class CustomerService implements ICustomerService{
 			return iCustomerDao.insertCusinfo3(params);
 		}
 	}
+	
+	public List<CustomerNmBean> getcusNminfo2() throws Throwable {
+		// TODO Auto-generated method stub
+		return iCustomerDao.getcusNminfo2();
+	}
+	
+	public List<CustomerPjtNmBean> getcusPjtNminfo() throws Throwable {
+		// TODO Auto-generated method stub
+		return iCustomerDao.getcusPjtNminfo();
+	}
+	
 }
 

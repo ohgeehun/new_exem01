@@ -12,7 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.exem9.lms.exception.UserNotFoundException;
+import com.exem9.lms.web.category.bean.CateBean;
+import com.exem9.lms.web.category.service.ICateService;
+import com.exem9.lms.web.customer.bean.CustomerBean;
+import com.exem9.lms.web.customer.bean.CustomerNmBean;
+import com.exem9.lms.web.customer.bean.CustomerPjtNmBean;
+import com.exem9.lms.web.customer.service.ICustomerService;
 import com.exem9.lms.web.dbms.bean.DbmsBean;
+import com.exem9.lms.web.dbms.service.IDbmsService;
 import com.exem9.lms.web.department.bean.DeptBean;
 import com.exem9.lms.web.position.bean.PosiBean;
 import com.exem9.lms.web.schedule.service.IScheduleService;
@@ -23,6 +30,12 @@ import com.exem9.lms.web.team.bean.TeamBean;
 public class ScheduleController {
 	@Autowired
 	public IScheduleService iScheduleService;
+	@Autowired
+	public IDbmsService iDbmsService;
+	@Autowired
+	public ICustomerService iCustomerService;
+	@Autowired
+	public ICateService iCateService;
 	
 	@RequestMapping(value = "/schedule")
 	public ModelAndView mypage(HttpServletRequest request, 
@@ -51,6 +64,18 @@ public class ScheduleController {
 		if(session.getAttribute("sUserId")==null) {
 			throw new UserNotFoundException("자동 로그아웃 됐습니다.");
 		} else {
+			List<DbmsBean> dbms_list = iDbmsService.getdbms();
+			List<CustomerNmBean> cusNm_list = iCustomerService.getcusNminfo2();
+			List<CustomerPjtNmBean> cusPjtNm_list = iCustomerService.getcusPjtNminfo();
+			List<CateBean> cate_list = iCateService.getcate();
+			
+			modelAndView.addObject("dbms_list", dbms_list);
+			modelAndView.addObject("cusNm_list", cusNm_list);
+			modelAndView.addObject("cusPjtNm_list", cusPjtNm_list);
+			modelAndView.addObject("cate_list", cate_list);
+			
+			System.out.println( "---------------------------------------------------   : " + cate_list.get(0).getCatNm() );
+			
 			modelAndView.setViewName("schedule/schedule_insert");
 		}
 				

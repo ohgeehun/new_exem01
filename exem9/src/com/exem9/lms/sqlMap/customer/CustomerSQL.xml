@@ -9,7 +9,11 @@
 			   type="com.exem9.lms.web.common.bean.SupoBean" />
 	<typeAlias alias="customermemberBean" 
 			   type="com.exem9.lms.web.customer.bean.CustomerMemberBean"/>  
-			   		   
+	<typeAlias alias="customerNmBean" 
+			   type="com.exem9.lms.web.customer.bean.CustomerNmBean"/>
+	<typeAlias alias="customerPjtNmBean" 
+			   type="com.exem9.lms.web.customer.bean.CustomerPjtNmBean"/>			   
+	
     <resultMap class="customerBean" id="cusInfoMap">
 		<result property="cusId" column="customer_id"/>
 		<result property="cusNm" column="customer_name"/>
@@ -185,8 +189,7 @@
 	</update>
 	
 	<select id="getcusNminfo" resultClass="customerBean">
-	SELECT distinct  customer_name as cusNm
-		  <!--  customer_id as cusId -->		  
+	SELECT distinct  customer_name as cusNm	  
 	from xm_customer	
 	group by customer_id, customer_name
 	order by customer_name asc
@@ -280,4 +283,30 @@
 		INSERT INTO XM_CUSTOMER_MEMBER VALUES(NEXTVAL('xm_customer_member_next_val'),#cususerNm#,#cususerPhone#,#cususerMail#,(select distinct customer_id from xm_customer where customer_name = #cusNm#))		                 
 	</isNotEmpty>		
 	</update> 
+
+	<resultMap class="customerNmBean" id="cusInfoMap2">
+		<result property="cusId" column="customer_id"/>
+		<result property="cusNm" column="customer_name"/>
+	</resultMap>	
+			
+	<!-- 고객사 목록조회 용 콤보박스에서 사용 -->
+	<select id="getcusNminfo2" resultMap="cusInfoMap2">
+	SELECT customer_id, customer_name
+		from xm_customer	
+		group by customer_id, customer_name
+		order by customer_name asc;
+	</select>
+	
+	<resultMap class="customerPjtNmBean" id="cusPjtInfoMap">
+		<result property="cusId" column="customer_id"/>
+		<result property="pjtId" column="project_id"/>
+		<result property="pjtNm" column="project_name"/>
+	</resultMap>
+	
+	<select id="getcusPjtNminfo" resultMap="cusPjtInfoMap">
+	select customer_id, project_id, project_name from xm_customer 
+		group by customer_id, project_id, project_name
+		order by customer_name, project_name asc
+	</select>
+	
 </sqlMap>

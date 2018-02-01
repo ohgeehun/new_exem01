@@ -6,6 +6,8 @@ import java.util.List;
 import com.exem9.lms.web.common.bean.SupoBean;
 import com.exem9.lms.web.customer.bean.CustomerBean;
 import com.exem9.lms.web.customer.bean.CustomerMemberBean;
+import com.exem9.lms.web.customer.bean.CustomerNmBean;
+import com.exem9.lms.web.customer.bean.CustomerPjtNmBean;
 import com.exem9.lms.web.mypage.bean.MypageBean;
 
 public interface ICustomerDao {
@@ -19,6 +21,8 @@ public interface ICustomerDao {
 	public String updateCusInfo(HashMap params) throws Throwable;
 
 	public List<CustomerBean> getcusNminfo() throws Throwable ;
+	
+	public List<CustomerNmBean> getcusNminfo2() throws Throwable ;
 
 	public List<CustomerBean> getcusNmProinfo(HashMap params) throws Throwable ;
 
@@ -31,4 +35,6 @@ public interface ICustomerDao {
 	public String insertCusinfo2(HashMap params)throws Throwable ;
 	
 	public String insertCusinfo3(HashMap params)throws Throwable ;
+	
+	public List<CustomerPjtNmBean> getcusPjtNminfo() throws Throwable ;
 }

@@ -25,5 +25,7 @@
 	<sqlMap resource="/com/exem9/lms/sqlMap/member/MemberSQL.xml" />
 	<!-- Position 쿼리(직급) -->
 	<sqlMap resource="/com/exem9/lms/sqlMap/position/PosiSQL.xml" />
+	<!-- Category 쿼리(일정 스케쥴 유형) -->
+	<sqlMap resource="/com/exem9/lms/sqlMap/category/CateSQL.xml" />
 </sqlMapConfig>
  

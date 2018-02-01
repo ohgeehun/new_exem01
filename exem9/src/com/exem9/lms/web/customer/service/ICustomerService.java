@@ -6,6 +6,8 @@ import com.exem9.lms.web.common.bean.LineBoardBean;
 import com.exem9.lms.web.common.bean.SupoBean;
 import com.exem9.lms.web.customer.bean.CustomerBean;
 import com.exem9.lms.web.customer.bean.CustomerMemberBean;
+import com.exem9.lms.web.customer.bean.CustomerNmBean;
+import com.exem9.lms.web.customer.bean.CustomerPjtNmBean;
 import com.exem9.lms.web.dbms.bean.DbmsBean;
 import com.exem9.lms.web.department.bean.DeptBean;
 import com.exem9.lms.web.member.bean.MemberBean;
@@ -53,6 +55,9 @@ public interface ICustomerService {
 	/*기존고객사명 가져오기 이벤트*/
 	public List<CustomerBean> getcusNminfo()throws Throwable ;
 	
+	/*기존고객사명 가져오기 콤포박스에서 사용*/
+	public List<CustomerNmBean> getcusNminfo2()throws Throwable ;
+	
 	/*선택된고객사에 등록된 프로젝트명 가져오기 이벤트*/
 	public List<CustomerBean> getcusNmProinfo(String cusNm, String cusProNm)throws Throwable ;
 	
@@ -68,4 +73,7 @@ public interface ICustomerService {
 								String cususerNm, String cususerPhone,String cususerMail, String cuslocation,
 								String salesmanId, String etc) throws Throwable ;
 	
+	/*고객사 프로젝트명 가져오기 콤포박스에서 사용*/
+	public List<CustomerPjtNmBean> getcusPjtNminfo()throws Throwable ;
+
 }

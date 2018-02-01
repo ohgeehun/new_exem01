@@ -309,7 +309,7 @@ function insertMeminfoCallBack(res){
 </script>
 
 <style>
- table, td, th {    
+table, td, th {    
     border: 1px solid #ddd;
     text-align: left;
 }

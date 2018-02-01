@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 import com.exem9.lms.web.common.bean.SupoBean;
 import com.exem9.lms.web.customer.bean.CustomerBean;
 import com.exem9.lms.web.customer.bean.CustomerMemberBean;
+import com.exem9.lms.web.customer.bean.CustomerNmBean;
+import com.exem9.lms.web.customer.bean.CustomerPjtNmBean;
 import com.exem9.lms.web.mypage.bean.MypageBean;
 import com.ibatis.sqlmap.client.SqlMapClient;
 
@@ -46,6 +48,11 @@ public class CustomerDao implements ICustomerDao{
 	public List<CustomerBean> getcusNminfo() throws Throwable {
 		// TODO Auto-generated method stub
 		return sqlMapClient.queryForList("customer.getcusNminfo");
+	}
+	
+	public List<CustomerNmBean> getcusNminfo2() throws Throwable {
+		// TODO Auto-generated method stub
+		return sqlMapClient.queryForList("customer.getcusNminfo2");
 	}
 
 	public List<CustomerBean> getcusNmProinfo(HashMap params) throws Throwable {
@@ -100,6 +107,12 @@ public class CustomerDao implements ICustomerDao{
 			}			
 		}
 		return result;
+	}
+	
+	// 고객사 프로젝트명 콤보박스 조회 용
+	public List<CustomerPjtNmBean> getcusPjtNminfo() throws Throwable {
+		// TODO Auto-generated method stub
+		return sqlMapClient.queryForList("customer.getcusPjtNminfo");
 	}
 
 }

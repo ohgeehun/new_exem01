@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+    "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="posi">
+	<typeAlias alias="PosiBean" 
+			   type="com.exem9.lms.web.position.bean.PosiBean" />	
+	
+	<select id="getposi" parameterClass="java.util.HashMap" resultClass="PosiBean">
+	select xp.position_id as posiId,
+	       xp.position_name as posiNm
+	from xm_position xp
+	</select>  	
+</sqlMap>
