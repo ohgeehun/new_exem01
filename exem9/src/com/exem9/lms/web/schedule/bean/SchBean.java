@@ -4,6 +4,7 @@ import org.directwebremoting.annotations.DataTransferObject;
 
 @DataTransferObject
 public class SchBean {
+	private String schId;
 	private String schCusId;
 	private String schCusNm;
 	private String schPjtId;
@@ -110,6 +111,12 @@ public class SchBean {
 	}
 	public void setContents(String contents) {
 		this.contents = contents;
+	}
+	public String getSchId() {
+		return schId;
+	}
+	public void setSchId(String schId) {
+		this.schId = schId;
 	}
 	
 }

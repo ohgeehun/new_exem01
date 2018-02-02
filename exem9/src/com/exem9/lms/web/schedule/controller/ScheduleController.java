@@ -93,9 +93,11 @@ public class ScheduleController {
 		} else {
 			
 			List<SchBean> sch_list = iScheduleService.getsch();
+			List<CateBean> cat_list = iCateService.getcate();
 			modelAndView.addObject("sch_list", sch_list);
+			modelAndView.addObject("cat_list", cat_list);
 			
-			System.out.println( "---------------------------------------------------   : " + sch_list.get(0).getSchCusId() );
+			System.out.println( "---------------------------------------------------   : " + cat_list.get(0).getCatId() );
 			
 			modelAndView.setViewName("schedule/my_schedule");
 		}

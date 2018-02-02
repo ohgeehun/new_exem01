@@ -23,6 +23,8 @@
 <!-- DWR setting -->
 <script type="text/javascript" src="dwr/engine.js"></script>
 <script type="text/javascript" src="dwr/util.js"></script>
+<script type="text/javascript" src="dwr/interface/IScheduleService.js"></script>
+<script type="text/javascript" src="dwr/interface/IMypageService.js"></script>
 
 <script>
 var userId = "<%=(String)session.getAttribute("sUserId")%>";
@@ -66,8 +68,42 @@ $(document).ready(function(){
 	          formatDate:'YYYY-MM-DD'
 	    });
 	});
+	
+	
+	/* 내일정 등록 버튼 이벤트 */ //////////////////////////////////////////////////////////////
+    $("#edit_update_btn").bind("click", function(){   	
+    	
+    	var user_id = $("#user_id").val();    // 세션에서 가져와야 함
+    	var user_name = $("#user_name").val();   // 세션에서 가져와야 함
+    	var user_password = $("#user_password").val();
+    	var user_team_id = $("#user_team_id").val();
+    	var user_dbms_id = $("#user_dbms_id").val();
+    	var user_department_id = $("#user_department_id").val();
+    	var user_phone = $("#user_phone").val();
+    	var user_mail = $("#user_mail").val();
+    	var user_position_id = $("#user_position_id").val();
+    	var usr_point = $("#usr_point").val();  	
+    	
+     	if(user_id == ""){     		
+     		alert("로그인ID를 입력해주세요.");	   		
+     	}else{
+			if(user_name == ""){
+				alert("이름을 입력해주세요.");
+     		}else{
+     			IScheduleService.insertSchinfo(
+     					user_id, user_name, user_password,
+						user_team_id, user_dbms_id,
+						user_department_id, user_phone, 
+						user_mail, user_position_id, 
+						usr_point, insertMeminfoCallBack
+				)
+     		}     	
+     	}    	
+    });
 
 });
+
+
 
 </script>
 

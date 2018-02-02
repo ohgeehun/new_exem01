@@ -7,6 +7,7 @@
 			   type="com.exem9.lms.web.schedule.bean.SchBean" />	
 	
 	<resultMap class="SchBean" id="SchMap">
+		<result property="schId" column="support_id"/>
 		<result property="schCusId" column="customer_id"/>
 		<result property="schCusNm" column="customer_name"/>
 		<result property="schPjtId" column="project_id"/>

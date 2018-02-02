@@ -53,6 +53,7 @@ $(function(){
 </script>
 
 <style>
+/*
 #customer_list td,tr {    
     border: 2px solid #ddd;
     text-align: center;
@@ -61,7 +62,17 @@ $(function(){
     padding-right: 5px;
     padding-left: 5px;
     font-size: 10px;
+    font-family: Arial, sans-serif;
 }
+*/
+
+#customer_list td,tr { table-layout: fixed;  }
+#customer_list tr { border-bottom:1px solid #e9e9e9; }
+#customer_list thead td, th {border-left: 1px solid #f2f2f2; border-right: 1px solid #d5d5d5; background: #ddd url("../images/sprites4.png") repeat-x scroll 0 100% ; font-weight: bold; text-align:center;}
+#customer_list tr td, th { border:1px solid #D5D5D5; padding:5px;}
+#customer_list tr:hover { background:#fcfcfc;}
+#customer_list tr ul.actions {margin: 0;}
+#customer_list tr ul.actions li {display: inline; margin-right: 5px;}
 </style>
 
 </head>
@@ -86,20 +97,6 @@ $(function(){
 	 	<table>
 	 	<tr>
 	 	<td>
-		 	<div>	 		
-	
-			</div>
-	 	</td>
-	 	<td>	 	  
-		 	<div>	 		 	
-		
-			</div>
-	 	</td>
-	 	<td>
-		
-	 	</td>
-	 
-	 	<td>
 	 		<div>
 	 			<select id="cus_select4" name="selectBtnVal">
 	 					<option value="0" selected>검색조건없음</option>
@@ -123,7 +120,8 @@ $(function(){
 	 		<table id="cus_list">	
 				<thead id="cus_list_th">
 					<tr>
-						<td>전체선택</br><input style="width:20px;" type="checkbox"  id="checkall"/></td>
+						<td>전체선택</br>
+						<input style="width:20px;" type="checkbox"  id="checkall"/></td>
 						<td><p>고객사명</p></td>
 						<td><p>프로젝트 명</p></td>
 						<td>지원일시<br>(시작)</td>
@@ -136,7 +134,7 @@ $(function(){
 					<c:forEach var="sch" items="${sch_list}">											
 						<tr>
 							<td>
-								<input type="checkbox" name="chk" value="${mem.userId}"/>
+								<input type="checkbox" name="chk" value="${sch.schId}"/>
 							</td>						
 							<td>
 								${sch.schCusNm}
@@ -146,76 +144,29 @@ $(function(){
 							</td>							
 							<td>
 								${sch.start_time}	
-								<select>
-									<c:if test="${mem.userDept == ''}">
-										<option value="0" selected>지정필요.</option>
-									</c:if>
-									<c:forEach var="dept" items="${dept_list}">										
-												<c:choose>
-													<c:when test="${dept.deptId  == mem.userDept}">
-														<option value="${dept.deptId}" selected>${dept.deptNm}</option>
-													</c:when>
-													<c:otherwise>
-														<option value="${dept.deptId}">${dept.deptNm}</option>	
-													</c:otherwise>
-												</c:choose>		
-									</c:forEach>			
-								</select>
 							</td>
 							<td>
 								${sch.end_time}
-								<select>
-									<c:if test="${mem.userTeam == ''}">
-										<option value="0" selected>지정필요.</option>
-									</c:if>
-									<c:forEach var="team" items="${team_list}">
-										<c:if test="${team.deptId  == mem.userDept}">										
-												<c:choose>
-													<c:when test="${team.teamId  == mem.userTeam}">
-														<option value="${team.teamId}" selected>${team.teamNm}</option>
-													</c:when>
-													<c:otherwise>
-														<option value="${team.teamId}">${team.teamNm}</option>	
-													</c:otherwise>
-												</c:choose>
-										</c:if>		
-									</c:forEach>			
-								</select>
 							</td>
 							<td>
-								${sch.category_name}
 								<select>
-									<c:if test="${mem.userDbms == ''}">
+									<c:if test="${sch.category_name == ''}">
 										<option value="0" selected>지정필요.</option>
 									</c:if>
-									<c:forEach var="dbms" items="${dbms_list}">
+									<c:forEach var="cat" items="${cat_list}">
 												<c:choose>
-													<c:when test="${dbms.dbmsId  == mem.userDbms}">
-														<option value="${dbms.dbmsId}" selected>${dbms.dbmsNm}</option>
+													<c:when test="${cat.catId  == sch.category_id}">
+														<option value="${cat.catId}" selected>${cat.catNm}</option>
 													</c:when>
 													<c:otherwise>
-														<option value="${dbms.dbmsId}">${dbms.dbmsNm}</option>	
+														<option value="${cat.catId}">${cat.catNm}</option>	
 													</c:otherwise>
 												</c:choose>
 									</c:forEach>			
 								</select>
 							</td>
 							<td>
-								${sch.contents}							
-								<select>
-									<c:if test="${mem.userPosi == ''}">
-										<option value="0" selected>지정필요.</option>
-									</c:if>
-									<c:forEach var="posi" items="${posi_list}">
-											<c:choose>
-												<c:when test="${posi.posiId  == mem.userPosi}">
-													<option value="${posi.posiId}" selected>${posi.posiNm}</option>
-												</c:when>
-												<c:otherwise>
-													<option value="${posi.posiId}">${posi.posiNm}</option>	
-												</c:otherwise>
-											</c:choose>
-									</c:forEach>			
+								${sch.contents}										
 								</select>
 							</td>			
 						</tr>					
