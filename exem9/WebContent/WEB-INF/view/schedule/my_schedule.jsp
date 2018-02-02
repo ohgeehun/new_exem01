@@ -75,6 +75,7 @@ $(function(){
 </style>
 
 </head>
+
 <body>
 <c:import url="/main_upview"></c:import>
 <div class="row">
@@ -85,8 +86,8 @@ $(function(){
 		   <a href="#" id="team_sch">팀 일정 보기</a></br>
 	 </div>
 	 
+	 
 	 <div class="column middle">
-		<div class="column middle">
 	 	<div align="center"><h3>내 일정 정보</h3></div>
 	 	
 		<input type="hidden" id="nowPage" name="pageNo" value="${nowPage}"/>
@@ -199,10 +200,10 @@ $(function(){
 				</tfoot>
 	 		</table>
 		</div>
-		
 	</div>
 </div>
-	<c:import url="/main_botview"></c:import>
+
+<c:import url="/main_botview"></c:import>
 </body>
 </html>
 
