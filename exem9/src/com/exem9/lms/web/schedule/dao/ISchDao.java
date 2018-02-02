@@ -9,4 +9,5 @@ public interface ISchDao {
 
 	public List getsch() throws Throwable;
 
+	public String insertSchinfo(HashMap params) throws Throwable;
 }

@@ -53,7 +53,7 @@ $(function(){
 </script>
 
 <style>
-/*
+
 #customer_list td,tr {    
     border: 2px solid #ddd;
     text-align: center;
@@ -62,10 +62,8 @@ $(function(){
     padding-right: 5px;
     padding-left: 5px;
     font-size: 10px;
-    font-family: Arial, sans-serif;
 }
-*/
-
+/*
 #customer_list td,tr { table-layout: fixed;  }
 #customer_list tr { border-bottom:1px solid #e9e9e9; }
 #customer_list thead td, th {border-left: 1px solid #f2f2f2; border-right: 1px solid #d5d5d5; background: #ddd url("../images/sprites4.png") repeat-x scroll 0 100% ; font-weight: bold; text-align:center;}
@@ -73,6 +71,7 @@ $(function(){
 #customer_list tr:hover { background:#fcfcfc;}
 #customer_list tr ul.actions {margin: 0;}
 #customer_list tr ul.actions li {display: inline; margin-right: 5px;}
+*/
 </style>
 
 </head>

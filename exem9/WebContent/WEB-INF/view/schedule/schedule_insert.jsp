@@ -32,6 +32,8 @@ var userDept = "<%=(String)session.getAttribute("sUserDept")%>";
 var userDbms = "<%=(String)session.getAttribute("sUserDbms")%>";
 
 var temp = [];
+
+//////////////////
 $(document).ready(function(){
 
 	$("#sch_insert").bind("click", function(){	
@@ -69,33 +71,41 @@ $(document).ready(function(){
 	    });
 	});
 	
+	// DWR로 사용자 정보 가져오기
+	//IMypageService.getUserinfo(userId, userInfoCallBack);
 	
 	/* 내일정 등록 버튼 이벤트 */ //////////////////////////////////////////////////////////////
     $("#edit_update_btn").bind("click", function(){   	
     	
-    	var user_id = $("#user_id").val();    // 세션에서 가져와야 함
-    	var user_name = $("#user_name").val();   // 세션에서 가져와야 함
-    	var user_password = $("#user_password").val();
-    	var user_team_id = $("#user_team_id").val();
-    	var user_dbms_id = $("#user_dbms_id").val();
-    	var user_department_id = $("#user_department_id").val();
-    	var user_phone = $("#user_phone").val();
-    	var user_mail = $("#user_mail").val();
-    	var user_position_id = $("#user_position_id").val();
-    	var usr_point = $("#usr_point").val();  	
+    	var user_id = userId;    // 세션에서 가져와야 함
+    	var customer_id = $("#customer_name_id").val();
+    	var project_id = $("#customer_project_id").val();
+    	var dbms_id = $("#dbms_id").val();
+    	var category_id = $("#category_id").val();
+    	var start_time = $("#startDate").val();
+    	var end_time = $("#endDate").val();
+    	var contents = $("#etc_id").val();
     	
      	if(user_id == ""){     		
-     		alert("로그인ID를 입력해주세요.");	   		
+     		alert("세션에 사용자ID값이 없습니다.");	   		
      	}else{
-			if(user_name == ""){
-				alert("이름을 입력해주세요.");
-     		}else{
+			if(customer_id == ""){
+				alert("고객사 명을 선택하세요.");
+     		}
+			else if(project_id == ""){
+				alert("고객사 프로젝트명을 선택하세요.");
+     		}
+			else{
      			IScheduleService.insertSchinfo(
-     					user_id, user_name, user_password,
-						user_team_id, user_dbms_id,
-						user_department_id, user_phone, 
-						user_mail, user_position_id, 
-						usr_point, insertMeminfoCallBack
+     					user_id, 
+     					customer_id,
+						project_id,
+						dbms_id, 
+						category_id, 
+						start_time,
+						end_time,
+						contents,
+						insertSchinfoCallBack
 				)
      		}     	
      	}    	
@@ -103,7 +113,38 @@ $(document).ready(function(){
 
 });
 
+//////////////////
 
+function insertSchinfoCallBack(res){
+	if(res == "FAILED"){
+		alert("실패");
+		location.href = "schedule_insert";
+	}else if(res == "SUCCESS"){
+		alert("성공");
+		location.href = "schedule_insert";
+	}
+}
+/*
+	function userInfoCallBack(res){	//마이페이지 기본 화면		
+		var text = "";		
+		
+		userId
+		res[0].userNm+"</td></tr>";					
+		res[0].userDept+"</td></tr>";					
+		res[0].userTeam+"</td></tr>";					
+
+		res[0].userPhone	
+		
+		res[0].userMail
+		res[0].userPoint
+		
+		userDbms = res[0].userDbms;
+		userPosi = res[0].userPosi;
+		
+		IMypageService.getdbms(dbmsCallBack);		
+		IMypageService.getposi(posiCallBack);
+	}
+*/
 
 </script>
 

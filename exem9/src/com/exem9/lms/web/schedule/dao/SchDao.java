@@ -1,5 +1,6 @@
 package com.exem9.lms.web.schedule.dao;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -18,4 +19,15 @@ public class SchDao implements ISchDao{
 		// TODO Auto-generated method stub
 		return sqlMapClient.queryForList("sch.getsch");
 	}
+
+	@Override
+	public String insertSchinfo(HashMap params) throws Throwable {
+		String result = "FAILED";
+		
+		if(sqlMapClient.update("sch.insertSchinfo", params) > 0){
+			result = "SUCCESS";
+		}
+		return result;
+	}
+	
 }
