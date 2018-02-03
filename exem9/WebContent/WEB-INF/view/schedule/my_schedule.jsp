@@ -208,7 +208,7 @@ $(function(){
 								<a href="#" id="nextVal">다음</a>
 							</c:if>
 						</td>
-						<td colspan="1">
+						<td colspan="2">
 							  <input type="password" placeholder="정보 수정 비밀번호 입력." id="editPw" required>&nbsp;&nbsp;
 							  <input type="button" id="edit_update_btn" value="변경"></input>
 						</td>
