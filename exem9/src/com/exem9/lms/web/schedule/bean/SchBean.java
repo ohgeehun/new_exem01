@@ -5,6 +5,7 @@ import org.directwebremoting.annotations.DataTransferObject;
 @DataTransferObject
 public class SchBean {
 	private String schId;
+	private String start_day;
 	private String schCusId;
 	private String schCusNm;
 	private String schPjtId;
@@ -99,6 +100,9 @@ public class SchBean {
 	}
 	public void setStart_time(String start_time) {
 		this.start_time = start_time;
+		// 연월일 설정
+		String start_day = start_time.substring(0,10);
+		this.setStart_day(start_day);
 	}
 	public String getEnd_time() {
 		return end_time;
@@ -117,6 +121,12 @@ public class SchBean {
 	}
 	public void setSchId(String schId) {
 		this.schId = schId;
+	}
+	public String getStart_day() {
+		return start_day;
+	}
+	public void setStart_day(String start_day) {
+		this.start_day = start_day;
 	}
 	
 }

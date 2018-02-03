@@ -41,6 +41,19 @@ $(document).ready(function(){
 	$("#team_sch").bind("click", function(){	
 	   	location.href = "team_schedule";
 	});
+	
+	/* 체크박스 이벤트 */
+	$("#checkall").click(function(){
+        //클릭되었으면
+        if($("#checkall").prop("checked")){
+            //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의
+            $("input[name=chk]").prop("checked",true);
+            //클릭이 안되있으면
+        }else{
+            //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의
+            $("input[name=chk]").prop("checked",false);
+        }
+    });
 });
  			
 </script>
@@ -122,6 +135,7 @@ $(function(){
 					<tr>
 						<td>전체선택</br>
 						<input style="width:20px;" type="checkbox"  id="checkall"/></td>
+						<td>지원일자</td>
 						<td><p>고객사명</p></td>
 						<td><p>프로젝트 명</p></td>
 						<td>지원일시<br>(시작)</td>
@@ -135,6 +149,9 @@ $(function(){
 						<tr>
 							<td>
 								<input type="checkbox" name="chk" value="${sch.schId}"/>
+							</td>
+							<td>
+								${sch.start_day}	
 							</td>						
 							<td>
 								${sch.schCusNm}
@@ -166,8 +183,7 @@ $(function(){
 								</select>
 							</td>
 							<td>
-								${sch.contents}										
-								</select>
+								<textarea id="etc_id_${sch.schId}" rows="3" cols="30" name="contents">${sch.contents}</textarea>
 							</td>			
 						</tr>					
 					</c:forEach>										

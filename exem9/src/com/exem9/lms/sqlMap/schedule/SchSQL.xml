@@ -52,6 +52,7 @@
 	) p on s.project_id = p.project_id
 	left outer join xm_dbms d on s.dbms_id = d.dbms_id
 	left outer join xm_category ca on s.category_id = ca.category_id
+	order by s.start_time
 	
 	<!-- 
 	SELECT s.support_id, 
