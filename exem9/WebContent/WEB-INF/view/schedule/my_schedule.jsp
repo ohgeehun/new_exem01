@@ -54,14 +54,132 @@ $(document).ready(function(){
             $("input[name=chk]").prop("checked",false);
         }
     });
+	
+	// 이번주 날짜 셋팅하기
+	$('#week-label-year').text(yyyy);
+	$('#week-label-from-day').text(mm + '-' + dd);
+	$('#week-label-to-day').text(mm2 + '-' + dd2 );
+	
+	// 이전주, 다음주 클릭시 이벤트 처리
+	$("#prevWeek").bind("click", function(){	
+		// 현재 셋팅된 날짜를 가지고 와서, 이값을 입력하면 이전주의 시작일과 종료일을 리턴한다.
+		
+		var yyyy = $('#week-label-year').text();
+		var mmdd = $('#week-label-from-day').text();
+		//var mm = mm-dd.substring(0,2);
+		//var dd = mm-dd.substring(3,5);
+		var selectedDay = yyyy + '-' + mmdd;  // yyyy-mm-dd로 입력
+	
+		var cal_yyyymmdd_yyyymmdd = calWeek(selectedDay,'prev'); // yyyy-mm-ddyyyy-mm-dd 이렇게 계산한다.
+		
+		yyyy = cal_yyyymmdd_yyyymmdd.substring(0,4);
+		mmdd = cal_yyyymmdd_yyyymmdd.substring(5,10);
+		mmdd2 =  cal_yyyymmdd_yyyymmdd.substring(15,20);
+		
+		$('#week-label-year').text(yyyy);
+		$('#week-label-from-day').text(mmdd);
+		$('#week-label-to-day').text(mmdd2);
+	});
+	
+	$("#nextWeek").bind("click", function(){	
+		// 현재 셋팅된 날짜를 가지고 와서, 이값을 입력하면 다음주의 시작일과 종료일을 리턴한다.
+		
+		var yyyy = $('#week-label-year').text();
+		var mmdd = $('#week-label-from-day').text();
+		//var mm = mm-dd.substring(0,2);
+		//var dd = mm-dd.substring(3,5);
+		var selectedDay = yyyy + '-' + mmdd;  // yyyy-mm-dd로 입력
+	
+		var cal_yyyymmdd_yyyymmdd = calWeek(selectedDay,'next'); // yyyy-mm-ddyyyy-mm-dd 이렇게 계산한다.
+		
+		yyyy = cal_yyyymmdd_yyyymmdd.substring(0,4);
+		mmdd = cal_yyyymmdd_yyyymmdd.substring(5,10);
+		mmdd2 =  cal_yyyymmdd_yyyymmdd.substring(15,20);
+		
+		$('#week-label-year').text(yyyy);
+		$('#week-label-from-day').text(mmdd);
+		$('#week-label-to-day').text(mmdd2);
+	});
+	
 });
  			
 </script>
 
 <script>
-$(function(){
+// 이번주 월요일 날짜 구하기
+var currentDay = new Date();  
+var theYear = currentDay.getFullYear();
+var theMonth = currentDay.getMonth();
+var theDate  = currentDay.getDate();
+var theDayOfWeek = currentDay.getDay(); //요일
+ 
+var thisMonday;
+var thistoSunday;
+ 
+var resultDay = new Date(theYear, theMonth, theDate - theDayOfWeek +1 ); //이번주 월요일 날짜
+var yyyy = resultDay.getFullYear();
+var mm = Number(resultDay.getMonth()) + 1;
+var dd = resultDay.getDate();
 
-});
+mm = String(mm).length === 1 ? '0' + mm : mm;
+dd = String(dd).length === 1 ? '0' + dd : dd;
+
+thisMonday = yyyy + '-' + mm + '-' + dd;
+//////// 이번주 주일 날짜 구하기
+var resultDay2 = new Date(theYear, theMonth, theDate - theDayOfWeek +7 ); //이번주 주일 날짜
+var mm2 = Number(resultDay2.getMonth()) + 1;
+var dd2 = resultDay2.getDate();
+
+var yyyy2 = resultDay2.getFullYear();
+mm2 = String(mm2).length === 1 ? '0' + mm2 : mm2;
+dd2 = String(dd2).length === 1 ? '0' + dd2 : dd2;
+
+thistoSunday = yyyy2 + '-' + mm2 + '-' + dd2;
+
+//console.log(thisMonday);
+
+// 이전주와 다음주 계산하는 함수
+function calWeek(yyyymmdd, isPrev ){
+	console.log(yyyymmdd);
+	// yyyymmdd에는 yyyy-mm-dd 형태로 값이 들어옴
+	var selectedDay = new Date(yyyymmdd);  // 금주 월요일  
+	console.log(selectedDay);
+	
+	var resultDay = new Date(selectedDay);
+	var thisMonday;
+	var thistoSunday;
+	
+	if ( isPrev == 'prev')
+		resultDay.setDate( resultDay.getDate() - 7 );  // 전주 월요일
+	else
+		resultDay.setDate( resultDay.getDate() + 7 );  // 다음주 월요일
+	
+	console.log(resultDay);
+	
+	var yyyy = resultDay.getFullYear();
+	var mm = Number(resultDay.getMonth()) + 1;
+	var dd = resultDay.getDate();
+	
+	mm = String(mm).length === 1 ? '0' + mm : mm;
+	dd = String(dd).length === 1 ? '0' + dd : dd;
+	
+	thisMonday = yyyy + '-' + mm + '-' + dd;
+	////////
+	var resultDay2 = new Date(resultDay);
+	resultDay2.setDate( resultDay2.getDate() +6 ) ; // 주일 계산
+	
+	var mm2 = Number(resultDay2.getMonth()) + 1;
+	var dd2 = resultDay2.getDate();
+	
+	var yyyy2 = resultDay2.getFullYear();
+	mm2 = String(mm2).length === 1 ? '0' + mm2 : mm2;
+	dd2 = String(dd2).length === 1 ? '0' + dd2 : dd2;
+	
+	thistoSunday = yyyy2 + '-' + mm2 + '-' + dd2;
+	
+	console.log(thisMonday+thistoSunday);
+	return thisMonday+thistoSunday;  // 결과값은 yyyy-mm-ddyyyy-mm-dd 형태임
+}
 
 </script>
 
@@ -85,6 +203,37 @@ $(function(){
 #customer_list tr ul.actions {margin: 0;}
 #customer_list tr ul.actions li {display: inline; margin-right: 5px;}
 */
+a {
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 16px;
+}
+
+a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.previous {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.next {
+    background-color: #4CAF50;
+    color: white;
+}
+/*    */
+.week-label {
+    padding: 8px;
+}
+
+.week-label > div {
+    /* text-align: center; */
+    color: #4CAF50;
+    font-size: 20px;
+)
+
 </style>
 
 </head>
@@ -111,19 +260,22 @@ $(function(){
 	 	<tr>
 	 	<td>
 	 		<div>
-	 			<select id="cus_select4" name="selectBtnVal">
-	 					<option value="0" selected>검색조건없음</option>
-						<option value="1">로그인ID</option>						
-						<option value="2">이름</option>
-						<option value="3">부서</option>
-						<option value="4">팀</option>
-				</select>
+	 			<a href="#" class="previous" id="prevWeek">&laquo; 이전주</a>
+				
 	 		</div>
 	 	</td>
 	 	<td>	 		
+	 	    <div class="week-label">
+			  <div id="week-label-year" style='display:inline;'></div>
+			  <div style='display:inline;'>년 &nbsp;    </div>
+			  <div id="week-label-from-day" style='display:inline;'>01-01</div>
+			  <div style='display:inline;'> ~ </div>
+			  <div id="week-label-to-day" style='display:inline;'>02-05</div>
+			</div>
+	 	</td>
+	 	<td>	 		
 		 	<div>			 		
-		 	    <input type="text" id="select_text" name="selectTextVal" value="검색 조건을 선택하세요."></input>
-		 	    <input type="button" id="select_btn" value="검색"></input>
+		 	    <a href="#" class="next" id="nextWeek">다음주 &raquo;</a>
 			</div>
 	 	</td>	 
 	 	</tr>
