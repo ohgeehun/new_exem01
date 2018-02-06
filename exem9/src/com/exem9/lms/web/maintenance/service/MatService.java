@@ -3,6 +3,11 @@ package com.exem9.lms.web.maintenance.service;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.directwebremoting.WebContext;
+import org.directwebremoting.WebContextFactory;
 import org.directwebremoting.annotations.RemoteProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -64,9 +69,11 @@ public class MatService implements IMatService{
 	public List<MemberBean> getTeammember(String teamId, String user1Id)
 			throws Throwable {
 
+		System.out.println(user1Id);
+		
 		HashMap params = new HashMap();
 		params.put("teamId",Integer.parseInt(teamId));
-		params.put("user1Id",Integer.parseInt(user1Id));
+		params.put("user1Id",user1Id);
 		
 		return iMemberDao.getTeammember(params);
 	}
@@ -92,6 +99,36 @@ public class MatService implements IMatService{
 	public List<DbmsBean> getdbms() throws Throwable {
 		// TODO Auto-generated method stub
 		return iDbmsDao.getdbms();
+	}
+
+	public String insertMatinfo(String cusNm, String proNm, String dbmsId,
+			String dbmsVersion, String cusUserNm, String salesmanId,
+			String user1Id, String user2Id, String supoLeverId,
+			String supoVisitId, String supoinstallData, String supostateDate,
+			String supoendDatae, String etc) throws Throwable {
+		
+		WebContext wctx = WebContextFactory.get();
+		HttpServletRequest request = wctx.getHttpServletRequest();
+		HttpSession session = request.getSession();	
+		
+		HashMap params = new HashMap();
+		params.put("cusNm",cusNm);
+		params.put("proNm",proNm);
+		params.put("dbmsId",Integer.parseInt(dbmsId));
+		params.put("dbmsVersion",dbmsVersion);
+		params.put("cusUserNm",cusUserNm);
+		params.put("salesmanId",salesmanId);
+		params.put("user1Id",user1Id);
+		params.put("user2Id",user2Id);
+		params.put("supoLeverId",Integer.parseInt(supoLeverId));
+		params.put("supoVisitId",Integer.parseInt(supoVisitId));
+		params.put("supoinstallData",supoinstallData);
+		params.put("supostateDate",supostateDate);
+		params.put("supoendDatae",supoendDatae);
+		params.put("etc",etc);
+		params.put("userId", (String)session.getAttribute("sUserId"));
+		
+		return iMatDao.insertMatinfo(params);
 	}
 
 

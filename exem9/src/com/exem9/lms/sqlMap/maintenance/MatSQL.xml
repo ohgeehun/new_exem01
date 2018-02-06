@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+    "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="maintenance">
+	<typeAlias alias="matBean" 
+			   type="com.exem9.lms.web.maintenance.bean.MatBean"/> 
+	
+	<update id="insertMatinfo" parameterClass="java.util.HashMap">
+	insert into xm_maintenance (maintenance_id, project_id, dbms_id, dbms_version, customer1_name, salesman_id, user1_id, user2_id, support_level_id, support_visit_id, 
+								<isNotEmpty property="supoinstallData">
+								support_install_date,
+								</isNotEmpty>								
+								<isNotEmpty property="supostateDate">
+								support_start_date,
+								</isNotEmpty>								
+								<isNotEmpty property="supoendDatae">
+								support_end_date,
+								</isNotEmpty>
+								etc, create_user, create_date, last_update_user, last_update_date
+								)
+								values(NEXTVAL('xm_maintenance_next_val'),(select project_Id as proId from xm_customer where project_name = #proNm# and customer_name = #cusNm#), 
+											  #dbmsId#, #dbmsVersion#, #cusUserNm#, 
+			                                  #salesmanId#, #user1Id#, #user2Id#, #supoLeverId#, #supoVisitId#,
+			                                  <isNotEmpty property="supoinstallData">
+			                                  #supoinstallData#::date, 
+			                                  </isNotEmpty>
+			                                  <isNotEmpty property="supostateDate">			                                  
+			                                  #supostateDate#::date, 
+			                                  </isNotEmpty>
+			                                  <isNotEmpty property="supoendDatae">
+			                                  #supoendDatae#::date,
+			                                  </isNotEmpty> 			                                  
+			                                  #etc#, #userId#, 
+			                                  current_date::date, null, null)          
+	</update>	
+</sqlMap>

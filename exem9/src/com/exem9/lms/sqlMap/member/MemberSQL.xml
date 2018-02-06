@@ -30,7 +30,7 @@
 	FROM xm_member xm, xm_team xt		
 	WHERE xm.USER_TEAM_ID = xt.TEAM_ID
 	AND xt.TEAM_ID = #teamId#		
-	<isNotEmpty property="user1Nm">
+	<isNotEmpty property="user1Id">
 	and xm.user_Id != #user1Id#	
 	</isNotEmpty>
 	</select>			

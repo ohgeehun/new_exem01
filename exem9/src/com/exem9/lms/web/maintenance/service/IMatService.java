@@ -27,4 +27,11 @@ public interface IMatService {
 	
 	/*고객사 관리 검색 조건 중 업무 리스트 정보 가져오기 (DbmsDao 연계)*/
 	public List<DbmsBean> getdbms() throws Throwable;
+	
+	/*유지보수 등록  이벤트*/
+	public String insertMatinfo(String cusNm, String proNm, String dbmsId,
+								String dbmsVersion, String cusUserNm, String salesmanId,
+								String user1Id, String user2Id, String supoLeverId,
+								String supoVisitId, String supoinstallData, String supostateDate,
+								String supoendDatae, String etc) throws Throwable ;
 }

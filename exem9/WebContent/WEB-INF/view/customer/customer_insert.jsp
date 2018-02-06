@@ -8,13 +8,15 @@
 <!-- <link rel="stylesheet" type="text/css" href="./resources/css/prettydropdowns.css" media="all" />  -->
 <link rel="stylesheet" type="text/css" href="./resources/css/main.css" media="all" />
 <link rel="stylesheet" type="text/css" href="./resources/css/jquery/jquery-ui-1.8.custom.css"/>  
+<link id="themecss" rel="stylesheet" type="text/css" href="./resources/css/common/all.min.css"/>
 
 <!-- jQuery Script -->
 <script type="text/javascript" src="resources/script/jquery/jquery-1.8.2.min.js"></script>
 <!-- <script type="text/javascript" src="resources/script/jquery/jquery-ui-1.8.min.js"></script> -->
 <script type="text/javascript" src="resources/script/jquery/jquery-ui-1.8.custom.js"></script>  
 <script type="text/javascript" src="resources/script/jquery/jquery.form.js"></script>
-
+<script type="text/javascript" src="resources/script/common/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="resources/script/common/shieldui-all.min.js"></script>
 <!-- <script src="resources/script/jquery/jquery-latest.min.js"></script> 
 <script src="resources/script/jquery/jquery.prettydropdowns.js"></script> 
 
@@ -100,8 +102,8 @@ $(document).ready(function(){
     $("#cusNm_id").blur(function(){    
     	if ($("#cusNm_id").val() != ""){
     		var cusUser = $("#cusNm_id").val();    		
-    		var cusId = $("#cusName_hidden_id").val();
-    		       	
+    		var cusId = $("#cusName_hidden_id").val();    
+    		
     		if (cusId != ""){    		
     			ICustomerService.getcusUserinfo(cusUser, cusId, "0",cusUserinfoCallBack);	
     		}else{    			
@@ -378,9 +380,24 @@ function cusNminfoCallBack(res){
 		availableTags.push(res[i].cusNm);			
 	}
 	
-	$( "#cusName_id" ).autocomplete({
+	 $("#cusName_id").shieldComboBox({
+	    	dataSource: {
+	            data: availableTags
+	        },	        
+	        autoComplete: {
+	            enabled: true
+	        },events: {
+	        	change : function(e){   
+     				var cusNm =  $("#cusName_id").val();	        			
+     		
+     				$("#cusUser_id").val("");
+    			    ICustomerService.getcusNmProinfo(cusNm,"", cusNmProinfoCallBack);	           			   
+     	   		}
+	        }
+ 	}); 	
+	/* $( "#cusName_id" ).autocomplete({
 		  source: availableTags
-	});
+	}); */
 }
 
 function cusNmProinfoCallBack(res){
@@ -417,9 +434,9 @@ function cusNmUserinfoCallBack(res){
 		for(var i = 0; i < res.length; i++){	
 			availableTags.push(res[i].cususerNm);
 		}
-		$( "#cusNm_id" ).autocomplete({
+/* 		$( "#cusNm_id" ).autocomplete({
 			  source: availableTags
-		});
+		}); */
 	}else{
 		$("#cusNm_id").val("");
 	}
@@ -492,38 +509,38 @@ th, td {
 						<td>							
 							<div id="div_cusName_id">
 								<input type="hidden" id="cusName_hidden_id" value="0"/>
-								<input id='cusName_id' value=""  style='text-transform: uppercase' onblur="onblur_event();"></input>
+								<input class="sui-input" id='cusName_id' value=""  style='text-transform: uppercase' onblur="onblur_event();"></input>
 								<span id="idSpan" class="redText"></span>	
 							</div>									
 						</td>
 					</tr>
 					<tr>
 						<td>프로젝트명*</td>
-						<td><input type='text' id='cusproName_id' value="" style='text-transform: uppercase'>			
+						<td><input class="sui-input" type='text' id='cusproName_id' value="" style='text-transform: uppercase'>			
 						<span id="idSpan1" class="redText"></span>
 						</td>	
 					</tr>	
 					<tr>
 						<td>고객명</td>												
 						<td><input type="hidden" id="cusNm_hidden_id" value="0"/>
-						<input type='text' id='cusNm_id' value=""  style='text-transform: uppercase'></td>															
+						<input class="sui-input" type='text' id='cusNm_id' value=""  style='text-transform: uppercase'></td>															
 					</tr>			
 					<tr>
 						<td>고객 연락처</td>						
-						<td><input type='text' id='cusPhone_id' value="" onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' style='ime-mode:disabled;'></td>															
+						<td><input class="sui-input" type='text' id='cusPhone_id' value="" onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' style='ime-mode:disabled;'></td>															
 					</tr>
 					<tr>
 						<td>고객 이메일</td>						
-						<td><input type='text' id='cusMail_id' value=""></td>													
+						<td><input class="sui-input" type='text' id='cusMail_id' value=""></td>													
 					</tr>		
 					<tr>
 						<td>고객사 위치</td>						
-						<td><input type='text' id='cuslocation_id' value=""  style='text-transform: uppercase'></td>														
+						<td><input class="sui-input" type='text' id='cuslocation_id' value=""  style='text-transform: uppercase'></td>														
 					</tr>
 					<tr>
 						<td>담당영업</td>
 						<td>
-						<select id='salesman_select_id'>
+						<select class="sui-input" id='salesman_select_id'>
 							<option value="0" selected>지정하지않음.</option>
 						    <c:forEach var="sl" items="${salseman_list}">
 			 	    			<option value="${sl.userId}">${sl.userNm}</option>		 	    	

@@ -45,7 +45,6 @@ public class MemberService implements IMemberService{
 		return iDeptrDao.getdept();
 	}
 
-	@Override
 	public List<MemberBean> getmeminfo(String selectBtnVal, String selectTextVal, int pageNo) throws Throwable {
 		
 		HashMap params = new HashMap();

@@ -38,7 +38,7 @@ public class MemberDao implements IMemberDao{
 	}
 
 	public List<MemberBean> getTeammember(HashMap params) throws Throwable {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub		
 		return sqlMapClient.queryForList("member.getTeammember",params);
 	}
 	
