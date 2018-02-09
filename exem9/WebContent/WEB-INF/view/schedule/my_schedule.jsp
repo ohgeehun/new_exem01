@@ -269,8 +269,9 @@ a:hover {
 			  <div id="week-label-year" style='display:inline;'></div>
 			  <div style='display:inline;'>년 &nbsp;    </div>
 			  <div id="week-label-from-day" style='display:inline;'>01-01</div>
-			  <div style='display:inline;'> ~ </div>
+			  <div style='display:inline;'>(월) ~ </div>
 			  <div id="week-label-to-day" style='display:inline;'>02-05</div>
+			  <div style='display:inline;'>(일)</div>
 			</div>
 	 	</td>
 	 	<td>	 		
