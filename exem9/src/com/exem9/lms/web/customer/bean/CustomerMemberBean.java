@@ -9,7 +9,22 @@ public class CustomerMemberBean {
 	private String cususerPhone;
 	private String cususerMail;
 	private String cusId;
+	private String proId;
+	private String dbmsId;
 	
+	
+	public String getProId() {
+		return proId;
+	}
+	public void setProId(String proId) {
+		this.proId = proId;
+	}
+	public String getDbmsId() {
+		return dbmsId;
+	}
+	public void setDbmsId(String dbmsId) {
+		this.dbmsId = dbmsId;
+	}
 	public String getCususerId() {
 		return cususerId;
 	}

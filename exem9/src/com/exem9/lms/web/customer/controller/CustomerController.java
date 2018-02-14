@@ -84,9 +84,11 @@ public class CustomerController {
 		} else {			
 			
 			List<MemberBean> salseman_list = iCustomerService.getSalsemember(); 
+			List<DbmsBean> dbms_list = iCustomerService.getdbms();
 
 			modelAndView.addObject("salseman_list", salseman_list);
-
+			modelAndView.addObject("dbms_list", dbms_list);
+			
 			modelAndView.setViewName("customer/customer_insert");
 		}
 				

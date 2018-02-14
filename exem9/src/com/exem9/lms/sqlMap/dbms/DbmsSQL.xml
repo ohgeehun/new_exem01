@@ -10,8 +10,7 @@
 	
 	<select id="getdbmsinfo" resultClass="DbmsBean">
 	SELECT DBMS_ID AS dbmsId,
-	       DBMS_NAME AS dbmsNm,
-	       DEPARTMENT_ID AS deptId
+	       DBMS_NAME AS dbmsNm
 	FROM XM_DBMS
 	</select> 
 	

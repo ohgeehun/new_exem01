@@ -54,11 +54,13 @@ $(document).ready(function(){
     $("#edit_update_btn").bind("click", function(){   	
     	
     	var cusNm_hidden = $("#cusName_hidden_id").val();
+    	var cusPro_hidden = $("#cusPro_hidden_id").val();
+    	var cusDbms_hidden = $("#dbmsNm_hidden_id").val();
     	var cusUser_hidden = $("#cusNm_hidden_id").val();
     	
     	var cusNm = $("#cusName_id").val();
     	var cusproNm = $("#cusproName_id").val();
-    	
+    	var dbmsNm = $("#dbms_select_id").val();
     	var cususerNm = $("#cusNm_id").val();
     	var cususerPhone = $("#cusPhone_id").val();
     	var cususerMail = $("#cusMail_id").val();
@@ -74,8 +76,8 @@ $(document).ready(function(){
 			if(cusproNm == ""){
 				alert("프로젝트명을 입력해주세요.");
      		}else{
-     			ICustomerService.insertCusinfo(cusNm_hidden, cusUser_hidden,  
-	                       cusNm, cusproNm,  
+     			ICustomerService.insertCusinfo(cusNm_hidden,  cusPro_hidden, cusDbms_hidden, cusUser_hidden, 
+	                       cusNm, cusproNm, dbmsNm,
 	                       cususerNm, cususerPhone, cususerMail, cuslocation, 
 	                       salesmanId, etc, insertCusinfoCallBack); 
      		}     	
@@ -93,7 +95,7 @@ $(document).ready(function(){
     	    		var cusNm = $("#cusName_id").val();
     	    		var cusProNm = $("#cusproName_id").val();
     	    		
-    	    		ICustomerService.getcusNmProinfo(cusNm, cusProNm,cusNmProinfoCallBack1);
+    	    		//ICustomerService.getcusNmProinfo(cusNm, cusProNm,cusNmProinfoCallBack1);
     		 }  
     	 }    	
     }); 
@@ -105,7 +107,7 @@ $(document).ready(function(){
     		var cusId = $("#cusName_hidden_id").val();    
     		
     		if (cusId != ""){    		
-    			ICustomerService.getcusUserinfo(cusUser, cusId, "0",cusUserinfoCallBack);	
+    			//ICustomerService.getcusUserinfo(cusUser, cusId, "0",cusUserinfoCallBack);	
     		}else{    			
     			$("#cusPhone_id").val("");
         		$("#cusMail_id").val("");
@@ -121,8 +123,8 @@ function onblur_event(){
 		if ($("#cusName_id").val() != ""){    		
 			var cusNm = $("#cusName_id").val();    	
 				
-			 ICustomerService.getcusNmProinfo(cusNm,"", cusNmProinfoCallBack); /* 위치정보가져오기 */ 
-			 ICustomerService.getcusNmUserinfo(cusNm, cusNmUserinfoCallBack); /* 고객정보가져오기 */
+		//	 ICustomerService.getcusNmProinfo(cusNm,"", cusNmProinfoCallBack); /* 위치정보가져오기 */ 
+		//	 ICustomerService.getcusNmUserinfo(cusNm, cusNmUserinfoCallBack); /* 고객정보가져오기 */
 		}else{    	
 			$("#cusproName_id").val("");
 			$("#cuslocation_id").val("");
@@ -391,7 +393,7 @@ function cusNminfoCallBack(res){
      				var cusNm =  $("#cusName_id").val();	        			
      		
      				$("#cusUser_id").val("");
-    			    ICustomerService.getcusNmProinfo(cusNm,"", cusNmProinfoCallBack);	           			   
+    			  //  ICustomerService.getcusNmProinfo(cusNm,"", cusNmProinfoCallBack);	           			   
      	   		}
 	        }
  	}); 	
@@ -514,12 +516,26 @@ th, td {
 							</div>									
 						</td>
 					</tr>
-					<tr>
-						<td>프로젝트명*</td>
-						<td><input class="sui-input" type='text' id='cusproName_id' value="" style='text-transform: uppercase'>			
-						<span id="idSpan1" class="redText"></span>
+					<tr> 
+						<td>프로젝트명*</td>						
+						<td>
+							<input type="hidden" id="cusPro_hidden_id" value="0"/>
+							<input class="sui-input" type='text' id='cusproName_id' value="" style='text-transform: uppercase'>			
+							<span id="idSpan1" class="redText"></span>
 						</td>	
-					</tr>	
+					</tr>
+					<tr>
+						<td>업무명*</td>
+						<td>
+						<input type="hidden" id="dbmsNm_hidden_id" value="0"/>
+						<select class="sui-input" id='dbms_select_id'>
+							<option value="0" selected>지정하지않음.</option>
+						    <c:forEach var="dl" items="${dbms_list}">
+			 	    			<option value="${dl.dbmsId}">${dl.dbmsNm}</option>		 	    	
+			 	    		</c:forEach>	
+						</select>
+						</td>	
+					</tr>		
 					<tr>
 						<td>고객명</td>												
 						<td><input type="hidden" id="cusNm_hidden_id" value="0"/>
