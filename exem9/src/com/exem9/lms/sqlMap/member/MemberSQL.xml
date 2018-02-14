@@ -49,8 +49,9 @@
 	       user_name as userNm,
 		   user_mail as userMail,
 		   user_phone as userPhone	       
-	FROM XM_MEMBER
-	WHERE user_department_id = 4		
+	FROM XM_MEMBER xm inner join xm_team xt
+	on xm.user_team_id = xt.team_id
+	and xt.department_id = 4	
 	</select>
 	
 	<select id="getteamuser" parameterClass="java.util.HashMap" resultClass="MemberBean">

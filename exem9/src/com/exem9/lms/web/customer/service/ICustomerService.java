@@ -33,6 +33,9 @@ public interface ICustomerService {
 
 	/*고객사 수정 이벤트 업무(담당부서에 속한) 리스트 데이터 가져오기 (DbmsDao 연계) */
 	public List<DbmsBean> getdbms(String userDept)throws Throwable;
+	
+	/*고객사 등록 시 업무리스트 가져오기*/
+	public List<DbmsBean> getdbms()throws Throwable;
 
 	/*고객사 수정 이벤트 담당엔지니어정보(담당팀에 속한) 리스트 데이터 가져오기 (MemberDao 연계) */
 	public List<MemberBean> getUsermember(String userTeam) throws Throwable;
@@ -68,12 +71,12 @@ public interface ICustomerService {
 	public List<CustomerMemberBean> getcusUserinfo(String cusUser,String cusId, String cusUserId) throws Throwable ;
 	
 	/*고객사 등록 updateCusInfo 이벤트*/
-	public String insertCusinfo(String cusNm_hidden,String cusUser_hidden,
-								String cusNm,String cusproNm,
+	public String insertCusinfo(String cusNm_hidden,String cusUser_hidden, String cusDbms_hidden, String cusPro_hidden,
+								String cusNm, String cusproNm, String dbmsNm,
 								String cususerNm, String cususerPhone,String cususerMail, String cuslocation,
 								String salesmanId, String etc) throws Throwable ;
 	
 	/*고객사 프로젝트명 가져오기 콤포박스에서 사용*/
 	public List<CustomerPjtNmBean> getcusPjtNminfo()throws Throwable ;
-
+	
 }

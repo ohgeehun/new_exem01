@@ -240,8 +240,8 @@ public class CustomerService implements ICustomerService{
 		return iCustomerDao.getcusUserinfo(params);
 	}
 
-	public String insertCusinfo(String cusNm_hidden, String cusUser_hidden,
-			String cusNm, String cusproNm, String cususerNm,
+	public String insertCusinfo(String cusNm_hidden, String cusUser_hidden, String cusDbms_hidden, String cusPro_hidden,
+			String cusNm, String cusproNm, String dbmsNm, String cususerNm,
 			String cususerPhone, String cususerMail, String cuslocation,
 			String salesmanId, String etc) throws Throwable {
 		
@@ -252,9 +252,13 @@ public class CustomerService implements ICustomerService{
 		HashMap params = new HashMap();
 		params.put("userId", (String)session.getAttribute("sUserId"));
 		params.put("cusNm_hidden",Integer.parseInt(cusNm_hidden));
+		params.put("cusPro_hidden",Integer.parseInt(cusPro_hidden));
+		params.put("cusdbms_hidden",Integer.parseInt(cusDbms_hidden));
 		params.put("cusUser_hidden",Integer.parseInt(cusUser_hidden));
+		
 		params.put("cusNm",cusNm.toUpperCase());
-		params.put("cusproNm",cusproNm.toUpperCase());		
+		params.put("cusproNm",cusproNm.toUpperCase());
+		params.put("dbmsNm",Integer.parseInt(dbmsNm));		
 
 		
 		params.put("cuslocation",cuslocation.toUpperCase());
@@ -273,8 +277,8 @@ public class CustomerService implements ICustomerService{
 		System.out.println(supoenddate);*/
 	
 		
-		if(Integer.parseInt(cusNm_hidden)  > 0){
-			if(Integer.parseInt(cusUser_hidden) > 0){
+		if(Integer.parseInt(cusNm_hidden)  > 0){ // 0보다 크면 기존 고객사 아니면 신규 고객사
+			if(Integer.parseInt(cusUser_hidden) > 0){ // 0보다 크면 기존 담당자 아니면 신구 담당자
 				/*System.out.println("신규1");*/
 				return iCustomerDao.insertCusinfo1(params);
 			}else{
@@ -282,8 +286,9 @@ public class CustomerService implements ICustomerService{
 				return iCustomerDao.insertCusinfo2(params);
 			}
 		}else{
-			/*System.out.println("신규3");*/
-			return iCustomerDao.insertCusinfo3(params);
+			/*신규 고개사 등록  시*/
+			System.out.println("00000000000000000000000000000000000000000000");
+			return iCustomerDao.insertCusinfo(params);
 		}
 	}
 	
@@ -295,6 +300,11 @@ public class CustomerService implements ICustomerService{
 	public List<CustomerPjtNmBean> getcusPjtNminfo() throws Throwable {
 		// TODO Auto-generated method stub
 		return iCustomerDao.getcusPjtNminfo();
+	}
+
+	public List<DbmsBean> getdbms() throws Throwable {
+		// TODO Auto-generated method stub
+		return iDbmsDao.getdbms();
 	}
 	
 }

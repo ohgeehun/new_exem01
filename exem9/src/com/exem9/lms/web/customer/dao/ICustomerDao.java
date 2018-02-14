@@ -37,4 +37,6 @@ public interface ICustomerDao {
 	public String insertCusinfo3(HashMap params)throws Throwable ;
 	
 	public List<CustomerPjtNmBean> getcusPjtNminfo() throws Throwable ;
+
+	public String insertCusinfo(HashMap params) throws Throwable;
 }

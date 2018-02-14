@@ -115,4 +115,47 @@ public class CustomerDao implements ICustomerDao{
 		return sqlMapClient.queryForList("customer.getcusPjtNminfo");
 	}
 
+	public String insertCusinfo(HashMap params) throws Throwable {
+		String result = "FAILED";
+		
+		
+		sqlMapClient.startTransaction();
+		sqlMapClient.getCurrentConnection().setAutoCommit(false);		
+        sqlMapClient.commitTransaction();
+        
+		try{
+			if(sqlMapClient.update("customer.insertCusinfo1000", params) > 0){
+				result = "SUCCESS";				
+				sqlMapClient.commitTransaction();
+				
+				if(sqlMapClient.update("customer.insertCusinfo0100", params) > 0){
+					result = "SUCCESS";					
+					sqlMapClient.commitTransaction();
+					
+					if(sqlMapClient.update("customer.insertCusinfo0010", params) > 0){
+						result = "SUCCESS";
+						sqlMapClient.commitTransaction();
+						
+						if(sqlMapClient.update("customer.insertCusinfo0001", params) > 0){
+							result = "SUCCESS";
+							sqlMapClient.commitTransaction();
+							
+							if(sqlMapClient.update("customer.insertCusinfo0001-1", params) > 0){
+								result = "SUCCESS";								
+								sqlMapClient.commitTransaction();
+							}					
+						}
+					}			
+				}		
+			}
+		}catch(Exception e){
+			result = "FAILED";
+			
+		}finally{
+			sqlMapClient.endTransaction();			
+		}
+		
+		return result;
+	}
+
 }

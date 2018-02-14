@@ -48,7 +48,7 @@
 			user_flag,
 			user_dbms_id as user_dbms,
 			user_level,
-			user_department_id as user_department,
+			(select department_id from xm_team xt where xt.team_id =  xm.user_team_id) as user_department,
 			user_position_id as user_position,
 			user_team_id as user_team,
 			user_password,
