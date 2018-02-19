@@ -8,10 +8,10 @@ public class CustomerBean {
 	private String cusNm;
 	private String proId;
 	private String proNm;
-	private String cus1Nm;
-	private String cus1Phone;
-	private String cus1Mail;
-	private String cus2Nm;
+	private String cususerId;
+	private String cususerNm;
+	private String cususerPhone;
+	private String cususerMail;
 	private String cusLoca;
 	private String salseId;
 	private String etc;
@@ -21,29 +21,30 @@ public class CustomerBean {
 	private String lastUpDate;
 	
 	
-	public String getCus1Nm() {
-		return cus1Nm;
+
+	public String getCususerId() {
+		return cususerId;
 	}
-	public void setCus1Nm(String cus1Nm) {
-		this.cus1Nm = cus1Nm;
+	public void setCususerId(String cususerId) {
+		this.cususerId = cususerId;
 	}
-	public String getCus2Nm() {
-		return cus2Nm;
+	public String getCususerNm() {
+		return cususerNm;
 	}
-	public void setCus2Nm(String cus2Nm) {
-		this.cus2Nm = cus2Nm;
+	public void setCususerNm(String cususerNm) {
+		this.cususerNm = cususerNm;
 	}
-	public String getCus1Phone() {
-		return cus1Phone;
+	public String getCususerPhone() {
+		return cususerPhone;
 	}
-	public void setCus1Phone(String cus1Phone) {
-		this.cus1Phone = cus1Phone;
+	public void setCususerPhone(String cususerPhone) {
+		this.cususerPhone = cususerPhone;
 	}
-	public String getCus1Mail() {
-		return cus1Mail;
+	public String getCususerMail() {
+		return cususerMail;
 	}
-	public void setCus1Mail(String cus1Mail) {
-		this.cus1Mail = cus1Mail;
+	public void setCususerMail(String cususer1Mail) {
+		this.cususerMail = cususer1Mail;
 	}
 	public String getCusId() {
 		return cusId;

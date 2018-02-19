@@ -245,6 +245,8 @@ public class CustomerService implements ICustomerService{
 			String cususerPhone, String cususerMail, String cuslocation,
 			String salesmanId, String etc) throws Throwable {
 		
+		String result = "FAILED";
+		
 		WebContext wctx = WebContextFactory.get();
 		HttpServletRequest request = wctx.getHttpServletRequest();
 		HttpSession session = request.getSession();	
@@ -276,20 +278,53 @@ public class CustomerService implements ICustomerService{
 		System.out.println(supostartdate);
 		System.out.println(supoenddate);*/
 	
-		
-		if(Integer.parseInt(cusNm_hidden)  > 0){ // 0보다 크면 기존 고객사 아니면 신규 고객사
-			if(Integer.parseInt(cusUser_hidden) > 0){ // 0보다 크면 기존 담당자 아니면 신구 담당자
-				/*System.out.println("신규1");*/
-				return iCustomerDao.insertCusinfo1(params);
+		try{
+			if(Integer.parseInt(cusNm_hidden)  > 0){ // 0보다 크면 기존 고객사 아니면 신규 고객사
+				if(Integer.parseInt(cusPro_hidden) > 0){  // 0보다 크면 기존 기존 프로젝트 아니면 신규 프로젝트
+					if(Integer.parseInt(cusDbms_hidden) > 0){ // 0보다 크면 기존 업무  아니면 신규 업무
+						if(Integer.parseInt(cusUser_hidden) > 0){ // 0보다 크면 기존 담당자 아니면 신구 담당자						
+						
+						}else{
+							System.out.println("기존 고객사 / 기존 프로젝트 / 기존 업무 /신규 담당자 ");
+							/*기존 고객사 / 기존 프로젝트 / 기존 업무 /신규 담당자*/
+							return iCustomerDao.insertCusinfo5(params);	
+						}
+					}else{
+						if(Integer.parseInt(cusUser_hidden) > 0){ // 0보다 크면 기존 담당자 아니면 신구 담당자
+							System.out.println("기존 고객사 / 기존 프로젝트 / 신규 업무 /기존 담당자 ");
+							/*기존 고객사 / 기존 프로젝트 / 기존 업무 /신규 담당자*/
+							return iCustomerDao.insertCusinfo3(params);
+						}else{
+							System.out.println("기존 고객사 / 기존 프로젝트 /신규 업무 /신규 담당자 ");
+							/*기존 고객사 / 기존 프로젝트 / 기존 업무 /신규 담당자*/
+							return iCustomerDao.insertCusinfo4(params);
+						}
+					}
+					
+				}else{
+					if(Integer.parseInt(cusUser_hidden) > 0){ // 0보다 크면 기존 담당자 아니면 신구 담당자
+						System.out.println("기존 고객사 / 신규 프로젝트 / 신규 업무 /기존 담당자 ");
+						/*기존 고객사 / 신규 프로젝트 / 신규 업무 /기존 담당자*/
+						return iCustomerDao.insertCusinfo1(params);
+					}else{
+						
+						System.out.println("기존 고객사 / 신규 프로젝트 / 신규 업무 / 신규 담당자 ");
+						/*기존 고객사 / 신규 프로젝트 / 신규 업무 / 신규 담당자*/
+						return iCustomerDao.insertCusinfo2(params);
+					}
+				}
+				
 			}else{
-			/*	System.out.println("신규2");*/
-				return iCustomerDao.insertCusinfo2(params);
-			}
-		}else{
-			/*신규 고개사 등록  시*/
-			System.out.println("00000000000000000000000000000000000000000000");
-			return iCustomerDao.insertCusinfo(params);
+				/*신규고객사 / 신규 프로젝트 / 신규 업무 / 신규 담당자*/
+				System.out.println("신규고객사 / 신규 프로젝트 / 신규 업무 / 신규 담당자");
+				return iCustomerDao.insertCusinfo(params);
+			}		
+			
+		}catch(Exception e){
+			System.out.println(e);
 		}
+		
+		return result;
 	}
 	
 	public List<CustomerNmBean> getcusNminfo2() throws Throwable {
@@ -305,6 +340,17 @@ public class CustomerService implements ICustomerService{
 	public List<DbmsBean> getdbms() throws Throwable {
 		// TODO Auto-generated method stub
 		return iDbmsDao.getdbms();
+	}
+
+	public List<CustomerMemberBean> getprodbmsManagedinfo(String cusNm,	String proNm, String dbmsId) throws Throwable {
+		
+		HashMap params = new HashMap();
+		params.put("cusNm", cusNm);
+		params.put("proNm",proNm);
+		params.put("dbmsId",Integer.parseInt(dbmsId));
+		
+		// TODO Auto-generated method stub
+		return iCustomerDao.getprodbmsManagedinfo(params);
 	}
 	
 }
