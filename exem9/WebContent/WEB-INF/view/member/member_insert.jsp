@@ -348,8 +348,10 @@ th, td {
 						<td>로그인ID*</td>
 						<td>							
 							<div id="div_cusName_id">
-								<input id='user_id' value=""  style='text-transform: uppercase' onblur="onblur_event();"></input>
-								<span id="idSpan" class="redText"></span>	
+								<!--  input id='user_id' value=""  style='text-transform: uppercase' onblur="onblur_event();"></input-->
+								<!--  span id="idSpan" class="redText"></span-->
+								<input id='user_id' value=""  ></input>
+									
 							</div>									
 						</td>
 					</tr>

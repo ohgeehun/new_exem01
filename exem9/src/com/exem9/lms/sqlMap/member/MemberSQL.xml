@@ -74,23 +74,19 @@
 	</select> 	
 	
 	<select id="getmeminfo" parameterClass="java.util.HashMap" resultMap="uMemberMap">
-	   SELECT 
-		   user_id, 
-		   user_password, 
-		   user_name, 
-		   user_team_id, 
-		   user_flag, 
-		   user_dbms_id, 
-	       user_level, 
-	       user_department_id, 
-	       user_phone, 
-	       user_mail, 
-	       user_position_id, 
-	       user_hint, 
-	       user_point
-  	   FROM xm_member u
-  	   where 1=1
-	   order by u.user_department_id, u.user_name asc
+	 SELECT       user_id,       user_password,       user_name,       user_team_id,       
+user_flag,       user_dbms_id,          user_level,          dp.department_id as user_department_id,          user_phone,       
+user_mail,          user_position_id,          user_hint,          user_point       
+FROM xm_member u       
+left outer join 
+(
+	select t.department_id, t.team_id from
+	xm_team t
+	left outer join xm_department dp
+	on t.department_id = dp.department_id
+) dp
+on u.user_team_id = dp.team_id
+where 1=1     order by dp.department_id, u.user_team_id, u.user_name asc
 	</select>
 
 	<select id="getNCount" parameterClass="java.util.HashMap" resultClass="Integer">
@@ -103,10 +99,10 @@
 	<update id="insertMeminfo" parameterClass="java.util.HashMap">
 	 INSERT INTO XM_MEMBER (
             user_id, user_password, user_name, user_team_id, user_flag, user_dbms_id, 
-            user_level, user_department_id, user_phone, user_mail, user_position_id, 
+            user_level, user_phone, user_mail, user_position_id, 
             user_hint, user_point)
     VALUES (#user_id#, #user_password#, #user_name#, #user_team_id#, null, #user_dbms_id#, 
-            null, #user_department_id#, #user_phone#, #user_mail#, #user_position_id#, 
+            null, #user_phone#, #user_mail#, #user_position_id#, 
             null, #user_point#)  
 	 </update> 
 	

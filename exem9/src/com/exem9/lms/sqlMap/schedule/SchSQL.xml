@@ -27,32 +27,17 @@
 	</resultMap>
 
 	<select id="getsch" resultMap="SchMap">
-	SELECT s.support_id, 
-      s.user_id, m.user_name,
-      s.team_id, t.team_name,
-      s.customer_id, c.customer_name,
-      s.project_id, p.project_name,
-      s.dbms_id, d.dbms_name,
-      s.category_id, ca.category_name,
-       s.start_time, s.end_time, s.contents
-  FROM xm_support_history s
-	left outer join xm_member m on s.user_id = m.user_id
-	left outer join xm_team t on s.team_id = t.team_id
-	left outer join 
-	( 
-	   select customer_id, customer_name
-	   from xm_customer 
-	   group by customer_id, customer_name
-	) c on s.customer_id = c.customer_id
-	left outer join
-	( 
-	   select customer_id, project_id, project_name
-	   from xm_customer 
-	   group by customer_id, project_id, project_name
-	) p on s.project_id = p.project_id
-	left outer join xm_dbms d on s.dbms_id = d.dbms_id
-	left outer join xm_category ca on s.category_id = ca.category_id
-	order by s.start_time
+	SELECT s.support_history_id as support_id,        s.user_id, m.user_name,       s.team_id, t.team_name,      
+s.customer_id, c.customer_name,       s.project_id, p.project_name,       s.dbms_id, d.dbms_name,     
+s.category_id, ca.category_name,        s.start_time, s.end_time, s.contents    
+FROM xm_support_history s  
+left outer join xm_member m on s.user_id = m.user_id 
+left outer join xm_team t on s.team_id = t.team_id 
+left outer join xm_customer c on s.customer_id = c.customer_id  
+left outer join xm_project p on s.project_id = p.project_id  
+left outer join xm_dbms d on s.dbms_id = d.dbms_id  
+left outer join xm_category_code ca on s.category_id = ca.category_id  
+order by s.start_time
 	
 	<!-- 
 	SELECT s.support_id, 

@@ -273,7 +273,6 @@
 	<select id="getcusNminfo2" resultMap="cusInfoMap2">
 	SELECT customer_id, customer_name
 	from xm_customer	
-	group by customer_id, customer_name
 	order by customer_name asc;
 	</select>
 	
@@ -284,9 +283,10 @@
 	</resultMap>
 	
 	<select id="getcusPjtNminfo" resultMap="cusPjtInfoMap">
-	select customer_id, project_id, project_name from xm_customer 
-		group by customer_id, project_id, project_name
-		order by customer_name, project_name asc
+		select c.customer_id, p.project_id, p.project_name 
+		from xm_customer c, xm_project p 
+		where c.customer_id = p.customer_id
+		order by c.customer_name, p.project_name asc
 	</select>
 	
 	<update id="insertCusinfo1000" parameterClass="java.util.HashMap">
