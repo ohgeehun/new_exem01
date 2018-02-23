@@ -14,16 +14,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.exem9.lms.exception.UserNotFoundException;
 import com.exem9.lms.web.common.bean.LineBoardBean;
-import com.exem9.lms.web.common.bean.SupoBean;
 import com.exem9.lms.web.customer.bean.CustomerBean;
 import com.exem9.lms.web.customer.bean.CustomerMemberBean;
 import com.exem9.lms.web.customer.bean.CustomerNextBean;
 import com.exem9.lms.web.customer.service.ICustomerService;
 import com.exem9.lms.web.dbms.bean.DbmsBean;
-import com.exem9.lms.web.department.bean.DeptBean;
 import com.exem9.lms.web.member.bean.MemberBean;
-import com.exem9.lms.web.mypage.bean.MypageBean;
-import com.exem9.lms.web.team.bean.TeamBean;
+
 
 @Controller
 public class CustomerController {
@@ -89,6 +86,7 @@ public class CustomerController {
 			modelAndView.addObject("salseman_list", salseman_list);
 			modelAndView.addObject("dbms_list", dbms_list);
 			
+			System.out.println("dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
 			modelAndView.setViewName("customer/customer_insert");
 		}
 				

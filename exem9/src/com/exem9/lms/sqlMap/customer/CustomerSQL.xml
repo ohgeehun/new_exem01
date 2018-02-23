@@ -19,10 +19,10 @@
 		<result property="cusNm" column="customer_name"/>
 		<result property="proId" column="project_id"/>
 		<result property="proNm" column="project_name"/>
-		<result property="cus1Nm" column="customer1_name"/>
-		<result property="cus1Phone" column="cususer_phone"/>
-		<result property="cus1Mail" column="cususer_mail"/>
-		<result property="cus2Nm" column="customer2_name"/>
+		<result property="cususerId" column="cususer_id"/>
+		<result property="cususerNm" column="cususer_name"/>
+		<result property="cususerPhone" column="cususer_phone"/>
+		<result property="cususerMail" column="cususer_mail"/>
 		<result property="cusLoca" column="customer_location"/>
 		<result property="salseId" column="salesman_id"/>		
 		<result property="etc" column="etc"/>
@@ -207,19 +207,18 @@
 	</select>
 	
 	<select id="getcusNmProinfo" parameterClass="java.util.HashMap" resultClass="customerBean">
-	SELECT distinct xc.project_id as proId,
-		   xc.project_name as proNm,	
-		   xc.customer_id as cusId,
-		   xc.customer_location as cusLoca,
-		   xc.customer1_name as cus1Nm,
-		   (select user_id from xm_member where user_id = xc.salesman_id) as salseId
-	from xm_customer xc		 	
-	where xc.customer_name = #cusNm#
+	select xp.project_id as proId,
+       xp.project_name as proNm,
+       xc.customer_id as cusId,
+       xc.customer_location as cusLoca       
+	from xm_customer xc inner join xm_project xp
+	on xc.customer_id = xp.customer_id
+	where xc.customer_name  = #cusNm#
 	<isNotEmpty property="cusProNm">
-	and xc.project_name = #cusProNm#
+	and xp.project_name = #cusProNm#
 	</isNotEmpty>
 	<!-- group by project_id, project_name, customer_id -->
-	order by xc.project_name asc
+	order by xp.project_name asc
 	</select>
 	
 	<select id="getcusNmUserinfo" parameterClass="java.util.HashMap" resultClass="customermemberBean">
@@ -254,51 +253,16 @@
 	</isNotEmpty>		
 	</select>	
 	
-	<!-- 고객사 등록시 기존 고객사, 기존 담당자에 신규 프로젝트만 추가되는 경우 -->	
-	<update id="insertCusinfo1" parameterClass="java.util.HashMap">
-	 INSERT INTO XM_CUSTOMER (customer_id, customer_name, project_id, project_name,
-	 						  customer1_name, customer_location, salesman_id,							  
-							  etc, create_user, create_date, 
-							  last_update_user, last_update_date)
-			 	      VALUES (#cusNm_hidden#, #cusNm#, NEXTVAL('xm_project_next_val'), #cusproNm#, 
-			 	      	      #cususerNm#,  #cuslocation#, #salesmanId#, 
-			 	      	      #etc#, #userId#, current_date::date, 
-			 	      	      null,null)                
-	</update> 
 	
-<!-- 	<update id="insertCusinfo2" parameterClass="java.util.HashMap">
-	INSERT INTO XM_CUSTOMER VALUES(#cusNm_hidden#, #cusNm#, NEXTVAL('xm_project_next_val'), #cusproNm#, #deptNm#, 
-		                            #teamNm#, #dbmsNm#, #user1Nm#, #user2Nm#, #salesmanNm#,
-		                            #supolevel#, #supovisit#, #supoinsdate#, #supostartdate#, #supoenddate#,
-		                            #cuslocation#, #cususerNm#, #etc#, #userId#, current_date::date,
-		                            null,null)     		                 
-	</update>  -->
-	
-	<!-- 고객사 등록시 기존 고객사에 신규 담당자 인서트시 사용하는 쿼리 -->
-	<update id="insertCusinfo2" parameterClass="java.util.HashMap">
-	<isNotEmpty property="cususerNm">
-		INSERT INTO XM_CUSTOMER_MEMBER VALUES(NEXTVAL('xm_customer_member_next_val'),#cususerNm#,#cususerPhone#,#cususerMail#,#cusNm_hidden#)
-	</isNotEmpty>			                 
-	</update> 
-	
-	<!-- 신규 고객사 신규 담당자 인서트 시 -->
-	<update id="insertCusinfo3" parameterClass="java.util.HashMap">
-	 INSERT INTO XM_CUSTOMER  (customer_id, customer_name, project_id, project_name,
-	                           salesman_id, 	 							 
-							  customer_location, customer1_name, etc, create_user, create_date, 
-							  last_update_user, last_update_date) 	 
-	 						  VALUES(NEXTVAL('xm_customer_next_val'), #cusNm#, NEXTVAL('xm_project_next_val'), #cusproNm#,
-		                             #salesmanId#,	
-		                            #cuslocation#, #cususerNm#, #etc#, #userId#, current_date::date,
-		                            null,null)      		                 
-	</update> 
-	
-	<!-- 신규 고객사 신규 담당자 인서트 시 -->
-	<update id="insertCusinfo4" parameterClass="java.util.HashMap">
-	<isNotEmpty property="cususerNm">
-		INSERT INTO XM_CUSTOMER_MEMBER VALUES(NEXTVAL('xm_customer_member_next_val'),#cususerNm#,#cususerPhone#,#cususerMail#,(select distinct customer_id from xm_customer where customer_name = #cusNm#))		                 
-	</isNotEmpty>		
-	</update> 
+	<select id="getprodbmsManagedinfo" parameterClass="java.util.HashMap" resultClass="customermemberBean">
+	select distinct xcm.cususer_id as cususerId,
+		   xcm.cususer_name as cususerNm	       
+	from xm_customer_member xcm, xm_customer xc
+	where xcm.customer_id = xc.customer_id
+	and xc.customer_name =  #cusNm#
+	</select>
+		
+
 
 	<resultMap class="customerNmBean" id="cusInfoMap2">
 		<result property="cusId" column="customer_id"/>
@@ -346,7 +310,7 @@
 	</update> 
 	
 	<update id="insertCusinfo0001" parameterClass="java.util.HashMap">
-	INSERT INTO XM_CUSTOMER_MEMBER VALUES(NEXTVAL('xm_customer_member_next_val'), #cususerNm#, #cususerPhone#, #cususerMail#)
+	INSERT INTO XM_CUSTOMER_MEMBER VALUES(NEXTVAL('xm_customer_member_next_val'),#cususerNm#, #cususerPhone#, #cususerMail#)
 	</update> 
 	
 	<update id="insertCusinfo0001-1" parameterClass="java.util.HashMap">

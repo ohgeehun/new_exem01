@@ -410,13 +410,13 @@ function editcusMemberCallback(res){
 							<td>
 								<input type="hidden" id="select_cus_hidden_id_${cli.proId}" value=""/>
 								<select id="edit_cus_list_select_${cli.proId}" onchange="edit_cus_select_change_event(${cli.proId})">
-									<c:if test="${cli.cus1Nm == ''}">
+									<c:if test="${cli.cusNm == ''}">
 										<option value="0" selected>지정필요.</option>
 									</c:if>
 									<c:forEach var="cmli" items="${cus_member_list_info}">										
 									 	    <c:if test="${cli.cusId  == cmli.cusId}"> 
 												<c:choose>
-													<c:when test="${cli.cus1Nm == cmli.cususerNm}">
+													<c:when test="${cli.cusNm == cmli.cususerNm}">
 														<option value="${cmli.cususerId}" selected>${cmli.cususerNm}</option>
 													</c:when>
 													<c:otherwise>

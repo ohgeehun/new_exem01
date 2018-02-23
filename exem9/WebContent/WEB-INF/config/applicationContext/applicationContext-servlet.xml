@@ -22,7 +22,7 @@
 
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<mvc:annotation-driven />
-	
+		
 	<!-- Enables the All request Urls 
 	<mvc:interceptors>
 		<mvc:interceptor>

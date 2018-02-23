@@ -42,13 +42,64 @@ $(document).ready(function(){
 	    	location.href = "customer_insert";
 	    });
 	 
-	// 검증에 사용할 함수명들을 배열에 담아준다.
-/* 	var idFuncArray = ["isAlphabetForSpan", "spaceCheck"]; */
-	var idFuncArray = ["spaceCheck","spaceCheck1"];
-	/* var idFuncArray1 = ["spaceCheck1"]; */
-	// 1. span태그 obj, 2. input태그 obj, 3. 위에서 정의한 함수명 배열, 4. 검증에 걸렸을 때 나타날 텍스트, 5. 검증을 통과했을 때 나타날 텍스트, 6. span태그의 좌측 폭 위치.
-	spanValidation($("#idSpan"), $("#cusName_id"), idFuncArray, "고객사명은 특수문자, 공백없이 입력하십시오!", "등록 가능한 형식의 고객사명입니다.", "5px");
-	/* spanValidation($("#idSpan1"), $("#cusproName_id"), idFuncArray1, "프로젝트명은 특수문자없이 입력하십시오!", "등록 가능한 형식의 프로젝트명입니다.", "5px"); */
+	/* 체크박스 이벤트 */
+	$("#chk_id").click(function(){
+		var cusNm = $("#cusName_id").val();
+        //클릭되었으면
+        if($("#chk_id").prop("checked")){
+          
+            $("#cusproName_id").swidget().destroy();			
+			$("#cusproName_id").val($("#cusName_id").val());
+			$("#cusproName_id").prop("disabled",true);	
+			
+			$("#dbms_select_id").prop("disabled",false);	
+						
+			alert($("#cusproName_id").val());
+        }else{         	
+        	$("#cusproName_id").val("");
+        	$("#cusNm_hidden_id").val("0");	   
+        	$("#dbms_select_id").prop("disabled",true);	
+        	ICustomerService.getcusNmProinfo(cusNm,"", cusNmProinfoCallBack);	
+        }
+    });
+	
+ 	$("#cusproName_id").shieldComboBox({
+    	dataSource: {
+            data: ""
+        },        	        
+        enabled: false
+	});  
+		
+ 	
+	$("#cusNm_id").shieldComboBox({
+    	dataSource: {
+            data: ""
+        },        	        
+        enabled: false
+	});  
+	
+	$("#dbms_select_id").change(function (){
+		var dbmsId = $("#dbms_select_id").val();	
+		
+		if(dbmsId > 0){	
+			var cusNm = $("#cusName_id").val();
+			var proNm = $("#cusproName_id").val();			
+			
+			alert(cusNm);
+			alert(proNm);
+			alert(dbmsId);
+			
+			ICustomerService.getprodbmsManagedinfo(cusNm, proNm, dbmsId, getprodbmsManagedinfoCallBack);
+		}else{
+			$("#cusNm_id").swidget().destroy();
+			$("#cusNm_id").shieldComboBox({
+		    	dataSource: {
+		            data: ""
+		        },        	        
+		        enabled: false
+			});  			
+		}	
+	});
 	
 	/* 고객사 등록 버튼 이벤트 */
     $("#edit_update_btn").bind("click", function(){   	
@@ -87,110 +138,160 @@ $(document).ready(function(){
     /* 고객사 등록 시 기존 고객사명 리스트를 가져오는 이벤트 */
     ICustomerService.getcusNminfo(cusNminfoCallBack);
     
-    /* 고객사 프로젝트명 입력 후 이벤트 */
-     $("#cusproName_id").blur(function(){
-    	 
-    	 if ($("#cusproName_id").val() != ""){    		 
-    		 if ($("#cusName_id").val() != ""){    	    		
-    	    		var cusNm = $("#cusName_id").val();
-    	    		var cusProNm = $("#cusproName_id").val();
-    	    		
-    	    		//ICustomerService.getcusNmProinfo(cusNm, cusProNm,cusNmProinfoCallBack1);
-    		 }  
-    	 }    	
-    }); 
-     
-    /* 고객담당자명 입력 후 이벤트 */
-    $("#cusNm_id").blur(function(){    
-    	if ($("#cusNm_id").val() != ""){
-    		var cusUser = $("#cusNm_id").val();    		
-    		var cusId = $("#cusName_hidden_id").val();    
-    		
-    		if (cusId != ""){    		
-    			//ICustomerService.getcusUserinfo(cusUser, cusId, "0",cusUserinfoCallBack);	
-    		}else{    			
-    			$("#cusPhone_id").val("");
-        		$("#cusMail_id").val("");
-    		}    		
-    	}else{
-    		$("#cusPhone_id").val("");
-    		$("#cusMail_id").val("");
-    	}
- 	});  
 });  
 
-function onblur_event(){	
-		if ($("#cusName_id").val() != ""){    		
-			var cusNm = $("#cusName_id").val();    	
-				
-		//	 ICustomerService.getcusNmProinfo(cusNm,"", cusNmProinfoCallBack); /* 위치정보가져오기 */ 
-		//	 ICustomerService.getcusNmUserinfo(cusNm, cusNmUserinfoCallBack); /* 고객정보가져오기 */
-		}else{    	
-			$("#cusproName_id").val("");
-			$("#cuslocation_id").val("");
-			$("#cusNm_id").val("");
-			$( "#cusproName_id" ).autocomplete("off");
-			$( "#cusNm_id" ).autocomplete("off");
-			$("#cusPhone_id").val("");
-			$("#cusMail_id").val("");
-			$("#cusName_hidden_id").val("0");
-			$("#cusNm_hidden_id").val("0");    		
-			
-		}
+function cusNminfoCallBack(res){
+	var availableTags = [];
+	
+	for(var i = 0; i < res.length; i++){	
+		availableTags.push(res[i].cusNm);			
 	}
 	
-function spanValidation(spanObj, inputObj, validFuncArray, redMsg, greenMsg, marginLeftPx){
-	spanObj.css("margin-left", marginLeftPx); // span태그의 좌측 폭을 설정해준다.
-	
-	var confirmCheck = false; // 검증에 통과 여부에 사용할 flag
-	
-	spanObj.hide(); // span태그를 숨긴다.
-	
-	inputObj.bind('focusin keyup', function(){ // input태그에 포커스가 들어오거나 키가 눌렸을 때 실행됨
-		var inputValue = inputObj.val();
-		
-		var funcResult = true; // 함수 실행 결과를 담을 flag
-		
-		for(i=0; i<validFuncArray.length; i++){ // 검증에 사용할 함수명 배열을 반복문으로 돌린다.
-			var funcName = validFuncArray[i]; // 배열에서 함수명을 하나씩 뽑아낸다. 
-			var funcObj = window[funcName]; // 함수명(string)을 객체(object)로 받는다.
-			funcResult = funcObj(inputValue); // 해당 함수를 실행하여 결과값(true/false)을 변수에 담는다. 만약 함수 하나라도 통과를 하지 못하면 false가 된다.
-			if(!funcResult){ // 검증에 통과하지 못한 함수가 있을 경우 반복문 탈출
-				break;
-			}
-		}
-		
-		if(!funcResult){ // 검증에 통과하지 못했을 때,
-			spanObj.show(); // span태그 보여준다.
-			spanObj.removeClass('greenText'); // span태그에 greenText 클래스를 삭제한다.
-			spanObj.addClass('redText'); // span태그에 redText 클래스를 추가한다.
-			
-			spanObj.text(""); //  span태그의 텍스트를 지운다.
-			spanObj.append(redMsg); // span태그에  검증에 통과하지 못했을 때 나타나는 텍스트를 넣는다.
-			
-			confirmCheck = false; // 검증 통과 여부 flag에 false를 대입한다.
-		}else{ // 검증에 통과했을 때,
-			spanObj.show();
-			spanObj.removeClass('redText');
-			spanObj.addClass('greenText');
-			
-			spanObj.text("");
-			spanObj.append(greenMsg);
-			
-			confirmCheck = true;
-		}
-		
-	});
-	
-	inputObj.focusout(function(){ // 포커스가 input태그에서 벗어났을 때 실행,
-		var inputValue = inputObj.val();
-		if(confirmCheck || inputValue == ""){ // 검증에 통과를 했거나 input태그에 입력 값이 없을 경우,
-			spanObj.hide(); // span태그를 숨긴다.
-		}
-	});
+	 $("#cusName_id").shieldComboBox({
+	    	dataSource: {
+	            data: availableTags
+	        },	        
+	        autoComplete: {
+	            enabled: true
+	        },events: {
+	        	blur : function(e){   	        		
+	        		
+     				var cusNmtemp =  $("#cusName_id").swidget().value();
+     				var cusNm = cusNmtemp.toUpperCase();
+     				//alert(cusNm);
+     				$("#cusName_id").val(cusNm);
+     						
+     				$("#cusPro_hidden_id").val("0");
+     				$("#cusproName_id").val("");     				
+     				
+      			    $("#dbmsNm_hidden_id").val("0");
+      			    $("#dbms_select_id").val("0");
+      			    $("#dbms_select_id").val("0").prop("selected", true);
+      			    $("#dbms_select_id").prop("disabled",true);	
+      			    
+      		        $("#cusNm_hidden_id").val("0");	          			    
+     		        $("#cusNm_id").val("");
+     		        
+     		       $("#chk_id").attr("checked", false);
+     		        
+    			    ICustomerService.getcusNmProinfo(cusNm,"", cusNmProinfoCallBack);	           			   
+     	   		}
+	        }
+ 	}); 	
+	/* $( "#cusName_id" ).autocomplete({
+		  source: availableTags
+	}); */
 }
 
-// 영문만 입력받도록 검증
+function cusNmProinfoCallBack(res){
+	var availableTags = [];	 
+	
+	$("#chk_id").prop("disabled",false);
+	
+	if(res.length > 0){
+		for(var i = 0; i < res.length; i++){			
+			availableTags.push(res[i].proNm);			
+			
+		    $("#cusName_hidden_id").val(res[i].cusId); 
+			$("#cuslocation_id").val(res[i].cusLoca);
+		}
+		
+		 $("#cusproName_id").swidget().destroy();
+			
+		 $("#cusproName_id").shieldComboBox({			 	
+		    	dataSource: {
+		            data: availableTags
+		        },	        
+		        autoComplete: {
+		            enabled: true
+		        },events: {
+		        	blur : function(e){   		        	
+		        	var proNmtemp =  $("#cusproName_id").swidget().value();
+     				var proNm = proNmtemp.toUpperCase();
+     				
+     				$("#cusproName_id").val(proNm);
+     				
+	  				//var cusNm =  $("#cusName_id").val();	  				
+	  				 
+	   			    $("#dbmsNm_hidden_id").val("0");
+	   			    $("#dbms_select_id").val("0");
+	   			 	$("#dbms_select_id").val("0").prop("selected", true);
+	   			    if($("#cusproName_id").val() !=''){
+	   			    	$("#dbms_select_id").prop("disabled",false);			
+	   			    }else {
+	   			    	$("#dbms_select_id").prop("disabled",true);		
+	   			    }
+	   		        $("#cusNm_hidden_id").val("0");	          			    
+	  		        $("#cusNm_id").val("");
+	  		        
+	 			    //ICustomerService.getcusNmProinfo(cusNm,"", cusNmProinfoCallBack);	           			   
+	  	   			}
+		        }
+		}); 
+
+	}else{
+		$("#cusName_hidden_id").val("0");
+		$("#cuslocation_id").val("");
+		
+		$("#cusPro_hidden_id").val("0");
+		//$("#cusproName_id").swidget().enabled(true);
+		$("#cusproName_id").val("");
+		
+ 		$("#dbmsNm_hidden_id").val("0");
+	    $("#dbms_select_id").val("0");
+	    $("#dbms_select_id").val("0").prop("selected", true); 
+	    $("#dbms_select_id").prop("disabled",true);	
+	    
+	    $("#cusNm_hidden_id").val("0");	          			    
+        $("#cusNm_id").val("");
+        
+
+		$("#cusproName_id").swidget().destroy();
+		 
+    	$("#cusproName_id").shieldComboBox({
+        	dataSource: {
+                data: ""
+            },        	        
+            enabled: true,events: {
+            	blur : function(e){   
+            		var proNmtemp =  $("#cusproName_id").swidget().value();
+     				var proNm = proNmtemp.toUpperCase();
+     				
+     				$("#cusproName_id").val(proNm);
+     				
+	  				//var cusNm =  $("#cusName_id").val();
+
+	  				//alert(cusNm);
+	  				//alert(proNm);		
+	  				
+	  			 	$("#dbmsNm_hidden_id").val("0");
+	   			    $("#dbms_select_id").val("0");
+	   			    $("#dbms_select_id").val("0").prop("selected", true);
+	   			 	if($("#cusproName_id").val() != ''){
+	   			    	$("#dbms_select_id").prop("disabled",false);			
+	   			    }else {
+	   			    	$("#dbms_select_id").prop("disabled",true);		
+	   			    }
+	   		        $("#cusNm_hidden_id").val("0");	          			    
+	  		        $("#cusNm_id").val("");
+	        	}
+            }
+    	}); 
+	}	
+}
+
+function insertCusinfoCallBack(res){
+	if(res == "FAILED"){
+		alert("실패");
+		location.href = "customer_insert";
+	}else if(res == "SUCCESS"){
+		alert("성공");
+		location.href = "customer_insert";
+	}
+}
+
+
+//영문만 입력받도록 검증
 function isAlphabetForSpan(str){
 	var check = /[^A-Za-z\s]/;
 	if(check.test(str)){
@@ -199,7 +300,7 @@ function isAlphabetForSpan(str){
 	return true;
 }
 
-// 공백 허용하지 않도록 검증
+//공백 허용하지 않도록 검증
 function spaceCheck(inputVal){
 	var invalid = " ";
 	
@@ -231,6 +332,7 @@ function onlyNumber(event){
 	else
 		return false;
 }
+
 function removeChar(event) {
 	event = event || window.event;
 	var keyID = (event.which) ? event.which : event.keyCode;
@@ -240,234 +342,6 @@ function removeChar(event) {
 		event.target.value = event.target.value.replace(/[^0-9]/g, "");
 }
 
-/*  function dept_select_change_event(){
-	var deptId = $("#dept_select_id").val();	
-	
-	if(deptId == 0){
-		var teamId = 0;
-		ICustomerService.getdeptteam(deptId, deptchangeCallBack);
-		$("#team_select_id").prop("disabled",true);
-		ICustomerService.getdeptdbms(deptId, dept1changeCallBack);
-		$("#dbms_select_id").prop("disabled",true);
-		ICustomerService.getteamuser(teamId, teamchangeCallBack);	
-		$("#user1_select_id").prop("disabled",true);
-		$("#user2_select_id").prop("disabled",true);
-	}else{
-		ICustomerService.getdeptteam(deptId, deptchangeCallBack);		
-		$("#team_select_id").prop("disabled",false);		
-		ICustomerService.getdeptdbms(deptId, dept1changeCallBack);
-		$("#dbms_select_id").prop("disabled",false);
-		
-	}	
-} 
-
-function deptchangeCallBack(res){
-	var text = "";			
-	
-		text += "<option value='0' selected>지정하지않음.</option>";
-	for(var i = 0; i < res.length; i++){			
-		 
-		text += "<option value="+res[i].teamId+">"+res[i].teamNm+"</option>";
-	 	
-	}
-	
-	$("#team_select_id").html(text);
-}
-
-function dept1changeCallBack(res){
-	var text = "";			
-	
-	text += "<option value='0' selected>지정하지않음.</option>";
-	for(var i = 0; i < res.length; i++){			
-		 
-		text += "<option value="+res[i].dbmsId+">"+res[i].dbmsNm+"</option>";
-	 	
-	}
-	
-	$("#dbms_select_id").html(text);
-}
-
-function team_select_change_event(){
-	var teamId = $("#team_select_id").val();
-
-	if(teamId == 0){
-		ICustomerService.getteamuser(teamId, teamchangeCallBack);	
-		$("#user1_select_id").prop("disabled",true);
-		$("#user2_select_id").prop("disabled",true);
-		
-	}else{
-		ICustomerService.getteamuser(teamId, teamchangeCallBack);
-		
-		$("#user1_select_id").prop("disabled",false);		
-	}
-}
-
-function teamchangeCallBack(res){
-	var text = "";			
-	
-	text += "<option value='0' selected>지정하지않음.</option>";
-	for(var i = 0; i < res.length; i++){		 
-		text += "<option value="+res[i].userId+">"+res[i].userNm+"</option>";	 	
-	}	
-	
-	$("#user1_select_id").html(text);	
-	$("#user2_select_id").html(text);	
-	$("#user2_select_id").prop("disabled",true);
-}
-
-function user1_select_change_event(){
-	var teamId = $("#team_select_id").val();
-	var userId = $("#user1_select_id").val();
-	
-	if(userId == 0){
-		ICustomerService.getteamuser(teamId, teamchangeCallBack);		
-	}else{
-		
-		ICustomerService.getteamuser1(teamId, userId, user1changeCallBack);
-		$("#user2_select_id").prop("disabled",false);		
-	}
-}
-
-function user1changeCallBack(res){
-	var text = "";			
-	
-	text += "<option value='0' selected>지정하지않음.</option>";
-	for(var i = 0; i < res.length; i++){			
-		 
-		text += "<option value="+res[i].userId+">"+res[i].userNm+"</option>";	 	
-	}
-	
-	$("#user2_select_id").html(text);
-}
-
-function support_select_change_event(){
-	var supoId = $("#support_select_id").val();
-	var text = "";
-	
-	if(supoId == 3){ //프리세일즈 ID : 3
-		ICustomerService.getSupovisit(supoId,supochangeCallBack);		
-		$("#visit_select_id").prop("disabled",true);	
-		
-		text += "<tr><td>비고</td><td><textarea id='etc_id' rows='5' cols='30' name='contents'></textarea></td></tr>";
-
-		$("#cus_list_tb").html(text);
-	}else{
-		ICustomerService.getSupovisit(supoId,supochangeCallBack);		
-		$("#visit_select_id").prop("disabled",false);	
-		
-		text += "<tr><td>계약시작일</td><td><input id='supoStartDate_id' type='date' value=''></td></tr>";
-		text += "<tr><td>계약종료일</td><td><input id='supoEndDate_id' type='date' value=''></td></tr>";
-		
-		text += "<tr><td>비고</td><td><textarea id='etc_id' rows='5' cols='30' name='contents'></textarea></td></tr>";
-	
-		$("#cus_list_tb").html(text);
-	}		
-}
-
-function supochangeCallBack(res){
-	var text = "";			
-	
-	for(var i = 0; i < res.length; i++){			
-		 
-		text += "<option value="+res[i].supoVisitId+">"+res[i].supoVisitNm+"</option>";	 	
-	}
-	
-	$("#visit_select_id").html(text);
-} */
-
-function cusNminfoCallBack(res){
-	var availableTags = [];
-	
-	for(var i = 0; i < res.length; i++){	
-		availableTags.push(res[i].cusNm);			
-	}
-	
-	 $("#cusName_id").shieldComboBox({
-	    	dataSource: {
-	            data: availableTags
-	        },	        
-	        autoComplete: {
-	            enabled: true
-	        },events: {
-	        	change : function(e){   
-     				var cusNm =  $("#cusName_id").val();	        			
-     		
-     				$("#cusUser_id").val("");
-    			  //  ICustomerService.getcusNmProinfo(cusNm,"", cusNmProinfoCallBack);	           			   
-     	   		}
-	        }
- 	}); 	
-	/* $( "#cusName_id" ).autocomplete({
-		  source: availableTags
-	}); */
-}
-
-function cusNmProinfoCallBack(res){
-	/* var availableTags = [];	 */
-	
-	if(res.length > 0){
-		for(var i = 0; i < res.length; i++){			
-			/* availableTags.push(res[i].proNm); */			
-		    $("#cusName_hidden_id").val(res[i].cusId); 
-			$("#cuslocation_id").val(res[i].cusLoca);
-		}
-/* 		$( "#cusproName_id" ).autocomplete({
-			  source: availableTags
-		}); */
-	}else{
-		$("#cusName_hidden_id").val("0");
-		$("#cuslocation_id").val("");
-	}
-}
-
-function cusNmProinfoCallBack1(res){
-	if(res.length > 0){
-		alert("해당 고객사에 해당 프로젝트는 이미 등록되어 있습니다.");
-		$("#cusproName_id").val("");
-		$("#cusproName_id").focus();
-	}
-}
-
-function cusNmUserinfoCallBack(res){
-	var availableTags = [];	
-	
-	if(res.length > 0){
-		
-		for(var i = 0; i < res.length; i++){	
-			availableTags.push(res[i].cususerNm);
-		}
-/* 		$( "#cusNm_id" ).autocomplete({
-			  source: availableTags
-		}); */
-	}else{
-		$("#cusNm_id").val("");
-	}
-}
-
-function cusUserinfoCallBack(res){
-	if(res.length > 0){
-		for(var i = 0; i < res.length; i++){	
-			$("#cusPhone_id").val(res[i].cususerPhone);
-			$("#cusMail_id").val(res[i].cususerMail);
-			
-			$("#cusNm_hidden_id").val(res[i].cususerId);
-		}
-	}else{
-		$("#cusPhone_id").val("");
-		$("#cusMail_id").val("");
-		$("#cusNm_hidden_id").val("0");
-	}
-}
-
-function insertCusinfoCallBack(res){
-	if(res == "FAILED"){
-		alert("실패");
-		location.href = "customer_insert";
-	}else if(res == "SUCCESS"){
-		alert("성공");
-		location.href = "customer_insert";
-	}
-}
 </script>
 
 <style>
@@ -511,7 +385,8 @@ th, td {
 						<td>							
 							<div id="div_cusName_id">
 								<input type="hidden" id="cusName_hidden_id" value="0"/>
-								<input class="sui-input" id='cusName_id' value=""  style='text-transform: uppercase' onblur="onblur_event();"></input>
+								<!-- <input class="sui-input" id='cusName_id' value=""  style='text-transform: uppercase' onblur="onblur_event();"></input> -->
+								<input class="sui-input" id='cusName_id' value=""  style='text-transform: uppercase'></input>
 								<span id="idSpan" class="redText"></span>	
 							</div>									
 						</td>
@@ -520,18 +395,29 @@ th, td {
 						<td>프로젝트명*</td>						
 						<td>
 							<input type="hidden" id="cusPro_hidden_id" value="0"/>
-							<input class="sui-input" type='text' id='cusproName_id' value="" style='text-transform: uppercase'>			
-							<span id="idSpan1" class="redText"></span>
+							<input class="sui-input" id='cusproName_id' value="" style='text-transform: uppercase'></input>
+							<input type="checkbox" id="chk_id" name="chk_info" value="1" disabled="disabled"><font style="font-size: 12px">고객사명과 동일하게 적용</font>		
+							<span id="idSpan1" class="redText"></span>			
+											
 						</td>	
+						
 					</tr>
 					<tr>
 						<td>업무명*</td>
 						<td>
 						<input type="hidden" id="dbmsNm_hidden_id" value="0"/>
-						<select class="sui-input" id='dbms_select_id'>
-							<option value="0" selected>지정하지않음.</option>
-						    <c:forEach var="dl" items="${dbms_list}">
-			 	    			<option value="${dl.dbmsId}">${dl.dbmsNm}</option>		 	    	
+						<select class="sui-input" id='dbms_select_id' disabled="disabled">
+							<!-- <option value="0" selected>지정하지않음.</option> -->
+						    <c:forEach var="dl" items="${dbms_list}">					    	   
+				    	    	<c:choose>
+									<c:when test="${dl.dbmsId == 0}">									
+										<option value="${dl.dbmsId}" selected>지정하지않음.</option>		
+									</c:when>
+									<c:otherwise>
+										<option value="${dl.dbmsId}">${dl.dbmsNm}</option>										 
+									</c:otherwise>
+								</c:choose>							    		
+						    		 	    					    	
 			 	    		</c:forEach>	
 						</select>
 						</td>	
@@ -539,7 +425,7 @@ th, td {
 					<tr>
 						<td>고객명</td>												
 						<td><input type="hidden" id="cusNm_hidden_id" value="0"/>
-						<input class="sui-input" type='text' id='cusNm_id' value=""  style='text-transform: uppercase'></td>															
+						<input class="sui-input" id='cusNm_id' value=""  style='text-transform: uppercase'></td>															
 					</tr>			
 					<tr>
 						<td>고객 연락처</td>						
@@ -559,8 +445,11 @@ th, td {
 						<select class="sui-input" id='salesman_select_id'>
 							<option value="0" selected>지정하지않음.</option>
 						    <c:forEach var="sl" items="${salseman_list}">
+						    	<%-- <c:if test="${sl.userId == 0}">
+						    	<option value="${sl.userId}" selected>지정하지않음.</option>
+						    	</c:if> --%>
 			 	    			<option value="${sl.userId}">${sl.userNm}</option>		 	    	
-			 	    		</c:forEach>	
+			 	    		</c:forEach> 	
 						</select>
 						</td>									
 					</tr>							

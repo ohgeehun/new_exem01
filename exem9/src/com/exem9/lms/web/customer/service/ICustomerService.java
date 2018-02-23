@@ -79,4 +79,5 @@ public interface ICustomerService {
 	/*고객사 프로젝트명 가져오기 콤포박스에서 사용*/
 	public List<CustomerPjtNmBean> getcusPjtNminfo()throws Throwable ;
 	
+	public List<CustomerMemberBean> getprodbmsManagedinfo(String cusNm, String proNm, String dbmsId)throws Throwable ;
 }
