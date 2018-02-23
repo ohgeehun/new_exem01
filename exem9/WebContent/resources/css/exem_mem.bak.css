@@ -3,7 +3,7 @@
 * {margin: 0 auto; padding: 0;}
 ol,li{list-style:none;}
 
-body { } 
+body { height: 790px;} 
 
 A:link { text-decoration:none;}
 A:hover  { color:#000;text-decoration:none;}
@@ -44,7 +44,7 @@ A:hover  { color:#000;text-decoration:none;}
 .inPutBox_id {
 	position:absolute; 
 	width:237px;
-	height:36px; 
+	height:18px; 
     padding:7px;
 	border:1px solid #B7B7B7;
 	font-family: 'Archivo Narrow', sans-serif;
@@ -58,7 +58,7 @@ A:hover  { color:#000;text-decoration:none;}
 .inPutBox_pw {
 	position:absolute; 
 	width:237px;
-	height:36px; 
+	height:18px; 
     padding:7px;
 	border:1px solid #B7B7B7;
 	font-family: 'Archivo Narrow', sans-serif;
