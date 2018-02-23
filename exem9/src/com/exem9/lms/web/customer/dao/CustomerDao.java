@@ -152,6 +152,7 @@ public class CustomerDao implements ICustomerDao{
 	}
 	
 	/*기존 고객사 / 신규 프로젝트 / 신규 업무 / 신규 담당자*/
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public String insertCusinfo2(HashMap params) throws Throwable {
 		String result = "FAILED";
 		
@@ -185,6 +186,7 @@ public class CustomerDao implements ICustomerDao{
 	}
 
 	/*기존 고객사 / 기존 프로젝트 / 신규 업무 / 기존 담당자*/
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public String insertCusinfo3(HashMap params) throws Throwable {
 		String result = "FAILED";
 		
@@ -212,6 +214,7 @@ public class CustomerDao implements ICustomerDao{
 	}
 	
 	/*기존 고객사 / 기존 프로젝트 / 신규 업무 / 신규 담당자*/
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public String insertCusinfo4(HashMap params) throws Throwable {
 		String result = "FAILED";
 		
@@ -242,6 +245,7 @@ public class CustomerDao implements ICustomerDao{
 	}
 	
 	/*기존 고객사 / 기존 프로젝트 / 기존 업무 / 신규 담당자*/
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public String insertCusinfo5(HashMap params) throws Throwable {
 		String result = "FAILED";
 		

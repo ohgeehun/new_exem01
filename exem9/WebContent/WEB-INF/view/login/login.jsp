@@ -5,7 +5,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+
+<title>EXEM</title> 
+<link rel="stylesheet" type="text/css" media="screen" href="./resources/css/exem_mem.css"/>
+
 <!-- jQuery Script -->
 <script type="text/javascript" src="resources/script/jquery/jquery-1.8.2.min.js"></script>
 <script type="text/javascript" src="resources/script/jquery/jquery-ui-1.8.min.js"></script>
@@ -43,93 +46,43 @@ function LoginCallBack(res){
 		location.href= "main";
 	}
 }
+
+function clearText(thefield){
+	if (thefield.defaultValue==thefield.value){
+		thefield.value = "";
+	}
+}  
+
 </script>
-<meta name="viewport" content="width=device-width,initial-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1.0, user-scalable=no"> 
 <style>
 
-@-ms-viewport{width:device-width,initial-scale=1.0, user-scalable=no;}
+ @-ms-viewport{width:device-width,initial-scale=1.0, user-scalable=no;}
 @-o-viewport{width:device-width,initial-scale=1.0, user-scalable=no;}
-@viewport{width:device-width,initial-scale=1.0, user-scalable=no;}
-
-form {
-    border: 3px solid #f1f1f1;
-}
-
-input[type=text], input[type=password] {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-}
-
-button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-}
-
-button:hover {
-    opacity: 0.8;
-}
-
-.cancelbtn {
-    width: auto;
-    padding: 10px 18px;
-    background-color: #f44336;
-}
-
-.imgcontainer {
-    text-align: center;
-    margin: 24px 0 12px 0;
-}
-
-img.avatar {
-    width: 40%;
-    border-radius: 50%;
-}
-
-.container {
-    padding: 16px;
-}
-
-span.psw {
-    float: right;
-    padding-top: 16px;
-}
+@viewport{width:device-width,initial-scale=1.0, user-scalable=no;} 
 
 </style>
 
 <body>
-	<h2>EXEM 관리시스템</h2>	
-	<!-- <form method="post" action="loginResult"> -->
-	  <div class="imgcontainer">
-	   <!--  <img src="img_avatar2.png" alt="Avatar" class="avatar"> -->
-	  </div>
-	
-	  <div class="container">
-	    <label><b>로그인</b></label>
-	    <input type="text" placeholder="로그인명" id="userId" value="${userId}">
-	
-	    ${userId}
-	    <label><b>비밀번호</b></label>
-	    <input type="password" placeholder="비밀번호" id="userPw" required>
-	        
-	    <button id="loginBtn">로그인</button>
-	    <input type="checkbox" checked="checked"> 로그인명 저장
-	    <span class="psw"><a href="#">비밀번호 찾기</a></span>	    
-	  </div>
-	
-	  <div class="container" style="background-color:#f1f1f1">
-	   <!--  <button type="button" class="cancelbtn">취소</button> -->
-	  
-	  </div>
-	<!-- </form> 	 -->
+<div class="outer">
+	<div class="wrap">
+		<div class="nLoginBase">
+			<li class="inPut_guideTitle">EXEM 일정관리시스템</li>
+			<li class="inPut_guideMessage">EXEM 일정관리시스템은 사내 직원용으로 부여된 <br>아이디와 패스워드 인증을 거친 후 사용 가능합니다.
+</li>
+
+			<input type="text" id="userId" name="user_id" class="inPutBox_id" value="user id" onFocus="clearText(this);">
+			<input type="password" id="userPw" name="user_pw" class="inPutBox_pw" value="passwd" onFocus="clearText(this);">
+
+			<input type="checkbox" class="inPut_chkbx">
+			<li class="inPut_IdSave">User Id 저장</li>
+ 
+			<input type="submit"  id="loginBtn" name="OK" class="inBtt_OK" value="Log In">
+			<input type="submit" name="search_pass" class="inBtt_PassSearch" value="Password Search">
+		</div>
+	</div>
+</div>
+
 </body>
 </html>
 

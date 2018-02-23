@@ -5,15 +5,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="./resources/css/main.css" media="all" />   
+
+<title>EXEM</title> 
+<link rel="stylesheet" type="text/css" media="screen" href="./resources/css/exem_mem.css"/>
+
 
 <!-- jQuery Script -->
 <script type="text/javascript" src="resources/script/jquery/jquery-1.8.2.min.js"></script>
 <script type="text/javascript" src="resources/script/jquery/jquery-ui-1.8.min.js"></script>
 <script type="text/javascript" src="resources/script/jquery/jquery.form.js"></script>
 
-
-<title>Insert title here</title>
 <script type="text/javascript">
 
 </script>
