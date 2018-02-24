@@ -183,7 +183,7 @@ function calWeek(yyyymmdd, isPrev ){
 </script>
 
 <style>
-
+/*
 #customer_list td,tr {    
     border: 2px solid #ddd;
     text-align: center;
@@ -193,7 +193,7 @@ function calWeek(yyyymmdd, isPrev ){
     padding-left: 5px;
     font-size: 10px;
 }
-/*
+
 a {
     text-decoration: none;
     display: inline-block;
@@ -289,7 +289,7 @@ a:hover {
 					<tr>
 						<td>전체선택</br>
 						<input style="width:20px;" type="checkbox"  id="checkall"/></td>
-						<td>지원일자</td>
+						<td><input type="text" class="box_02 nTitleFont" value="지원일자"/> </td>
 						<td><p>고객사명</p></td>
 						<td><p>프로젝트 명</p></td>
 						<td>지원일시<br>(시작)</td>
@@ -305,7 +305,7 @@ a:hover {
 								<input type="checkbox" name="chk" value="${sch.schId}"/>
 							</td>
 							<td>
-								${sch.start_day}	
+								<input type="text" class="box_02 nInputFont" value="${sch.start_day}"/>	
 							</td>						
 							<td>
 								${sch.schCusNm}
