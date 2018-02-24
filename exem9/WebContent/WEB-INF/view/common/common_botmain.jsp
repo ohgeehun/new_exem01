@@ -7,5 +7,5 @@
 </style>
 
 <div class="footer">
-  <p></p>
+  <p>footer</p>
 </div>

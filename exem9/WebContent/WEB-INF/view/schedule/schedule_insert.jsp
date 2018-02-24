@@ -192,8 +192,64 @@ th, td {
 		
 <div class="row">
 
+		<div class="top_mainDisplayPart">
+				<div class="top_mainDisplayBase" >
+					<li class="input_title input_01 inputTxtFont">고객사명*</li>
+					<li class="input_title input_02 inputTxtFont">프로젝트명*</li>
+					<li class="input_title input_03 inputTxtFont">제품구분</li>
+					<li class="input_title input_04 inputTxtFont">지원유형(범주)</li>
+					<li class="input_title input_05 inputTxtFont">시작일시</li>
+					<li class="input_title input_06 inputTxtFont">종료일시</li>
+					<li class="input_title input_07 inputTxtFont">요청내역 및 지원목적</li>
+
+					<!-- input type="text" name="customer" class="input_txt input_01 inputTxtFont"-->
+					<select id='customer_name_id' class="input_txt input_01 inputTxtFont">
+								<option value="0" selected>지정하지않음.</option>
+							    <c:forEach var="cusNm" items="${cusNm_list}">
+				 	    			<option value="${cusNm.cusId}">${cusNm.cusNm}</option>		 	    	
+				 	    		</c:forEach>	
+					</select>
+					<!-- input type="text" name="project" class="input_txt input_02 inputTxtFont"-->
+					<select id='customer_project_id' class="input_txt input_02 inputTxtFont">
+								<option value="0" selected>지정하지않음.</option>
+							    <c:forEach var="cusPjtNm" items="${cusPjtNm_list}">
+				 	    			<option value="${cusPjtNm.pjtId}">${cusPjtNm.pjtNm}</option>		 	    	
+				 	    		</c:forEach>	
+					</select>
+					<!-- input type="text" name="product" class="input_txt input_03 inputTxtFont"-->
+					<select id='dbms_id' class="input_txt input_03 inputTxtFont">
+								<option value="0" selected>지정하지않음.</option>
+							    <c:forEach var="dbms" items="${dbms_list}">
+				 	    			<option value="${dbms.dbmsId}">${dbms.dbmsNm}</option>		 	    	
+				 	    		</c:forEach>	
+					</select>
+					<!-- input type="text" name="support" class="input_txt input_04 inputTxtFont"-->
+					<select id='category_id' class="input_txt input_04 inputTxtFont">
+								<option value="0" selected>지정하지않음.</option>
+							    <c:forEach var="cate" items="${cate_list}">
+				 	    			<option value="${cate.catId}">${cate.catNm}</option>		 	    	
+				 	    		</c:forEach>	
+					</select>
+					<!-- input type="text" name="start" class="input_txt input_05 inputTxtFont"-->
+					<input id="startDate" type="text" class="input_txt input_05 inputTxtFont datetimepicker">
+					<!-- input type="text" name="end" class="input_txt input_06 inputTxtFont"-->
+					<input id="endDate" type="text" class="input_txt input_06 inputTxtFont datetimepicker">
+					<!-- textarea name="content" class="text_area"></textarea-->
+					<textarea id="etc_id" name="contents" class="text_area"></textarea>
+
+					<a href="" class="cal_start"></a>
+					<a href="" class="cal_end"></a>
+
+					<!-- input type="submit" name="OK" class="input_submit inBtt_OK" value="일정등록하기"-->
+					<input type="button" id="edit_update_btn" name="OK" class="input_submit inBtt_OK" value="일정등록하기"></input>
+					
+				</div>
+			</div>
+
+
+	<!-- 
 	 <div class="column middle">
-		<!--  -->
+	 
 		
 		<h3>일정 등록 정보</h3>
 		<div id="customer_list">		
@@ -273,10 +329,12 @@ th, td {
 		
 		
 		
-		<!--  -->
+		  
 	</div>
 </div>
 	<c:import url="/main_botview"></c:import>
+	-->
+	
 </body>
 </html>
 
