@@ -181,13 +181,17 @@ th, td {
 </head>
 <body>
 <c:import url="/main_upview"></c:import>
+
+		<div class="top_SubMenuPart">
+			<div class="top_MenuBase">
+				<a href="#" class="top_SubMenu01" id="sch_insert">일정등록</a>
+				<a href="#" class="top_SubMenu02" id="my_sch">내 일정보기</a>
+				<a href="#" class="top_SubMenu03" id="team_sch">팀 일정보기</a>
+			</div>
+		</div>
+		
 <div class="row">
-	 <div class="column side">
-		   <h4>일정 관리 페이지</h4></br>
-		   <a href="#" id="sch_insert">일정 등록</a></br>
-		   <a href="#" id="my_sch">내 일정 보기</a></br>		    
-		   <a href="#" id="team_sch">팀 일정 보기</a></br>
-	 </div>
+
 	 <div class="column middle">
 		<!--  -->
 		

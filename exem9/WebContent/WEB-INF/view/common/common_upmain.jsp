@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <link rel="stylesheet" type="text/css" href="./resources/css/main.css" media="all" />
+<link rel="stylesheet" type="text/css" media="screen" href="./resources/css/exem_mem.css"/>
 
 <style type="text/css">
 
@@ -47,24 +48,28 @@ $(document).ready(function(){
 
 </script>
 
-<div class="header">
-  <h1>EXEM 관리 시스템</h1>
-  <p>EXEM 고객 지원 시스템입니다.</p>
-</div>
+		<div class="top_LogoPart">
+			<div class="top_logoBase">
+				<a href="#" class="top_logoImg"></a>
 
-<div class="topnav">
-	<div class="topnav_left">
-    	<a href="#" id="scheduleBtn">일정관리</a>
-  		<a href="#" id="customerBtn">고객사관리</a>
-    	<a href="#" id="maintenanceBtn">유지보수관리</a>
-    	<a href="#" id="memeberBtn">사용자관리</a>      
-	</div>    
-    
+				<a href="#" class="top_logMyPage" id="mypageBtn">마이페이지</a>
+				<a href="#" class="top_logInOut" id="logoutBtn">로그아웃 </a>
+
+		</div>
+
+		<div class="top_MenuPart">
+			<div class="top_MenuBase">
+				<a href="#" class="top_Menu01" id="scheduleBtn">일정관리</a>
+				<a href="#" class="top_Menu02" id="customerBtn">고객사관리</a>
+				<a href="#" class="top_Menu03" id="maintenanceBtn">유지보수관리</a>
+				<a href="#" class="top_Menu04" id="memeberBtn">사용자관리</a>
+			</div>
+		</div>
+
+<!-- div class="topnav">
     <div class="topnav_right">  
 	    <div style="color:#FFFFFF" align="right">
 	   	로그인 계정 : ${sUserId}
 	   </div>  	
-    	<a href = "#" id="mypageBtn">마이페이지</a>
-		<a href = "#" id="logoutBtn">로그아웃</a>
 	</div>
-</div>
+</div-->

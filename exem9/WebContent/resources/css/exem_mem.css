@@ -315,6 +315,77 @@ A:hover  { color:#000;text-decoration:none;}
 
 .top_SubMenu03:hover {	color:#fff;  }
 
+.top_SubMenu01_m {
+	position:absolute; 
+	font-family: 'NanumGothic', sans-serif;
+	font-weight: 600;
+    font-size:16px;
+	top:6px;
+	left:650px;
+	color:#1d0703;
+}
+
+.top_SubMenu01_m:hover {	color:#fff;  }
+
+.top_SubMenu02_m {
+	position:absolute; 
+	font-family: 'NanumGothic', sans-serif;
+	font-weight: 600;
+    font-size:16px;
+	top:6px;
+	left:770px;
+	color:#1d0703;
+}
+
+.top_SubMenu02_m:hover {	color:#fff;  }
+
+.top_SubMenu01_c {
+	position:absolute; 
+	font-family: 'NanumGothic', sans-serif;
+	font-weight: 600;
+    font-size:16px;
+	top:6px;
+	left:390px;
+	color:#1d0703;
+}
+
+.top_SubMenu01_c:hover {	color:#fff;  }
+
+.top_SubMenu02_c {
+	position:absolute; 
+	font-family: 'NanumGothic', sans-serif;
+	font-weight: 600;
+    font-size:16px;
+	top:6px;
+	left:520px;
+	color:#1d0703;
+}
+
+.top_SubMenu02_c:hover {	color:#fff;  }
+
+.top_SubMenu01_ma {
+	position:absolute; 
+	font-family: 'NanumGothic', sans-serif;
+	font-weight: 600;
+    font-size:16px;
+	top:6px;
+	left:520px;
+	color:#1d0703;
+}
+
+.top_SubMenu01_ma:hover {	color:#fff;  }
+
+.top_SubMenu02_ma {
+	position:absolute; 
+	font-family: 'NanumGothic', sans-serif;
+	font-weight: 600;
+    font-size:16px;
+	top:6px;
+	left:660px;
+	color:#1d0703;
+}
+
+.top_SubMenu02_ma:hover {	color:#fff;  }
 
 /*******  Main Display **********/
 

@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -8,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" type="text/css" href="./resources/css/fullcalendar.min.css" media="all" />
 <link rel="stylesheet" type="text/css" href="./resources/css/fullcalendar.css" media="all" /> 
-<title>Insert title here</title>
+
 
 <!-- jQuery Script -->
 <script type="text/javascript" src="resources/script/jquery/jquery-1.8.2.min.js"></script>
@@ -195,14 +194,6 @@ function calWeek(yyyymmdd, isPrev ){
     font-size: 10px;
 }
 /*
-#customer_list td,tr { table-layout: fixed;  }
-#customer_list tr { border-bottom:1px solid #e9e9e9; }
-#customer_list thead td, th {border-left: 1px solid #f2f2f2; border-right: 1px solid #d5d5d5; background: #ddd url("../images/sprites4.png") repeat-x scroll 0 100% ; font-weight: bold; text-align:center;}
-#customer_list tr td, th { border:1px solid #D5D5D5; padding:5px;}
-#customer_list tr:hover { background:#fcfcfc;}
-#customer_list tr ul.actions {margin: 0;}
-#customer_list tr ul.actions li {display: inline; margin-right: 5px;}
-*/
 a {
     text-decoration: none;
     display: inline-block;
@@ -213,6 +204,7 @@ a:hover {
     background-color: #ddd;
     color: black;
 }
+*/
 
 .previous {
     background-color: #4CAF50;
@@ -233,20 +225,29 @@ a:hover {
     color: #4CAF50;
     font-size: 20px;
 )
-
 </style>
 
 </head>
 
 <body>
 <c:import url="/main_upview"></c:import>
+
+		<div class="top_SubMenuPart">
+			<div class="top_MenuBase">
+				<a href="#" class="top_SubMenu01" id="sch_insert">일정등록</a>
+				<a href="#" class="top_SubMenu02" id="my_sch">내 일정보기</a>
+				<a href="#" class="top_SubMenu03" id="team_sch">팀 일정보기</a>
+			</div>
+		</div>
+		
 <div class="row">
-	 <div class="column side">
+
+	 <!-- div class="column side">
 		   <h4>일정 관리 페이지</h4></br>
 		   <a href="#" id="sch_insert">일정 등록</a></br>
 		   <a href="#" id="my_sch">내 일정 보기</a></br>		    
 		   <a href="#" id="team_sch">팀 일정 보기</a></br>
-	 </div>
+	 </div-->
 	 
 	 
 	 <div class="column middle">
@@ -255,7 +256,7 @@ a:hover {
 		<input type="hidden" id="nowPage" name="pageNo" value="${nowPage}"/>
 		<input type="hidden" id="userId_hidden_id" value=""/>				
 	 	</br>
-	 	
+ 	 	
 	 	<table>
 	 	<tr>
 	 	<td>
@@ -368,6 +369,8 @@ a:hover {
 					</tr>					
 				</tfoot>
 	 		</table>
+	 		
+	 		
 		</div>
 	</div>
 </div>

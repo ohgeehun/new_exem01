@@ -8,7 +8,6 @@
 <!-- <link rel="stylesheet" type="text/css" href="./resources/css/prettydropdowns.css" media="all" />  -->
 <link rel="stylesheet" type="text/css" href="./resources/css/main.css" media="all" /> 
 
-
 <!-- jQuery Script -->
 <script type="text/javascript" src="resources/script/jquery/jquery-1.8.2.min.js"></script>
 <script type="text/javascript" src="resources/script/jquery/jquery-ui-1.8.min.js"></script>
@@ -202,14 +201,25 @@ function editcusMemberCallback(res){
 </head>
 <body>
 <c:import url="/main_upview"></c:import>
+
+		<div class="top_SubMenuPart">
+			<div class="top_MenuBase">
+				<a href="#" class="top_SubMenu01_m" id="mem_managed">사용자 관리</a>
+				<a href="#" class="top_SubMenu02_m" id="mem_insert">사용자 등록</a>
+			</div>
+		</div>
+		
 <div class="row">
-<form id="form1" method="post" action="customer_edit_next">	 	
-	 <div class="column side">
-		   <h4>사용자 관리 페이지</h4></br>
-		   <a href="#" id="mem_managed">사용자 관리</a></br>		    
-		   <a href="#" id="mem_insert">사용자 등록</a></br>
+
+
+<form id="form1" method="post" action="customer_edit_next">	 
+
+	 <!-- div class="column side">
+		   <h4>일정 관리 페이지</h4></br>
+		   <a href="#" id="mem_managed">사용자 관리</a></br>
+		   <a href="#" id="mem_insert">사용자 등록</a></br>		    
+	 </div-->	
 	
-	 </div>
 	 <div class="column middle">
 	 	<div align="center"><h3>사용자 리스트 정보</h3></div>
 	 	

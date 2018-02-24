@@ -309,6 +309,7 @@ function insertMeminfoCallBack(res){
 </script>
 
 <style>
+/*
 table, td, th {    
     border: 1px solid #ddd;
     text-align: left;
@@ -325,19 +326,23 @@ th, td {
 
 .redText{display: block;color: red;margin-left:10px;}
 .greenText{display: block;color: green;margin-left:10px;}
-
+*/
 
 </style>
 
 </head>
 <body>
 <c:import url="/main_upview"></c:import>
+
+		<div class="top_SubMenuPart">
+			<div class="top_MenuBase">
+				<a href="#" class="top_SubMenu01_m" id="mem_managed">사용자 관리</a>
+				<a href="#" class="top_SubMenu02_m" id="mem_insert">사용자 등록</a>
+			</div>
+		</div>
+		
 <div class="row">
-	 <div class="column side">
-		   <h4>사용자 관리 페이지</h4></br>
-		   <a href="#" id="mem_managed">사용자 관리</a></br>		    
-		   <a href="#" id="mem_insert">사용자 등록</a></br>		 
-	 </div>
+	
 	 <div class="column middle">
 	  
 	 	<h3>사용자 등록 정보</h3>
