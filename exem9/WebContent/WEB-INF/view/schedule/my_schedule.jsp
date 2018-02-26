@@ -386,10 +386,10 @@ a:hover {
 									<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
 										<c:choose>
 											<c:when test="${nowPage==i}">
-												<a id="${i}" name="moreArea" class="nTitleFont">${i}</a>
+												<a id="${i}" name="moreArea" class="pageFont">${i}</a>
 											</c:when>
 											<c:otherwise>
-												<a href="#" id="${i}" name="moreArea" class="nTitleFont">${i}</a>
+												<a href="#" id="${i}" name="moreArea" class="pageFont">${i}</a>
 											</c:otherwise>
 										</c:choose>
 									</c:forEach>

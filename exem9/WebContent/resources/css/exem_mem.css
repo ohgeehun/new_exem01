@@ -597,8 +597,6 @@ A:hover  { color:#000;text-decoration:none;}
 	line-height: 36px;	
 }
 
-
-
 .inBtt_OK_2 {
 	width:237px;
 	height:36px; 
@@ -614,4 +612,23 @@ A:hover  { color:#000;text-decoration:none;}
 	display: flex;
   	flex-flow: column wrap;
   	align-items: center;
+}
+
+.pageFont {
+	font-family: 'NanumGothic', sans-serif;
+	font-weight: 600;
+    font-size:18px;
+	text-align:center;
+	line-height: 45px;
+}
+
+.pageFont:link, .pageFont:visited {
+	color: blue;
+	text-decoration: underline;
+}
+
+.pageFont:hover {
+	color: blue;
+	font-weight: 650;
+	font-size:22px;
 }
