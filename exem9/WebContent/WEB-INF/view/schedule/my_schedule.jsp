@@ -287,40 +287,39 @@ a:hover {
 	 		<table id="cus_list">	
 				<thead id="cus_list_th">
 					<tr>
-						<td>전체선택</br>
-						<input style="width:20px;" type="checkbox"  id="checkall"/></td>
-						<td><input type="text" class="box_02 nTitleFont" value="지원일자"/> </td>
-						<td><p>고객사명</p></td>
-						<td><p>프로젝트 명</p></td>
-						<td>지원일시<br>(시작)</td>
-						<td>지원일시<br>(종료)</td>
-						<td>지원 유형(범주)</td>
-						<td>요청내역 및 지원목적</td>
+						<td><input type="checkbox" class="main_title_box_2 box_01 nTitleFont" id="checkall" ></td>
+						<td><input type="text" class="main_title_box_2 box_02 nTitleFont" value="지원일자"/> </td>
+						<td><input type="text" class="main_title_box_2 box_03 nTitleFont" value="고객사명"/> </td>
+						<td><input type="text" class="main_title_box_2 box_04 nTitleFont" value="프로젝트명"/> </td>
+						<td><input type="text" class="main_title_box_2 box_05 nTitleFont" value="지원시작일"/> </td>
+						<td><input type="text" class="main_title_box_2 box_06 nTitleFont" value="지원종료일"/> </td>
+						<td><input type="text" class="main_title_box_2 box_07 nTitleFont" value="지원유형(범주)"/> </td>
+						<td><input type="text" class="main_title_box_2 box_08 nTitleFont" value="요청내역 및 지원목적"/> </td>
 					</tr>					
 				</thead>
 				<tbody id="cus_list_tb">
 					<c:forEach var="sch" items="${sch_list}">											
 						<tr>
 							<td>
-								<input type="checkbox" name="chk" value="${sch.schId}"/>
+								<input type="checkbox" class="main_input_box_2 box_01 nCheckBox" name="chk" value="${sch.schId}"/>
 							</td>
 							<td>
-								<input type="text" class="box_02 nInputFont" value="${sch.start_day}"/>	
+								<input type="text" class="main_input_box_2 box_02 nInputFont" value="${sch.start_day}"/>	
 							</td>						
 							<td>
-								${sch.schCusNm}
+								<input type="text" class="main_input_box_2 box_03 nInputFont" value="${sch.schCusNm}"/>	
 							</td>
 							<td>
-								${sch.schPjtNm}						
+								<input type="text" class="main_input_box_2 box_04 nInputFont" value="${sch.schPjtNm}"/>
 							</td>							
 							<td>
-								${sch.start_time}	
+								<input type="text" class="main_input_box_2 box_05 nInputFont" value="${sch.start_time}"/>
 							</td>
 							<td>
-								${sch.end_time}
+								<input type="text" class="main_input_box_2 box_06 nInputFont" value="${sch.end_time}"/>
 							</td>
 							<td>
-								<select>
+								<select class="main_input_box_2 box_07 nInputFont">
 									<c:if test="${sch.category_name == ''}">
 										<option value="0" selected>지정필요.</option>
 									</c:if>
@@ -337,7 +336,7 @@ a:hover {
 								</select>
 							</td>
 							<td>
-								<textarea id="etc_id_${sch.schId}" rows="3" cols="30" name="contents">${sch.contents}</textarea>
+								<input type="text" class="main_input_box_2 box_08 nInputFont" id="etc_id_${sch.schId}" name="contents" value="${sch.contents}"/>
 							</td>			
 						</tr>					
 					</c:forEach>										

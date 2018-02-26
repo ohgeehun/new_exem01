@@ -513,8 +513,21 @@ A:hover  { color:#000;text-decoration:none;}
 	background:#ebe8e8;
 }
 
+.main_title_box_2 {
+	border:1px solid #d1cece; 
+	height:33px;
+	padding:1px;
+	background:#ebe8e8;
+}
+
 .main_input_box {
 	position:absolute; 
+	border:1px solid #d1cece; 
+	height:33px;
+	padding:1px;
+}
+
+.main_input_box_2 {
 	border:1px solid #d1cece; 
 	height:33px;
 	padding:1px;
