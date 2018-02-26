@@ -596,3 +596,22 @@ A:hover  { color:#000;text-decoration:none;}
 	text-align:center;
 	line-height: 36px;	
 }
+
+
+
+.inBtt_OK_2 {
+	width:237px;
+	height:36px; 
+    padding:7px;
+	background:#262d31;
+	border:0px;
+	font-family: 'Archivo Narrow', sans-serif;
+    font-size:15px;
+	color:#fff;
+}
+
+.center_div {
+	display: flex;
+  	flex-flow: column wrap;
+  	align-items: center;
+}

@@ -240,7 +240,7 @@ a:hover {
 			</div>
 		</div>
 		
-<div class="row">
+<div class="row"> <!-- dummy -->
 
 	 <!-- div class="column side">
 		   <h4>일정 관리 페이지</h4></br>
@@ -250,44 +250,51 @@ a:hover {
 	 </div-->
 	 
 	 
-	 <div class="column middle">
-	 	<div align="center"><h3>내 일정 정보</h3></div>
+	 <!-- div class="column middle"-->
+	 <div class="top_mainDisplayPart">
+	 	<!-- div align="center"><h3>내 일정 정보</h3></div-->
 	 	
 		<input type="hidden" id="nowPage" name="pageNo" value="${nowPage}"/>
 		<input type="hidden" id="userId_hidden_id" value=""/>				
-	 	</br>
- 	 	
+	 		 	
 	 	<table>
 	 	<tr>
 	 	<td>
 	 		<div>
-	 			<a href="#" class="previous" id="prevWeek">&laquo; 이전주</a>
+	 			<a href="#" class="main_title_box_2 nTitleFont" id="prevWeek">&laquo; 이전주</a>
 				
 	 		</div>
 	 	</td>
 	 	<td>	 		
-	 	    <div class="week-label">
+	 	    <div class="nTitleFont">
+			  <div style='display:inline;'>&nbsp;&nbsp;&nbsp;</div>
 			  <div id="week-label-year" style='display:inline;'></div>
 			  <div style='display:inline;'>년 &nbsp;    </div>
 			  <div id="week-label-from-day" style='display:inline;'>01-01</div>
 			  <div style='display:inline;'>(월) ~ </div>
 			  <div id="week-label-to-day" style='display:inline;'>02-05</div>
 			  <div style='display:inline;'>(일)</div>
+			  <div style='display:inline;'>&nbsp;&nbsp;&nbsp;</div>
 			</div>
 	 	</td>
 	 	<td>	 		
 		 	<div>			 		
-		 	    <a href="#" class="next" id="nextWeek">다음주 &raquo;</a>
+		 	    <a href="#" class="main_title_box_2 nTitleFont" id="nextWeek">다음주 &raquo;</a>
 			</div>
 	 	</td>	 
 	 	</tr>
-	 	</table> 	
+	 	</table>
+	 		
 	
 		<div id="customer_list">		
 	 		<table id="cus_list">	
 				<thead id="cus_list_th">
 					<tr>
-						<td><input type="checkbox" class="main_title_box_2 box_01 nTitleFont" id="checkall" ></td>
+						<td>
+							<li class="main_title_box_2 box_01 nCheckBox">
+								<input type="checkbox" id="checkall"/>
+							</li>
+						</td>
 						<td><input type="text" class="main_title_box_2 box_02 nTitleFont" value="지원일자"/> </td>
 						<td><input type="text" class="main_title_box_2 box_03 nTitleFont" value="고객사명"/> </td>
 						<td><input type="text" class="main_title_box_2 box_04 nTitleFont" value="프로젝트명"/> </td>
@@ -301,7 +308,9 @@ a:hover {
 					<c:forEach var="sch" items="${sch_list}">											
 						<tr>
 							<td>
-								<input type="checkbox" class="main_input_box_2 box_01 nCheckBox" name="chk" value="${sch.schId}"/>
+								<li class="main_title_box_2 box_01 nCheckBox">
+									<input type="checkbox" name="chk" value="${sch.schId}"/>
+								</li>
 							</td>
 							<td>
 								<input type="text" class="main_input_box_2 box_02 nInputFont" value="${sch.start_day}"/>	
@@ -341,8 +350,9 @@ a:hover {
 						</tr>					
 					</c:forEach>										
 				</tbody>
+				
 				<tfoot id="cus_list_tf"> 
-					<tr>
+					<!-- tr>
 						<td colspan="6">
 							<c:if test="${nowPage > 1}">
 								<a href="#" id="backVal">이전</a>
@@ -350,10 +360,10 @@ a:hover {
 							<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
 								<c:choose>
 									<c:when test="${nowPage==i}">
-										<a id="${i}" name="moreArea">${i}</a>
+										<a id="${i}" name="moreArea" class="nTitleFont">${i}</a>
 									</c:when>
 									<c:otherwise>
-										<a href="#" id="${i}" name="moreArea">${i}</a>
+										<a href="#" id="${i}" name="moreArea" class="nTitleFont">${i}</a>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
@@ -363,18 +373,49 @@ a:hover {
 						</td>
 						<td colspan="2">
 							  <input type="password" placeholder="정보 수정 비밀번호 입력." id="editPw" required>&nbsp;&nbsp;
-							  <input type="button" id="edit_update_btn" value="변경"></input>
+							  <input type="button" id="edit_update_btn" value="수정" class="nTitleFont"></input>
 						</td>
-					</tr>					
+					</tr-->	
+					<tr>
+						<td colspan="8">
+						
+							<div class="center_div">
+								<c:if test="${nowPage > 1}">
+										<a href="#" id="backVal" class="nTitleFont">이전</a>
+									</c:if>
+									<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
+										<c:choose>
+											<c:when test="${nowPage==i}">
+												<a id="${i}" name="moreArea" class="nTitleFont">${i}</a>
+											</c:when>
+											<c:otherwise>
+												<a href="#" id="${i}" name="moreArea" class="nTitleFont">${i}</a>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+									<c:if test="${maxPage > nowPage}">
+										<a href="#" id="nextVal" class="nTitleFont">다음</a>
+									</c:if>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="8">
+							<div class="center_div">
+						  		<input type="button" id="edit_update_btn" value="수정" class="inBtt_OK_2"/>
+						  	</div>
+						</td>
+					</tr>				
 				</tfoot>
 	 		</table>
-	 		
-	 		
-		</div>
+		</div>  <!-- table end -->
+						
 	</div>
-</div>
-
+	
+</div>  <!--  dummy  -->
+<!-- 
 <c:import url="/main_botview"></c:import>
+-->
 </body>
 </html>
 
