@@ -246,7 +246,6 @@ th, td {
 				</div>
 			</div>
 
-
 	<!-- 
 	 <div class="column middle">
 	 
