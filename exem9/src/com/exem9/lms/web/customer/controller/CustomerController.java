@@ -84,9 +84,8 @@ public class CustomerController {
 			List<DbmsBean> dbms_list = iCustomerService.getdbms();
 
 			modelAndView.addObject("salseman_list", salseman_list);
-			modelAndView.addObject("dbms_list", dbms_list);
+			modelAndView.addObject("dbms_list", dbms_list);			
 			
-			System.out.println("dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
 			modelAndView.setViewName("customer/customer_insert");
 		}
 				

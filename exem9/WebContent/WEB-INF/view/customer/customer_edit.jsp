@@ -305,16 +305,6 @@ function editcusMemberCallback(res){
 
 <style>
 
-#customer_list td,tr {    
-    border: 2px solid #ddd;
-    text-align: center;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-right: 5px;
-    padding-left: 5px;
-    font-size: 10px;
-}
-
 </style>
 
 </head>
@@ -336,90 +326,62 @@ function editcusMemberCallback(res){
 	<!-- 	   <a href="#" id="cus_edit">고객사 </p>기본정보 수정</a></br>	    -->
 		   <!-- <a href="#" id="cus_edit1">고객사 </p>계약정보 수정</a></br> -->
 	 <!--  /div-->
-	 <div class="column middle">
+	 <div class="top_mainDisplayPart">
 	 	<div align="center"><h3>고객사 리스트 정보</h3></div>
 	 	<%-- <input type="hidden" id="lastBoardNo" value ="${cus_list[fn:length(cus_list)-1].boardNo}"/> --%>
+	 	</br>
 		<input type="hidden" id="nowPage" name="pageNo" value="${nowPage}"/>
 		<input type="hidden" id="cusId_hidden_id" name="cusId_hidden_name" value=""/>
 		<input type="hidden" id="userId_hidden_id" value=""/>				
-	 	</br>
-	 	<table>
-	 	<tr>
-	 	<td>
-		 	<div>	 		
-		 		<!-- <label for="cus_select1" class="a11y-hidden">분류</label>  -->
-		 	<%--     <select id="cus_select1" name="supoState">
-						<option value="0" selected>전체</option>
-						 <c:forEach var="sl" items="${supo_list}">
-		 	    			<option value="${sl.supoId}">${sl.supoNm}</option>		 	    	
-		 	    		</c:forEach>
-				</select> --%>
-			</div>
-	 	</td>
-	 	<td>	 	  
-		 	<div>	 		 	
-		<%--  	    <select id="cus_select2" name="userDept">
-		 	   		 <option value="0">전체</option>
-		 	   		 <c:forEach var="dl" items="${dept_list}">
-		 	    		<option value="${dl.deptId}"<c:if test="${cus_list[0].userDept == dl.deptNm}">selected</c:if>>${dl.deptNm}</option>		 	    	
-		 	    	</c:forEach>		 	    		 			
-				</select> --%>
-			</div>
-	 	</td>
-	 	<td>
-		<%--  	<div>	
-		 	    <select id="cus_select3" name="userDbms">
-						<option value="0" selected>전체</option>
-						<c:forEach var="dbl" items="${dbms_list}">
-		 	    			<option value="${dbl.dbmsId}"<c:if test="${cus_list[0].userDbms == dbl.dbmsNm}">selected</c:if>>${dbl.dbmsNm}</option>		 	    	
-		 	    		</c:forEach>	
-				</select>
-			</div> --%>
-	 	</td>
-	 <!-- 	<td>&nbsp;&nbsp;</td> -->
-	 	<td>
-	 		<div>
-	 			<select id="cus_select4" name="selectBtnVal">
-	 					<option value="0" selected>검색조건없음</option>
-						<option value="1">고객사</option>						
-						<option value="3">영업대표</option>
-				</select>
-	 		</div>
-	 	</td>
-	 	<td>	 		
-		 	<div>			 		
-		 	    <input type="text" id="select_text" name="selectTextVal" value="검색 조건을 선택하세요."></input>
-		 	    <input type="button" id="select_btn" value="검색"></input>
-			</div>
-	 	</td>	 
-	 	</tr>
-	 	</table> 	
 	
-		<div id="customer_list">		
-		 	
+ 		<div>
+ 			
+ 	    </div>
+		<div class="top_mainDisplayBase" >
 			<table id="cus_list">	
 				<thead id="cus_list_th">
+					<tr >				
+						<select  class="main_input_box_2" id="cus_select4" name="selectBtnVal">
+			 					<option value="0" selected>검색조건없음</option>
+								<option value="1">고객사</option>						
+								<option value="3">영업대표</option>
+						</select>
+						&nbsp;
+				 	    <input class="main_input_box_2" type="text" id="select_text" name="selectTextVal" value="검색 조건을 선택하세요."></input>
+				 	   
+				 	    <input class="main_input_box_2" type="button" id="select_btn" value="검색"></input>
+					</tr>					
 					<tr>
-						<td>전체선택</br><input style="width:20px;" type="checkbox"  id="checkall"/></td>
-						<td><p>고객사명</p></td>
-						<td><p>프로젝트명</p></td>
-						<td>고객명</td>
-						<td>고객 연락처</td>
-						<td>고객 이메일</td>
-						<td>고객사 위치</td>
-						<td>담당영업대표</td>																	
-						<td>비고</td>
+						<td>
+							<li class="main_title_box_2 box_01 nCheckBox">
+								<input type="checkbox" id="checkall"/>
+							</li>
+						</td>
+						<td><input class="main_title_box_2 box_02 nTitleFont" value="고객사명" disabled="disabled"/></td>
+						<td><input class="main_title_box_2 box_03 nTitleFont" value="프로젝트명" disabled="disabled"/></td>
+						<td><input class="main_title_box_2 box_04 nTitleFont" value="고객명" disabled="disabled"/></td>
+						<td><input class="main_title_box_2 box_05 nTitleFont" value="고객 연락처" disabled="disabled"/></td>
+						<td><input class="main_title_box_2 box_06 nTitleFont" value="고객 이메일" disabled="disabled"/></td>
+						<td><input class="main_title_box_2 box_07 nTitleFont" value="고객사 위치" disabled="disabled"/></td>
+						<td><input class="main_title_box_2 box_08 nTitleFont" value="담당영업대표" disabled="disabled"/></td>
+						<td><input class="main_title_box_2 box_09 nTitleFont" value="비고" disabled="disabled"/></td>
 					</tr>					
 				</thead>
 				<tbody id="cus_list_tb">
 					<c:forEach var="cli" items="${cus_list_info}">											
 						<tr>
-							<td><input type="checkbox" name="chk" value="${cli.proId}"/>
-						<%-- 	<input type="hidden" id="checkbox_hidden_id_${cli.proId}" value="${cli.proId}"/>	 --%>							
-							</td>						
-							<td>${cli.cusNm}</td>
-							<td>${cli.proNm}</td>							
 							<td>
+								<li class="main_title_box_2 box_01 nCheckBox">
+									<input type="checkbox" name="chk" value="${sch.schId}"/>
+								</li>
+							</td>							
+						<%--	<td><input type="checkbox" name="chk" value="${cli.proId}"/>
+						 	<input type="hidden" id="checkbox_hidden_id_${cli.proId}" value="${cli.proId}"/>	 							
+							</td>			--%>
+									
+							<td class="main_input_box_2 box_02 nInputFont">${cli.cusNm}</td>
+							<td class="main_input_box_2 box_03 nInputFont">${cli.proNm}</td>							
+							<%-- <td>
 								<input type="hidden" id="select_cus_hidden_id_${cli.proId}" value=""/>
 								<select id="edit_cus_list_select_${cli.proId}" onchange="edit_cus_select_change_event(${cli.proId})">
 									<c:if test="${cli.cusNm == ''}">
@@ -451,9 +413,7 @@ function editcusMemberCallback(res){
 								<input type="text" id="cuslocation_id_${cli.proId}" value="${cli.cusLoca}">								
 							</td>																		
 					
-							<td>
-								<%-- <input type="hidden" id="select_cus_hidden_id_${cli.proId}" value=""/>
-								<input type="hidden" id="cusId_hidden_id_${cli.proId}" value=""/> --%>
+							<td>								
 								<select id="edit_salseman_list_select_${cli.proId}">
 									<c:if test="${cli.salseId == '0'}">
 										<option value="0" selected>지정필요.</option>
@@ -471,7 +431,7 @@ function editcusMemberCallback(res){
 								</select>
 							</td>			
 							<td><textarea id="etc_id_${cli.proId}" rows="3" cols="30" name="contents">${cli.etc}</textarea></td>
-						</tr>					
+						</tr>					 --%>
 					</c:forEach>										
 				</tbody>
 				<tfoot id="cus_list_tf"> 
@@ -500,8 +460,7 @@ function editcusMemberCallback(res){
 						</td>
 					</tr>					
 				</tfoot>
-	 		</table>	
-	 		
+	 		</table>		
 		</div>
 	</div>
 	</form>

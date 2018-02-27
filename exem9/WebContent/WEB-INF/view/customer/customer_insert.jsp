@@ -63,6 +63,13 @@ $(document).ready(function(){
         }
     });
 	
+	$("#cusName_id").shieldComboBox({
+    	dataSource: {
+            data: ""
+        },        	        
+        enabled: false
+	}); 
+	
  	$("#cusproName_id").shieldComboBox({
     	dataSource: {
             data: ""
@@ -145,8 +152,10 @@ function cusNminfoCallBack(res){
 	
 	for(var i = 0; i < res.length; i++){	
 		availableTags.push(res[i].cusNm);			
-	}
-	
+	}	
+
+	 $("#cusName_id").swidget().destroy();
+	 
 	 $("#cusName_id").shieldComboBox({
 	    	dataSource: {
 	            data: availableTags
@@ -345,7 +354,7 @@ function removeChar(event) {
 </script>
 
 <style>
- table, td, th {    
+/* table, td, th {    
     border: 1px solid #ddd;
     text-align: left;
 }
@@ -353,15 +362,17 @@ function removeChar(event) {
 table {
     border-collapse: collapse;
     width: 50%;
-}
+} */
 
 th, td {
+	width:290px;
+	top:46px;
     padding: 10px;
-}
+} 
 
-.redText{display: block;color: red;margin-left:10px;}
+/* .redText{display: block;color: red;margin-left:10px;}
 .greenText{display: block;color: green;margin-left:10px;}
-
+ */
 
 </style>
 
@@ -381,25 +392,130 @@ th, td {
 		   <a href="#" id="cus_managed">고객사 관리</a></br>		    
 		   <a href="#" id="cus_insert">고객사 등록</a></br>		 
 	 </div-->
-	 <div class="column middle">
-	  
-	 	<h3>고객사 등록 정보</h3>
-		<div id="customer_list">		
-			<table id="cus_list">	
-				<thead id="cus_list_th">
+	 <!-- <div class="column middle"> -->
+	  <div class="top_mainDisplayPart">	 
+	  	<div align="center"><h3>고객사 등록 페이지</h3></div>
+		<!-- <div id="customer_list">		 -->
+		<div class="top_mainDisplayBase" >
+			<!-- <h3 align="left">고객사 등록 정보</h3> -->
+		 		<li class="input_title input_01 inputTxtFont">고객사명*</li>
+				<li class="input_title input_02 inputTxtFont">프로젝트명*</li>
+				<li class="input_title input_03 inputTxtFont">제품구분*</li>
+				<li class="input_title input_04 inputTxtFont">고객명</li>
+				<li class="input_title input_05 inputTxtFont">고객 연락처</li>
+				<li class="input_title input_06 inputTxtFont">고객 이메일</li>
+				<li class="input_title input_07 inputTxtFont">고객사 위치</li>
+				<li class="input_title input_08 inputTxtFont">담당영업</li>
+				<li class="input_title input_09 inputTxtFont">비고</li>				
+						
+				<div class="input_txt_01 input_01 inputTxtFont">	
+					<input type="hidden" id="cusName_hidden_id" value="0"/>
+					<!-- <input class="sui-input" id='cusName_id' value=""  style='text-transform: uppercase' onblur="onblur_event();"></input> -->
+					<input  id='cusName_id' value=""  style='text-transform: uppercase'></input>
+					<!-- <span id="idSpan" class="redText"></span> -->			
+				</div>
+				
+				<div class="input_txt_01 input_02 inputTxtFont">	
+					<input type="hidden" id="cusPro_hidden_id" value="0"/>
+					<input id='cusproName_id' value="" style='text-transform: uppercase'></input>
+					<!-- <input type="checkbox" id="chk_id" name="chk_info" value="1" disabled="disabled"><font style="font-size: 12px">고객사명과 동일하게 적용</font>	 -->	
+					<!-- <span id="idSpan1" class="redText"></span>	 -->	
+				</div>	
+				
+	
+				<input type="hidden" id="dbmsNm_hidden_id" value="0"/>
+				<select class="input_txt input_03 inputTxtFont" id='dbms_select_id' disabled="disabled">
+					<!-- <option value="0" selected>지정하지않음.</option> -->
+				    <c:forEach var="dl" items="${dbms_list}">					    	   
+		    	    	<c:choose>
+							<c:when test="${dl.dbmsId == 0}">									
+								<option value="${dl.dbmsId}" selected>지정하지않음.</option>		
+							</c:when>
+							<c:otherwise>
+								<option value="${dl.dbmsId}">${dl.dbmsNm}</option>										 
+							</c:otherwise>
+						</c:choose>						    	
+	 	    		</c:forEach>	
+				</select>				
+				
+				<div class="input_txt_01 input_04 inputTxtFont">	
+					<input type="hidden" id="cusNm_hidden_id" value="0"/>
+					<input id='cusNm_id' value=""  style='text-transform: uppercase'>
+				</div>
+				
+				<input class="input_txt input_05 inputTxtFont" type='text' id='cusPhone_id' value="" onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' style='ime-mode:disabled;'>
+				
+				<input class="input_txt input_06 inputTxtFont" type='text' id='cusMail_id' value="">
+				
+				<input class="input_txt input_07 inputTxtFont" type='text' id='cuslocation_id' value=""  style='text-transform: uppercase'>				
+				
+				<select class="input_txt input_08 inputTxtFont" id='salesman_select_id' disabled="disabled">
+					<option value="0" selected>지정하지않음.</option>
+					 <c:forEach var="sl" items="${salseman_list}">
+					    	<option value="${sl.userId}">${sl.userNm}</option>		 	    			 	    	
+	 	    		</c:forEach> 
+				</select>
+				<textarea  class="input_txt_02 input_09 inputTxtFont" id="etc_id" rows="5" cols="30" name="contents"></textarea>
+				
+				<%-- <select class="input_txt input_08 inputTxtFont" id='salesman_select_id'>
+						<option value="0" selected>지정하지않음.</option>
+					    <c:forEach var="sl" items="${salseman_list}">
+					    	<c:if test="${sl.userId == 0}">
+					    	<option value="${sl.userId}" selected>지정하지않음.</option>
+					    	</c:if>
+		 	    			<option value="${sl.userId}">${sl.userNm}</option>		 	    	
+		 	    		</c:forEach> 	
+				</select> --%>
+				
+				<%-- 		
+				<div class="input_txt_01 input_05 inputTxtFont">	
+					<input type='text' id='cusPhone_id' value="" onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' style='ime-mode:disabled;'>
+				</div>
+				
+				<div class="input_txt_01 input_06 inputTxtFont">	
+					<input type='text' id='cusMail_id' value="">
+				</div>
+				
+				<div class="input_txt_01 input_07 inputTxtFont">	
+					<input type='text' id='cuslocation_id' value=""  style='text-transform: uppercase'>
+				</div>
+				
+					
+				<select class="input_txt input_08 inputTxtFont" id='salesman_select_id'>
+						<option value="0" selected>지정하지않음.</option>
+					    <c:forEach var="sl" items="${salseman_list}">
+					    	<c:if test="${sl.userId == 0}">
+					    	<option value="${sl.userId}" selected>지정하지않음.</option>
+					    	</c:if>
+		 	    			<option value="${sl.userId}">${sl.userNm}</option>		 	    	
+		 	    		</c:forEach> 	
+				</select>
+								
+				
+				<div class="input_txt_01 input_09 inputTxtFont">	
+					<textarea id="etc_id" rows="5" cols="30" name="contents"></textarea>
+				</div>  --%>
+			<%-- 	<select id='customer_name_id' class="input_txt input_01 inputTxtFont">
+							<option value="0" selected>지정하지않음.</option>
+						    <c:forEach var="cusNm" items="${cusNm_list}">
+			 	    			<option value="${cusNm.cusId}">${cusNm.cusNm}</option>		 	    	
+			 	    		</c:forEach>	
+				</select> --%>
+			<%-- <table>	
+				<thead>
 					<tr>
-						<td>고객사명*</td>
+						<td><li class="input_title input_01 inputTxtFont">고객사명*</li></td>
 						<td>							
 							<div id="div_cusName_id">
 								<input type="hidden" id="cusName_hidden_id" value="0"/>
 								<!-- <input class="sui-input" id='cusName_id' value=""  style='text-transform: uppercase' onblur="onblur_event();"></input> -->
-								<input class="sui-input" id='cusName_id' value=""  style='text-transform: uppercase'></input>
+								<input class="input_txt input_01 inputTxtFont" id='cusName_id' value=""  style='text-transform: uppercase'></input>
 								<span id="idSpan" class="redText"></span>	
 							</div>									
 						</td>
 					</tr>
-					<tr> 
-						<td>프로젝트명*</td>						
+					</thead>
+						 <td>프로젝트명*</td>						
 						<td>
 							<input type="hidden" id="cusPro_hidden_id" value="0"/>
 							<input class="sui-input" id='cusproName_id' value="" style='text-transform: uppercase'></input>
@@ -431,20 +547,28 @@ th, td {
 					</tr>		
 					<tr>
 						<td>고객명</td>												
-						<td><input type="hidden" id="cusNm_hidden_id" value="0"/>
-						<input class="sui-input" id='cusNm_id' value=""  style='text-transform: uppercase'></td>															
+						<td>
+						<input type="hidden" id="cusNm_hidden_id" value="0"/>
+						<input class="sui-input" id='cusNm_id' value=""  style='text-transform: uppercase'>
+						</td>															
 					</tr>			
 					<tr>
 						<td>고객 연락처</td>						
-						<td><input class="sui-input" type='text' id='cusPhone_id' value="" onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' style='ime-mode:disabled;'></td>															
+						<td>
+						<input class="sui-input" type='text' id='cusPhone_id' value="" onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' style='ime-mode:disabled;'>
+						</td>															
 					</tr>
 					<tr>
 						<td>고객 이메일</td>						
-						<td><input class="sui-input" type='text' id='cusMail_id' value=""></td>													
+						<td>
+						<input class="sui-input" type='text' id='cusMail_id' value="">
+						</td>													
 					</tr>		
 					<tr>
 						<td>고객사 위치</td>						
-						<td><input class="sui-input" type='text' id='cuslocation_id' value=""  style='text-transform: uppercase'></td>														
+						<td>
+						<input class="sui-input" type='text' id='cuslocation_id' value=""  style='text-transform: uppercase'>
+						</td>														
 					</tr>
 					<tr>
 						<td>담당영업</td>
@@ -452,9 +576,9 @@ th, td {
 						<select class="sui-input" id='salesman_select_id'>
 							<option value="0" selected>지정하지않음.</option>
 						    <c:forEach var="sl" items="${salseman_list}">
-						    	<%-- <c:if test="${sl.userId == 0}">
+						    	<c:if test="${sl.userId == 0}">
 						    	<option value="${sl.userId}" selected>지정하지않음.</option>
-						    	</c:if> --%>
+						    	</c:if>
 			 	    			<option value="${sl.userId}">${sl.userNm}</option>		 	    	
 			 	    		</c:forEach> 	
 						</select>
@@ -464,7 +588,9 @@ th, td {
 				<tbody id="cus_list_tb">
 					<tr>
 						<td>비고</td>						
-						<td><textarea id="etc_id" rows="5" cols="30" name="contents"></textarea></td>													
+						<td>
+						<textarea id="etc_id" rows="5" cols="30" name="contents"></textarea>
+						</td>													
 					</tr>																											
 				</tbody>
 				<tfoot id="cus_list_tf"> 					
@@ -473,9 +599,9 @@ th, td {
 						  <input type="password" placeholder="등록 비밀번호 입력." id="editPw" required>&nbsp;&nbsp;
 						  <input type="button" id="edit_update_btn" value="등록"></input>
 					</td>
-					</tr>
+					</tr> 
 				</tfoot>
-	 		</table>	
+	 		</table>	 --%>
 		</div>
 	</div>
 </div>
