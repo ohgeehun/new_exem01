@@ -209,43 +209,19 @@ function editcusMemberCallback(res){
 			</div>
 		</div>
 		
-<div class="row">
 
+<div class="top_mainDisplayPart">
+	<form id="form1" method="post" action="customer_edit_next">	 
 
-<form id="form1" method="post" action="customer_edit_next">	 
-
-	 <!-- div class="column side">
-		   <h4>일정 관리 페이지</h4></br>
-		   <a href="#" id="mem_managed">사용자 관리</a></br>
-		   <a href="#" id="mem_insert">사용자 등록</a></br>		    
-	 </div-->	
-	
-	 <div class="column middle">
-	 	<div align="center"><h3>사용자 리스트 정보</h3></div>
-	 	
 		<input type="hidden" id="nowPage" name="pageNo" value="${nowPage}"/>
 		<input type="hidden" id="cusId_hidden_id" name="cusId_hidden_name" value=""/>
-		<input type="hidden" id="userId_hidden_id" value=""/>				
-	 	</br>
+		<input type="hidden" id="userId_hidden_id" value=""/>		
+	
 	 	<table>
 	 	<tr>
 	 	<td>
-		 	<div>	 		
-	
-			</div>
-	 	</td>
-	 	<td>	 	  
-		 	<div>	 		 	
-		
-			</div>
-	 	</td>
-	 	<td>
-		
-	 	</td>
-	 
-	 	<td>
-	 		<div>
-	 			<select id="cus_select4" name="selectBtnVal">
+	 		<div class="nTitleFont">
+	 			<select id="cus_select4" name="selectBtnVal" class="box_07 nTitleFont">
 	 					<option value="0" selected>검색조건없음</option>
 						<option value="1">로그인ID</option>						
 						<option value="2">이름</option>
@@ -255,28 +231,53 @@ function editcusMemberCallback(res){
 	 		</div>
 	 	</td>
 	 	<td>	 		
-		 	<div>			 		
-		 	    <input type="text" id="select_text" name="selectTextVal" value="검색 조건을 선택하세요."></input>
+		 	<div class="nTitleFont">			 		
+		 	    <input type="text" id="select_text" name="selectTextVal" value="검색 조건을 선택하세요." class="box_07 nTitleFont"></input>
 		 	    <input type="button" id="select_btn" value="검색"></input>
 			</div>
 	 	</td>	 
 	 	</tr>
 	 	</table> 	
 	
-		<div id="customer_list">		
+	
+	
+		<div id="customer_list">	
+			
 	 		<table id="cus_list">	
 				<thead id="cus_list_th">
 					<tr>
-						<td>전체선택</br><input style="width:20px;" type="checkbox"  id="checkall"/></td>
-						<td><p>로그인ID</p></td>
-						<td><p>이름</p></td>
-						<td>부서</td>
-						<td>팀</td>
-						<td>업무</td>
-						<td>직급</td>
-						<td>연락처</td>																	
-						<td>메일</td>
-						<td>포인트</td>
+						<td>
+							<li class="main_title_box_2 box_01 nCheckBox">
+								<input type="checkbox" id="checkall"/>
+							</li>
+						</td>
+						<td>
+							<input type="text" class="main_title_box_2 box_02 nTitleFont" value="로그인ID"/>
+						</td>
+						<td>
+							<input type="text" class="main_title_box_2 box_02 nTitleFont" value="이름"/>
+						</td>
+						<td>
+							<input type="text" class="main_title_box_2 box_02 nTitleFont" value="부서"/>
+						</td>
+						<td>
+							<input type="text" class="main_title_box_2 box_02 nTitleFont" value="팀"/>
+						</td>
+						<td>
+							<input type="text" class="main_title_box_2 box_02 nTitleFont" value="업무"/>
+						</td>
+						<td>
+							<input type="text" class="main_title_box_2 box_02 nTitleFont" value="직급"/>
+						</td>
+						<td>
+							<input type="text" class="main_title_box_2 box_02 nTitleFont" value="연락처"/>
+						</td>																	
+						<td>
+							<input type="text" class="main_title_box_2 box_02 nTitleFont" value="메일"/>
+						</td>
+						<td>
+							<input type="text" class="main_title_box_2 box_02 nTitleFont" value="로그인ID"/>
+						</td>
 					</tr>					
 				</thead>
 				<tbody id="cus_list_tb">
@@ -401,10 +402,10 @@ function editcusMemberCallback(res){
 				</tfoot>
 	 		</table>
 		</div>
-	</div>
+
 	</form>
-</div>
-<c:import url="/main_botview"></c:import>
+
+
 </body>
 </html>
 

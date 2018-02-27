@@ -393,10 +393,8 @@ th, td {
 					<input id="user_phone" type="text" class="input_txt input_08 inputTxtFont">
 					<input id="user_mail" type="text" class="input_txt input_09 inputTxtFont">
 					<input id="user_point" type="text" class="input_txt input_10 inputTxtFont">
-					
 					<!-- input type="submit" name="OK" class="input_submit inBtt_OK" value="일정등록하기"-->
-					<input type="button" id="edit_update_btn" name="OK" class="input_submit inBtt_OK" value="등록"></input>
-					
+					<input type="button" id="edit_update_btn" name="OK" class="miBtt_submit" value="등록"></input>
 				</div>
 			</div>
 			

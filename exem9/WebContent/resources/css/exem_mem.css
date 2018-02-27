@@ -648,3 +648,18 @@ A:hover  { color:#000;text-decoration:none;}
 	font-weight: 650;
 	font-size:22px;
 }
+
+.miBtt_submit {
+	position:absolute; 
+	width:237px;
+	height:36px; 
+    padding:7px;
+	background:#262d31;
+	border:0px;
+	font-family: 'Archivo Narrow', sans-serif;
+    font-size:15px;
+	color:#fff;
+
+	left:470px;
+	top:570px;
+}
