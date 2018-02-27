@@ -368,12 +368,19 @@ th, td {
 </head>
 <body>
 <c:import url="/main_upview"></c:import>
+		<div class="top_SubMenuPart">
+			<div class="top_MenuBase">
+				<a href="#" class="top_SubMenu01_c" id="cus_managed">고객사 관리</a>
+				<a href="#" class="top_SubMenu02_c" id="cus_insert">고객사 등록</a>
+			</div>
+		</div>
+		
 <div class="row">
-	 <div class="column side">
+	 <!-- div class="column side">
 		   <h4>고객사 관리 페이지</h4></br>
 		   <a href="#" id="cus_managed">고객사 관리</a></br>		    
 		   <a href="#" id="cus_insert">고객사 등록</a></br>		 
-	 </div>
+	 </div-->
 	 <div class="column middle">
 	  
 	 	<h3>고객사 등록 정보</h3>

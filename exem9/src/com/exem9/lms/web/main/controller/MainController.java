@@ -27,7 +27,7 @@ public class MainController {
 			ModelAndView modelAndView) throws Throwable {
 		
 		//modelAndView.setViewName("main");
-		modelAndView.setViewName("/schedule/my_schedule2");
+		modelAndView.setViewName("/schedule/my_schedule");
 		
 		return modelAndView;
 	}	

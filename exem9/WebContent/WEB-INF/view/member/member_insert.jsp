@@ -309,6 +309,7 @@ function insertMeminfoCallBack(res){
 </script>
 
 <style>
+/*
 table, td, th {    
     border: 1px solid #ddd;
     text-align: left;
@@ -325,119 +326,80 @@ th, td {
 
 .redText{display: block;color: red;margin-left:10px;}
 .greenText{display: block;color: green;margin-left:10px;}
-
+*/
 
 </style>
 
 </head>
 <body>
 <c:import url="/main_upview"></c:import>
+
+		<div class="top_SubMenuPart">
+			<div class="top_MenuBase">
+				<a href="#" class="top_SubMenu01_m" id="mem_managed">사용자 관리</a>
+				<a href="#" class="top_SubMenu02_m" id="mem_insert">사용자 등록</a>
+			</div>
+		</div>
+		
 <div class="row">
-	 <div class="column side">
-		   <h4>사용자 관리 페이지</h4></br>
-		   <a href="#" id="mem_managed">사용자 관리</a></br>		    
-		   <a href="#" id="mem_insert">사용자 등록</a></br>		 
-	 </div>
-	 <div class="column middle">
-	  
-	 	<h3>사용자 등록 정보</h3>
-		<div id="customer_list">		
-			<table id="cus_list">	
-				<thead id="cus_list_th">
-					<tr>
-						<td>로그인ID*</td>
-						<td>							
-							<div id="div_cusName_id">
-								<input id='user_id' value=""  style='text-transform: uppercase' onblur="onblur_event();"></input>
-								<span id="idSpan" class="redText"></span>	
-							</div>									
-						</td>
-					</tr>
-					<tr>
-						<td>이름*</td>
-						<td><input type='text' id='user_name' value="" style='text-transform: uppercase'>			
-						<span id="idSpan1" class="redText"></span>
-						</td>	
-					</tr>
-					<tr>
-						<td>패스워드*</td>
-						<td><input type='text' id='user_password' value="password">			
-						<span id="idSpan1" class="redText"></span>
-						</td>	
-					</tr>	
-					<tr>
-						<td>부서</td>												
-						<td>
-							<select id='user_department_id'>
+	
+	
+			<div class="top_mainDisplayPart">
+				<div class="top_mainDisplayBase" >
+					<li class="input_title input_01 inputTxtFont">로그인ID*</li>
+					<li class="input_title input_02 inputTxtFont">이름*</li>
+					<li class="input_title input_03 inputTxtFont">패스워드</li>
+					<li class="input_title input_04 inputTxtFont">부서</li>
+					<li class="input_title input_05 inputTxtFont">팀*</li>
+					<li class="input_title input_06 inputTxtFont">업무</li>
+					<li class="input_title input_07 inputTxtFont">직급</li>
+					<li class="input_title input_08 inputTxtFont">연락처</li>
+					<li class="input_title input_09 inputTxtFont">메일</li>
+					<li class="input_title input_10 inputTxtFont">포인트</li>
+					
+					<input id="user_id" type="text" class="input_txt input_01 inputTxtFont">
+					<input id="user_name" type="text" class="input_txt input_02 inputTxtFont">
+					<input id="user_password" type="text" class="input_txt input_03 inputTxtFont">
+					
+					<!-- input type="text" name="customer" class="input_txt input_01 inputTxtFont"-->
+					<select id='user_department_id' class="input_txt input_04 inputTxtFont">
 								<option value="0" selected>지정하지않음.</option>
 							    <c:forEach var="dept" items="${dept_list}">
 				 	    			<option value="${dept.deptId}">${dept.deptNm}</option>		 	    	
 				 	    		</c:forEach>	
-							</select>
-						</td>															
-					</tr>			
-					<tr>
-						<td>팀*</td>						
-						<td>
-							<select id='user_team_id'>
+					</select>
+					<!-- input type="text" name="project" class="input_txt input_02 inputTxtFont"-->
+					<select id='user_team_id' class="input_txt input_05 inputTxtFont">
 								<option value="0" selected>지정하지않음.</option>
 							    <c:forEach var="team" items="${team_list}">
 				 	    			<option value="${team.teamId}">${team.teamNm}</option>		 	    	
 				 	    		</c:forEach>	
-							</select>
-						</td>															
-					</tr>
-					<tr>
-						<td>업무</td>						
-						<td>
-							<select id='user_dbms_id'>
+					</select>
+					<!-- input type="text" name="product" class="input_txt input_03 inputTxtFont"-->
+					<select id='user_dbms_id' class="input_txt input_06 inputTxtFont">
 								<option value="0" selected>지정하지않음.</option>
 							    <c:forEach var="dbms" items="${dbms_list}">
 				 	    			<option value="${dbms.dbmsId}">${dbms.dbmsNm}</option>		 	    	
 				 	    		</c:forEach>	
-							</select>
-						</td>															
-					</tr>
-					<tr>
-						<td>직급</td>						
-						<td>
-							<select id='user_position_id'>
+					</select>
+					<!-- input type="text" name="support" class="input_txt input_04 inputTxtFont"-->
+					<select id='user_position_id' class="input_txt input_07 inputTxtFont">
 								<option value="0" selected>지정하지않음.</option>
 							    <c:forEach var="posi" items="${posi_list}">
 				 	    			<option value="${posi.posiId}">${posi.posiNm}</option>		 	    	
 				 	    		</c:forEach>	
-							</select>
-						</td>														
-					</tr>
-					<tr>
-						<td>연락처</td>
-						<td>
-							<input type='text' id='user_phone' value="" style='text-transform: uppercase'>
-						</td>									
-					</tr>
-					<tr>
-						<td>메일</td>
-						<td>
-							<input type='text' id='user_mail' value="" style='text-transform: uppercase'>
-						</td>									
-					</tr>
-					<tr>
-						<td>포인트</td>
-						<td>
-							<input type='text' id='user_point' value="0">
-						</td>									
-					</tr>							
-				</thead>
-					<tr>	
-					<td colspan="2">
-						  <input type="password" placeholder="등록 비밀번호 입력." id="editPw" required>&nbsp;&nbsp;
-						  <input type="button" id="edit_update_btn" value="등록"></input>
-					</td>
-					</tr>
-				</tfoot>
-	 		</table>	
-		</div>
-	</div>
+					</select>
+					
+					<input id="user_phone" type="text" class="input_txt input_08 inputTxtFont">
+					<input id="user_mail" type="text" class="input_txt input_09 inputTxtFont">
+					<input id="user_point" type="text" class="input_txt input_10 inputTxtFont">
+					
+					<!-- input type="submit" name="OK" class="input_submit inBtt_OK" value="일정등록하기"-->
+					<input type="button" id="edit_update_btn" name="OK" class="input_submit inBtt_OK" value="등록"></input>
+					
+				</div>
+			</div>
+			
 </div>
 <c:import url="/main_botview"></c:import>
 </body>
