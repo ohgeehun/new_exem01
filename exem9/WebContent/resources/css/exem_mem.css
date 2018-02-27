@@ -708,3 +708,17 @@ A:hover  { color:#000;text-decoration:none;}
 	left:470px;
 	top:570px;
 }
+
+.btnSearch {
+	margin-left : 5px;
+}
+
+.tb_search{
+    text-align: left;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    padding-left: 5px;
+    font-size: 10px;
+    width:100%;
+}

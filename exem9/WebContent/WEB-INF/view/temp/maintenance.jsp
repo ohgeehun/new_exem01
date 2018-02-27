@@ -35,8 +35,14 @@ $(document).ready(function(){
 
 <style>
 
-.tb_search_lmargin {
-	margin-left : 220px;
+#customer_list td,tr {    
+    border: 2px solid #ddd;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    padding-left: 5px;
+    font-size: 10px;
 }
 
 </style>
@@ -60,89 +66,96 @@ $(document).ready(function(){
 		   <a href="#" id="mat_insert">유지보수 등록</a></br>		 
 	 </div-->
 	 
-	 <div class="top_mainDisplayPart">
-	 	
+	 <div class="column middle">
+	 	<div align="center"><h3>유지보수 리스트 정보</h3></div>
 	 	<%-- <input type="hidden" id="lastBoardNo" value ="${cus_list[fn:length(cus_list)-1].boardNo}"/> --%>
 		<input type="hidden" id="nowPage" name="pageNo" value="${nowPage}"/>
 		<input type="hidden" id="cusId_hidden_id" name="cusId_hidden_name" value=""/>
 		<input type="hidden" id="userId_hidden_id" value=""/>		
-	 	
-	 	<table class="tb_search">
+	 	</br>
+	 	<table>
 	 	<tr>
 	 	<td>
+		 	<div>	 		
 		 		<!-- <label for="cus_select1" class="a11y-hidden">분류</label>  -->
-		 	    <select id="cus_select1" name="supoState" class="main_input_box_2 nInputFont tb_search_lmargin">
+		 	    <select id="cus_select1" name="supoState">
 						<option value="0" selected>전체</option>
 						<%--  <c:forEach var="sl" items="${supo_list}">
 		 	    			<option value="${sl.supoId}">${sl.supoNm}</option>		 	    	
 		 	    		</c:forEach> --%>
 				</select>
-		 	    <select id="cus_select2" name="userDept" class="main_input_box_2 nInputFont">
+			</div>
+	 	</td>
+	 	<td>	 	  
+		 	<div>	 		 	
+		 	    <select id="cus_select2" name="userDept">
 		 	   		 <option value="0">전체</option>
 		 	   		<%--  <c:forEach var="dl" items="${dept_list}">
 		 	    		<option value="${dl.deptId}"<c:if test="${cus_list[0].userDept == dl.deptNm}">selected</c:if>>${dl.deptNm}</option>		 	    	
 		 	    	</c:forEach>	 --%>	 	    		 			
 				</select>
-		 	    <select id="cus_select3" name="userDbms" class="main_input_box_2 nInputFont">
+			</div>
+	 	</td>
+	 	<td>
+		 	<div>	
+		 	    <select id="cus_select3" name="userDbms">
 						<option value="0" selected>전체</option>
 						<%-- <c:forEach var="dbl" items="${dbms_list}">
 		 	    			<option value="${dbl.dbmsId}"<c:if test="${cus_list[0].userDbms == dbl.dbmsNm}">selected</c:if>>${dbl.dbmsNm}</option>		 	    	
 		 	    		</c:forEach>	 --%>
 				</select>
-	 			<select id="cus_select4" name="selectBtnVal" class="main_input_box_2 nInputFont">
+			</div>
+	 	</td>
+	 	<td>&nbsp;&nbsp;</td>
+	 	<td>
+	 		<div>
+	 			<select id="cus_select4" name="selectBtnVal">
 	 					<option value="0" selected>검색조건없음</option>
 						<option value="1">고객사</option>
 						<option value="2">담당 엔지니어</option>
 						<option value="3">영업대표</option>
 				</select>
-		 	    <input type="text" id="select_text" name="selectTextVal" value="검색 조건을 선택하세요." class="main_input_box_2 nInputFont"></input>
-		 	    <input type="button" id="select_btn" value="검색" class="Btt_search btnSearch"></input>
+	 		</div>
+	 	</td>
+	 	<td>	 		
+		 	<div>			 		
+		 	    <input type="text" id="select_text" name="selectTextVal" value="검색 조건을 선택하세요."></input>
+		 	    <input type="button" id="select_btn" value="검색"></input>
+			</div>
 	 	</td>	 
 	 	</tr>
-	 	</table> 
-	 	
-	 		
+	 	</table> 	
 	
 		<div id="customer_list">		
 		 	
 			<table id="cus_list">	
 				<thead id="cus_list_th">
 					<tr>
-						<td>
-							<li class="main_title_box_2 box_01 nCheckBox">
-								<input type="checkbox" id="checkall"/>
-							</li>
-						</td>
-						
-						<td><input class="main_title_box_2 box_02 nTitleFont" value="고객사명" disabled="disabled"/></td>
-						<td><input class="main_title_box_2 box_03 nTitleFont" value="프로젝트명" disabled="disabled"/></td>
-						<td><input class="main_title_box_2 box_04 nTitleFont" value="담당부서" disabled="disabled"/></td>
-						<td><input class="main_title_box_2 box_05 nTitleFont" value="업무" disabled="disabled"/></td>
-						<td><input class="main_title_box_2 box_06 nTitleFont" value="담당 엔지니어(정)" disabled="disabled"/></td>
-						<td><input class="main_title_box_2 box_07 nTitleFont" value="담당 엔지니어(부)" disabled="disabled"/></td>
-						<td><input class="main_title_box_2 box_08 nTitleFont" value="영업대표" disabled="disabled"/></td>
-						<td><input class="main_title_box_2 box_09 nTitleFont" value="최초설치일" disabled="disabled"/></td>
-						<td><input class="main_title_box_2 box_10 nTitleFont" value="계약상태" disabled="disabled"/></td>
-						<td><input class="main_title_box_2 box_11 nTitleFont" value="방문주기" disabled="disabled"/></td>
-						<td><input class="main_title_box_2 box_12 nTitleFont" value="시작일" disabled="disabled"/></td>
-						<td><input class="main_title_box_2 box_13 nTitleFont" value="종료일" disabled="disabled"/></td>
-						<td><input class="main_title_box_2 box_14 nTitleFont" value="비고" disabled="disabled"/></td>
+						<td>전체선택</br><input style="width:20px;" type="checkbox"  id="checkall"/></td>
+						<td><p style="width:50px;">고객사명</p></td>
+						<td><p style="width:60px;">프로젝트명</p></td>
+						<td>담당부서</td>
+						<td>업무</td>
+						<td>담당 엔지니어(정)</td>
+						<td>담당 엔지니어(부)</td>
+						<td>영업대표</td>
+						<td>최초설치일</td>
+						<td>계약상태</td>
+						<td>방문주기</td>						
+						<td>시작일</td>
+						<td>종료일</td>
+						<td>비고</td>
 					</tr>					
 				</thead>
 				<tbody id="cus_list_tb">
 					<c:forEach var="cli" items="${cus_list_info}">											
 						<tr>
-							<td>
-								<li class="main_title_box_2 box_01 nCheckBox">
-									<input type="checkbox" name="chk" id="checkbox_id" value="${cli.proId}"/>
-								</li>
+							<td><input type="checkbox" name="chk" id="checkbox_id" value="${cli.proId}"/>
+						<%-- 	<input type="hidden" id="checkbox_hidden_id_${cli.proId}" value="${cli.proId}"/>	 --%>							
 							</td>						
-							<td>
-								<input type="text" class="main_input_box_2 box_02 nInputFont" value="${cli.cusNm}"/>
-							</td>
-							<td>
-								<input type="text" class="main_input_box_2 box_03 nInputFont" value="${cli.proNm}"/>
-							</td>
+							<td>${cli.cusNm}</td>
+							<td>${cli.proNm}</td>
+							<%-- <td>${cli.deptNm}</td> --%>							
 							<td>
 								<input type="hidden" id="select_team_hidden_id_${cli.proId}" value=""/>
 								<input type="hidden" id="cusId_hidden_id_${cli.proId}" value=""/>
@@ -281,38 +294,30 @@ $(document).ready(function(){
 					</c:forEach>										
 				</tbody>
 				<tfoot id="cus_list_tf"> 
-					
 					<tr>
-						<td colspan="9">
-						
-							<div class="center_div">
-								<c:if test="${nowPage > 1}">
-										<a href="#" id="backVal" class="nTitleFont">이전</a>
-									</c:if>
-									<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
-										<c:choose>
-											<c:when test="${nowPage==i}">
-												<a id="${i}" name="moreArea" class="pageFont">${i}</a>
-											</c:when>
-											<c:otherwise>
-												<a href="#" id="${i}" name="moreArea" class="pageFont">${i}</a>
-											</c:otherwise>
-										</c:choose>
-									</c:forEach>
-									<c:if test="${maxPage > nowPage}">
-										<a href="#" id="nextVal" class="nTitleFont">다음</a>
-									</c:if>
-							</div>
+						<td colspan="11">
+							<c:if test="${nowPage > 1}">
+								<a href="#" id="backVal">이전</a>
+							</c:if>
+							<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
+								<c:choose>
+									<c:when test="${nowPage==i}">
+										<a id="${i}" name="moreArea">${i}</a>
+									</c:when>
+									<c:otherwise>
+										<a href="#" id="${i}" name="moreArea">${i}</a>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+							<c:if test="${maxPage > nowPage}">
+								<a href="#" id="nextVal">다음</a>
+							</c:if>
 						</td>
-					</tr>
-					<tr>
-						<td colspan="9">
-							<div class="center_div">
-						  		<input type="button" id="edit_update_btn" value="수정" class="inBtt_OK_2"/>
-						  	</div>
+						<td colspan="3">
+							  <input type="password" placeholder="정보 수정 비밀번호 입력." id="editPw" required>&nbsp;&nbsp;
+							  <input type="button" id="edit_update_btn" value="변경"></input>
 						</td>
-					</tr>
-										
+					</tr>					
 				</tfoot>
 	 		</table>	
 	 		
@@ -320,7 +325,7 @@ $(document).ready(function(){
 	</div>
 	</form>
 </div>
-
+<c:import url="/main_botview"></c:import>
 </body>
 </html>
 

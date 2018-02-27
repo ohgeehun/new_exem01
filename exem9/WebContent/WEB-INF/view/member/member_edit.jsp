@@ -196,18 +196,8 @@ function editcusMemberCallback(res){
     font-size: 10px;
 }
 */
-.tb_search{
-    text-align: left;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-right: 5px;
-    padding-left: 5px;
-    font-size: 10px;
-    width:1300px;
-}
-
-.nSearch {
-	margin-left : 5px;
+.tb_search_lmargin {
+	margin-left : 100px;
 }
 </style>
 
@@ -234,8 +224,7 @@ function editcusMemberCallback(res){
 		<table class="tb_search">
 			<tr>
 				<td>
-					<div class="top_search">
-			 			<select id="cus_select4" name="selectBtnVal" class="main_input_box_2 nInputFont">
+			 			<select id="cus_select4" name="selectBtnVal" class="main_input_box_2 nInputFont tb_search_lmargin">
 			 					<option value="0" selected>검색 조건을 선택하세요.</option>
 								<option value="1">로그인ID</option>						
 								<option value="2">이름</option>
@@ -244,8 +233,7 @@ function editcusMemberCallback(res){
 						</select>
 			 	
 				 	    <input type="text" id="select_text" name="selectTextVal" value="검색 조건을 입력하세요." class="main_input_box_2 nInputFont"></input>
-				 	    <input type="button" id="select_btn" value="검색" class="Btt_search nSearch"></input>
-	 	 			</div>	
+				 	    <input type="button" id="select_btn" value="검색" class="Btt_search btnSearch"></input>
 				</td>
 			</tr>
 		</table>

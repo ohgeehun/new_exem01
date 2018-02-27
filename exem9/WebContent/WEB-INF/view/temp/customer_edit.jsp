@@ -304,9 +304,7 @@ function editcusMemberCallback(res){
 </script>
 
 <style>
-.tb_search_lmargin {
-	margin-left : 220px;
-}
+
 </style>
 
 </head>
@@ -329,31 +327,30 @@ function editcusMemberCallback(res){
 		   <!-- <a href="#" id="cus_edit1">고객사 </p>계약정보 수정</a></br> -->
 	 <!--  /div-->
 	 <div class="top_mainDisplayPart">
-	 	
+	 	<div align="center"><h3>고객사 리스트 정보</h3></div>
 	 	<%-- <input type="hidden" id="lastBoardNo" value ="${cus_list[fn:length(cus_list)-1].boardNo}"/> --%>
+	 	</br>
 		<input type="hidden" id="nowPage" name="pageNo" value="${nowPage}"/>
 		<input type="hidden" id="cusId_hidden_id" name="cusId_hidden_name" value=""/>
 		<input type="hidden" id="userId_hidden_id" value=""/>				
 	
  		<div>
- 			<table class="tb_search">
- 				<tr>
-						<td>
-								<select  class="main_input_box_2 nInputFont tb_search_lmargin" id="cus_select4" name="selectBtnVal">
-					 					<option value="0" selected>검색조건을 선택하세요.</option>
-										<option value="1">고객사</option>						
-										<option value="3">영업대표</option>
-								</select>
-						 	    <input class="main_input_box_2 nInputFont" type="text" id="select_text" name="selectTextVal" value="검색 조건을 선택하세요."></input>
-						 	   
-						 	    <input class="Btt_search btnSearch" type="button" id="select_btn" value="검색"></input>
-				 	    </td>
-				</tr>
-			</table>
+ 			
  	    </div>
 		<div class="top_mainDisplayBase" >
 			<table id="cus_list">	
 				<thead id="cus_list_th">
+					<tr >				
+						<select  class="main_input_box_2" id="cus_select4" name="selectBtnVal">
+			 					<option value="0" selected>검색조건없음</option>
+								<option value="1">고객사</option>						
+								<option value="3">영업대표</option>
+						</select>
+						&nbsp;
+				 	    <input class="main_input_box_2" type="text" id="select_text" name="selectTextVal" value="검색 조건을 선택하세요."></input>
+				 	   
+				 	    <input class="main_input_box_2" type="button" id="select_btn" value="검색"></input>
+					</tr>					
 					<tr>
 						<td>
 							<li class="main_title_box_2 box_01 nCheckBox">
@@ -375,19 +372,22 @@ function editcusMemberCallback(res){
 						<tr>
 							<td>
 								<li class="main_title_box_2 box_01 nCheckBox">
-									<input type="checkbox" name="chk" value="${cli.proId}"/>
-									<input type="hidden" id="checkbox_hidden_id_${cli.proId}" value="${cli.proId}"/>
+									<input type="checkbox" name="chk" value="${sch.schId}"/>
 								</li>
 							</td>							
+						<%--	<td><input type="checkbox" name="chk" value="${cli.proId}"/>
+						 	<input type="hidden" id="checkbox_hidden_id_${cli.proId}" value="${cli.proId}"/>	 							
+							</td>			--%>
+									
 							<td>
 								<input type="text" class="main_input_box_2 box_02 nInputFont" value="${cli.cusNm}"/>
 							</td>
 							<td>
 								<input type="text" class="main_input_box_2 box_03 nInputFont" value="${cli.proNm}"/>
 							</td>							
-							<td>
+							<%-- <td>
 								<input type="hidden" id="select_cus_hidden_id_${cli.proId}" value=""/>
-								<select id="edit_cus_list_select_${cli.proId}" onchange="edit_cus_select_change_event(${cli.proId})" class="main_input_box_2 box_04 nInputFont">
+								<select id="edit_cus_list_select_${cli.proId}" onchange="edit_cus_select_change_event(${cli.proId})">
 									<c:if test="${cli.cusNm == ''}">
 										<option value="0" selected>지정필요.</option>
 									</c:if>
@@ -406,17 +406,19 @@ function editcusMemberCallback(res){
 								</select> 										
 							</td>
 							<td>
-								<input type="text" class="main_input_box_2 box_05 nInputFont" value="${cli.cususerPhone}" id="edit_cus_phone_${cli.proId}"/>
+								<p id="edit_cus_phone_${cli.proId}"> ${cli.cususerPhone}</p>			
 							</td>							
 											
 							<td>
-								<input type="text" class="main_input_box_2 box_06 nInputFont" value="${cli.cususerMail}" id="edit_cus_mail_${cli.proId}"/>
+								<p id="edit_cus_mail_${cli.proId}">${cli.cususerMail}</p>	
 							</td>
+							
 							<td>
-								<input type="text" id="cuslocation_id_${cli.proId}" value="${cli.cusLoca}" class="main_input_box_2 box_07 nInputFont">								
+								<input type="text" id="cuslocation_id_${cli.proId}" value="${cli.cusLoca}">								
 							</td>																		
+					
 							<td>								
-								<select id="edit_salseman_list_select_${cli.proId}" class="main_input_box_2 box_08 nInputFont">
+								<select id="edit_salseman_list_select_${cli.proId}">
 									<c:if test="${cli.salseId == '0'}">
 										<option value="0" selected>지정필요.</option>
 									</c:if>
@@ -432,52 +434,42 @@ function editcusMemberCallback(res){
 									</c:forEach>	
 								</select>
 							</td>			
-							<td>
-								<textarea id="etc_id_${cli.proId}" name="contents" class="main_input_box_2 box_06 nInputFont">${cli.etc}</textarea>
-							</td>
-						</tr>					
+							<td><textarea id="etc_id_${cli.proId}" rows="3" cols="30" name="contents">${cli.etc}</textarea></td>
+						</tr>					 --%>
 					</c:forEach>										
 				</tbody>
 				<tfoot id="cus_list_tf"> 
-				
 					<tr>
-						<td colspan="9">
-						
-							<div class="center_div">
-								<c:if test="${nowPage > 1}">
-										<a href="#" id="backVal" class="nTitleFont">이전</a>
-									</c:if>
-									<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
-										<c:choose>
-											<c:when test="${nowPage==i}">
-												<a id="${i}" name="moreArea" class="pageFont">${i}</a>
-											</c:when>
-											<c:otherwise>
-												<a href="#" id="${i}" name="moreArea" class="pageFont">${i}</a>
-											</c:otherwise>
-										</c:choose>
-									</c:forEach>
-									<c:if test="${maxPage > nowPage}">
-										<a href="#" id="nextVal" class="nTitleFont">다음</a>
-									</c:if>
-							</div>
+						<td colspan="6">
+							<c:if test="${nowPage > 1}">
+								<a href="#" id="backVal">이전</a>
+							</c:if>
+							<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
+								<c:choose>
+									<c:when test="${nowPage==i}">
+										<a id="${i}" name="moreArea">${i}</a>
+									</c:when>
+									<c:otherwise>
+										<a href="#" id="${i}" name="moreArea">${i}</a>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+							<c:if test="${maxPage > nowPage}">
+								<a href="#" id="nextVal">다음</a>
+							</c:if>
 						</td>
-					</tr>
-					<tr>
-						<td colspan="9">
-							<div class="center_div">
-						  		<input type="button" id="edit_update_btn" value="수정" class="inBtt_OK_2"/>
-						  	</div>
+						<td colspan="3">
+							  <input type="password" placeholder="정보 수정 비밀번호 입력." id="editPw" required>&nbsp;&nbsp;
+							  <input type="button" id="edit_update_btn" value="변경"></input>
 						</td>
-					</tr>
-										
+					</tr>					
 				</tfoot>
 	 		</table>		
 		</div>
 	</div>
 	</form>
 </div>
-
+<c:import url="/main_botview"></c:import>
 </body>
 </html>
 
