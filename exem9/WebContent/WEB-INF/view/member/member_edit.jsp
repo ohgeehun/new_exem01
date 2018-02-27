@@ -185,7 +185,7 @@ function editcusMemberCallback(res){
 </script>
 
 <style>
-
+/*
 #customer_list td,tr {    
     border: 2px solid #ddd;
     text-align: center;
@@ -195,7 +195,20 @@ function editcusMemberCallback(res){
     padding-left: 5px;
     font-size: 10px;
 }
+*/
+.tb_search{
+    text-align: left;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    padding-left: 5px;
+    font-size: 10px;
+    width:1300px;
+}
 
+.nSearch {
+	margin-left : 5px;
+}
 </style>
 
 </head>
@@ -208,7 +221,8 @@ function editcusMemberCallback(res){
 				<a href="#" class="top_SubMenu02_m" id="mem_insert">사용자 등록</a>
 			</div>
 		</div>
-		
+
+
 
 <div class="top_mainDisplayPart">
 	<form id="form1" method="post" action="customer_edit_next">	 
@@ -217,29 +231,24 @@ function editcusMemberCallback(res){
 		<input type="hidden" id="cusId_hidden_id" name="cusId_hidden_name" value=""/>
 		<input type="hidden" id="userId_hidden_id" value=""/>		
 	
-	 	<table>
-	 	<tr>
-	 	<td>
-	 		<div class="nTitleFont">
-	 			<select id="cus_select4" name="selectBtnVal" class="box_07 nTitleFont">
-	 					<option value="0" selected>검색조건없음</option>
-						<option value="1">로그인ID</option>						
-						<option value="2">이름</option>
-						<option value="3">부서</option>
-						<option value="4">팀</option>
-				</select>
-	 		</div>
-	 	</td>
-	 	<td>	 		
-		 	<div class="nTitleFont">			 		
-		 	    <input type="text" id="select_text" name="selectTextVal" value="검색 조건을 선택하세요." class="box_07 nTitleFont"></input>
-		 	    <input type="button" id="select_btn" value="검색"></input>
-			</div>
-	 	</td>	 
-	 	</tr>
-	 	</table> 	
-	
-	
+		<table class="tb_search">
+			<tr>
+				<td>
+					<div class="top_search">
+			 			<select id="cus_select4" name="selectBtnVal" class="main_input_box_2 nInputFont">
+			 					<option value="0" selected>검색 조건을 선택하세요.</option>
+								<option value="1">로그인ID</option>						
+								<option value="2">이름</option>
+								<option value="3">부서</option>
+								<option value="4">팀</option>
+						</select>
+			 	
+				 	    <input type="text" id="select_text" name="selectTextVal" value="검색 조건을 입력하세요." class="main_input_box_2 nInputFont"></input>
+				 	    <input type="button" id="select_btn" value="검색" class="Btt_search nSearch"></input>
+	 	 			</div>	
+				</td>
+			</tr>
+		</table>
 	
 		<div id="customer_list">	
 			
@@ -255,28 +264,28 @@ function editcusMemberCallback(res){
 							<input type="text" class="main_title_box_2 box_02 nTitleFont" value="로그인ID"/>
 						</td>
 						<td>
-							<input type="text" class="main_title_box_2 box_02 nTitleFont" value="이름"/>
+							<input type="text" class="main_title_box_2 box_03 nTitleFont" value="이름"/>
 						</td>
 						<td>
-							<input type="text" class="main_title_box_2 box_02 nTitleFont" value="부서"/>
+							<input type="text" class="main_title_box_2 box_04 nTitleFont" value="부서"/>
 						</td>
 						<td>
-							<input type="text" class="main_title_box_2 box_02 nTitleFont" value="팀"/>
+							<input type="text" class="main_title_box_2 box_05 nTitleFont" value="팀"/>
 						</td>
 						<td>
-							<input type="text" class="main_title_box_2 box_02 nTitleFont" value="업무"/>
+							<input type="text" class="main_title_box_2 box_06 nTitleFont" value="업무"/>
 						</td>
 						<td>
-							<input type="text" class="main_title_box_2 box_02 nTitleFont" value="직급"/>
+							<input type="text" class="main_title_box_2 box_07 nTitleFont" value="직급"/>
 						</td>
 						<td>
-							<input type="text" class="main_title_box_2 box_02 nTitleFont" value="연락처"/>
+							<input type="text" class="main_title_box_2 box_08 nTitleFont" value="연락처"/>
 						</td>																	
 						<td>
-							<input type="text" class="main_title_box_2 box_02 nTitleFont" value="메일"/>
+							<input type="text" class="main_title_box_2 box_09 nTitleFont" value="메일"/>
 						</td>
 						<td>
-							<input type="text" class="main_title_box_2 box_02 nTitleFont" value="로그인ID"/>
+							<input type="text" class="main_title_box_2 box_10 nTitleFont" value="로그인ID"/>
 						</td>
 					</tr>					
 				</thead>
@@ -284,16 +293,18 @@ function editcusMemberCallback(res){
 					<c:forEach var="mem" items="${mem_list_info}">											
 						<tr>
 							<td>
-								<input type="checkbox" name="chk" value="${mem.userId}"/>
+								<li class="main_title_box_2 box_01 nCheckBox">
+									<input type="checkbox" name="chk" value="${mem.userId}"/>
+								</li>
 							</td>						
 							<td>
-								${mem.userId}
+								<input type="text" class="main_input_box_2 box_02 nInputFont" value="${mem.userId}"/>
 							</td>
 							<td>
-								${mem.userNm}						
+								<input type="text" class="main_input_box_2 box_03 nInputFont" value="${mem.userNm}"/>						
 							</td>							
 							<td>
-								<select>
+								<select class="main_input_box_2 box_04 nInputFont">
 									<c:if test="${mem.userDept == ''}">
 										<option value="0" selected>지정필요.</option>
 									</c:if>
@@ -310,7 +321,7 @@ function editcusMemberCallback(res){
 								</select>
 							</td>
 							<td>
-								<select>
+								<select class="main_input_box_2 box_05 nInputFont">
 									<c:if test="${mem.userTeam == ''}">
 										<option value="0" selected>지정필요.</option>
 									</c:if>
@@ -329,7 +340,7 @@ function editcusMemberCallback(res){
 								</select>
 							</td>
 							<td>
-								<select>
+								<select class="main_input_box_2 box_06 nInputFont">
 									<c:if test="${mem.userDbms == ''}">
 										<option value="0" selected>지정필요.</option>
 									</c:if>
@@ -346,7 +357,7 @@ function editcusMemberCallback(res){
 								</select>
 							</td>
 							<td>							
-								<select>
+								<select class="main_input_box_2 box_07 nInputFont">
 									<c:if test="${mem.userPosi == ''}">
 										<option value="0" selected>지정필요.</option>
 									</c:if>
@@ -363,42 +374,52 @@ function editcusMemberCallback(res){
 								</select>
 							</td>			
 							<td>
-								${mem.userPhone}
+								<input type="text" class="main_input_box_2 box_08 nInputFont" value="${mem.userPhone}"/>
 							</td>
 							<td>
-								${mem.userMail}
+								<input type="text" class="main_input_box_2 box_09 nInputFont" value="${mem.userMail}"/>
 							</td>
 							<td>																		
-								${mem.userPoint}
+								<input type="text" class="main_input_box_2 box_10 nInputFont" value="${mem.userPoint}"/>
 							</td>
 						</tr>					
 					</c:forEach>										
 				</tbody>
 				<tfoot id="cus_list_tf"> 
+					
+					
+					
 					<tr>
-						<td colspan="6">
-							<c:if test="${nowPage > 1}">
-								<a href="#" id="backVal">이전</a>
-							</c:if>
-							<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
-								<c:choose>
-									<c:when test="${nowPage==i}">
-										<a id="${i}" name="moreArea">${i}</a>
-									</c:when>
-									<c:otherwise>
-										<a href="#" id="${i}" name="moreArea">${i}</a>
-									</c:otherwise>
-								</c:choose>
-							</c:forEach>
-							<c:if test="${maxPage > nowPage}">
-								<a href="#" id="nextVal">다음</a>
-							</c:if>
+						<td colspan="10">
+						
+							<div class="center_div">
+								<c:if test="${nowPage > 1}">
+										<a href="#" id="backVal" class="nTitleFont">이전</a>
+									</c:if>
+									<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
+										<c:choose>
+											<c:when test="${nowPage==i}">
+												<a id="${i}" name="moreArea" class="pageFont">${i}</a>
+											</c:when>
+											<c:otherwise>
+												<a href="#" id="${i}" name="moreArea" class="pageFont">${i}</a>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+									<c:if test="${maxPage > nowPage}">
+										<a href="#" id="nextVal" class="nTitleFont">다음</a>
+									</c:if>
+							</div>
 						</td>
-						<td colspan="4">
-							  <input type="password" placeholder="정보 수정 비밀번호 입력." id="editPw" required>&nbsp;&nbsp;
-							  <input type="button" id="edit_update_btn" value="변경"></input>
+					</tr>
+					<tr>
+						<td colspan="10">
+							<div class="center_div">
+						  		<input type="button" id="edit_update_btn" value="수정" class="inBtt_OK_2"/>
+						  	</div>
 						</td>
-					</tr>					
+					</tr>
+										
 				</tfoot>
 	 		</table>
 		</div>
