@@ -97,6 +97,16 @@
 			where 1=1     
 
 		<isNotEmpty property="selectTextVal">
+			<!-- 검색조건이 전체 -->
+			<isEqual property="selectBtnVal" compareValue="0"> 
+				and 
+				(u.user_id like '%' || #selectTextVal# || '%' or
+				 user_name like '%' || #selectTextVal# || '%' or
+				 u.user_team_id in (select team_id from xm_team xt, xm_department xdt 
+				where xt.department_id = xdt.department_id and xdt.department_name like '%' || #selectTextVal# || '%') or
+				u.user_team_id in (select team_id from xm_team where team_name like '%' || #selectTextVal# || '%')
+				)
+			</isEqual>
 			<!-- 검색조건이 ID -->
 			<isEqual property="selectBtnVal" compareValue="1"> 
 				and u.user_id like '%' || #selectTextVal# || '%'
@@ -141,6 +151,17 @@
 			on u.user_team_id = dp.team_id
 		where 1 = 1
 		<isNotEmpty property="selectTextVal">
+			<!-- 검색조건이 전체 -->
+			<isEqual property="selectBtnVal" compareValue="0"> 
+				and 
+				(u.user_id like '%' || #selectTextVal# || '%' or
+				 user_name like '%' || #selectTextVal# || '%' or
+				 u.user_team_id in (select team_id from xm_team xt, xm_department xdt 
+				where xt.department_id = xdt.department_id and xdt.department_name like '%' || #selectTextVal# || '%') or
+				u.user_team_id in (select team_id from xm_team where team_name like '%' || #selectTextVal# || '%')
+				)
+			</isEqual>
+			
 			<!-- 검색조건이 ID -->
 			<isEqual property="selectBtnVal" compareValue="1"> 
 				and u.user_id like '%' || #selectTextVal# || '%'

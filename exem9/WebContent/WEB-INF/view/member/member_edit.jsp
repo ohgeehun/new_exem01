@@ -66,12 +66,12 @@ $(document).ready(function(){
     
     /* 조회조건 설정 후 검색버튼 클릭 시 이벤트*/
     $("#select_btn").bind("click", function(){	
-    	if ($("#mem_select4").val() == 0){    		
-    		alert("점색조건을 선택하세요.");
-    		$("#select_text").val("");
-    	}else{
+    	//if ($("#mem_select4").val() == 0){    		
+    		//alert("점색조건을 선택하세요.");
+    	//	$("#select_text").val("");
+    	//}else{
     		$("#form1").submit();	
-    	}   	
+    	//}   	
     });
     
     /*페이지 처리(이전 버튼 이벤트 )*/
