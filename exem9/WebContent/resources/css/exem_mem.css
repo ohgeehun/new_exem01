@@ -509,6 +509,26 @@ A:hover  { color:#000;text-decoration:none;}
 	width:290px;
 	top:546px;
 }
+.input_12 {
+	width:290px;
+	top:596px;
+}
+.input_13 {
+	width:290px;
+	top:646px;
+}
+.input_14 {
+	width:290px;
+	top:696px;
+}
+.input_15 {
+	width:290px;
+	top:746px;
+}
+.input_16 {
+	width:290px;
+	top:796px;
+}
 
 .input_submit {
 	width:290px;
@@ -706,7 +726,7 @@ A:hover  { color:#000;text-decoration:none;}
 	color:#fff;
 
 	left:470px;
-	top:570px;
+	/* top:570px; */
 }
 
 .btnSearch {

@@ -363,17 +363,31 @@ table {
     border-collapse: collapse;
     width: 50%;
 } */
-
+/*
 th, td {
 	width:290px;
 	top:46px;
     padding: 10px;
 } 
-
+*/
 /* .redText{display: block;color: red;margin-left:10px;}
 .greenText{display: block;color: green;margin-left:10px;}
  */
+.miBtt_submit_top {
+	position:absolute; 
+	top: 560px;
+	margin-left: 70px;
+}
 
+.reg_pass {
+	position:absolute; 
+	border:1px solid #d1cece; 
+	height:38px;
+	padding:1px;
+	width:290px;
+	left:238px;
+	top: 560px;
+}
 </style>
 
 </head>
@@ -455,7 +469,10 @@ th, td {
 					    	<option value="${sl.userId}">${sl.userNm}</option>		 	    			 	    	
 	 	    		</c:forEach> 
 				</select>
-				<textarea  class="input_txt_02 input_09 inputTxtFont" id="etc_id" rows="5" cols="30" name="contents"></textarea>
+				<textarea  class="input_txt_02 input_09 inputTxtFont" id="etc_id" name="contents"></textarea>
+				
+					<input type="password" placeholder="등록 비밀번호 입력." required class="reg_pass inputTxtFont"> &nbsp;&nbsp;
+					<input type="button" id="edit_update_btn" name="OK" class="miBtt_submit_top miBtt_submit" value="등록">
 				
 				<%-- <select class="input_txt input_08 inputTxtFont" id='salesman_select_id'>
 						<option value="0" selected>지정하지않음.</option>

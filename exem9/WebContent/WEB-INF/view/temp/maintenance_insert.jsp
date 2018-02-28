@@ -389,7 +389,6 @@ function insertMatinfoCallBack(res){
 </script>
 
 <style>
-/*
  table, td, th {    
     border: 1px solid #ddd;
     text-align: left;
@@ -412,23 +411,7 @@ th, td {
         font-family: Arial, sans-serif;
         font-size: 14px;
     }
-*/
-
-.reg_pass {
-	position:absolute; 
-	border:1px solid #d1cece; 
-	height:38px;
-	padding:1px;
-	width:290px;
-	left:238px;
-	top: 856px;
-}
-
-.miBtt_submit_top {
-	position:absolute; 
-	top: 856px;
-	margin-left: 70px;
-}
+    
 </style>
 
 </head>
@@ -447,96 +430,137 @@ th, td {
 		   <a href="#" id="mat_managed">유지보수 관리</a></br>		    
 		   <a href="#" id="mat_insert">유지보수 등록</a></br>		 
 	 </div -->
-	 <div class="top_mainDisplayPart">
-		
-		<div id="customer_list" class="top_mainDisplayBase" >
-		
-			 <ul>
-					<li class="input_title input_01 inputTxtFont">고객사명*</li>
-					<li class="input_title input_02 inputTxtFont">프로젝트명*</li>
-					<li class="input_title input_03 inputTxtFont">업무명*</li>
-					<li class="input_title input_04 inputTxtFont">제품 버전</li>
-					<li class="input_title input_05 inputTxtFont">고객담당자</li>
-					<li class="input_title input_06 inputTxtFont">담당영업*</li>
-					<li class="input_title input_07 inputTxtFont">담당부서</li>
-					<li class="input_title input_08 inputTxtFont">담당 엔지니어(정)</li>
-					<li class="input_title input_09 inputTxtFont">담당 엔지니어(부)</li>
-					<li class="input_title input_10 inputTxtFont">최초 설치일</li>
-					<li class="input_title input_11 inputTxtFont">MA 현 상태</li>
-					<li class="input_title input_12 inputTxtFont">MA 유형</li>
-					<li class="input_title input_13 inputTxtFont">MA 시작일</li>
-					<li class="input_title input_14 inputTxtFont">MA 종료일</li>
-					<li class="input_title input_15 inputTxtFont">비고</li>
-			</ul>
-	 			
-	 			
-						<div class="input_txt_01 input_01 inputTxtFont">
+	 <div class="column middle">
+	  
+	 	<h3>유지보수 등록 정보</h3>
+		<div id="customer_list">		
+			<table id="cus_list">	
+				<thead id="cus_list_th">
+					<tr>
+						<td>고객사명*</td>
+						<td>		
 						    <input id="cusName_id"/>		
-						</div>
-						<div class="input_txt_01 input_02 inputTxtFont">
-							<input id="cusproName_id"/>										
-						</div>
-						
-							<select id="dbms_select_id" disabled="disabled" class="input_txt input_03 inputTxtFont sui-input">
+						</td>
+					</tr>
+					<tr>
+						<td>프로젝트명*</td>
+						<td>
+							<input id='cusproName_id'>										
+						</td>	
+					</tr>	
+					<tr>
+						<td>업무명*</td>	
+						<!-- <td>	<input id='dbms_id'></input>	</td>	 -->											
+						<td>
+							<select class="sui-input" id='dbms_select_id' disabled="disabled">
 								<option value="0" selected>지정하지 않음.</option>
 							    <c:forEach var="dl" items="${dbms_list}">
 				 	    			<option value="${dl.dbmsId}">${dl.dbmsNm}</option>		 	    	
 				 	    		</c:forEach>	
 							</select>
-									
-						<input type="text" id='dbmsVer_id' value="" class="input_txt input_04 inputTxtFont sui-input">												
+						</td>
+					</tr>			
+					<tr>
+						<td>제품 버전</td>						
+						<td><input class="sui-input" type='text' id='dbmsVer_id' value=""></td>												
 							
-						<input type="text" id='cusUser_id' value="" readonly="readonly" class="input_txt input_05 inputTxtFont sui-input">													
-					
-							<select id='salesman_select_id' class="input_txt input_06 inputTxtFont sui-input">
+					</tr>
+					<tr>
+						<td>고객담당자</td>						
+						<td><input class="sui-input" type='text' id='cusUser_id' value="" readonly="readonly"></td>													
+					</tr>					
+					<tr>
+						<td>담당영업*</td>
+						<td>
+							<select class="sui-input" id='salesman_select_id'>
 								<option value="0" selected>지정하지 않음.</option>
 							    <c:forEach var="sl" items="${salseman_list}">
 				 	    			<option value="${sl.userId}">${sl.userNm}</option>		 	    	
 				 	    		</c:forEach>	
 							</select>
-						
-							<select id='team_select_id' disabled="disabled" class="input_txt input_07 inputTxtFont sui-input">
+						</td>								
+					</tr>
+					<tr>
+						<td>담당부서</td>
+						<!-- <td><input id='team_id'></td>	 -->
+						<td>
+							<select class="sui-input" id='team_select_id' disabled="disabled">
 								<option value="0" selected>지정하지 않음.</option>							  	
 							</select>
-						
-							<select id='user1_select_id' disabled="disabled" class="input_txt input_08 inputTxtFont sui-input">
+						</td>
+					</tr>
+					<tr>
+						<td>담당 엔지니어(정)</td>						
+						<!-- <td><input id='user1_id'></td> -->		
+						<td>
+							<select class="sui-input" id='user1_select_id' disabled="disabled">
 								<option value="0" selected>지정하지 않음.</option>							  	
 							</select>
-						
-							<select id='user2_select_id' disabled="disabled" class="input_txt input_09 inputTxtFont sui-input">
+						</td>												
+					</tr>
+					<tr>
+						<td>담당 엔지니어(부)</td>						
+						<!-- <td><input id='user2_id'></td> -->														
+						<td>
+							<select class="sui-input" id='user2_select_id' disabled="disabled">
 								<option value="0" selected>지정하지 않음.</option>							  	
 							</select>
-												
-							<input type='date' id='install_date_id' class="input_txt input_10 inputTxtFont sui-input">														
-					
-							<select d='supo_level_select_id' class="input_txt input_11 inputTxtFont sui-input">
+						</td>	
+					</tr>	
+					<tr>
+						<td>최초 설치일</td>						
+						<td><input class="sui-input" type='date' id='install_date_id'></td>														
+					</tr>
+					<tr>
+						<td>MA 현 상태</td>												
+						<td>
+							<select class="sui-input" id='supo_level_select_id'>
 								<option value="0" selected>지정하지 않음.</option>
 							    <c:forEach var="sll" items="${supo_level_list}">
 				 	    			<option value="${sll.supoId}">${sll.supoNm}</option>		 	    	
 				 	    		</c:forEach>	
 							</select>
-						
-						    <select id='supo_state_select_id' disabled="disabled" class="input_txt input_12 inputTxtFont sui-input">
+						</td>														
+					</tr>
+					<tr>
+						<td>MA 유형</td>						
+						<td>
+						    <select class="sui-input" id='supo_state_select_id' disabled="disabled">
 								<option value="0" selected>지정하지 않음.</option>
 							  <%--   <c:forEach var="svl" items="${supo_visit_list}">
 				 	    			<option value="${svl.supoVisitId}">${svl.supoVisitNm}</option>		 	    	
 				 	    		</c:forEach> --%>
 							</select>
-																							
-							<input type='date' id='supo_start_date_id' class="input_txt input_13 inputTxtFont sui-input">														
-					
-							<input type='date' id='supo_end_date_id' class="input_txt input_14 inputTxtFont sui-input">															
-					
-							<textarea id="etc_id" name="contents" class="input_txt_02 input_15 inputTxtFont"></textarea>													
-					
-					
-						  <input type="password" placeholder="등록 비밀번호 입력." id="editPw" required class="reg_pass inputTxtFont"> &nbsp;&nbsp;
-						  <input type="button" id="edit_update_btn" name="OK" class="miBtt_submit_top miBtt_submit " value="등록">
-					
+						</td>														
+					</tr>																			
+				</thead>
+				<tbody id="cus_list_tb">				    	
+			 		<tr>
+						<td>MA 시작일</td>						
+						<td><input class="sui-input" type='date' id='supo_start_date_id'></td>														
+					</tr>
+					<tr>
+						<td>MA 종료일</td>						
+						<td><input class="sui-input" type='date' id='supo_end_date_id'></td>															
+					</tr>	 -
+					<tr>
+						<td>비고</td>						
+						<td><textarea id="etc_id" rows="5" cols="30" name="contents"></textarea></td>													
+					</tr>																											
+				</tbody>
+				<tfoot id="cus_list_tf"> 					
+					<tr>	
+					<td colspan="2">
+						  <input type="password" placeholder="등록 비밀번호 입력." id="editPw" required>&nbsp;&nbsp;
+						  <input type="button" id="edit_update_btn" value="등록"></input>
+					</td>
+					</tr>
+				</tfoot>
+	 		</table>	
 		</div>
 	</div>
 </div>
-
+<c:import url="/main_botview"></c:import>
 </body>
 </html>
 

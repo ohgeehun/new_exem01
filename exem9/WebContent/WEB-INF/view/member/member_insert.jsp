@@ -327,7 +327,19 @@ th, td {
 .redText{display: block;color: red;margin-left:10px;}
 .greenText{display: block;color: green;margin-left:10px;}
 */
+.miBtt_submit_top {
+	position:absolute; 
+	top: 546px;
+	margin-left: 70px;
+}
 
+.reg_pass {
+	position:absolute; 
+	border:1px solid #d1cece; 
+	height:38px;
+	padding:1px;
+	left:238px;
+}
 </style>
 
 </head>
@@ -346,6 +358,8 @@ th, td {
 	
 			<div class="top_mainDisplayPart">
 				<div class="top_mainDisplayBase" >
+				  
+				  <ul>
 					<li class="input_title input_01 inputTxtFont">로그인ID*</li>
 					<li class="input_title input_02 inputTxtFont">이름*</li>
 					<li class="input_title input_03 inputTxtFont">패스워드</li>
@@ -356,7 +370,9 @@ th, td {
 					<li class="input_title input_08 inputTxtFont">연락처</li>
 					<li class="input_title input_09 inputTxtFont">메일</li>
 					<li class="input_title input_10 inputTxtFont">포인트</li>
-					
+				  </ul>	
+				  
+				  
 					<input id="user_id" type="text" class="input_txt input_01 inputTxtFont">
 					<input id="user_name" type="text" class="input_txt input_02 inputTxtFont">
 					<input id="user_password" type="text" class="input_txt input_03 inputTxtFont">
@@ -394,12 +410,14 @@ th, td {
 					<input id="user_mail" type="text" class="input_txt input_09 inputTxtFont">
 					<input id="user_point" type="text" class="input_txt input_10 inputTxtFont">
 					<!-- input type="submit" name="OK" class="input_submit inBtt_OK" value="일정등록하기"-->
-					<input type="button" id="edit_update_btn" name="OK" class="miBtt_submit" value="등록"></input>
+					<!-- input type="button" id="edit_update_btn" name="OK" class="miBtt_submit" value="등록"></input-->
+							
+					<input type="password" placeholder="등록 비밀번호 입력." required class="reg_pass input_11 inputTxtFont"> &nbsp;&nbsp;
+					<input type="button" id="edit_update_btn" name="OK" class="miBtt_submit_top miBtt_submit" value="등록">
 				</div>
 			</div>
 			
 </div>
-<c:import url="/main_botview"></c:import>
 </body>
 </html>
 

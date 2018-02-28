@@ -197,7 +197,49 @@ function editcusMemberCallback(res){
 }
 */
 .tb_search_lmargin {
-	margin-left : 100px;
+	margin-left : 420px;
+}
+.fltBox1 {
+	width: 85px;
+}
+
+.box2_01 {
+	width:39px;
+}
+
+.box2_02 {
+	width:113px;
+}
+
+.box2_03 {
+	width:75px;
+}
+
+.box2_04 {
+	width:135px;
+}
+
+.box2_05 {
+	width:135px;
+}
+
+.box2_06 {
+	width:135px;
+}
+
+.box2_07 {
+	width:75px;
+}
+
+.box2_08 {
+	width:135px;
+}
+
+.box2_09 {
+	width:135px;
+}
+.box2_10 {
+	width:75px;
 }
 </style>
 
@@ -224,8 +266,8 @@ function editcusMemberCallback(res){
 		<table class="tb_search">
 			<tr>
 				<td>
-			 			<select id="cus_select4" name="selectBtnVal" class="main_input_box_2 nInputFont tb_search_lmargin">
-			 					<option value="0" selected>검색 조건을 선택하세요.</option>
+			 			<select id="cus_select4" name="selectBtnVal" class="main_input_box_2 nInputFont tb_search_lmargin fltBox1">
+			 					<option value="0" selected>전체</option>
 								<option value="1">로그인ID</option>						
 								<option value="2">이름</option>
 								<option value="3">부서</option>
@@ -244,36 +286,36 @@ function editcusMemberCallback(res){
 				<thead id="cus_list_th">
 					<tr>
 						<td>
-							<li class="main_title_box_2 box_01 nCheckBox">
+							<li class="main_title_box_2 box2_01 nCheckBox">
 								<input type="checkbox" id="checkall"/>
 							</li>
 						</td>
 						<td>
-							<input type="text" class="main_title_box_2 box_02 nTitleFont" value="로그인ID"/>
+							<input type="text" class="main_title_box_2 box2_02 nTitleFont" value="로그인ID"/>
 						</td>
 						<td>
-							<input type="text" class="main_title_box_2 box_03 nTitleFont" value="이름"/>
+							<input type="text" class="main_title_box_2 box2_03 nTitleFont" value="이름"/>
 						</td>
 						<td>
-							<input type="text" class="main_title_box_2 box_04 nTitleFont" value="부서"/>
+							<input type="text" class="main_title_box_2 box2_04 nTitleFont" value="부서"/>
 						</td>
 						<td>
-							<input type="text" class="main_title_box_2 box_05 nTitleFont" value="팀"/>
+							<input type="text" class="main_title_box_2 box2_05 nTitleFont" value="팀"/>
 						</td>
 						<td>
-							<input type="text" class="main_title_box_2 box_06 nTitleFont" value="업무"/>
+							<input type="text" class="main_title_box_2 box2_06 nTitleFont" value="업무"/>
 						</td>
 						<td>
-							<input type="text" class="main_title_box_2 box_07 nTitleFont" value="직급"/>
+							<input type="text" class="main_title_box_2 box2_07 nTitleFont" value="직급"/>
 						</td>
 						<td>
-							<input type="text" class="main_title_box_2 box_08 nTitleFont" value="연락처"/>
+							<input type="text" class="main_title_box_2 box2_08 nTitleFont" value="연락처"/>
 						</td>																	
 						<td>
-							<input type="text" class="main_title_box_2 box_09 nTitleFont" value="메일"/>
+							<input type="text" class="main_title_box_2 box2_09 nTitleFont" value="메일"/>
 						</td>
 						<td>
-							<input type="text" class="main_title_box_2 box_10 nTitleFont" value="로그인ID"/>
+							<input type="text" class="main_title_box_2 box2_10 nTitleFont" value="포인트"/>
 						</td>
 					</tr>					
 				</thead>
@@ -281,18 +323,18 @@ function editcusMemberCallback(res){
 					<c:forEach var="mem" items="${mem_list_info}">											
 						<tr>
 							<td>
-								<li class="main_title_box_2 box_01 nCheckBox">
+								<li class="main_title_box_2 box2_01 nCheckBox">
 									<input type="checkbox" name="chk" value="${mem.userId}"/>
 								</li>
 							</td>						
 							<td>
-								<input type="text" class="main_input_box_2 box_02 nInputFont" value="${mem.userId}"/>
+								<input type="text" class="main_input_box_2 box2_02 nInputFont" value="${mem.userId}"/>
 							</td>
 							<td>
-								<input type="text" class="main_input_box_2 box_03 nInputFont" value="${mem.userNm}"/>						
+								<input type="text" class="main_input_box_2 box2_03 nInputFont" value="${mem.userNm}"/>						
 							</td>							
 							<td>
-								<select class="main_input_box_2 box_04 nInputFont">
+								<select class="main_input_box_2 box2_04 nInputFont">
 									<c:if test="${mem.userDept == ''}">
 										<option value="0" selected>지정필요.</option>
 									</c:if>
@@ -309,7 +351,7 @@ function editcusMemberCallback(res){
 								</select>
 							</td>
 							<td>
-								<select class="main_input_box_2 box_05 nInputFont">
+								<select class="main_input_box_2 box2_05 nInputFont">
 									<c:if test="${mem.userTeam == ''}">
 										<option value="0" selected>지정필요.</option>
 									</c:if>
@@ -328,7 +370,7 @@ function editcusMemberCallback(res){
 								</select>
 							</td>
 							<td>
-								<select class="main_input_box_2 box_06 nInputFont">
+								<select class="main_input_box_2 box2_06 nInputFont">
 									<c:if test="${mem.userDbms == ''}">
 										<option value="0" selected>지정필요.</option>
 									</c:if>
@@ -345,7 +387,7 @@ function editcusMemberCallback(res){
 								</select>
 							</td>
 							<td>							
-								<select class="main_input_box_2 box_07 nInputFont">
+								<select class="main_input_box_2 box2_07 nInputFont">
 									<c:if test="${mem.userPosi == ''}">
 										<option value="0" selected>지정필요.</option>
 									</c:if>
@@ -362,13 +404,13 @@ function editcusMemberCallback(res){
 								</select>
 							</td>			
 							<td>
-								<input type="text" class="main_input_box_2 box_08 nInputFont" value="${mem.userPhone}"/>
+								<input type="text" class="main_input_box_2 box2_08 nInputFont" value="${mem.userPhone}"/>
 							</td>
 							<td>
-								<input type="text" class="main_input_box_2 box_09 nInputFont" value="${mem.userMail}"/>
+								<input type="text" class="main_input_box_2 box2_09 nInputFont" value="${mem.userMail}"/>
 							</td>
 							<td>																		
-								<input type="text" class="main_input_box_2 box_10 nInputFont" value="${mem.userPoint}"/>
+								<input type="text" class="main_input_box_2 box2_10 nInputFont" value="${mem.userPoint}"/>
 							</td>
 						</tr>					
 					</c:forEach>										

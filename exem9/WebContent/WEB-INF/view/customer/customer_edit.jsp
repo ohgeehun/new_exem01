@@ -305,7 +305,46 @@ function editcusMemberCallback(res){
 
 <style>
 .tb_search_lmargin {
-	margin-left : 220px;
+	margin-left : 305px;
+}
+.fltBox1 {
+	width: 85px;
+}
+
+.box2_01 {
+	width:39px;
+}
+
+.box2_02 {
+	width:113px;
+}
+
+.box2_03 {
+	width:135px;
+}
+
+.box2_04 {
+	width:75px;
+}
+
+.box2_05 {
+	width:146px;
+}
+
+.box2_06 {
+	width:146px;
+}
+
+.box2_07 {
+	width:75px;
+}
+
+.box2_08 {
+	width:75px;
+}
+
+.box2_09 {
+	width:175px;
 }
 </style>
 
@@ -339,8 +378,8 @@ function editcusMemberCallback(res){
  			<table class="tb_search">
  				<tr>
 						<td>
-								<select  class="main_input_box_2 nInputFont tb_search_lmargin" id="cus_select4" name="selectBtnVal">
-					 					<option value="0" selected>검색조건을 선택하세요.</option>
+								<select  class="main_input_box_2 nInputFont tb_search_lmargin fltBox1" id="cus_select4" name="selectBtnVal">
+					 					<option value="0" selected>전체</option>
 										<option value="1">고객사</option>						
 										<option value="3">영업대표</option>
 								</select>
@@ -356,38 +395,38 @@ function editcusMemberCallback(res){
 				<thead id="cus_list_th">
 					<tr>
 						<td>
-							<li class="main_title_box_2 box_01 nCheckBox">
+							<li class="main_title_box_2 box2_01 nCheckBox">
 								<input type="checkbox" id="checkall"/>
 							</li>
 						</td>
-						<td><input class="main_title_box_2 box_02 nTitleFont" value="고객사명" disabled="disabled"/></td>
-						<td><input class="main_title_box_2 box_03 nTitleFont" value="프로젝트명" disabled="disabled"/></td>
-						<td><input class="main_title_box_2 box_04 nTitleFont" value="고객명" disabled="disabled"/></td>
-						<td><input class="main_title_box_2 box_05 nTitleFont" value="고객 연락처" disabled="disabled"/></td>
-						<td><input class="main_title_box_2 box_06 nTitleFont" value="고객 이메일" disabled="disabled"/></td>
-						<td><input class="main_title_box_2 box_07 nTitleFont" value="고객사 위치" disabled="disabled"/></td>
-						<td><input class="main_title_box_2 box_08 nTitleFont" value="담당영업대표" disabled="disabled"/></td>
-						<td><input class="main_title_box_2 box_09 nTitleFont" value="비고" disabled="disabled"/></td>
+						<td><input class="main_title_box_2 box2_02 nTitleFont" value="고객사명" disabled="disabled"/></td>
+						<td><input class="main_title_box_2 box2_03 nTitleFont" value="프로젝트명" disabled="disabled"/></td>
+						<td><input class="main_title_box_2 box2_04 nTitleFont" value="고객명" disabled="disabled"/></td>
+						<td><input class="main_title_box_2 box2_05 nTitleFont" value="고객 연락처" disabled="disabled"/></td>
+						<td><input class="main_title_box_2 box2_06 nTitleFont" value="고객 이메일" disabled="disabled"/></td>
+						<td><input class="main_title_box_2 box2_07 nTitleFont" value="고객사 위치" disabled="disabled"/></td>
+						<td><input class="main_title_box_2 box2_08 nTitleFont" value="영업대표" disabled="disabled"/></td>
+						<td><input class="main_title_box_2 box2_09 nTitleFont" value="비고" disabled="disabled"/></td>
 					</tr>					
 				</thead>
 				<tbody id="cus_list_tb">
 					<c:forEach var="cli" items="${cus_list_info}">											
 						<tr>
 							<td>
-								<li class="main_title_box_2 box_01 nCheckBox">
+								<li class="main_title_box_2 box2_01 nCheckBox">
 									<input type="checkbox" name="chk" value="${cli.proId}"/>
 									<input type="hidden" id="checkbox_hidden_id_${cli.proId}" value="${cli.proId}"/>
 								</li>
 							</td>							
 							<td>
-								<input type="text" class="main_input_box_2 box_02 nInputFont" value="${cli.cusNm}"/>
+								<input type="text" class="main_input_box_2 box2_02 nInputFont" value="${cli.cusNm}"/>
 							</td>
 							<td>
-								<input type="text" class="main_input_box_2 box_03 nInputFont" value="${cli.proNm}"/>
+								<input type="text" class="main_input_box_2 box2_03 nInputFont" value="${cli.proNm}"/>
 							</td>							
 							<td>
 								<input type="hidden" id="select_cus_hidden_id_${cli.proId}" value=""/>
-								<select id="edit_cus_list_select_${cli.proId}" onchange="edit_cus_select_change_event(${cli.proId})" class="main_input_box_2 box_04 nInputFont">
+								<select id="edit_cus_list_select_${cli.proId}" onchange="edit_cus_select_change_event(${cli.proId})" class="main_input_box_2 box2_04 nInputFont">
 									<c:if test="${cli.cusNm == ''}">
 										<option value="0" selected>지정필요.</option>
 									</c:if>
@@ -406,17 +445,17 @@ function editcusMemberCallback(res){
 								</select> 										
 							</td>
 							<td>
-								<input type="text" class="main_input_box_2 box_05 nInputFont" value="${cli.cususerPhone}" id="edit_cus_phone_${cli.proId}"/>
+								<input type="text" class="main_input_box_2 box2_05 nInputFont" value="${cli.cususerPhone}" id="edit_cus_phone_${cli.proId}"/>
 							</td>							
 											
 							<td>
-								<input type="text" class="main_input_box_2 box_06 nInputFont" value="${cli.cususerMail}" id="edit_cus_mail_${cli.proId}"/>
+								<input type="text" class="main_input_box_2 box2_06 nInputFont" value="${cli.cususerMail}" id="edit_cus_mail_${cli.proId}"/>
 							</td>
 							<td>
-								<input type="text" id="cuslocation_id_${cli.proId}" value="${cli.cusLoca}" class="main_input_box_2 box_07 nInputFont">								
+								<input type="text" id="cuslocation_id_${cli.proId}" value="${cli.cusLoca}" class="main_input_box_2 box2_07 nInputFont">								
 							</td>																		
 							<td>								
-								<select id="edit_salseman_list_select_${cli.proId}" class="main_input_box_2 box_08 nInputFont">
+								<select id="edit_salseman_list_select_${cli.proId}" class="main_input_box_2 box2_08 nInputFont">
 									<c:if test="${cli.salseId == '0'}">
 										<option value="0" selected>지정필요.</option>
 									</c:if>
@@ -433,7 +472,7 @@ function editcusMemberCallback(res){
 								</select>
 							</td>			
 							<td>
-								<textarea id="etc_id_${cli.proId}" name="contents" class="main_input_box_2 box_06 nInputFont">${cli.etc}</textarea>
+								<textarea id="etc_id_${cli.proId}" name="contents" class="main_input_box_2 box2_09 nInputFont">${cli.etc}</textarea>
 							</td>
 						</tr>					
 					</c:forEach>										
