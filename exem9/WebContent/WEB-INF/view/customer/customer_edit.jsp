@@ -374,30 +374,28 @@ function editcusMemberCallback(res){
 		<input type="hidden" id="cusId_hidden_id" name="cusId_hidden_name" value=""/>
 		<input type="hidden" id="userId_hidden_id" value=""/>				
 	
- 		<div>
- 			<table class="tb_search">
- 				<tr>
-						<td>
-								<select  class="main_input_box_2 nInputFont tb_search_lmargin fltBox1" id="cus_select4" name="selectBtnVal">
-					 					<option value="0" selected>전체</option>
-										<option value="1">고객사</option>						
-										<option value="3">영업대표</option>
-								</select>
-						 	    <input class="main_input_box_2 nInputFont" type="text" id="select_text" name="selectTextVal" value="검색 조건을 선택하세요."></input>
-						 	   
-						 	    <input class="Btt_search btnSearch" type="button" id="select_btn" value="검색"></input>
-				 	    </td>
-				</tr>
-			</table>
- 	    </div>
 		<div class="top_mainDisplayBase" >
 			<table id="cus_list">	
 				<thead id="cus_list_th">
 					<tr>
+							<td colspan="9" class="left_align">
+									<select  class="main_input_box_2 nInputFont fltBox1" id="cus_select4" name="selectBtnVal">
+						 					<option value="0" selected>전체</option>
+											<option value="1">고객사</option>						
+											<option value="3">영업대표</option>
+									</select>
+							 	    <input class="main_input_box_2 nInputFont" type="text" id="select_text" name="selectTextVal" value="검색 조건을 선택하세요."></input>
+							 	   
+							 	    <input class="Btt_search btnSearch" type="button" id="select_btn" value="검색"></input>
+					 	    </td>
+					</tr>
+					<tr>
 						<td>
+						<ul>
 							<li class="main_title_box_2 box2_01 nCheckBox">
 								<input type="checkbox" id="checkall"/>
 							</li>
+						</ul>	
 						</td>
 						<td><input class="main_title_box_2 box2_02 nTitleFont" value="고객사명" disabled="disabled"/></td>
 						<td><input class="main_title_box_2 box2_03 nTitleFont" value="프로젝트명" disabled="disabled"/></td>
@@ -413,10 +411,12 @@ function editcusMemberCallback(res){
 					<c:forEach var="cli" items="${cus_list_info}">											
 						<tr>
 							<td>
+							<ul>
 								<li class="main_title_box_2 box2_01 nCheckBox">
 									<input type="checkbox" name="chk" value="${cli.proId}"/>
 									<input type="hidden" id="checkbox_hidden_id_${cli.proId}" value="${cli.proId}"/>
 								</li>
+							</ul>
 							</td>							
 							<td>
 								<input type="text" class="main_input_box_2 box2_02 nInputFont" value="${cli.cusNm}"/>
@@ -480,9 +480,9 @@ function editcusMemberCallback(res){
 				<tfoot id="cus_list_tf"> 
 				
 					<tr>
-						<td colspan="9">
+						<td colspan="9" class="center_align">
 						
-							<div class="center_div">
+							<div>
 								<c:if test="${nowPage > 1}">
 										<a href="#" id="backVal" class="nTitleFont">이전</a>
 									</c:if>
@@ -503,8 +503,8 @@ function editcusMemberCallback(res){
 						</td>
 					</tr>
 					<tr>
-						<td colspan="9">
-							<div class="center_div">
+						<td colspan="9" class="center_align">
+							<div>
 						  		<input type="button" id="edit_update_btn" value="수정" class="inBtt_OK_2"/>
 						  	</div>
 						</td>

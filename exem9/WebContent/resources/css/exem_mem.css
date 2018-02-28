@@ -689,10 +689,11 @@ A:hover  { color:#000;text-decoration:none;}
 	width:100px;
 }
 
-.center_div {
-	display: flex;
-  	flex-flow: column wrap;
-  	align-items: center;
+.center_align {
+  	 text-align: center;
+}
+.left_align {
+  	 text-align: left;
 }
 
 .pageFont {

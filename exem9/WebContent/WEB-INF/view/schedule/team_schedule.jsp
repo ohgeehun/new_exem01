@@ -377,9 +377,9 @@ a:hover {
 						</td>
 					</tr-->	
 					<tr>
-						<td colspan="8">
+						<td colspan="8" class="center_align">
 						
-							<div class="center_div">
+							<div>
 								<c:if test="${nowPage > 1}">
 										<a href="#" id="backVal" class="nTitleFont">이전</a>
 									</c:if>
@@ -400,8 +400,8 @@ a:hover {
 						</td>
 					</tr>
 					<tr>
-						<td colspan="8">
-							<div class="center_div">
+						<td colspan="8" class="center_align">
+							<div>
 						  		<input type="button" id="edit_update_btn" value="수정" class="inBtt_OK_2"/>
 						  	</div>
 						</td>

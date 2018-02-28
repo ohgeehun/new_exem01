@@ -291,9 +291,11 @@ a:hover {
 				<thead id="cus_list_th">
 					<tr>
 						<td>
+							<ul>
 							<li class="main_title_box_2 box_01 nCheckBox">
 								<input type="checkbox" id="checkall"/>
 							</li>
+							</ul>
 						</td>
 						<td><input type="text" class="main_title_box_2 box_02 nTitleFont" value="지원일자"/> </td>
 						<td><input type="text" class="main_title_box_2 box_03 nTitleFont" value="고객사명"/> </td>
@@ -308,9 +310,11 @@ a:hover {
 					<c:forEach var="sch" items="${sch_list}">											
 						<tr>
 							<td>
+								<ul>
 								<li class="main_title_box_2 box_01 nCheckBox">
 									<input type="checkbox" name="chk" value="${sch.schId}"/>
 								</li>
+								</ul>
 							</td>
 							<td>
 								<input type="text" class="main_input_box_2 box_02 nInputFont" value="${sch.start_day}"/>	
@@ -377,9 +381,8 @@ a:hover {
 						</td>
 					</tr-->	
 					<tr>
-						<td colspan="8">
-						
-							<div class="center_div">
+						<td colspan="8" class="center_align">
+							<div>
 								<c:if test="${nowPage > 1}">
 										<a href="#" id="backVal" class="nTitleFont">이전</a>
 									</c:if>
@@ -400,8 +403,8 @@ a:hover {
 						</td>
 					</tr>
 					<tr>
-						<td colspan="8">
-							<div class="center_div">
+						<td colspan="8" class="center_align">
+							<div>
 						  		<input type="button" id="edit_update_btn" value="수정" class="inBtt_OK_2"/>
 						  	</div>
 						</td>

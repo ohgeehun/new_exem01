@@ -119,52 +119,49 @@ $(document).ready(function(){
 		<input type="hidden" id="nowPage" name="pageNo" value="${nowPage}"/>
 		<input type="hidden" id="cusId_hidden_id" name="cusId_hidden_name" value=""/>
 		<input type="hidden" id="userId_hidden_id" value=""/>		
-	 	
-	 	<table class="tb_search">
-	 	<tr>
-	 	<td>
-		 		<!-- <label for="cus_select1" class="a11y-hidden">분류</label>  -->
-		 	    <select id="cus_select1" name="supoState" class="main_input_box_2 nInputFont tb_search_lmargin fltBox1">
-						<option value="0" selected>전체</option>
-						<%--  <c:forEach var="sl" items="${supo_list}">
-		 	    			<option value="${sl.supoId}">${sl.supoNm}</option>		 	    	
-		 	    		</c:forEach> --%>
-				</select>
-		 	    <select id="cus_select2" name="userDept" class="main_input_box_2 nInputFont fltBox1">
-		 	   		 <option value="0">전체</option>
-		 	   		<%--  <c:forEach var="dl" items="${dept_list}">
-		 	    		<option value="${dl.deptId}"<c:if test="${cus_list[0].userDept == dl.deptNm}">selected</c:if>>${dl.deptNm}</option>		 	    	
-		 	    	</c:forEach>	 --%>	 	    		 			
-				</select>
-		 	    <select id="cus_select3" name="userDbms" class="main_input_box_2 nInputFont fltBox1">
-						<option value="0" selected>전체</option>
-						<%-- <c:forEach var="dbl" items="${dbms_list}">
-		 	    			<option value="${dbl.dbmsId}"<c:if test="${cus_list[0].userDbms == dbl.dbmsNm}">selected</c:if>>${dbl.dbmsNm}</option>		 	    	
-		 	    		</c:forEach>	 --%>
-				</select>
-	 			<select id="cus_select4" name="selectBtnVal" class="main_input_box_2 nInputFont fltBox1">
-	 					<option value="0" selected>검색조건없음</option>
-						<option value="1">고객사</option>
-						<option value="2">담당 엔지니어</option>
-						<option value="3">영업대표</option>
-				</select>
-		 	    <input type="text" id="select_text" name="selectTextVal" value="검색 조건을 선택하세요." class="main_input_box_2 nInputFont"></input>
-		 	    <input type="button" id="select_btn" value="검색" class="Btt_search btnSearch"></input>
-	 	</td>	 
-	 	</tr>
-	 	</table> 
-	 	
-	 		
 	
 		<div id="customer_list">		
-		 	
 			<table id="cus_list">	
 				<thead id="cus_list_th">
 					<tr>
+					 	<td colspan="14" class="left_align">
+						 		<!-- <label for="cus_select1" class="a11y-hidden">분류</label>  -->
+						 	    <select id="cus_select1" name="supoState" class="main_input_box_2 nInputFont fltBox1">
+										<option value="0" selected>전체</option>
+										<%--  <c:forEach var="sl" items="${supo_list}">
+						 	    			<option value="${sl.supoId}">${sl.supoNm}</option>		 	    	
+						 	    		</c:forEach> --%>
+								</select>
+						 	    <select id="cus_select2" name="userDept" class="main_input_box_2 nInputFont fltBox1">
+						 	   		 <option value="0">전체</option>
+						 	   		<%--  <c:forEach var="dl" items="${dept_list}">
+						 	    		<option value="${dl.deptId}"<c:if test="${cus_list[0].userDept == dl.deptNm}">selected</c:if>>${dl.deptNm}</option>		 	    	
+						 	    	</c:forEach>	 --%>	 	    		 			
+								</select>
+						 	    <select id="cus_select3" name="userDbms" class="main_input_box_2 nInputFont fltBox1">
+										<option value="0" selected>전체</option>
+										<%-- <c:forEach var="dbl" items="${dbms_list}">
+						 	    			<option value="${dbl.dbmsId}"<c:if test="${cus_list[0].userDbms == dbl.dbmsNm}">selected</c:if>>${dbl.dbmsNm}</option>		 	    	
+						 	    		</c:forEach>	 --%>
+								</select>
+					 			<select id="cus_select4" name="selectBtnVal" class="main_input_box_2 nInputFont fltBox1">
+					 					<option value="0" selected>검색조건없음</option>
+										<option value="1">고객사</option>
+										<option value="2">담당 엔지니어</option>
+										<option value="3">영업대표</option>
+								</select>
+						 	    <input type="text" id="select_text" name="selectTextVal" value="검색 조건을 선택하세요." class="main_input_box_2 nInputFont"></input>
+						 	    <input type="button" id="select_btn" value="검색" class="Btt_search btnSearch"></input>
+					 	</td>	 
+				 	</tr>
+				
+					<tr>
 						<td>
+						<ul>
 							<li class="main_title_box_2 box2_01 nCheckBox">
 								<input type="checkbox" id="checkall"/>
 							</li>
+						</ul>
 						</td>
 						
 						<td><input class="main_title_box_2 box2_02 nTitleFont" value="고객사명" disabled="disabled"/></td>
@@ -186,9 +183,11 @@ $(document).ready(function(){
 					<c:forEach var="cli" items="${cus_list_info}">											
 						<tr>
 							<td>
+							<ul>
 								<li class="main_title_box_2 box2_01 nCheckBox">
 									<input type="checkbox" name="chk" id="checkbox_id" value="${cli.proId}"/>
 								</li>
+							</ul>
 							</td>						
 							<td>
 								<input type="text" class="main_input_box_2 box2_02 nInputFont" value="${cli.cusNm}"/>
@@ -344,9 +343,8 @@ $(document).ready(function(){
 				<tfoot id="cus_list_tf"> 
 					
 					<tr>
-						<td colspan="14">
-						
-							<div class="center_div">
+						<td colspan="14" class="center_align">
+							<div>
 								<c:if test="${nowPage > 1}">
 										<a href="#" id="backVal" class="nTitleFont">이전</a>
 									</c:if>
@@ -367,8 +365,8 @@ $(document).ready(function(){
 						</td>
 					</tr>
 					<tr>
-						<td colspan="14">
-							<div class="center_div">
+						<td colspan="14" class="center_align">
+							<div>
 						  		<input type="button" id="edit_update_btn" value="수정" class="inBtt_OK_2"/>
 						  	</div>
 						</td>

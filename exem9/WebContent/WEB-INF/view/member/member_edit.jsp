@@ -265,7 +265,7 @@ function editcusMemberCallback(res){
 		<input type="hidden" id="cusId_hidden_id" name="cusId_hidden_name" value=""/>
 		<input type="hidden" id="userId_hidden_id" value=""/>		
 	
-		<table class="tb_search">
+		<!-- table class="tb_search">
 			<tr>
 				<td>
 			 			<select id="mem_select4" name="selectBtnVal" class="main_input_box_2 nInputFont tb_search_lmargin fltBox1">
@@ -280,7 +280,7 @@ function editcusMemberCallback(res){
 				 	    <input type="button" id="select_btn" value="검색" class="Btt_search btnSearch"></input>
 				</td>
 			</tr>
-		</table>
+		</table-->
 	
 	<div class="top_mainDisplayBase" >
 		
@@ -288,6 +288,21 @@ function editcusMemberCallback(res){
 			
 	 		<table id="cus_list">	
 				<thead id="mem_list_th">
+					<tr>
+						<td colspan="10"  class="left_align">
+					 			<select id="mem_select4" name="selectBtnVal" class="main_input_box_2 nInputFont fltBox1">
+					 					<option value="0" selected>전체</option>
+										<option value="1">로그인ID</option>						
+										<option value="2">이름</option>
+										<option value="3">부서</option>
+										<option value="4">팀</option>
+								</select>
+					 	
+						 	    <input type="text" id="select_text" name="selectTextVal" value="검색 조건을 입력하세요." class="main_input_box_2 nInputFont"></input>
+						 	    <input type="button" id="select_btn" value="검색" class="Btt_search btnSearch"></input>
+						</td>
+					</tr>
+			
 					<tr>
 						<td>
 						   <ul>
@@ -425,9 +440,9 @@ function editcusMemberCallback(res){
 				</tbody>
 				<tfoot id="mem_list_tf"> 
 					<tr>
-						<td colspan="10">
+						<td colspan="10" class="center_align">
 						
-							<div class="center_div">
+							<div>
 								<c:if test="${nowPage > 1}">
 										<a href="#" id="backVal" class="nTitleFont">이전</a>
 									</c:if>
@@ -448,8 +463,8 @@ function editcusMemberCallback(res){
 						</td>
 					</tr>
 					<tr>
-						<td colspan="10">
-							<div class="center_div">
+						<td colspan="10"  class="center_align">
+							<div>
 						  		<input type="button" id="edit_update_btn" value="수정" class="inBtt_OK_2"/>
 						  	</div>
 						</td>
