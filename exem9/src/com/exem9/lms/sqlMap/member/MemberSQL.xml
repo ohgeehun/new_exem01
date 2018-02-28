@@ -108,8 +108,7 @@
 			 <!-- 검색조건이 부서-->
 			<isEqual property="selectBtnVal" compareValue="3">
 				and u.user_team_id in (select team_id from xm_team xt, xm_department xdt 
-				where xt.department_id = xdt.department_id user_name 
-					and xdt.department_name like '%' || #selectTextVal# || '%')
+				where xt.department_id = xdt.department_id and xdt.department_name like '%' || #selectTextVal# || '%')
 			</isEqual>
 			 <!-- 검색조건이 팀-->
 			<isEqual property="selectBtnVal" compareValue="4">
@@ -131,8 +130,35 @@
 
 	<select id="getNCount" parameterClass="java.util.HashMap" resultClass="Integer">
 	select count(user_id)
-		from xm_member xm
+		from xm_member u
+		left outer join 
+			(
+				select t.department_id, t.team_id from
+				xm_team t
+				left outer join xm_department dp
+				on t.department_id = dp.department_id
+			) dp
+			on u.user_team_id = dp.team_id
 		where 1 = 1
+		<isNotEmpty property="selectTextVal">
+			<!-- 검색조건이 ID -->
+			<isEqual property="selectBtnVal" compareValue="1"> 
+				and u.user_id like '%' || #selectTextVal# || '%'
+			</isEqual>
+			 <!-- 검색조건이 이름 -->
+			<isEqual property="selectBtnVal" compareValue="2">
+				and user_name like '%' || #selectTextVal# || '%'
+			</isEqual> 
+			 <!-- 검색조건이 부서-->
+			<isEqual property="selectBtnVal" compareValue="3">
+				and u.user_team_id in (select team_id from xm_team xt, xm_department xdt 
+				where xt.department_id = xdt.department_id and xdt.department_name like '%' || #selectTextVal# || '%')
+			</isEqual>
+			 <!-- 검색조건이 팀-->
+			<isEqual property="selectBtnVal" compareValue="4">
+				and u.user_team_id in (select team_id from xm_team where team_name like '%' || #selectTextVal# || '%')
+			</isEqual>
+		</isNotEmpty>
 	</select>
 	
 	<!-- 신규 사용자 인서트 시 -->
