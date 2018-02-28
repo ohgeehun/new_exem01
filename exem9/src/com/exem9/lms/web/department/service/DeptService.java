@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.exem9.lms.util.BCrypt;
+import com.exem9.lms.web.department.bean.DeptBean;
 import com.exem9.lms.web.department.dao.IDeptDao;
 import com.exem9.lms.web.mypage.bean.MypageBean;
 import com.exem9.lms.web.mypage.dao.IMypageDao;
@@ -31,7 +32,7 @@ public class DeptService implements IDeptService{
 	public IDeptDao iDeptDao;
 	
 
-	public List getdept() throws Throwable {
+	public List<DeptBean> getdept() throws Throwable {
 		
 		// TODO Auto-generated method stub
 		return iDeptDao.getdept();

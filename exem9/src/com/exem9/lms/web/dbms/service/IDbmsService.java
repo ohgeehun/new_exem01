@@ -2,11 +2,11 @@ package com.exem9.lms.web.dbms.service;
 
 import java.util.List;
 
-import com.exem9.lms.web.mypage.bean.MypageBean;
+import com.exem9.lms.web.dbms.bean.DbmsBean;
 
 
 public interface IDbmsService {	
 
-	public List getdbms() throws Throwable;	
+	public List<DbmsBean> getdbms() throws Throwable;	
 	
 }

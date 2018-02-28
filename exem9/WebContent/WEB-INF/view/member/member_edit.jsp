@@ -66,7 +66,7 @@ $(document).ready(function(){
     
     /* 조회조건 설정 후 검색버튼 클릭 시 이벤트*/
     $("#select_btn").bind("click", function(){	
-    	if ($("#cus_select4").val() == 0){    		
+    	if ($("#mem_select4").val() == 0){    		
     		alert("점색조건을 선택하세요.");
     		$("#select_text").val("");
     	}else{
@@ -80,7 +80,7 @@ $(document).ready(function(){
     		$("#select_text").val("");
     	}    	
     	
-    	if($("#cus_select4").val() == 0){
+    	if($("#mem_select4").val() == 0){
     		$("#userId_hidden_id").val(userId);    	    		
     	}else{
     		$("#userId_hidden_id").val(""); 
@@ -98,7 +98,7 @@ $(document).ready(function(){
     		$("#select_text").val("");
     	}    	
     	
-    	if($("#cus_select4").val() == 0){
+    	if($("#mem_select4").val() == 0){
     		$("#userId_hidden_id").val(userId);    	    		
     	}else{
     		$("#userId_hidden_id").val(""); 
@@ -115,7 +115,7 @@ $(document).ready(function(){
     		$("#select_text").val("");
     	}    	
     	
-    	if($("#cus_select4").val() == 0){
+    	if($("#mem_select4").val() == 0){
     		$("#userId_hidden_id").val(userId);    	    		
     	}else{
     		$("#userId_hidden_id").val(""); 
@@ -259,7 +259,7 @@ function editcusMemberCallback(res){
 <div class="top_mainDisplayPart">
 	<div align="center"><h3>사용자 관리 페이지</h3></div>
 		
-		<form id="form1" method="post" action="customer_edit_next">	 
+		<form id="form1" method="post" action="member_edit_next">	 
 
 		<input type="hidden" id="nowPage" name="pageNo" value="${nowPage}"/>
 		<input type="hidden" id="cusId_hidden_id" name="cusId_hidden_name" value=""/>
@@ -268,7 +268,7 @@ function editcusMemberCallback(res){
 		<table class="tb_search">
 			<tr>
 				<td>
-			 			<select id="cus_select4" name="selectBtnVal" class="main_input_box_2 nInputFont tb_search_lmargin fltBox1">
+			 			<select id="mem_select4" name="selectBtnVal" class="main_input_box_2 nInputFont tb_search_lmargin fltBox1">
 			 					<option value="0" selected>전체</option>
 								<option value="1">로그인ID</option>						
 								<option value="2">이름</option>
@@ -284,11 +284,10 @@ function editcusMemberCallback(res){
 	
 	<div class="top_mainDisplayBase" >
 		
-	
-		<div id="customer_list">	
+		<div id="member_list">	
 			
 	 		<table id="cus_list">	
-				<thead id="cus_list_th">
+				<thead id="mem_list_th">
 					<tr>
 						<td>
 						   <ul>
@@ -326,7 +325,7 @@ function editcusMemberCallback(res){
 						</td>
 					</tr>					
 				</thead>
-				<tbody id="cus_list_tb">
+				<tbody id="mem_list_tb">
 					<c:forEach var="mem" items="${mem_list_info}">											
 						<tr>
 							<td>
@@ -424,10 +423,7 @@ function editcusMemberCallback(res){
 						</tr>					
 					</c:forEach>										
 				</tbody>
-				<tfoot id="cus_list_tf"> 
-					
-					
-					
+				<tfoot id="mem_list_tf"> 
 					<tr>
 						<td colspan="10">
 						

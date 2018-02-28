@@ -74,19 +74,59 @@
 	</select> 	
 	
 	<select id="getmeminfo" parameterClass="java.util.HashMap" resultMap="uMemberMap">
+	 select user_id,       user_password,       user_name,       user_team_id,  
+			user_flag,       user_dbms_id,          user_level,        
+			user_department_id as user_department_id,          user_phone,    
+			user_mail,          user_position_id,          user_hint,         user_point 
+	 from
+	 (
 	 SELECT       user_id,       user_password,       user_name,       user_team_id,       
-user_flag,       user_dbms_id,          user_level,          dp.department_id as user_department_id,          user_phone,       
-user_mail,          user_position_id,          user_hint,          user_point       
-FROM xm_member u       
-left outer join 
-(
-	select t.department_id, t.team_id from
-	xm_team t
-	left outer join xm_department dp
-	on t.department_id = dp.department_id
-) dp
-on u.user_team_id = dp.team_id
-where 1=1     order by dp.department_id, u.user_team_id, u.user_name asc
+			user_flag,       user_dbms_id,          user_level,          dp.department_id as user_department_id,          user_phone,       
+			user_mail,          user_position_id,          user_hint,          user_point,       
+			ROW_NUMBER() OVER() as row_num
+			
+			FROM xm_member u       
+			left outer join 
+			(
+				select t.department_id, t.team_id from
+				xm_team t
+				left outer join xm_department dp
+				on t.department_id = dp.department_id
+			) dp
+			on u.user_team_id = dp.team_id
+			where 1=1     
+
+		<isNotEmpty property="selectTextVal">
+			<!-- 검색조건이 ID -->
+			<isEqual property="selectBtnVal" compareValue="1"> 
+				and u.user_id like '%' || #selectTextVal# || '%'
+			</isEqual>
+			 <!-- 검색조건이 이름 -->
+			<isEqual property="selectBtnVal" compareValue="2">
+				and user_name like '%' || #selectTextVal# || '%'
+			</isEqual> 
+			 <!-- 검색조건이 부서-->
+			<isEqual property="selectBtnVal" compareValue="3">
+				and u.user_team_id in (select team_id from xm_team xt, xm_department xdt 
+				where xt.department_id = xdt.department_id user_name 
+					and xdt.department_name like '%' || #selectTextVal# || '%')
+			</isEqual>
+			 <!-- 검색조건이 팀-->
+			<isEqual property="selectBtnVal" compareValue="4">
+				and u.user_team_id in (select team_id from xm_team where team_name like '%' || #selectTextVal# || '%')
+			</isEqual>
+		</isNotEmpty>
+		order by dp.department_id, u.user_team_id, u.user_name asc
+		) u
+		where 1=1
+		
+		<isNotEmpty property="pageNo">
+		and u.row_num BETWEEN #startNo# AND #endNo# 
+		</isNotEmpty>
+		<isEmpty property="pageNo">
+		and u.row_num BETWEEN 1 AND #viewCount#
+		</isEmpty>
+		
 	</select>
 
 	<select id="getNCount" parameterClass="java.util.HashMap" resultClass="Integer">
