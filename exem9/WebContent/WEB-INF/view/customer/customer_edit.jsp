@@ -368,7 +368,7 @@ function editcusMemberCallback(res){
 		   <!-- <a href="#" id="cus_edit1">고객사 </p>계약정보 수정</a></br> -->
 	 <!--  /div-->
 	 <div class="top_mainDisplayPart">
-	 	
+	 	<div align="center"><h3>고객사 관리 페이지</h3></div>
 	 	<%-- <input type="hidden" id="lastBoardNo" value ="${cus_list[fn:length(cus_list)-1].boardNo}"/> --%>
 		<input type="hidden" id="nowPage" name="pageNo" value="${nowPage}"/>
 		<input type="hidden" id="cusId_hidden_id" name="cusId_hidden_name" value=""/>

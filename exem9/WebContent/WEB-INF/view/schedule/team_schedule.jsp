@@ -252,7 +252,7 @@ a:hover {
 	 
 	 <!-- div class="column middle"-->
 	 <div class="top_mainDisplayPart">
-	 	<!-- div align="center"><h3>내 일정 정보</h3></div-->
+	 	<div align="center"><h3>팀 일정 정보</h3></div>
 	 	
 		<input type="hidden" id="nowPage" name="pageNo" value="${nowPage}"/>
 		<input type="hidden" id="userId_hidden_id" value=""/>				

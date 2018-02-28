@@ -354,9 +354,9 @@ th, td {
 		</div>
 		
 <div class="row">
-	
-	
 			<div class="top_mainDisplayPart">
+			
+				<div align="center"><h3>사용자 등록 페이지</h3></div>
 				<div class="top_mainDisplayBase" >
 				  
 				  <ul>

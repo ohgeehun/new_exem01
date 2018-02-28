@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -6,22 +7,19 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="./resources/css/main.css" media="all" />
-<!-- link rel="stylesheet" type="text/css" href="./resources/css/jquery/jquery-ui-1.8.custom.css"/-->
+
 <title>MyPage</title>
 
 <!-- jQuery Script -->
 <script type="text/javascript" src="resources/script/jquery/jquery-1.8.2.min.js"></script>
 <script type="text/javascript" src="resources/script/jquery/jquery-ui-1.8.min.js"></script>
 <script type="text/javascript" src="resources/script/jquery/jquery.form.js"></script>
-
-
 <!-- DWR setting -->
 <script type="text/javascript" src="dwr/engine.js"></script>
 <script type="text/javascript" src="dwr/util.js"></script>
 <script type="text/javascript" src="dwr/interface/IMypageService.js"></script>
 
 <style type="text/css">
-/*
  table, td, th {    
     border: 1px solid #ddd;
     text-align: left;    
@@ -35,14 +33,14 @@ table {
 th, td {
     padding: 15px;
 }
-*/
-</style>
 
+</style>
 <script type="text/javascript">	
 	var userId = "<%=(String)session.getAttribute("sUserId")%>";
- 	var userDbms = "<%=(String)session.getAttribute("sUserDbms")%>";
-	var userPosi = "<%=(String)session.getAttribute("sUserPosi")%>"; 
-	var userDept = "<%=(String)session.getAttribute("sUserDept")%>";
+<%-- 	var userDbms = "<%=(String)session.getAttribute("sUserDbms")%>";
+	var userPosi = "<%=(String)session.getAttribute("sUserPosi")%>"; --%>
+	var userDbms = "";
+	var userPosi = "";
 
 	$(document).ready(function(){		
 	    
@@ -180,42 +178,26 @@ th, td {
 
 <c:import url="/main_upview"></c:import>
 
-		<div class="top_SubMenuPart">
-			<!-- div class="top_MenuBase">
-				<a href="#" class="top_SubMenu01_m" id="mem_managed">사용자 관리</a>
-				<a href="#" class="top_SubMenu02_m" id="mem_insert">사용자 등록</a>
-			</div-->
-		</div>
+
+<div class="row">
+	 <div class="column side">
+		   <h4>MyPage</h4></br>
+		   <a href="#" id="UIedit">개인정보 변경</a></br>		    
+		   <a href="#" id="PWedit">비밀번호 변경</a></br>
+	 </div>
+	 <div class="column middle">
+	   <h3>개인정보</h3>    
+	   
+	   <table id ="mypageview">		
+	   </table> 
+	   </br>		
 		
-			<div class="top_mainDisplayPart">
-			
-				<div align="center"><h3>개인정보</h3></div>
-				<div class="top_mainDisplayBase" >
-				
-				
-				<div class="row">
-					<div class="column side">
-						   
-						   <a href="#" id="UIedit">개인정보 변경</a></br>		    
-						   <a href="#" id="PWedit">비밀번호 변경</a></br>
-					 </div>
-					 <div class="column middle">
-					    
-					   
-					   <table id ="mypageview">		
-					   </table> 
-						
-						
-				 	    <div id="UIeditBtn" align="center">
-				 	   		 <button>변경하기</button>
-						</div> 
-					</div>
-				</div>
-				
-				
-				
-				</div>
-			</div>
+ 	    <div id="UIeditBtn" align="center">
+ 	   		 <button>변경하기</button>
+		</div> 
+	</div>
+</div>
+<c:import url="/main_botview"></c:import>
 
 </body>
 </html>

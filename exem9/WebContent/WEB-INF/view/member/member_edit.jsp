@@ -197,7 +197,7 @@ function editcusMemberCallback(res){
 }
 */
 .tb_search_lmargin {
-	margin-left : 420px;
+	margin-left : 270px;
 }
 .fltBox1 {
 	width: 85px;
@@ -257,7 +257,9 @@ function editcusMemberCallback(res){
 
 
 <div class="top_mainDisplayPart">
-	<form id="form1" method="post" action="customer_edit_next">	 
+	<div align="center"><h3>사용자 관리 페이지</h3></div>
+		
+		<form id="form1" method="post" action="customer_edit_next">	 
 
 		<input type="hidden" id="nowPage" name="pageNo" value="${nowPage}"/>
 		<input type="hidden" id="cusId_hidden_id" name="cusId_hidden_name" value=""/>
@@ -280,42 +282,47 @@ function editcusMemberCallback(res){
 			</tr>
 		</table>
 	
+	<div class="top_mainDisplayBase" >
+		
+	
 		<div id="customer_list">	
 			
 	 		<table id="cus_list">	
 				<thead id="cus_list_th">
 					<tr>
 						<td>
+						   <ul>
 							<li class="main_title_box_2 box2_01 nCheckBox">
 								<input type="checkbox" id="checkall"/>
 							</li>
+							</ul>
 						</td>
 						<td>
-							<input type="text" class="main_title_box_2 box2_02 nTitleFont" value="로그인ID"/>
+							<input type="text" class="main_title_box_2 box2_02 nTitleFont" value="로그인ID">
 						</td>
 						<td>
-							<input type="text" class="main_title_box_2 box2_03 nTitleFont" value="이름"/>
+							<input type="text" class="main_title_box_2 box2_03 nTitleFont" value="이름">
 						</td>
 						<td>
-							<input type="text" class="main_title_box_2 box2_04 nTitleFont" value="부서"/>
+							<input type="text" class="main_title_box_2 box2_04 nTitleFont" value="부서">
 						</td>
 						<td>
-							<input type="text" class="main_title_box_2 box2_05 nTitleFont" value="팀"/>
+							<input type="text" class="main_title_box_2 box2_05 nTitleFont" value="팀">
 						</td>
 						<td>
-							<input type="text" class="main_title_box_2 box2_06 nTitleFont" value="업무"/>
+							<input type="text" class="main_title_box_2 box2_06 nTitleFont" value="업무">
 						</td>
 						<td>
-							<input type="text" class="main_title_box_2 box2_07 nTitleFont" value="직급"/>
+							<input type="text" class="main_title_box_2 box2_07 nTitleFont" value="직급">
 						</td>
 						<td>
-							<input type="text" class="main_title_box_2 box2_08 nTitleFont" value="연락처"/>
+							<input type="text" class="main_title_box_2 box2_08 nTitleFont" value="연락처">
 						</td>																	
 						<td>
-							<input type="text" class="main_title_box_2 box2_09 nTitleFont" value="메일"/>
+							<input type="text" class="main_title_box_2 box2_09 nTitleFont" value="메일">
 						</td>
 						<td>
-							<input type="text" class="main_title_box_2 box2_10 nTitleFont" value="포인트"/>
+							<input type="text" class="main_title_box_2 box2_10 nTitleFont" value="포인트">
 						</td>
 					</tr>					
 				</thead>
@@ -323,15 +330,17 @@ function editcusMemberCallback(res){
 					<c:forEach var="mem" items="${mem_list_info}">											
 						<tr>
 							<td>
+							   <ul>
 								<li class="main_title_box_2 box2_01 nCheckBox">
-									<input type="checkbox" name="chk" value="${mem.userId}"/>
+									<input type="checkbox" name="chk" value="${mem.userId}">
 								</li>
+								</ul>
 							</td>						
 							<td>
-								<input type="text" class="main_input_box_2 box2_02 nInputFont" value="${mem.userId}"/>
+								<input type="text" class="main_input_box_2 box2_02 nInputFont" value="${mem.userId}">
 							</td>
 							<td>
-								<input type="text" class="main_input_box_2 box2_03 nInputFont" value="${mem.userNm}"/>						
+								<input type="text" class="main_input_box_2 box2_03 nInputFont" value="${mem.userNm}">						
 							</td>							
 							<td>
 								<select class="main_input_box_2 box2_04 nInputFont">
@@ -404,13 +413,13 @@ function editcusMemberCallback(res){
 								</select>
 							</td>			
 							<td>
-								<input type="text" class="main_input_box_2 box2_08 nInputFont" value="${mem.userPhone}"/>
+								<input type="text" class="main_input_box_2 box2_08 nInputFont" value="${mem.userPhone}">
 							</td>
 							<td>
-								<input type="text" class="main_input_box_2 box2_09 nInputFont" value="${mem.userMail}"/>
+								<input type="text" class="main_input_box_2 box2_09 nInputFont" value="${mem.userMail}">
 							</td>
 							<td>																		
-								<input type="text" class="main_input_box_2 box2_10 nInputFont" value="${mem.userPoint}"/>
+								<input type="text" class="main_input_box_2 box2_10 nInputFont" value="${mem.userPoint}">
 							</td>
 						</tr>					
 					</c:forEach>										
@@ -454,9 +463,10 @@ function editcusMemberCallback(res){
 	 		</table>
 		</div>
 
+	</div>
 	</form>
-
-
+	
+</div>
 </body>
 </html>
 

@@ -36,7 +36,7 @@ $(document).ready(function(){
 <style>
 
 .tb_search_lmargin {
-	margin-left : 320px;
+	margin-left : 165px;
 }
 .fltBox1 {
 	width: 85px;
@@ -114,7 +114,7 @@ $(document).ready(function(){
 	 </div-->
 	 
 	 <div class="top_mainDisplayPart">
-	 	
+	 	<div align="center"><h3>유지보수 관리 페이지</h3></div>
 	 	<%-- <input type="hidden" id="lastBoardNo" value ="${cus_list[fn:length(cus_list)-1].boardNo}"/> --%>
 		<input type="hidden" id="nowPage" name="pageNo" value="${nowPage}"/>
 		<input type="hidden" id="cusId_hidden_id" name="cusId_hidden_name" value=""/>

@@ -193,6 +193,7 @@ th, td {
 <div class="row">
 
 		<div class="top_mainDisplayPart">
+		<div align="center"><h3>일정 등록 페이지</h3></div>
 				<div class="top_mainDisplayBase" >
 					<li class="input_title input_01 inputTxtFont">고객사명*</li>
 					<li class="input_title input_02 inputTxtFont">프로젝트명*</li>

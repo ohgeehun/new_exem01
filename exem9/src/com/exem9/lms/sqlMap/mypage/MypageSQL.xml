@@ -11,6 +11,23 @@
 			   type="com.exem9.lms.web.position.bean.PosiBean" />		
 			   
 	<select id="getUserinfo" parameterClass="String" resultClass="MypageBean">
+	SELECT  user_id as userId, user_name AS userNm, user_password AS userPw,
+		xt.team_name as userTeam,    
+		user_flag as userFlag,    
+		xd.dbms_name  as userDbms,    
+		user_level as userLevel,    
+		xdt.department_name as userDept,    
+		xp.position_name as userPosi,    
+		user_phone as userPhone,    
+		user_mail as userMail,    user_hint as userHint,    
+		coalesce(user_point, 0) as userPoint        
+		FROM XM_MEMBER xm
+		left outer join xm_team xt on xt.team_id = xm.user_team_id
+		left outer join xm_dbms xd on xd.dbms_id = xm.user_dbms_id
+		left outer join xm_department xdt on xdt.department_id = xt.department_id
+		left outer join xm_position xp on xp.position_id = xm.user_position_id
+		where xm.user_id=#userId#
+<!-- 
 	SELECT  user_id as userId,
 	        user_name AS userNm,
 			user_password AS userPw,
@@ -26,16 +43,27 @@
 			user_point as userPoint			
 	FROM XM_MEMBER xm
 	WHERE user_id = #userId#
+-->	
 	</select> 
 	
 	
 	<select id="getdbmsinfo" parameterClass="String" resultClass="DbmsBean">
+	SELECT B.user_DBMS_ID AS dbmsId,         
+		A.DBMS_NAME AS dbmsNm,       
+		xt.DEPARTMENT_ID AS deptId   
+		FROM XM_MEMBER B
+		left outer join XM_DBMS A on  A.dbms_id=B.user_dbms_id
+		left outer join xm_team xt on B.user_team_id = xt.team_id
+		left outer join xm_department xdp on xt.department_id = xdp.department_id
+		WHERE B.user_id = #userId#  
+	<!-- 
 	SELECT A.DBMS_ID AS dbmsId,
 	       A.DBMS_NAME AS dbmsNm,
 	       A.DEPARTMENT_ID AS deptId 
 	FROM XM_DBMS A, XM_MEMBER B	
 	WHERE B.USER_DEPARTMENT_ID = A.DEPARTMENT_ID
 	AND B.user_id = #userId#
+	-->
 	</select> 
 	
 	<select id="getposiinfo" resultClass="PosiBean">
