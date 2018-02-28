@@ -254,38 +254,17 @@ function editcusMemberCallback(res){
 			</div>
 		</div>
 
-
-
 <div class="top_mainDisplayPart">
 	<div align="center"><h3>사용자 관리 페이지</h3></div>
 		
-		<form id="form1" method="post" action="member_edit_next">	 
+<form id="form1" method="post" action="member_edit_next">	 
 
 		<input type="hidden" id="nowPage" name="pageNo" value="${nowPage}"/>
 		<input type="hidden" id="cusId_hidden_id" name="cusId_hidden_name" value=""/>
 		<input type="hidden" id="userId_hidden_id" value=""/>		
 	
-		<!-- table class="tb_search">
-			<tr>
-				<td>
-			 			<select id="mem_select4" name="selectBtnVal" class="main_input_box_2 nInputFont tb_search_lmargin fltBox1">
-			 					<option value="0" selected>전체</option>
-								<option value="1">로그인ID</option>						
-								<option value="2">이름</option>
-								<option value="3">부서</option>
-								<option value="4">팀</option>
-						</select>
-			 	
-				 	    <input type="text" id="select_text" name="selectTextVal" value="검색 조건을 입력하세요." class="main_input_box_2 nInputFont"></input>
-				 	    <input type="button" id="select_btn" value="검색" class="Btt_search btnSearch"></input>
-				</td>
-			</tr>
-		</table-->
-	
 	<div class="top_mainDisplayBase" >
-		
 		<div id="member_list">	
-			
 	 		<table id="cus_list">	
 				<thead id="mem_list_th">
 					<tr>
@@ -298,7 +277,7 @@ function editcusMemberCallback(res){
 										<option value="4">팀</option>
 								</select>
 					 	
-						 	    <input type="text" id="select_text" name="selectTextVal" value="검색 조건을 입력하세요." class="main_input_box_2 nInputFont"></input>
+						 	    <input type="text" id="select_text" name="selectTextVal" placeholder="검색조건을 입력하세요." value="" class="main_input_box_2 nInputFont">
 						 	    <input type="button" id="select_btn" value="검색" class="Btt_search btnSearch"></input>
 						</td>
 					</tr>
