@@ -12,6 +12,9 @@ import org.directwebremoting.annotations.RemoteProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.exem9.lms.common.CommonProperties;
+import com.exem9.lms.web.common.bean.LineBoardBean;
+import com.exem9.lms.web.schedule.bean.SchBean;
 import com.exem9.lms.web.schedule.dao.ISchDao;
 
 
@@ -22,10 +25,28 @@ public class ScheduleService implements IScheduleService{
 	@Autowired
 	public ISchDao iSchDao;
 	
-	public List getsch() throws Throwable {
+	@Override
+	public List<SchBean> getsch(String selectBtnVal, String selectTextVal, int pageNo) throws Throwable {
 		
-		// TODO Auto-generated method stub
-		return iSchDao.getsch();
+		HashMap params = new HashMap();
+		
+		//params.put("selectBtnVal", Integer.parseInt(selectBtnVal));
+		//params.put("selectTextVal",selectTextVal);
+		params.put("viewCount", CommonProperties.VIEWCOUNT);
+		
+		int startNo = 1+(CommonProperties.VIEWCOUNT * (pageNo-1));
+		int endNo = CommonProperties.VIEWCOUNT * pageNo;
+		
+		if(pageNo == 1){
+			params.put("pageNo", ""); 
+		}else{
+			params.put("pageNo", pageNo);
+		}
+		
+		params.put("startNo", startNo);
+		params.put("endNo", endNo);
+		
+		return iSchDao.getsch(params);
 	}
 
 	@Override
@@ -51,6 +72,47 @@ public class ScheduleService implements IScheduleService{
 		System.out.println("start_time : " + start_time);
 		
 		return iSchDao.insertSchinfo(params);
+	}
+	
+	@Override
+	public LineBoardBean getNCount(String selectBtnVal, String selectTextVal, int nowPage) throws Throwable {
+		
+		HashMap params = new HashMap();
+			
+		params.put("selectBtnVal", Integer.parseInt(selectBtnVal));
+		params.put("selectTextVal",selectTextVal);
+		
+		int nCount = iSchDao.getNCount(params);
+		int maxPage=0;
+		int startPage=0;
+		int endPage=0;
+		int nowpage=0;
+		
+		if(nowPage == 0){
+			nowpage = 1;
+		}else if(nowPage != 0){
+			nowpage = nowPage;
+		}		
+		
+		if(nCount % CommonProperties.VIEWCOUNT == 0){
+			maxPage = nCount / CommonProperties.VIEWCOUNT;
+		}else{
+			maxPage = (nCount / CommonProperties.VIEWCOUNT) + 1;
+		}
+		
+		startPage = nowpage / CommonProperties.PAGECOUNT + 1;
+		endPage = startPage + CommonProperties.PAGECOUNT -1;
+		
+		if(endPage > maxPage){
+			endPage = maxPage;
+		}		
+		
+		LineBoardBean lbb = new LineBoardBean();
+		lbb.setStartPage(startPage);
+		lbb.setEndPage(endPage);
+		lbb.setMaxPage(maxPage);
+		lbb.setNowPage(nowpage);
+		return lbb;
 	}
 	
 }

@@ -26,52 +26,46 @@
 		<result property="contents" column="contents"/>
 	</resultMap>
 
-	<select id="getsch" resultMap="SchMap">
-	SELECT s.support_history_id as support_id,        s.user_id, m.user_name,       s.team_id, t.team_name,      
-s.customer_id, c.customer_name,       s.project_id, p.project_name,       s.dbms_id, d.dbms_name,     
-s.category_id, ca.category_name,        s.start_time, s.end_time, s.contents    
-FROM xm_support_history s  
-left outer join xm_member m on s.user_id = m.user_id 
-left outer join xm_team t on s.team_id = t.team_id 
-left outer join xm_customer c on s.customer_id = c.customer_id  
-left outer join xm_project p on s.project_id = p.project_id  
-left outer join xm_dbms d on s.dbms_id = d.dbms_id  
-left outer join xm_category_code ca on s.category_id = ca.category_id  
-order by s.start_time
-	
-	<!-- 
-	SELECT s.support_id, 
-      s.user_id, m.user_name,
-      s.team_id, t.team_name,
-      s.customer_id, c.customer_name,
-      s.project_id, p.project_name,
-      s.dbms_id, d.dbms_name,
-      s.category_id, ca.category_name,
-       s.start_time, s.end_time, s.contents
-  FROM xm_support_history s,
-	xm_member m,
-	xm_team t,
-	( 
-	   select customer_id, customer_name
-	   from xm_customer 
-	   group by customer_id, customer_name
-	) c,
-	( 
-	   select customer_id, project_id, project_name
-	   from xm_customer 
-	   group by customer_id, project_id, project_name
-	) p,
-	xm_dbms d,
-	xm_category ca
-  where s.user_id = m.user_id and
-	s.team_id = t.team_id and
-	s.customer_id = c.customer_id and
-	s.project_id = p.project_id and
-	s.dbms_id = d.dbms_id and
-	s.category_id = ca.category_id
-	-->
+	<select id="getsch" parameterClass="java.util.HashMap" resultMap="SchMap">
+		SELECT support_id,        s.user_id, user_name,       s.team_id, team_name,      
+			s.customer_id, customer_name,       s.project_id, project_name,       s.dbms_id, dbms_name,     
+			s.category_id, category_name,        s.start_time, s.end_time, s.contents
+			from
+				(
+				SELECT s.support_history_id as support_id,        s.user_id, m.user_name,       s.team_id, t.team_name,      
+					s.customer_id, c.customer_name,       s.project_id, p.project_name,       s.dbms_id, d.dbms_name,     
+					s.category_id, ca.category_name,        s.start_time, s.end_time, s.contents,
+					ROW_NUMBER() OVER() as row_num    
+					FROM xm_support_history s  
+					left outer join xm_member m on s.user_id = m.user_id 
+					left outer join xm_team t on s.team_id = t.team_id 
+					left outer join xm_customer c on s.customer_id = c.customer_id  
+					left outer join xm_project p on s.project_id = p.project_id  
+					left outer join xm_dbms d on s.dbms_id = d.dbms_id  
+					left outer join xm_category_code ca on s.category_id = ca.category_id 
+					order by s.start_time 
+				) s
+		where 1=1
+		<isNotEmpty property="pageNo">
+		and s.row_num BETWEEN #startNo# AND #endNo# 
+		</isNotEmpty>
+		<isEmpty property="pageNo">
+		and s.row_num BETWEEN 1 AND #viewCount#
+		</isEmpty>
+		
 	</select>  	
 	
+	<select id="getNCount" parameterClass="java.util.HashMap" resultClass="Integer">
+		SELECT count(s.support_history_id)   
+		FROM xm_support_history s  
+ 		left outer join xm_member m on s.user_id = m.user_id 
+		left outer join xm_team t on s.team_id = t.team_id 
+		left outer join xm_customer c on s.customer_id = c.customer_id  
+		left outer join xm_project p on s.project_id = p.project_id  
+		left outer join xm_dbms d on s.dbms_id = d.dbms_id  
+		left outer join xm_category_code ca on s.category_id = ca.category_id 
+		where 1 = 1
+	</select>
 	
 	<!-- 신규 내 일정 인서트 시 -->
 	<update id="insertSchinfo" parameterClass="java.util.HashMap">

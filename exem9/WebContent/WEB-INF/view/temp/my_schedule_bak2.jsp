@@ -100,33 +100,7 @@ $(document).ready(function(){
 		$('#week-label-to-day').text(mmdd2);
 	});
 	
-	/*페이지 처리(이전 버튼 이벤트 )*/
-    $("#backVal").live("click", function(){
-    	
-    	$("#nowPage").val($("#nowPage").val() - 1);    	
-    	
-    	$("#form1").submit();	
-    	
-    });
-    
-    /*페이지 처리(다음 버튼 이벤트 )*/
-    $("#nextVal").live("click", function(){
-    	
-    	$("#nowPage").val($("#nowPage").val()*1 + 1);
-    	
-    	$("#form1").submit();	
-    });
-
-    /*페이지 처리(페이지 숫자 버튼 이벤트 )*/
-    $("a[name='moreArea']").live("click", function(){
-    	
-    	$("#nowPage").val($(this).attr("id"));
-    	
-    	$("#form1").submit();	
-    });
 });
-	
-
  			
 </script>
 
@@ -209,6 +183,28 @@ function calWeek(yyyymmdd, isPrev ){
 </script>
 
 <style>
+/*
+#customer_list td,tr {    
+    border: 2px solid #ddd;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    padding-left: 5px;
+    font-size: 10px;
+}
+
+a {
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 16px;
+}
+
+a:hover {
+    background-color: #ddd;
+    color: black;
+}
+*/
 
 .previous {
     background-color: #4CAF50;
@@ -246,152 +242,183 @@ function calWeek(yyyymmdd, isPrev ){
 		
 <div class="row"> <!-- dummy -->
 
-	<form id="form1" method="post" action="my_schedule_next">	
-		 <input type="hidden" id="cus_select4" name="selectBtnVal" value="0">
-		 <input type="hidden" id="select_text" name="selectTextVal" value="검색 조건을 선택하세요.">
-		 
-		 <!-- div class="column middle"-->
-		 <div class="top_mainDisplayPart">
-		 	<div align="center"><h3>내 일정 정보</h3></div>
-		 	
-			<input type="hidden" id="nowPage" name="pageNo" value="${nowPage}"/>
-			<input type="hidden" id="userId_hidden_id" value=""/>				
-		 		 	
-		 	<table>
-		 	<tr>
-		 	<td>
-		 		<div>
-		 			<a href="#" class="main_title_box_2 nTitleFont" id="prevWeek">&laquo; 이전주</a>
-					
-		 		</div>
-		 	</td>
-		 	<td>	 		
-		 	    <div class="nTitleFont">
-				  <div style='display:inline;'>&nbsp;&nbsp;&nbsp;</div>
-				  <div id="week-label-year" style='display:inline;'></div>
-				  <div style='display:inline;'>년 &nbsp;    </div>
-				  <div id="week-label-from-day" style='display:inline;'>01-01</div>
-				  <div style='display:inline;'>(월) ~ </div>
-				  <div id="week-label-to-day" style='display:inline;'>02-05</div>
-				  <div style='display:inline;'>(일)</div>
-				  <div style='display:inline;'>&nbsp;&nbsp;&nbsp;</div>
-				</div>
-		 	</td>
-		 	<td>	 		
-			 	<div>			 		
-			 	    <a href="#" class="main_title_box_2 nTitleFont" id="nextWeek">다음주 &raquo;</a>
-				</div>
-		 	</td>	 
-		 	</tr>
-		 	</table>
-		 		
-		
-			<div id="schedule_list">		
-		 		<table id="sch_list">	
-					<thead id="sch_list_th">
+	 <!-- div class="column side">
+		   <h4>일정 관리 페이지</h4></br>
+		   <a href="#" id="sch_insert">일정 등록</a></br>
+		   <a href="#" id="my_sch">내 일정 보기</a></br>		    
+		   <a href="#" id="team_sch">팀 일정 보기</a></br>
+	 </div-->
+	 
+	 
+	 <!-- div class="column middle"-->
+	 <div class="top_mainDisplayPart">
+	 	<div align="center"><h3>내 일정 정보</h3></div>
+	 	
+		<input type="hidden" id="nowPage" name="pageNo" value="${nowPage}"/>
+		<input type="hidden" id="userId_hidden_id" value=""/>				
+	 		 	
+	 	<table>
+	 	<tr>
+	 	<td>
+	 		<div>
+	 			<a href="#" class="main_title_box_2 nTitleFont" id="prevWeek">&laquo; 이전주</a>
+				
+	 		</div>
+	 	</td>
+	 	<td>	 		
+	 	    <div class="nTitleFont">
+			  <div style='display:inline;'>&nbsp;&nbsp;&nbsp;</div>
+			  <div id="week-label-year" style='display:inline;'></div>
+			  <div style='display:inline;'>년 &nbsp;    </div>
+			  <div id="week-label-from-day" style='display:inline;'>01-01</div>
+			  <div style='display:inline;'>(월) ~ </div>
+			  <div id="week-label-to-day" style='display:inline;'>02-05</div>
+			  <div style='display:inline;'>(일)</div>
+			  <div style='display:inline;'>&nbsp;&nbsp;&nbsp;</div>
+			</div>
+	 	</td>
+	 	<td>	 		
+		 	<div>			 		
+		 	    <a href="#" class="main_title_box_2 nTitleFont" id="nextWeek">다음주 &raquo;</a>
+			</div>
+	 	</td>	 
+	 	</tr>
+	 	</table>
+	 		
+	
+		<div id="customer_list">		
+	 		<table id="cus_list">	
+				<thead id="cus_list_th">
+					<tr>
+						<td>
+							<ul>
+							<li class="main_title_box_2 box_01 nCheckBox">
+								<input type="checkbox" id="checkall"/>
+							</li>
+							</ul>
+						</td>
+						<td><input type="text" class="main_title_box_2 box_02 nTitleFont" value="지원일자"/> </td>
+						<td><input type="text" class="main_title_box_2 box_03 nTitleFont" value="고객사명"/> </td>
+						<td><input type="text" class="main_title_box_2 box_04 nTitleFont" value="프로젝트명"/> </td>
+						<td><input type="text" class="main_title_box_2 box_05 nTitleFont" value="지원시작일"/> </td>
+						<td><input type="text" class="main_title_box_2 box_06 nTitleFont" value="지원종료일"/> </td>
+						<td><input type="text" class="main_title_box_2 box_07 nTitleFont" value="지원유형(범주)"/> </td>
+						<td><input type="text" class="main_title_box_2 box_08 nTitleFont" value="요청내역 및 지원목적"/> </td>
+					</tr>					
+				</thead>
+				<tbody id="cus_list_tb">
+					<c:forEach var="sch" items="${sch_list}">											
 						<tr>
 							<td>
 								<ul>
 								<li class="main_title_box_2 box_01 nCheckBox">
-									<input type="checkbox" id="checkall"/>
+									<input type="checkbox" name="chk" value="${sch.schId}"/>
 								</li>
 								</ul>
 							</td>
-							<td><input type="text" class="main_title_box_2 box_02 nTitleFont" value="지원일자"/> </td>
-							<td><input type="text" class="main_title_box_2 box_03 nTitleFont" value="고객사명"/> </td>
-							<td><input type="text" class="main_title_box_2 box_04 nTitleFont" value="프로젝트명"/> </td>
-							<td><input type="text" class="main_title_box_2 box_05 nTitleFont" value="지원시작일"/> </td>
-							<td><input type="text" class="main_title_box_2 box_06 nTitleFont" value="지원종료일"/> </td>
-							<td><input type="text" class="main_title_box_2 box_07 nTitleFont" value="지원유형(범주)"/> </td>
-							<td><input type="text" class="main_title_box_2 box_08 nTitleFont" value="요청내역 및 지원목적"/> </td>
+							<td>
+								<input type="text" class="main_input_box_2 box_02 nInputFont" value="${sch.start_day}"/>	
+							</td>						
+							<td>
+								<input type="text" class="main_input_box_2 box_03 nInputFont" value="${sch.schCusNm}"/>	
+							</td>
+							<td>
+								<input type="text" class="main_input_box_2 box_04 nInputFont" value="${sch.schPjtNm}"/>
+							</td>							
+							<td>
+								<input type="text" class="main_input_box_2 box_05 nInputFont" value="${sch.start_time}"/>
+							</td>
+							<td>
+								<input type="text" class="main_input_box_2 box_06 nInputFont" value="${sch.end_time}"/>
+							</td>
+							<td>
+								<select class="main_input_box_2 box_07 nInputFont">
+									<c:if test="${sch.category_name == ''}">
+										<option value="0" selected>지정필요.</option>
+									</c:if>
+									<c:forEach var="cat" items="${cat_list}">
+												<c:choose>
+													<c:when test="${cat.catId  == sch.category_id}">
+														<option value="${cat.catId}" selected>${cat.catNm}</option>
+													</c:when>
+													<c:otherwise>
+														<option value="${cat.catId}">${cat.catNm}</option>	
+													</c:otherwise>
+												</c:choose>
+									</c:forEach>			
+								</select>
+							</td>
+							<td>
+								<input type="text" class="main_input_box_2 box_08 nInputFont" id="etc_id_${sch.schId}" name="contents" value="${sch.contents}"/>
+							</td>			
 						</tr>					
-					</thead>
-					<tbody id="sch_list_tb">
-						<c:forEach var="sch" items="${sch_list}">											
-							<tr>
-								<td>
-									<ul>
-									<li class="main_title_box_2 box_01 nCheckBox">
-										<input type="checkbox" name="chk" value="${sch.schId}"/>
-									</li>
-									</ul>
-								</td>
-								<td>
-									<input type="text" class="main_input_box_2 box_02 nInputFont" value="${sch.start_day}"/>	
-								</td>						
-								<td>
-									<input type="text" class="main_input_box_2 box_03 nInputFont" value="${sch.schCusNm}"/>	
-								</td>
-								<td>
-									<input type="text" class="main_input_box_2 box_04 nInputFont" value="${sch.schPjtNm}"/>
-								</td>							
-								<td>
-									<input type="text" class="main_input_box_2 box_05 nInputFont" value="${sch.start_time}"/>
-								</td>
-								<td>
-									<input type="text" class="main_input_box_2 box_06 nInputFont" value="${sch.end_time}"/>
-								</td>
-								<td>
-									<select class="main_input_box_2 box_07 nInputFont">
-										<c:if test="${sch.category_name == ''}">
-											<option value="0" selected>지정필요.</option>
-										</c:if>
-										<c:forEach var="cat" items="${cat_list}">
-													<c:choose>
-														<c:when test="${cat.catId  == sch.category_id}">
-															<option value="${cat.catId}" selected>${cat.catNm}</option>
-														</c:when>
-														<c:otherwise>
-															<option value="${cat.catId}">${cat.catNm}</option>	
-														</c:otherwise>
-													</c:choose>
-										</c:forEach>			
-									</select>
-								</td>
-								<td>
-									<input type="text" class="main_input_box_2 box_08 nInputFont" id="etc_id_${sch.schId}" name="contents" value="${sch.contents}"/>
-								</td>			
-							</tr>					
-						</c:forEach>										
-					</tbody>
-					
-					<tfoot id="sch_list_tf"> 
-						<tr>
-							<td colspan="8" class="center_align">
-								<div>
-									<c:if test="${nowPage > 1}">
-											<a href="#" id="backVal" class="nTitleFont">이전</a>
-										</c:if>
-										<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
-											<c:choose>
-												<c:when test="${nowPage==i}">
-													<a id="${i}" name="moreArea" class="pageFont">${i}</a>
-												</c:when>
-												<c:otherwise>
-													<a href="#" id="${i}" name="moreArea" class="pageFont">${i}</a>
-												</c:otherwise>
-											</c:choose>
-										</c:forEach>
-										<c:if test="${maxPage > nowPage}">
-											<a href="#" id="nextVal" class="nTitleFont">다음</a>
-										</c:if>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="8" class="center_align">
-								<div>
-							  		<input type="button" id="edit_update_btn" value="수정" class="inBtt_OK_2"/>
-							  	</div>
-							</td>
-						</tr>				
-					</tfoot>
-		 		</table>
-			</div>  <!-- table end -->
-		</div>
-	</form>	
+					</c:forEach>										
+				</tbody>
+				
+				<tfoot id="cus_list_tf"> 
+					<!-- tr>
+						<td colspan="6">
+							<c:if test="${nowPage > 1}">
+								<a href="#" id="backVal">이전</a>
+							</c:if>
+							<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
+								<c:choose>
+									<c:when test="${nowPage==i}">
+										<a id="${i}" name="moreArea" class="nTitleFont">${i}</a>
+									</c:when>
+									<c:otherwise>
+										<a href="#" id="${i}" name="moreArea" class="nTitleFont">${i}</a>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+							<c:if test="${maxPage > nowPage}">
+								<a href="#" id="nextVal">다음</a>
+							</c:if>
+						</td>
+						<td colspan="2">
+							  <input type="password" placeholder="정보 수정 비밀번호 입력." id="editPw" required>&nbsp;&nbsp;
+							  <input type="button" id="edit_update_btn" value="수정" class="nTitleFont"></input>
+						</td>
+					</tr-->	
+					<tr>
+						<td colspan="8" class="center_align">
+							<div>
+								<c:if test="${nowPage > 1}">
+										<a href="#" id="backVal" class="nTitleFont">이전</a>
+									</c:if>
+									<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
+										<c:choose>
+											<c:when test="${nowPage==i}">
+												<a id="${i}" name="moreArea" class="pageFont">${i}</a>
+											</c:when>
+											<c:otherwise>
+												<a href="#" id="${i}" name="moreArea" class="pageFont">${i}</a>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+									<c:if test="${maxPage > nowPage}">
+										<a href="#" id="nextVal" class="nTitleFont">다음</a>
+									</c:if>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="8" class="center_align">
+							<div>
+						  		<input type="button" id="edit_update_btn" value="수정" class="inBtt_OK_2"/>
+						  	</div>
+						</td>
+					</tr>				
+				</tfoot>
+	 		</table>
+		</div>  <!-- table end -->
+						
+	</div>
+	
 </div>  <!--  dummy  -->
-
+<!-- 
+<c:import url="/main_botview"></c:import>
+-->
 </body>
 </html>
 

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.exem9.lms.web.mypage.bean.MypageBean;
+import com.exem9.lms.web.schedule.bean.SchBean;
 import com.ibatis.sqlmap.client.SqlMapClient;
 
 @Repository(value="ISchDao")
@@ -15,9 +16,8 @@ public class SchDao implements ISchDao{
 	@Autowired
 	public SqlMapClient sqlMapClient;
 
-	public List getsch() throws Throwable {
-		// TODO Auto-generated method stub
-		return sqlMapClient.queryForList("sch.getsch");
+	public List<SchBean> getsch(HashMap params) throws Throwable {
+		return sqlMapClient.queryForList("sch.getsch",params);
 	}
 
 	@Override
@@ -28,6 +28,13 @@ public class SchDao implements ISchDao{
 			result = "SUCCESS";
 		}
 		return result;
+	}
+
+	@Override
+	public int getNCount(HashMap params) throws Throwable {
+		
+		int count = (Integer) sqlMapClient.queryForObject("sch.getNCount", params);
+		return count;
 	}
 	
 }
