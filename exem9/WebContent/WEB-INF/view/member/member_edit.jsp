@@ -17,6 +17,7 @@
 <script type="text/javascript" src="dwr/engine.js"></script>
 <script type="text/javascript" src="dwr/util.js"></script>
 <script type="text/javascript" src="dwr/interface/ICustomerService.js"></script> 
+<script type="text/javascript" src="dwr/interface/IMemberService.js"></script>
 
 <script>
 var userId = "<%=(String)session.getAttribute("sUserId")%>";
@@ -44,24 +45,37 @@ $(document).ready(function(){
 		} else{
 			
 	   	    $('#checkbox_id:checked').each(function() {   	    
-   	    	    var uId = $(this).val();
+   	    	    var chkId = $(this).val();
    	            //alert(memId);
    	            //console.log(memId);
    	    		
    	         	//var userId = $("#usrId_"+cusproId).val();
-   	         	var userId = $("#userId_"+uId).val();
-   	         	var userNm = $("#userNm_"+uId).val();
-   	         	var DeptId = $("#userDept_"+uId+" option:selected").val();
-   	         	var TeamId = $("#userTeam_"+uId+" option:selected").val();
-   	         	var DbmsId = $("#userDbms_"+uId+" option:selected").val();
-   	         	var PosiId = $("#userPosi_"+uId+" option:selected").val();
-   	         	var userPhone = $("#userPhone_"+uId).val();
-   	         	var userMail = $("#userMail_"+uId).val();
-   	         	var userPoint = $("#userPoint_"+uId).val();
+   	         	var userId = $("#userId_"+chkId).val();
+   	         	var userNm = $("#userNm_"+chkId).val();
+   	         	var DeptId = $("#userDept_"+chkId+" option:selected").val();
+   	         	var TeamId = $("#userTeam_"+chkId+" option:selected").val();
+   	         	var DbmsId = $("#userDbms_"+chkId+" option:selected").val();
+   	         	var PosiId = $("#userPosi_"+chkId+" option:selected").val();
+   	         	var userPhone = $("#userPhone_"+chkId).val();
+   	         	var userMail = $("#userMail_"+chkId).val();
+   	         	var userPoint = $("#userPoint_"+chkId).val();
    	         	
    	         	console.debug(" | " + userId + " | " + userNm + " | " +DeptId + " | " +TeamId + " | " + DbmsId + " | " + 
    	         			PosiId + " | " + userPhone + " | " +userMail + " | " + userPoint);
+   	         	
+   	         	IMemberService.updateMeminfo( userId, userNm, "1",
+    	         		TeamId, DbmsId,
+ 	   	         	DeptId, userPhone, 
+ 	   	        	userMail, PosiId, 
+ 	   	      		userPoint, updateMeminfoCallBack );
+ 	   	      		
    	         	/*
+   	         	IMemberService.insertMeminfo( userId, userNm, "1",
+   	         		TeamId, DbmsId,
+	   	         	DeptId, userPhone, 
+	   	        	userMail, PosiId, 
+	   	      		userPoint, updateMeminfoCallBack );
+   	         	
   	        	var userId = "<%=(String)session.getAttribute("sUserId")%>";
       	        var cususer = $("#edit_cus_list_select_"+cusproId+" option:selected").val();
       	        var cuslocation = $("#cuslocation_id_"+cusproId).val();
@@ -202,6 +216,16 @@ function editcusMemberCallback(res){
 	
     $("#edit_cus_phone_"+cusproId+"").html(resHtml); 
     $("#edit_cus_mail_"+cusproId+"").html(resHtm2);
+}
+
+function updateMeminfoCallBack(res){
+	if(res == "FAILED"){
+		alert("실패");
+		location.href = "member_edit";
+	}else if(res == "SUCCESS"){
+		alert("성공");
+		location.href = "member_edit";
+	}
 }
 </script>
 

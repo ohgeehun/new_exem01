@@ -193,4 +193,26 @@
             null, #user_point#)  
 	 </update> 
 	
+	<!-- 사용자 정보 수정 -->
+	<update id="updateMeminfo" parameterClass="java.util.HashMap">
+	 Update XM_MEMBER set 
+            (user_id, 
+			user_password, 
+			user_name, 
+			user_team_id, 
+			user_flag, 
+			user_dbms_id, 
+            user_level, 
+			user_phone, 
+			user_mail, 
+			user_position_id, 
+            user_hint, 
+			user_point)
+    		=
+	(#user_id#, #user_password#, #user_name#, #user_team_id#, null, #user_dbms_id#, 
+            null, #user_phone#, #user_mail#, #user_position_id#, 
+            null, #user_point#)
+	where user_id = #user_id# 
+	 </update>
+	
 </sqlMap>

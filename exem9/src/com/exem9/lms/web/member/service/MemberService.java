@@ -135,4 +135,30 @@ public class MemberService implements IMemberService{
 
 		return iMemberDao.insertMeminfo(params);
 	}
+	
+	public String updateMeminfo(String user_id, String user_name, String user_password,
+			String user_team_id,String user_dbms_id,
+			String user_department_id, String user_phone,String user_mail, String user_position_id,
+			String user_point) throws Throwable {
+		
+		WebContext wctx = WebContextFactory.get();
+		HttpServletRequest request = wctx.getHttpServletRequest();
+		HttpSession session = request.getSession();	
+		
+		HashMap params = new HashMap();
+
+		params.put("user_id",user_id.toUpperCase());
+		params.put("user_name",user_name);
+		params.put("user_password",user_password);
+		params.put("user_team_id",Integer.parseInt(user_team_id));
+		params.put("user_dbms_id",Integer.parseInt(user_dbms_id));		
+		params.put("user_department_id",Integer.parseInt(user_department_id));
+		params.put("user_phone",user_phone);
+		params.put("user_mail",user_mail);
+		params.put("user_position_id",Integer.parseInt(user_position_id));
+		params.put("usr_point",0);
+		
+
+		return iMemberDao.updateMeminfo(params);
+	}
 }

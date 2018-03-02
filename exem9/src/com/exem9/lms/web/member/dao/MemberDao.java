@@ -63,4 +63,14 @@ public class MemberDao implements IMemberDao{
 		}
 		return result;
 	}
+	
+	/*사용자 정보 변경 처리*/
+	public String updateMeminfo(HashMap params) throws Throwable {
+		String result = "FAILED";
+		
+		if(sqlMapClient.update("member.updateMeminfo", params) > 0){
+			result = "SUCCESS";
+		}
+		return result;
+	}
 }
