@@ -83,7 +83,7 @@
 	 SELECT       user_id,       user_password,       user_name,       user_team_id,       
 			user_flag,       user_dbms_id,          user_level,          dp.department_id as user_department_id,          user_phone,       
 			user_mail,          user_position_id,          user_hint,          user_point,       
-			ROW_NUMBER() OVER() as row_num
+			ROW_NUMBER() OVER(order by dp.department_id, u.user_team_id, u.user_name asc) as row_num
 			
 			FROM xm_member u       
 			left outer join 
