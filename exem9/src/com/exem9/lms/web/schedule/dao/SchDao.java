@@ -37,4 +37,14 @@ public class SchDao implements ISchDao{
 		return count;
 	}
 	
+	@Override
+	public String updateSchinfo(HashMap params) throws Throwable {
+		String result = "FAILED";
+		
+		if(sqlMapClient.update("sch.updateSchinfo", params) > 0){
+			result = "SUCCESS";
+		}
+		return result;
+	}
+	
 }

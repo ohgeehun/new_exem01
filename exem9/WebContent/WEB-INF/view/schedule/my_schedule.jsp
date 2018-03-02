@@ -20,6 +20,7 @@
 <script type="text/javascript" src="dwr/engine.js"></script>
 <script type="text/javascript" src="dwr/util.js"></script>
 <!-- <script type="text/javascript" src="dwr/interface/IMypageService.js"></script> -->
+<script type="text/javascript" src="dwr/interface/IScheduleService.js"></script>
 
 <script>
 var userId = "<%=(String)session.getAttribute("sUserId")%>";
@@ -61,6 +62,42 @@ $(document).ready(function(){
             $("input[name=chk]").prop("checked",false);
         }
     });
+	
+	$("#edit_update_btn").bind("click", function(){	
+		if ( $('#form1 input[type=checkbox]:checked').length == 0  ) {
+			alert("수정할 행을 선택하세요.");
+		} else{
+			
+	   	    $('#checkbox_id:checked').each(function() {   	    
+   	    	    var chkId = $(this).val();
+
+   	    	 	var user_id = userId;    // 세션에서 가져와야 함
+   	    	 	//var startDay = $("#startDay_"+chkId).val();
+   	    	    var cusNm = $("#cusNm_"+chkId).val();
+   	         	var pjtNm = $("#pjtNm_"+chkId).val();
+   	         	var startTime = $("#startTime_"+chkId).val();
+   	         	var endTime = $("#endTime_"+chkId).val();
+   	         	var dbmsId = $("#dbmsId_"+chkId+" option:selected").val();
+   	         	var cateId = $("#cateId_"+chkId+" option:selected").val();
+   	         	var contents = $("#contents_"+chkId).val();
+   	         	
+   	         	console.debug( " | " + cusNm + " | " + pjtNm + " | " +startTime + " | " + endTime + " | " + dbmsId + " | " + cateId + " | " +contents + " | " + chkId );
+   	         	
+   	         	IScheduleService.updateSchinfo(
+  					user_id, 
+  					19,
+  					38,
+					dbmsId, 
+					cateId, 
+					startTime,
+					endTime,
+					contents,
+					chkId,
+					updateSchinfoCallBack
+				)
+	   	    });	
+		}
+	});
 	
 	//alert('1st|'+year+'|');
 	// 이번주 날짜 셋팅하기
@@ -158,8 +195,7 @@ $(document).ready(function(){
     });
 });
 	
-
- 			
+			
 </script>
 
 <script>
@@ -238,6 +274,15 @@ function calWeek(yyyymmdd, isPrev ){
 	return thisMonday+thistoSunday;  // 결과값은 yyyy-mm-ddyyyy-mm-dd 형태임
 }
 
+function updateSchinfoCallBack(res){
+	if(res == "FAILED"){
+		alert("실패");
+		location.href = "my_schedule";
+	}else if(res == "SUCCESS"){
+		alert("성공");
+		location.href = "my_schedule";
+	}
+}
 </script>
 
 <style>
@@ -332,13 +377,14 @@ function calWeek(yyyymmdd, isPrev ){
 								</li>
 								</ul>
 							</td>
-							<td><input type="text" class="main_title_box_2 box_02 nTitleFont" value="지원일자"/> </td>
-							<td><input type="text" class="main_title_box_2 box_03 nTitleFont" value="고객사명"/> </td>
-							<td><input type="text" class="main_title_box_2 box_04 nTitleFont" value="프로젝트명"/> </td>
-							<td><input type="text" class="main_title_box_2 box_05 nTitleFont" value="지원시작일"/> </td>
-							<td><input type="text" class="main_title_box_2 box_06 nTitleFont" value="지원종료일"/> </td>
-							<td><input type="text" class="main_title_box_2 box_07 nTitleFont" value="지원유형(범주)"/> </td>
-							<td><input type="text" class="main_title_box_2 box_08 nTitleFont" value="요청내역 및 지원목적"/> </td>
+							<td><input type="text" class="main_title_box_2 box_02 nTitleFont" value="지원일자"> </td>
+							<td><input type="text" class="main_title_box_2 box_03 nTitleFont" value="고객사명"> </td>
+							<td><input type="text" class="main_title_box_2 box_04 nTitleFont" value="프로젝트명"> </td>
+							<td><input type="text" class="main_title_box_2 box_05 nTitleFont" value="지원시작일"> </td>
+							<td><input type="text" class="main_title_box_2 box_06 nTitleFont" value="지원종료일"> </td>
+							<td><input type="text" class="main_title_box_2 box_07 nTitleFont" value="제품구분"> </td>
+							<td><input type="text" class="main_title_box_2 box_08 nTitleFont" value="지원유형(범주)"> </td>
+							<td><input type="text" class="main_title_box_2 box_09 nTitleFont" value="요청내역 및 지원목적"> </td>
 						</tr>					
 					</thead>
 					<tbody id="sch_list_tb">
@@ -347,27 +393,45 @@ function calWeek(yyyymmdd, isPrev ){
 								<td>
 									<ul>
 									<li class="main_title_box_2 box_01 nCheckBox">
-										<input type="checkbox" name="chk" value="${sch.schId}"/>
+										<input type="checkbox" name="chk" value="${sch.schId}" id="checkbox_id">
 									</li>
 									</ul>
 								</td>
 								<td>
-									<input type="text" class="main_input_box_2 box_02 nInputFont" value="${sch.start_day}"/>	
+									<input type="text" class="main_input_box_2 box_02 nInputFont" value="${sch.start_day}" id="startDay_${sch.schId}">	
 								</td>						
 								<td>
-									<input type="text" class="main_input_box_2 box_03 nInputFont" value="${sch.schCusNm}"/>	
+									<input type="text" class="main_input_box_2 box_03 nInputFont" value="${sch.schCusNm}" id="cusNm_${sch.schId}">	
 								</td>
 								<td>
-									<input type="text" class="main_input_box_2 box_04 nInputFont" value="${sch.schPjtNm}"/>
+									<input type="text" class="main_input_box_2 box_04 nInputFont" value="${sch.schPjtNm}" id="pjtNm_${sch.schId}">
 								</td>							
 								<td>
-									<input type="text" class="main_input_box_2 box_05 nInputFont" value="${sch.start_time}"/>
+									<input type="text" class="main_input_box_2 box_05 nInputFont" value="${sch.start_time}" id="startTime_${sch.schId}">
 								</td>
 								<td>
-									<input type="text" class="main_input_box_2 box_06 nInputFont" value="${sch.end_time}"/>
+									<input type="text" class="main_input_box_2 box_06 nInputFont" value="${sch.end_time}" id="endTime_${sch.schId}">
 								</td>
 								<td>
-									<select class="main_input_box_2 box_07 nInputFont">
+									<!-- input type="text" class="main_input_box_2 box_07 nInputFont" value="${sch.dbms_id}" id="dbms_${sch.schId}"-->
+									<select class="main_input_box_2 box_07 nInputFont" id="dbmsId_${sch.schId}">
+										<c:if test="${sch.dbms_id == ''}">
+											<option value="0" selected>지정필요.</option>
+										</c:if>
+										<c:forEach var="dbms" items="${dbms_list}">
+													<c:choose>
+														<c:when test="${dbms.dbmsId  == sch.dbms_id}">
+															<option value="${dbms.dbmsId}" selected>${dbms.dbmsNm}</option>
+														</c:when>
+														<c:otherwise>
+															<option value="${dbms.dbmsId}">${dbms.dbmsNm}</option>	
+														</c:otherwise>
+													</c:choose>
+										</c:forEach>			
+									</select>
+								</td>
+								<td>
+									<select class="main_input_box_2 box_08 nInputFont" id="cateId_${sch.schId}">
 										<c:if test="${sch.category_name == ''}">
 											<option value="0" selected>지정필요.</option>
 										</c:if>
@@ -384,7 +448,7 @@ function calWeek(yyyymmdd, isPrev ){
 									</select>
 								</td>
 								<td>
-									<input type="text" class="main_input_box_2 box_08 nInputFont" id="etc_id_${sch.schId}" name="contents" value="${sch.contents}"/>
+									<input type="text" class="main_input_box_2 box_09 nInputFont" name="contents" value="${sch.contents}" id="contents_${sch.schId}" >
 								</td>			
 							</tr>					
 						</c:forEach>										
@@ -416,7 +480,7 @@ function calWeek(yyyymmdd, isPrev ){
 						<tr>
 							<td colspan="8" class="center_align">
 								<div>
-							  		<input type="button" id="edit_update_btn" value="수정" class="inBtt_OK_2"/>
+							  		<input type="button" id="edit_update_btn" value="수정" class="inBtt_OK_2">
 							  	</div>
 							</td>
 						</tr>				

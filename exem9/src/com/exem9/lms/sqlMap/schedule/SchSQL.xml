@@ -127,4 +127,20 @@
             to_timestamp(#end_time#, 'YYYY-MM-DD HH24:MI:22'), 
             #contents#)        
 	 </update> 
+	 
+	 <!-- 내 일정 수정 -->
+	<update id="updateSchinfo" parameterClass="java.util.HashMap">        
+	update xm_support_history set (
+            user_id, team_id, 
+            customer_id, project_id, dbms_id, category_id, 
+            start_time, end_time, contents)
+    		=       
+     		( #user_id#, 
+    		(select user_team_id from xm_member where lower(user_id) = #user_id# or upper(user_id) = #user_id#), 
+    		#customer_id#, #project_id#, #dbms_id#, #category_id#, 
+            to_timestamp(#start_time#, 'YYYY-MM-DD HH24:MI:22'), 
+            to_timestamp(#end_time#, 'YYYY-MM-DD HH24:MI:22'), 
+            #contents#)
+            where support_history_id = #chkId#
+	 </update> 
 </sqlMap>

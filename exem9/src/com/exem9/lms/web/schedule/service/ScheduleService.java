@@ -152,4 +152,29 @@ public class ScheduleService implements IScheduleService{
 		return lbb;
 	}
 	
+	@Override
+	public String updateSchinfo(String user_id, String customer_id, String project_id, String dbms_id,
+			String category_id, String start_time, String end_time, String contents, String chkId) throws Throwable {
+		
+		WebContext wctx = WebContextFactory.get();
+		HttpServletRequest request = wctx.getHttpServletRequest();
+		HttpSession session = request.getSession();	
+		
+		HashMap params = new HashMap();
+
+		params.put("user_id",user_id.toUpperCase());
+		params.put("customer_id",Integer.parseInt(customer_id));
+		params.put("project_id",Integer.parseInt(project_id));		
+		params.put("dbms_id",Integer.parseInt(dbms_id));
+		params.put("category_id",Integer.parseInt(category_id));
+		params.put("start_time",start_time);
+		params.put("end_time",end_time);
+		params.put("contents",contents);
+		params.put("chkId",chkId);
+		
+		//System.out.println("############################################ ");
+		//System.out.println("start_time : " + start_time);
+		
+		return iSchDao.updateSchinfo(params);
+	}
 }

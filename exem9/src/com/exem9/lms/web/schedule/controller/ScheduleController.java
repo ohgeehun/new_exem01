@@ -108,6 +108,7 @@ public class ScheduleController {
 			
 			List<SchBean> sch_list = iScheduleService.getsch(strfromYYYYMMDD,strtoYYYYMMDD,1);
 			List<CateBean> cat_list = iCateService.getcate();
+			List<DbmsBean> dbms_list = iDbmsService.getdbms();
 			
 			LineBoardBean lbb = iScheduleService.getNCount(strfromYYYYMMDD,strtoYYYYMMDD,1);
 			
@@ -118,6 +119,7 @@ public class ScheduleController {
 			
 			modelAndView.addObject("sch_list", sch_list);
 			modelAndView.addObject("cat_list", cat_list);
+			modelAndView.addObject("dbms_list", dbms_list);
 			
 			//modelAndView.addObject("year", "2018");
 			//modelAndView.addObject("from_day", "02-23");
