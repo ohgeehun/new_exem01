@@ -46,10 +46,7 @@ $(document).ready(function(){
 			
 	   	    $('#checkbox_id:checked').each(function() {   	    
    	    	    var chkId = $(this).val();
-   	            //alert(memId);
-   	            //console.log(memId);
-   	    		
-   	         	//var userId = $("#usrId_"+cusproId).val();
+
    	         	var userId = $("#userId_"+chkId).val();
    	         	var userNm = $("#userNm_"+chkId).val();
    	         	var DeptId = $("#userDept_"+chkId+" option:selected").val();
@@ -61,29 +58,13 @@ $(document).ready(function(){
    	         	var userPoint = $("#userPoint_"+chkId).val();
    	         	
    	         	console.debug(" | " + userId + " | " + userNm + " | " +DeptId + " | " +TeamId + " | " + DbmsId + " | " + 
-   	         			PosiId + " | " + userPhone + " | " +userMail + " | " + userPoint);
+   	         			PosiId + " | " + userPhone + " | " +userMail + " | " + userPoint + " | " + chkId);
    	         	
    	         	IMemberService.updateMeminfo( userId, userNm, "1",
     	         		TeamId, DbmsId,
  	   	         	DeptId, userPhone, 
  	   	        	userMail, PosiId, 
- 	   	      		userPoint, updateMeminfoCallBack );
- 	   	      		
-   	         	/*
-   	         	IMemberService.insertMeminfo( userId, userNm, "1",
-   	         		TeamId, DbmsId,
-	   	         	DeptId, userPhone, 
-	   	        	userMail, PosiId, 
-	   	      		userPoint, updateMeminfoCallBack );
-   	         	
-  	        	var userId = "<%=(String)session.getAttribute("sUserId")%>";
-      	        var cususer = $("#edit_cus_list_select_"+cusproId+" option:selected").val();
-      	        var cuslocation = $("#cuslocation_id_"+cusproId).val();
-      	        var salseman = $("#edit_salseman_list_select_"+cusproId+" option:selected").val();      	    
-      	        var etc = $("#etc_id_"+cusproId+"").val();    	        
-      	 		
-      	        ICustomerService.updateCusInfo(userId, cusproId, cususer, cuslocation, salseman, etc, CusupdateCallBack);
-      	        */
+ 	   	      		userPoint, chkId, updateMeminfoCallBack );
 	   	    });	
 		}
 	});

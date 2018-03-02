@@ -139,7 +139,7 @@ public class MemberService implements IMemberService{
 	public String updateMeminfo(String user_id, String user_name, String user_password,
 			String user_team_id,String user_dbms_id,
 			String user_department_id, String user_phone,String user_mail, String user_position_id,
-			String user_point) throws Throwable {
+			String user_point, String chkId) throws Throwable {
 		
 		WebContext wctx = WebContextFactory.get();
 		HttpServletRequest request = wctx.getHttpServletRequest();
@@ -156,9 +156,12 @@ public class MemberService implements IMemberService{
 		params.put("user_phone",user_phone);
 		params.put("user_mail",user_mail);
 		params.put("user_position_id",Integer.parseInt(user_position_id));
-		params.put("usr_point",0);
+		int point = 0;
+		if( user_point != null && !user_point.equals("") ) point = Integer.parseInt(user_point);
+		System.out.println("-------------------------------------------------- : point : " + point);
+		params.put("user_point", point);
+		params.put("chkId",chkId);
 		
-
 		return iMemberDao.updateMeminfo(params);
 	}
 }

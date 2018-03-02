@@ -212,7 +212,7 @@
 	(#user_id#, #user_password#, #user_name#, #user_team_id#, null, #user_dbms_id#, 
             null, #user_phone#, #user_mail#, #user_position_id#, 
             null, #user_point#)
-	where user_id = #user_id# 
+	where user_id = #chkId# 
 	 </update>
 	
 </sqlMap>
