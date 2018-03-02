@@ -26,12 +26,31 @@ public class ScheduleService implements IScheduleService{
 	public ISchDao iSchDao;
 	
 	@Override
-	public List<SchBean> getsch(String selectBtnVal, String selectTextVal, int pageNo) throws Throwable {
+	public List<SchBean> getsch(String strfromYYYYMMDD, String strtoYYYYMMDD, int pageNo) throws Throwable {
 		
 		HashMap params = new HashMap();
 		
-		//params.put("selectBtnVal", Integer.parseInt(selectBtnVal));
-		//params.put("selectTextVal",selectTextVal);
+		java.sql.Timestamp fromYYYYMMDD=null;
+		java.sql.Timestamp toYYYYMMDD=null;
+		
+		try {
+			  // String 타입을 java.util.Date 로 변환한다.
+			  java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy-MM-dd");
+			  java.util.Date datefromYYYYMMDD = formatter.parse(strfromYYYYMMDD);
+			  java.util.Date datetoYYYYMMDD = formatter.parse(strtoYYYYMMDD);
+
+			  // java.util.Date 를 java.sql.Timestamp 로 변환한다.
+			  fromYYYYMMDD = new java.sql.Timestamp( datefromYYYYMMDD.getTime() ) ;
+			  toYYYYMMDD = new java.sql.Timestamp( datetoYYYYMMDD.getTime() ) ;
+
+			} catch (Exception ex) {
+			  // Exception 에 대한 오류처리를 한다.
+				System.out.println( "---------------------------------------------------   : datetime convert Error" );
+			}
+		
+		params.put("fromYYYYMMDD", fromYYYYMMDD);
+		params.put("toYYYYMMDD",toYYYYMMDD);
+		
 		params.put("viewCount", CommonProperties.VIEWCOUNT);
 		
 		int startNo = 1+(CommonProperties.VIEWCOUNT * (pageNo-1));
@@ -75,12 +94,30 @@ public class ScheduleService implements IScheduleService{
 	}
 	
 	@Override
-	public LineBoardBean getNCount(String selectBtnVal, String selectTextVal, int nowPage) throws Throwable {
+	public LineBoardBean getNCount(String strfromYYYYMMDD, String strtoYYYYMMDD, int nowPage) throws Throwable {
 		
 		HashMap params = new HashMap();
-			
-		params.put("selectBtnVal", Integer.parseInt(selectBtnVal));
-		params.put("selectTextVal",selectTextVal);
+		
+		java.sql.Timestamp fromYYYYMMDD=null;
+		java.sql.Timestamp toYYYYMMDD=null;
+		
+		try {
+			  // String 타입을 java.util.Date 로 변환한다.
+			  java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy-MM-dd");
+			  java.util.Date datefromYYYYMMDD = formatter.parse(strfromYYYYMMDD);
+			  java.util.Date datetoYYYYMMDD = formatter.parse(strtoYYYYMMDD);
+
+			  // java.util.Date 를 java.sql.Timestamp 로 변환한다.
+			  fromYYYYMMDD = new java.sql.Timestamp( datefromYYYYMMDD.getTime() ) ;
+			  toYYYYMMDD = new java.sql.Timestamp( datetoYYYYMMDD.getTime() ) ;
+
+			} catch (Exception ex) {
+			  // Exception 에 대한 오류처리를 한다.
+				System.out.println( "---------------------------------------------------   : datetime convert Error" );
+			}
+		
+		params.put("fromYYYYMMDD", fromYYYYMMDD);
+		params.put("toYYYYMMDD", toYYYYMMDD);
 		
 		int nCount = iSchDao.getNCount(params);
 		int maxPage=0;

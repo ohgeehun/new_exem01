@@ -42,7 +42,17 @@
 					left outer join xm_customer c on s.customer_id = c.customer_id  
 					left outer join xm_project p on s.project_id = p.project_id  
 					left outer join xm_dbms d on s.dbms_id = d.dbms_id  
-					left outer join xm_category_code ca on s.category_id = ca.category_id 
+					left outer join xm_category_code ca on s.category_id = ca.category_id
+					where 1=1 
+					<isNotEmpty property="fromYYYYMMDD">
+							and s.start_time &gt;= #fromYYYYMMDD#
+					</isNotEmpty>
+					<isNotEmpty property="toYYYYMMDD">
+							and s.start_time &lt;= #toYYYYMMDD#
+					</isNotEmpty>
+					
+					<!-- and s.start_time &gt;= '2018-02-22'  -->
+					<!-- and s.end_time &lt;= '2018-02-24'  -->
 					order by s.start_time 
 				) s
 		where 1=1
@@ -65,6 +75,12 @@
 		left outer join xm_dbms d on s.dbms_id = d.dbms_id  
 		left outer join xm_category_code ca on s.category_id = ca.category_id 
 		where 1 = 1
+		<isNotEmpty property="fromYYYYMMDD">
+				and s.start_time &gt;= #fromYYYYMMDD#
+		</isNotEmpty>
+		<isNotEmpty property="toYYYYMMDD">
+				and s.start_time &lt;= #toYYYYMMDD#
+		</isNotEmpty>
 	</select>
 	
 	<!-- 신규 내 일정 인서트 시 -->

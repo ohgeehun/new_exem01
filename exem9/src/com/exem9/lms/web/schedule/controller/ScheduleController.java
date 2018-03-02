@@ -96,10 +96,20 @@ public class ScheduleController {
 			throw new UserNotFoundException("자동 로그아웃 됐습니다.");
 		} else {
 			
-			List<SchBean> sch_list = iScheduleService.getsch("","",1);
+			String year = request.getParameter("week-label-year"); // 2018
+			String fromMM_YY = request.getParameter("week-label-from-day"); // 01-01
+			String toMM_YY = request.getParameter("week-label-to-day");   //  01-08
+			if ( fromMM_YY == null || fromMM_YY.isEmpty() ) fromMM_YY = "02-23";
+			if ( toMM_YY == null || toMM_YY.isEmpty() ) toMM_YY = "02-24";
+			
+			System.out.println( "---------------------------------------------------  my_schedule : MM-YY(received) :" + fromMM_YY );
+			String strfromYYYYMMDD = year + "-"+ fromMM_YY.substring(0, 2) + "-" + fromMM_YY.substring(3, 5);
+			String strtoYYYYMMDD = year + "-"+ toMM_YY.substring(0, 2) + "-" +  toMM_YY.substring(3, 5);
+			
+			List<SchBean> sch_list = iScheduleService.getsch(strfromYYYYMMDD,strtoYYYYMMDD,1);
 			List<CateBean> cat_list = iCateService.getcate();
 			
-			LineBoardBean lbb = iScheduleService.getNCount("0","",1);
+			LineBoardBean lbb = iScheduleService.getNCount(strfromYYYYMMDD,strtoYYYYMMDD,1);
 			
 			modelAndView.addObject("startPage", lbb.getStartPage());
 			modelAndView.addObject("endPage", lbb.getEndPage());
@@ -109,7 +119,11 @@ public class ScheduleController {
 			modelAndView.addObject("sch_list", sch_list);
 			modelAndView.addObject("cat_list", cat_list);
 			
-			System.out.println( "---------------------------------------------------   : " + cat_list.get(0).getCatId() );
+			//modelAndView.addObject("year", "2018");
+			//modelAndView.addObject("from_day", "02-23");
+			//modelAndView.addObject("to_day", "02-24");
+			
+			//System.out.println( "---------------------------------------------------   : " + cat_list.get(0).getCatId() );
 			
 			modelAndView.setViewName("schedule/my_schedule");
 		}
@@ -125,9 +139,18 @@ public class ScheduleController {
 		
 		request.setCharacterEncoding("UTF-8");
 		
-		String cusNm = request.getParameter("selectTextVal");
-		String selectBtnVal = request.getParameter("selectBtnVal");
+		//String cusNm = request.getParameter("selectTextVal");
+		//String selectBtnVal = request.getParameter("selectBtnVal");
+		String year = request.getParameter("week-label-year"); // 2018
+		String fromMM_YY = request.getParameter("week-label-from-day"); // 01-01
+		String toMM_YY = request.getParameter("week-label-to-day");   //  01-08
 		int pageNo = Integer.parseInt(request.getParameter("pageNo"));
+		
+		System.out.println( "---------------------------------------------------  my_schedule_next : MM-YY(received) :" + fromMM_YY );
+		System.out.println( "---------------------------------------------------  my_schedule_next : pageNo :" + pageNo );
+		
+		String strfromYYYYMMDD = year + "-"+ fromMM_YY.substring(0, 2) + "-" + fromMM_YY.substring(3, 5);
+		String strtoYYYYMMDD = year + "-"+ toMM_YY.substring(0, 2) + "-" +  toMM_YY.substring(3, 5);
 
 		HttpSession session=request.getSession();
 		
@@ -135,10 +158,12 @@ public class ScheduleController {
 			throw new UserNotFoundException("자동 로그아웃 됐습니다.");
 		} else {
 			
-			List<SchBean> sch_list = iScheduleService.getsch(selectBtnVal,cusNm,pageNo);
+			//List<SchBean> sch_list = iScheduleService.getsch(selectBtnVal,cusNm,pageNo);
+			List<SchBean> sch_list = iScheduleService.getsch(strfromYYYYMMDD, strtoYYYYMMDD, pageNo);
 			List<CateBean> cat_list = iCateService.getcate();
 			
-			LineBoardBean lbb = iScheduleService.getNCount(selectBtnVal,cusNm,pageNo);
+			//LineBoardBean lbb = iScheduleService.getNCount(selectBtnVal,cusNm,pageNo);
+			LineBoardBean lbb = iScheduleService.getNCount(strfromYYYYMMDD, strtoYYYYMMDD, pageNo);
 			
 			modelAndView.addObject("startPage", lbb.getStartPage());
 			modelAndView.addObject("endPage", lbb.getEndPage());
@@ -154,6 +179,9 @@ public class ScheduleController {
 			modelAndView.addObject("cat_list", cat_list);
 			
 			//System.out.println( "---------------------------------------------------   : " + cat_list.get(0).getCatId() );
+			modelAndView.addObject("year", year);
+			modelAndView.addObject("from_day", fromMM_YY);
+			modelAndView.addObject("to_day", toMM_YY);
 			
 			modelAndView.setViewName("schedule/my_schedule");
 		}

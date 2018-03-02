@@ -743,3 +743,14 @@ A:hover  { color:#000;text-decoration:none;}
     font-size: 10px;
     width:100%;
 }
+
+.titleFont_2 {
+	font-family: 'NanumGothic', sans-serif;
+	color: #8000ff;
+	border: 0px solid;
+	font-weight: 650;
+	font-size:17px;
+	text-align:right;
+	line-height: 35px;
+	width:50px;	
+}

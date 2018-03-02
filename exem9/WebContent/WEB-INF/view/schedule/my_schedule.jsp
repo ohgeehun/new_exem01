@@ -26,6 +26,14 @@ var userId = "<%=(String)session.getAttribute("sUserId")%>";
 var userDept = "<%=(String)session.getAttribute("sUserDept")%>";
 var userDbms = "<%=(String)session.getAttribute("sUserDbms")%>";
 
+var year = "${year}";
+var from_day = "${from_day}";
+var to_day = "${to_day}";
+
+console.log(year);
+console.log(from_day);
+console.log(to_day);
+
 var temp = [];
 $(document).ready(function(){
 
@@ -54,17 +62,34 @@ $(document).ready(function(){
         }
     });
 	
+	//alert('1st|'+year+'|');
 	// 이번주 날짜 셋팅하기
-	$('#week-label-year').text(yyyy);
-	$('#week-label-from-day').text(mm + '-' + dd);
-	$('#week-label-to-day').text(mm2 + '-' + dd2 );
+	//$('#week-label-year').text(yyyy);
+	if ( year == null || year == '' || year == 'null') { 
+		$('#week-label-year').val(yyyy);
+	} else {
+		$('#week-label-year').val(year);	
+	}
+	if ( from_day == null || from_day == '' || from_day == 'null') {
+		$('#week-label-from-day').val(mm + '-' + dd);
+	} else {
+		$('#week-label-from-day').val(from_day);	
+	}
+	if ( to_day == null || to_day == '' || to_day == 'null') {
+		$('#week-label-to-day').val(mm2 + '-' + dd2 );
+	} else {
+		$('#week-label-to-day').val(to_day);	
+	}
+	
+	//alert($('#week-label-year').val() + '|' + $('#week-label-from-day').val() + '|' + $('#week-label-to-day').val());
 	
 	// 이전주, 다음주 클릭시 이벤트 처리
 	$("#prevWeek").bind("click", function(){	
 		// 현재 셋팅된 날짜를 가지고 와서, 이값을 입력하면 이전주의 시작일과 종료일을 리턴한다.
 		
-		var yyyy = $('#week-label-year').text();
-		var mmdd = $('#week-label-from-day').text();
+		//var yyyy = $('#week-label-year').text();
+		var yyyy = $('#week-label-year').val();
+		var mmdd = $('#week-label-from-day').val();
 		//var mm = mm-dd.substring(0,2);
 		//var dd = mm-dd.substring(3,5);
 		var selectedDay = yyyy + '-' + mmdd;  // yyyy-mm-dd로 입력
@@ -75,16 +100,20 @@ $(document).ready(function(){
 		mmdd = cal_yyyymmdd_yyyymmdd.substring(5,10);
 		mmdd2 =  cal_yyyymmdd_yyyymmdd.substring(15,20);
 		
-		$('#week-label-year').text(yyyy);
-		$('#week-label-from-day').text(mmdd);
-		$('#week-label-to-day').text(mmdd2);
+		//$('#week-label-year').text(yyyy);
+		$('#week-label-year').val(yyyy);
+		$('#week-label-from-day').val(mmdd);
+		$('#week-label-to-day').val(mmdd2);
+		
+		$("#form1").submit();
 	});
 	
 	$("#nextWeek").bind("click", function(){	
 		// 현재 셋팅된 날짜를 가지고 와서, 이값을 입력하면 다음주의 시작일과 종료일을 리턴한다.
 		
-		var yyyy = $('#week-label-year').text();
-		var mmdd = $('#week-label-from-day').text();
+		//var yyyy = $('#week-label-year').text();
+		var yyyy = $('#week-label-year').val();
+		var mmdd = $('#week-label-from-day').val();
 		//var mm = mm-dd.substring(0,2);
 		//var dd = mm-dd.substring(3,5);
 		var selectedDay = yyyy + '-' + mmdd;  // yyyy-mm-dd로 입력
@@ -95,9 +124,12 @@ $(document).ready(function(){
 		mmdd = cal_yyyymmdd_yyyymmdd.substring(5,10);
 		mmdd2 =  cal_yyyymmdd_yyyymmdd.substring(15,20);
 		
-		$('#week-label-year').text(yyyy);
-		$('#week-label-from-day').text(mmdd);
-		$('#week-label-to-day').text(mmdd2);
+		//$('#week-label-year').text(yyyy);
+		$('#week-label-year').val(yyyy);
+		$('#week-label-from-day').val(mmdd);
+		$('#week-label-to-day').val(mmdd2);
+		
+		$("#form1").submit();
 	});
 	
 	/*페이지 처리(이전 버튼 이벤트 )*/
@@ -209,7 +241,6 @@ function calWeek(yyyymmdd, isPrev ){
 </script>
 
 <style>
-
 .previous {
     background-color: #4CAF50;
     color: white;
@@ -247,6 +278,7 @@ function calWeek(yyyymmdd, isPrev ){
 <div class="row"> <!-- dummy -->
 
 	<form id="form1" method="post" action="my_schedule_next">	
+	     <!-- 아래는 hidden 2개는 사실상 필요없음. javascript처리와 java에서 함께 삭제해야함 -->
 		 <input type="hidden" id="cus_select4" name="selectBtnVal" value="0">
 		 <input type="hidden" id="select_text" name="selectTextVal" value="검색 조건을 선택하세요.">
 		 
@@ -254,8 +286,8 @@ function calWeek(yyyymmdd, isPrev ){
 		 <div class="top_mainDisplayPart">
 		 	<div align="center"><h3>내 일정 정보</h3></div>
 		 	
-			<input type="hidden" id="nowPage" name="pageNo" value="${nowPage}"/>
-			<input type="hidden" id="userId_hidden_id" value=""/>				
+			<input type="hidden" id="nowPage" name="pageNo" value="${nowPage}">
+			<input type="hidden" id="userId_hidden_id" value="">				
 		 		 	
 		 	<table>
 		 	<tr>
@@ -268,11 +300,14 @@ function calWeek(yyyymmdd, isPrev ){
 		 	<td>	 		
 		 	    <div class="nTitleFont">
 				  <div style='display:inline;'>&nbsp;&nbsp;&nbsp;</div>
-				  <div id="week-label-year" style='display:inline;'></div>
-				  <div style='display:inline;'>년 &nbsp;    </div>
-				  <div id="week-label-from-day" style='display:inline;'>01-01</div>
-				  <div style='display:inline;'>(월) ~ </div>
-				  <div id="week-label-to-day" style='display:inline;'>02-05</div>
+				  <!-- div id="week-label-year" style='display:inline;'></div-->
+				  <input type="text" id="week-label-year" name="week-label-year" class="titleFont_2">
+				  <div style='display:inline;'>년</div>
+				  <!-- div id="week-label-from-day" style='display:inline;'>01-01</div-->
+				  <input type="text" id="week-label-from-day" name="week-label-from-day" class="titleFont_2">
+				  <div style='display:inline;'>(월) &nbsp; ~ </div>
+				  <!-- div id="week-label-to-day" style='display:inline;'>02-05</div-->
+				  <input type="text" id="week-label-to-day" name="week-label-to-day" class="titleFont_2">
 				  <div style='display:inline;'>(일)</div>
 				  <div style='display:inline;'>&nbsp;&nbsp;&nbsp;</div>
 				</div>
