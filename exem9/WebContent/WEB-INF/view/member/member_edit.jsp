@@ -39,18 +39,39 @@ $(document).ready(function(){
     });
 
 	$("#edit_update_btn").bind("click", function(){	
-		
-   	    $('#checkbox_id:checked').each(function() {   	    
-   	            var cusproId = $(this).val();
-   	    
+		if ( $('#form1 input[type=checkbox]:checked').length == 0  ) {
+			alert("수정할 행을 선택하세요.");
+		} else{
+			
+	   	    $('#checkbox_id:checked').each(function() {   	    
+   	    	    var uId = $(this).val();
+   	            //alert(memId);
+   	            //console.log(memId);
+   	    		
+   	         	//var userId = $("#usrId_"+cusproId).val();
+   	         	var userId = $("#userId_"+uId).val();
+   	         	var userNm = $("#userNm_"+uId).val();
+   	         	var DeptId = $("#userDept_"+uId+" option:selected").val();
+   	         	var TeamId = $("#userTeam_"+uId+" option:selected").val();
+   	         	var DbmsId = $("#userDbms_"+uId+" option:selected").val();
+   	         	var PosiId = $("#userPosi_"+uId+" option:selected").val();
+   	         	var userPhone = $("#userPhone_"+uId).val();
+   	         	var userMail = $("#userMail_"+uId).val();
+   	         	var userPoint = $("#userPoint_"+uId).val();
+   	         	
+   	         	console.debug(" | " + userId + " | " + userNm + " | " +DeptId + " | " +TeamId + " | " + DbmsId + " | " + 
+   	         			PosiId + " | " + userPhone + " | " +userMail + " | " + userPoint);
+   	         	/*
   	        	var userId = "<%=(String)session.getAttribute("sUserId")%>";
       	        var cususer = $("#edit_cus_list_select_"+cusproId+" option:selected").val();
       	        var cuslocation = $("#cuslocation_id_"+cusproId).val();
       	        var salseman = $("#edit_salseman_list_select_"+cusproId+" option:selected").val();      	    
       	        var etc = $("#etc_id_"+cusproId+"").val();    	        
-      	 
-      	        ICustomerService.updateCusInfo(userId, cusproId, cususer, cuslocation, salseman, etc, CusupdateCallBack); 
-   	    });	    
+      	 		
+      	        ICustomerService.updateCusInfo(userId, cusproId, cususer, cuslocation, salseman, etc, CusupdateCallBack);
+      	        */
+	   	    });	
+		}
 	});
 
 
@@ -265,7 +286,7 @@ function editcusMemberCallback(res){
 	
 	<div class="top_mainDisplayBase" >
 		<div id="member_list">	
-	 		<table id="cus_list">	
+	 		<table id="mem_list">	
 				<thead id="mem_list_th">
 					<tr>
 						<td colspan="10"  class="left_align">
@@ -325,18 +346,18 @@ function editcusMemberCallback(res){
 							<td>
 							   <ul>
 								<li class="main_title_box_2 box2_01 nCheckBox">
-									<input type="checkbox" name="chk" value="${mem.userId}">
+									<input type="checkbox" name="chk" id="checkbox_id" value="${mem.userId}">
 								</li>
 								</ul>
 							</td>						
 							<td>
-								<input type="text" class="main_input_box_2 box2_02 nInputFont" value="${mem.userId}">
+								<input type="text" class="main_input_box_2 box2_02 nInputFont" value="${mem.userId}" id="userId_${mem.userId}">
 							</td>
 							<td>
-								<input type="text" class="main_input_box_2 box2_03 nInputFont" value="${mem.userNm}">						
+								<input type="text" class="main_input_box_2 box2_03 nInputFont" value="${mem.userNm}" id="userNm_${mem.userId}">						
 							</td>							
 							<td>
-								<select class="main_input_box_2 box2_04 nInputFont">
+								<select class="main_input_box_2 box2_04 nInputFont" id="userDept_${mem.userId}">
 									<c:if test="${mem.userDept == ''}">
 										<option value="0" selected>지정필요.</option>
 									</c:if>
@@ -353,7 +374,7 @@ function editcusMemberCallback(res){
 								</select>
 							</td>
 							<td>
-								<select class="main_input_box_2 box2_05 nInputFont">
+								<select class="main_input_box_2 box2_05 nInputFont" id="userTeam_${mem.userId}">
 									<c:if test="${mem.userTeam == ''}">
 										<option value="0" selected>지정필요.</option>
 									</c:if>
@@ -372,7 +393,7 @@ function editcusMemberCallback(res){
 								</select>
 							</td>
 							<td>
-								<select class="main_input_box_2 box2_06 nInputFont">
+								<select class="main_input_box_2 box2_06 nInputFont" id="userDbms_${mem.userId}">
 									<c:if test="${mem.userDbms == ''}">
 										<option value="0" selected>지정필요.</option>
 									</c:if>
@@ -389,7 +410,7 @@ function editcusMemberCallback(res){
 								</select>
 							</td>
 							<td>							
-								<select class="main_input_box_2 box2_07 nInputFont">
+								<select class="main_input_box_2 box2_07 nInputFont" id="userPosi_${mem.userId}">
 									<c:if test="${mem.userPosi == ''}">
 										<option value="0" selected>지정필요.</option>
 									</c:if>
@@ -406,13 +427,13 @@ function editcusMemberCallback(res){
 								</select>
 							</td>			
 							<td>
-								<input type="text" class="main_input_box_2 box2_08 nInputFont" value="${mem.userPhone}">
+								<input type="text" class="main_input_box_2 box2_08 nInputFont" value="${mem.userPhone}" id="userPhone_${mem.userId}">
 							</td>
 							<td>
-								<input type="text" class="main_input_box_2 box2_09 nInputFont" value="${mem.userMail}">
+								<input type="text" class="main_input_box_2 box2_09 nInputFont" value="${mem.userMail}" id="userMail_${mem.userId}">
 							</td>
 							<td>																		
-								<input type="text" class="main_input_box_2 box2_10 nInputFont" value="${mem.userPoint}">
+								<input type="text" class="main_input_box_2 box2_10 nInputFont" value="${mem.userPoint}" id="userPoint_${mem.userId}">
 							</td>
 						</tr>					
 					</c:forEach>										
