@@ -282,6 +282,7 @@
 		<result property="pjtNm" column="project_name"/>
 	</resultMap>
 	
+	<!-- 프로젝트 목록조회 용 콤보박스에서 사용 -->
 	<select id="getcusPjtNminfo" resultMap="cusPjtInfoMap">
 		select c.customer_id, p.project_id, p.project_name 
 		from xm_customer c, xm_project p 

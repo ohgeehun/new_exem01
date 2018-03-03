@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.exem9.lms.util.BCrypt;
+import com.exem9.lms.web.category.bean.CateBean;
 import com.exem9.lms.web.category.dao.ICateDao;
 import com.exem9.lms.web.department.dao.IDeptDao;
 import com.exem9.lms.web.mypage.bean.MypageBean;
@@ -30,7 +31,7 @@ public class CateService implements ICateService{
 	@Autowired
 	public ICateDao iCateDao;
 
-	public List getcate() throws Throwable {
+	public List<CateBean> getcate() throws Throwable {
 		
 		// TODO Auto-generated method stub
 		return iCateDao.getcate();

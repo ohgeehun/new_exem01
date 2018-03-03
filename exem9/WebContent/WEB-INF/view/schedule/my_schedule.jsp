@@ -73,20 +73,20 @@ $(document).ready(function(){
 
    	    	 	var user_id = userId;    // 세션에서 가져와야 함
    	    	 	//var startDay = $("#startDay_"+chkId).val();
-   	    	    var cusNm = $("#cusNm_"+chkId).val();
-   	         	var pjtNm = $("#pjtNm_"+chkId).val();
+   	    	    var cusId = $("#cusNm_"+chkId+" option:selected").val();
+   	         	var pjtId = $("#pjtNm_"+chkId+" option:selected").val();
    	         	var startTime = $("#startTime_"+chkId).val();
    	         	var endTime = $("#endTime_"+chkId).val();
    	         	var dbmsId = $("#dbmsId_"+chkId+" option:selected").val();
    	         	var cateId = $("#cateId_"+chkId+" option:selected").val();
    	         	var contents = $("#contents_"+chkId).val();
    	         	
-   	         	console.debug( " | " + cusNm + " | " + pjtNm + " | " +startTime + " | " + endTime + " | " + dbmsId + " | " + cateId + " | " +contents + " | " + chkId );
+   	         	console.debug( " | " + cusId + " | " + pjtId + " | " +startTime + " | " + endTime + " | " + dbmsId + " | " + cateId + " | " +contents + " | " + chkId );
    	         	
    	         	IScheduleService.updateSchinfo(
   					user_id, 
-  					19,
-  					38,
+  					cusId,
+  					pjtId,
 					dbmsId, 
 					cateId, 
 					startTime,
@@ -401,10 +401,40 @@ function updateSchinfoCallBack(res){
 									<input type="text" class="main_input_box_2 box_02 nInputFont" value="${sch.start_day}" id="startDay_${sch.schId}">	
 								</td>						
 								<td>
-									<input type="text" class="main_input_box_2 box_03 nInputFont" value="${sch.schCusNm}" id="cusNm_${sch.schId}">	
+									<!-- input type="text" class="main_input_box_2 box_03 nInputFont" value="${sch.schCusNm}" id="cusNm_${sch.schId}"-->
+									<select class="main_input_box_2 box_03 nInputFont" id="cusNm_${sch.schId}">
+										<c:if test="${sch.schCusId == ''}">
+											<option value="0" selected>지정필요.</option>
+										</c:if>
+										<c:forEach var="cus" items="${cus_list}">
+													<c:choose>
+														<c:when test="${cus.cusId  == sch.schCusId}">
+															<option value="${cus.cusId}" selected>${cus.cusNm}</option>
+														</c:when>
+														<c:otherwise>
+															<option value="${cus.cusId}">${cus.cusNm}</option>	
+														</c:otherwise>
+													</c:choose>
+										</c:forEach>			
+									</select>	
 								</td>
 								<td>
-									<input type="text" class="main_input_box_2 box_04 nInputFont" value="${sch.schPjtNm}" id="pjtNm_${sch.schId}">
+									<!-- input type="text" class="main_input_box_2 box_04 nInputFont" value="${sch.schPjtNm}" id="pjtNm_${sch.schId}"-->
+									<select class="main_input_box_2 box_04 nInputFont" id="pjtNm_${sch.schId}">
+										<c:if test="${sch.schPjtId == ''}">
+											<option value="0" selected>지정필요.</option>
+										</c:if>
+										<c:forEach var="pjt" items="${pjt_list}">
+													<c:choose>
+														<c:when test="${pjt.pjtId  == sch.schPjtId}">
+															<option value="${pjt.pjtId}" selected>${pjt.pjtNm}</option>
+														</c:when>
+														<c:otherwise>
+															<option value="${pjt.pjtId}">${pjt.pjtNm}</option>	
+														</c:otherwise>
+													</c:choose>
+										</c:forEach>			
+									</select>
 								</td>							
 								<td>
 									<input type="text" class="main_input_box_2 box_05 nInputFont" value="${sch.start_time}" id="startTime_${sch.schId}">

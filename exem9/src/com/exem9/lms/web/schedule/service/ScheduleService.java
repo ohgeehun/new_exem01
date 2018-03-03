@@ -162,7 +162,7 @@ public class ScheduleService implements IScheduleService{
 		
 		HashMap params = new HashMap();
 
-		params.put("user_id",user_id.toUpperCase());
+		params.put("user_id",user_id );
 		params.put("customer_id",Integer.parseInt(customer_id));
 		params.put("project_id",Integer.parseInt(project_id));		
 		params.put("dbms_id",Integer.parseInt(dbms_id));
@@ -170,7 +170,7 @@ public class ScheduleService implements IScheduleService{
 		params.put("start_time",start_time);
 		params.put("end_time",end_time);
 		params.put("contents",contents);
-		params.put("chkId",chkId);
+		params.put("chkId", Integer.parseInt(chkId) );
 		
 		//System.out.println("############################################ ");
 		//System.out.println("start_time : " + start_time);

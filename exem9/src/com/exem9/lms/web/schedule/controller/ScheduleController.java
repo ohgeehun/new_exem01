@@ -109,6 +109,8 @@ public class ScheduleController {
 			List<SchBean> sch_list = iScheduleService.getsch(strfromYYYYMMDD,strtoYYYYMMDD,1);
 			List<CateBean> cat_list = iCateService.getcate();
 			List<DbmsBean> dbms_list = iDbmsService.getdbms();
+			List<CustomerNmBean> cus_list = iCustomerService.getcusNminfo2();
+			List<CustomerPjtNmBean> pjt_list = iCustomerService.getcusPjtNminfo();
 			
 			LineBoardBean lbb = iScheduleService.getNCount(strfromYYYYMMDD,strtoYYYYMMDD,1);
 			
@@ -120,12 +122,8 @@ public class ScheduleController {
 			modelAndView.addObject("sch_list", sch_list);
 			modelAndView.addObject("cat_list", cat_list);
 			modelAndView.addObject("dbms_list", dbms_list);
-			
-			//modelAndView.addObject("year", "2018");
-			//modelAndView.addObject("from_day", "02-23");
-			//modelAndView.addObject("to_day", "02-24");
-			
-			//System.out.println( "---------------------------------------------------   : " + cat_list.get(0).getCatId() );
+			modelAndView.addObject("cus_list", cus_list);
+			modelAndView.addObject("pjt_list", pjt_list);
 			
 			modelAndView.setViewName("schedule/my_schedule");
 		}
@@ -141,8 +139,6 @@ public class ScheduleController {
 		
 		request.setCharacterEncoding("UTF-8");
 		
-		//String cusNm = request.getParameter("selectTextVal");
-		//String selectBtnVal = request.getParameter("selectBtnVal");
 		String year = request.getParameter("week-label-year"); // 2018
 		String fromMM_YY = request.getParameter("week-label-from-day"); // 01-01
 		String toMM_YY = request.getParameter("week-label-to-day");   //  01-08
@@ -163,6 +159,9 @@ public class ScheduleController {
 			//List<SchBean> sch_list = iScheduleService.getsch(selectBtnVal,cusNm,pageNo);
 			List<SchBean> sch_list = iScheduleService.getsch(strfromYYYYMMDD, strtoYYYYMMDD, pageNo);
 			List<CateBean> cat_list = iCateService.getcate();
+			List<DbmsBean> dbms_list = iDbmsService.getdbms();
+			List<CustomerNmBean> cus_list = iCustomerService.getcusNminfo2();
+			List<CustomerPjtNmBean> pjt_list = iCustomerService.getcusPjtNminfo();
 			
 			//LineBoardBean lbb = iScheduleService.getNCount(selectBtnVal,cusNm,pageNo);
 			LineBoardBean lbb = iScheduleService.getNCount(strfromYYYYMMDD, strtoYYYYMMDD, pageNo);
@@ -172,13 +171,11 @@ public class ScheduleController {
 			modelAndView.addObject("maxPage", lbb.getMaxPage());
 			modelAndView.addObject("nowPage", lbb.getNowPage());
 			
-			modelAndView.addObject("startPage", lbb.getStartPage());
-			modelAndView.addObject("endPage", lbb.getEndPage());
-			modelAndView.addObject("maxPage", lbb.getMaxPage());
-			modelAndView.addObject("nowPage", lbb.getNowPage());
-			
 			modelAndView.addObject("sch_list", sch_list);
 			modelAndView.addObject("cat_list", cat_list);
+			modelAndView.addObject("dbms_list", dbms_list);
+			modelAndView.addObject("cus_list", cus_list);
+			modelAndView.addObject("pjt_list", pjt_list);
 			
 			//System.out.println( "---------------------------------------------------   : " + cat_list.get(0).getCatId() );
 			modelAndView.addObject("year", year);
