@@ -1,12 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link rel="stylesheet" type="text/css" href="./resources/css/fullcalendar.min.css" media="all" />
-<link rel="stylesheet" type="text/css" href="./resources/css/fullcalendar.css" media="all" /> 
+
+<link rel="stylesheet" type="text/css" href="./resources/css/fullcalendar.min.css" media="all" ></link> 
+<link rel="stylesheet" type="text/css" href="./resources/css/fullcalendar.css" media="all" ></link> 
+<link rel="stylesheet" type="text/css" href="./resources/css/schedule/team_schedule.css" media="all" ></link>
 
 
 <!-- jQuery Script -->
@@ -19,10 +22,10 @@
 <!-- DWR setting -->
 <script type="text/javascript" src="dwr/engine.js"></script>
 <script type="text/javascript" src="dwr/util.js"></script>
-<!-- <script type="text/javascript" src="dwr/interface/IMypageService.js"></script> -->
 <script type="text/javascript" src="dwr/interface/IScheduleService.js"></script>
 
 <script>
+
 var userId = "<%=(String)session.getAttribute("sUserId")%>";
 var userDept = "<%=(String)session.getAttribute("sUserDept")%>";
 var userDbms = "<%=(String)session.getAttribute("sUserDbms")%>";
@@ -72,7 +75,8 @@ $(document).ready(function(){
 	   	    $('#checkbox_id:checked').each(function() {   	    
    	    	    var chkId = $(this).val();
 
-   	    	 	var user_id = userId;    // 세션에서 가져와야 함
+   	    	 	//var user_id = userId;    // 세션에서 가져와야 함
+   	    	 	var user_id = $("#userNm_"+chkId+" option:selected").val();
    	    	 	//var startDay = $("#startDay_"+chkId).val();
    	    	    var cusId = $("#cusNm_"+chkId+" option:selected").val();
    	         	var pjtId = $("#pjtNm_"+chkId+" option:selected").val();
@@ -194,9 +198,29 @@ $(document).ready(function(){
     	
     	$("#form1").submit();	
     });
-});
+    
+    // 팀버튼 초기에는 안보이게 처리
+    $("input[name$='btnTeam']").hide();
+    
+    // 부서버튼 선택 시 이벤트 처리
+	$("#dept_select").change(function (){
+		
+		var deptId = $("#dept_select option:selected").val();
+		//alert("deptId : " + deptId);
+		//$("#btnDept_5_Team_${team.teamId}").hide();	
+		//$("#btnDept_5_Team_23").hide();
+		//alert("team no : " + $("input[name$='btnTeam']").length);
+		$("input[name$='btnTeam']").hide();
+		for( var i =0 ; i <= $("input[name$='btnTeam']").length ; i ++ ){
+			//alert('#btnDept_' + deptId + '_Team_' + i);
+			$('#btnDept_' + deptId + '_Team_' + i ).show();
+		}
+	});
+    
+	$("#dept_select").val(userDept).change();
 	
-			
+});
+
 </script>
 
 <script>
@@ -280,40 +304,14 @@ function calWeek(yyyymmdd, isPrev ){
 function updateSchinfoCallBack(res){
 	if(res == "FAILED"){
 		alert("실패");
-		location.href = "my_schedule";
+		location.href = "team_schedule";
 	}else if(res == "SUCCESS"){
 		alert("성공");
-		location.href = "my_schedule";
+		location.href = "team_schedule";
 	}
 }
 </script>
 
-<style>
-.previous {
-    background-color: #4CAF50;
-    color: white;
-}
-
-.next {
-    background-color: #4CAF50;
-    color: white;
-}
-/*    */
-.week-label {
-    padding: 8px;
-}
-
-.week-label > div {
-    /* text-align: center; */
-    color: #4CAF50;
-    font-size: 20px;
-)
-
-.fltBox1 {
-	width: 185px;
-}
-
-</style>
 
 </head>
 
@@ -379,7 +377,7 @@ function updateSchinfoCallBack(res){
 					<thead id="sch_list_th">
 					
 						<tr>
-							<td colspan="9"  class="left_align">
+							<td colspan="10"  class="left_align">
 						 			<!-- select id="dept_select" name="selectDeptId" class="main_input_box_2 nInputFont fltBox1">
 						 					<option value="0" selected>전체</option>
 											<option value="1">로그인ID</option>						
@@ -402,10 +400,11 @@ function updateSchinfoCallBack(res){
 										<option value="0" selected>지정필요.</option-->
 									<!--/c:if-->
 									<c:forEach var="team" items="${team_list}">
-										<c:if test="${team.deptId  == 2 }">										
+										<!-- c:if test="${team.deptId  == 2 }" -->										
 												<!-- option value="${team.teamId}">${team.teamNm}</option-->
-												<input type="button" value="${team.teamNm}" class="Btt_search btnSearch" id="btnTeam_${team.teamId}">	
-										</c:if>		
+												<!-- input type="button" value="${team.teamNm}" class="Btt_search btnSearch" id="btnTeam_${team.teamId}"-->	
+										<!-- /c:if -->
+										<input type="button" name="btnTeam" value="${team.teamNm}" class="Btt_search btnSearch" id="btnDept_${team.deptId}_Team_${team.teamId}">		
 									</c:forEach>			
 								<!-- /select-->
 								
@@ -415,19 +414,20 @@ function updateSchinfoCallBack(res){
 						<tr>
 							<td>
 								<ul>
-								<li class="main_title_box_2 box_01 nCheckBox">
+								<li class="main_title_box_2 box2_01 nCheckBox">
 									<input type="checkbox" id="checkall"/>
 								</li>
 								</ul>
 							</td>
-							<td><input type="text" class="main_title_box_2 box_02 nTitleFont" value="지원일자"> </td>
-							<td><input type="text" class="main_title_box_2 box_03 nTitleFont" value="고객사명"> </td>
-							<td><input type="text" class="main_title_box_2 box_04 nTitleFont" value="프로젝트명"> </td>
-							<td><input type="text" class="main_title_box_2 box_05 nTitleFont" value="지원시작일"> </td>
-							<td><input type="text" class="main_title_box_2 box_06 nTitleFont" value="지원종료일"> </td>
-							<td><input type="text" class="main_title_box_2 box_07 nTitleFont" value="제품구분"> </td>
-							<td><input type="text" class="main_title_box_2 box_08 nTitleFont" value="지원유형(범주)"> </td>
-							<td><input type="text" class="main_title_box_2 box_09 nTitleFont" value="요청내역 및 지원목적"> </td>
+							<td><input type="text" class="main_title_box_2 box2_02 nTitleFont" value="지원일자"> </td>
+							<td><input type="text" class="main_title_box_2 box2_03 nTitleFont" value="엔지니어"> </td>
+							<td><input type="text" class="main_title_box_2 box2_04 nTitleFont" value="고객사명"> </td>
+							<td><input type="text" class="main_title_box_2 box2_05 nTitleFont" value="프로젝트명"> </td>
+							<td><input type="text" class="main_title_box_2 box2_06 nTitleFont" value="지원시작일"> </td>
+							<td><input type="text" class="main_title_box_2 box2_07 nTitleFont" value="지원종료일"> </td>
+							<td><input type="text" class="main_title_box_2 box2_08 nTitleFont" value="제품구분"> </td>
+							<td><input type="text" class="main_title_box_2 box2_09 nTitleFont" value="지원유형(범주)"> </td>
+							<td><input type="text" class="main_title_box_2 box2_10 nTitleFont" value="요청내역 및 지원목적"> </td>
 						</tr>					
 					</thead>
 					<tbody id="sch_list_tb">
@@ -435,17 +435,35 @@ function updateSchinfoCallBack(res){
 							<tr>
 								<td>
 									<ul>
-									<li class="main_title_box_2 box_01 nCheckBox">
+									<li class="main_title_box_2 box2_01 nCheckBox">
 										<input type="checkbox" name="chk" value="${sch.schId}" id="checkbox_id">
 									</li>
 									</ul>
 								</td>
 								<td>
-									<input type="text" class="main_input_box_2 box_02 nInputFont" value="${sch.start_day}" id="startDay_${sch.schId}">	
+									<input type="text" class="main_input_box_2 box2_02 nInputFont" value="${sch.start_day}" id="startDay_${sch.schId}">	
+								</td>
+								<td>
+									<!-- input type="text" class="main_input_box_2 box2_03 nInputFont" value="${sch.user_name}" id="userNm_${sch.schId}"-->
+									<select class="main_input_box_2 box2_03 nInputFont" id="userNm_${sch.schId}">
+										<c:if test="${sch.user_id == ''}">
+											<option value="0" selected>지정필요.</option>
+										</c:if>
+										<c:forEach var="mem" items="${mem_list}">
+													<c:choose>
+														<c:when test="${sch.user_id  == mem.userId}">
+															<option value="${mem.userId}" selected>${mem.userNm}</option>
+														</c:when>
+														<c:otherwise>
+															<option value="${mem.userId}">${mem.userNm}</option>	
+														</c:otherwise>
+													</c:choose>
+										</c:forEach>			
+									</select>	
 								</td>						
 								<td>
-									<!-- input type="text" class="main_input_box_2 box_03 nInputFont" value="${sch.schCusNm}" id="cusNm_${sch.schId}"-->
-									<select class="main_input_box_2 box_03 nInputFont" id="cusNm_${sch.schId}">
+									<!-- input type="text" class="main_input_box_2 box2_03 nInputFont" value="${sch.schCusNm}" id="cusNm_${sch.schId}"-->
+									<select class="main_input_box_2 box2_04 nInputFont" id="cusNm_${sch.schId}">
 										<c:if test="${sch.schCusId == ''}">
 											<option value="0" selected>지정필요.</option>
 										</c:if>
@@ -462,8 +480,8 @@ function updateSchinfoCallBack(res){
 									</select>	
 								</td>
 								<td>
-									<!-- input type="text" class="main_input_box_2 box_04 nInputFont" value="${sch.schPjtNm}" id="pjtNm_${sch.schId}"-->
-									<select class="main_input_box_2 box_04 nInputFont" id="pjtNm_${sch.schId}">
+									<!-- input type="text" class="main_input_box_2 box2_04 nInputFont" value="${sch.schPjtNm}" id="pjtNm_${sch.schId}"-->
+									<select class="main_input_box_2 box2_05 nInputFont" id="pjtNm_${sch.schId}">
 										<c:if test="${sch.schPjtId == ''}">
 											<option value="0" selected>지정필요.</option>
 										</c:if>
@@ -480,14 +498,14 @@ function updateSchinfoCallBack(res){
 									</select>
 								</td>							
 								<td>
-									<input type="text" class="main_input_box_2 box_05 nInputFont" value="${sch.start_time}" id="startTime_${sch.schId}">
+									<input type="text" class="main_input_box_2 box2_06 nInputFont" value="${sch.start_time}" id="startTime_${sch.schId}">
 								</td>
 								<td>
-									<input type="text" class="main_input_box_2 box_06 nInputFont" value="${sch.end_time}" id="endTime_${sch.schId}">
+									<input type="text" class="main_input_box_2 box2_07 nInputFont" value="${sch.end_time}" id="endTime_${sch.schId}">
 								</td>
 								<td>
-									<!-- input type="text" class="main_input_box_2 box_07 nInputFont" value="${sch.dbms_id}" id="dbms_${sch.schId}"-->
-									<select class="main_input_box_2 box_07 nInputFont" id="dbmsId_${sch.schId}">
+									<!-- input type="text" class="main_input_box_2 box2_07 nInputFont" value="${sch.dbms_id}" id="dbms_${sch.schId}"-->
+									<select class="main_input_box_2 box2_08 nInputFont" id="dbmsId_${sch.schId}">
 										<c:if test="${sch.dbms_id == ''}">
 											<option value="0" selected>지정필요.</option>
 										</c:if>
@@ -504,7 +522,7 @@ function updateSchinfoCallBack(res){
 									</select>
 								</td>
 								<td>
-									<select class="main_input_box_2 box_08 nInputFont" id="cateId_${sch.schId}">
+									<select class="main_input_box_2 box2_09 nInputFont" id="cateId_${sch.schId}">
 										<c:if test="${sch.category_name == ''}">
 											<option value="0" selected>지정필요.</option>
 										</c:if>
@@ -521,7 +539,7 @@ function updateSchinfoCallBack(res){
 									</select>
 								</td>
 								<td>
-									<input type="text" class="main_input_box_2 box_09 nInputFont" name="contents" value="${sch.contents}" id="contents_${sch.schId}" >
+									<input type="text" class="main_input_box_2 box2_10 nInputFont" name="contents" value="${sch.contents}" id="contents_${sch.schId}" >
 								</td>			
 							</tr>					
 						</c:forEach>										
@@ -529,7 +547,7 @@ function updateSchinfoCallBack(res){
 					
 					<tfoot id="sch_list_tf"> 
 						<tr>
-							<td colspan="9" class="center_align">
+							<td colspan="10" class="center_align">
 								<div>
 									<c:if test="${nowPage > 1}">
 											<a href="#" id="backVal" class="nTitleFont">이전</a>
@@ -551,7 +569,7 @@ function updateSchinfoCallBack(res){
 							</td>
 						</tr>
 						<tr>
-							<td colspan="9" class="center_align">
+							<td colspan="10" class="center_align">
 								<div>
 							  		<input type="button" id="edit_update_btn" value="수정" class="inBtt_OK_2">
 							  	</div>

@@ -47,6 +47,10 @@ public class MemberDao implements IMemberDao{
 		return sqlMapClient.queryForList("member.getmeminfo", params);
 	}
 	
+	public List<MemberBean> getallmem() throws Throwable {
+		return sqlMapClient.queryForList("member.getallmem");
+	}
+	
 	public int getNCount(HashMap params) throws Throwable {
 		
 		int count = (Integer) sqlMapClient.queryForObject("member.getNCount", params);

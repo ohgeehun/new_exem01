@@ -22,6 +22,8 @@ public interface IMemberDao {
 	
 	public List<MemberBean> getmeminfo(HashMap params)throws Throwable ;
 	
+	public List<MemberBean> getallmem()throws Throwable ;
+	
 	public int getNCount(HashMap params) throws Throwable;
 	
 	public String insertMeminfo(HashMap params)throws Throwable ;

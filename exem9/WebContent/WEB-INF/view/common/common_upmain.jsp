@@ -1,12 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<link rel="stylesheet" type="text/css" href="./resources/css/main.css" media="all" />
-<link rel="stylesheet" type="text/css" media="screen" href="./resources/css/exem_mem.css"/>
-
-<style type="text/css">
-
-</style>
+<link rel="stylesheet" type="text/css" href="./resources/css/main.css" media="all" ></link>
+<link rel="stylesheet" type="text/css" media="screen" href="./resources/css/exem_mem.css"></link>
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -54,6 +50,7 @@ $(document).ready(function(){
 
 				<a href="#" class="top_logMyPage" id="mypageBtn">마이페이지</a>
 				<a href="#" class="top_logInOut" id="logoutBtn">로그아웃 </a>
+			</div>
 
 		</div>
 

@@ -7,7 +7,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" type="text/css" href="./resources/css/fullcalendar.min.css" media="all" />
 <link rel="stylesheet" type="text/css" href="./resources/css/fullcalendar.css" media="all" /> 
-
+<link rel="stylesheet" type="text/css" href="./resources/css/fullcalendar.css" media="all" />
+<link rel="stylesheet" type="text/css" href="./resources/css/schedule/my_schedule.css" media="all" ></link>
 
 <!-- jQuery Script -->
 <script type="text/javascript" src="resources/script/jquery/jquery-1.8.2.min.js"></script>
@@ -290,25 +291,7 @@ function updateSchinfoCallBack(res){
 </script>
 
 <style>
-.previous {
-    background-color: #4CAF50;
-    color: white;
-}
 
-.next {
-    background-color: #4CAF50;
-    color: white;
-}
-/*    */
-.week-label {
-    padding: 8px;
-}
-
-.week-label > div {
-    /* text-align: center; */
-    color: #4CAF50;
-    font-size: 20px;
-)
 </style>
 
 </head>

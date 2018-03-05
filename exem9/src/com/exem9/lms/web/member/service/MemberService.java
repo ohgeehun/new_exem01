@@ -68,6 +68,10 @@ public class MemberService implements IMemberService{
 		return iMemberDao.getmeminfo(params);
 	}
 	
+	public List<MemberBean> getallmem() throws Throwable {
+		
+		return iMemberDao.getallmem();
+	}
 
 	public LineBoardBean getNCount(String selectBtnVal, String selectTextVal, int nowPage) throws Throwable {
 		

@@ -24,7 +24,9 @@ import com.exem9.lms.web.dbms.bean.DbmsBean;
 import com.exem9.lms.web.dbms.service.IDbmsService;
 import com.exem9.lms.web.department.bean.DeptBean;
 import com.exem9.lms.web.department.service.IDeptService;
+import com.exem9.lms.web.member.bean.MemberBean;
 import com.exem9.lms.web.member.bean.MemberNextBean;
+import com.exem9.lms.web.member.service.IMemberService;
 import com.exem9.lms.web.position.bean.PosiBean;
 import com.exem9.lms.web.schedule.bean.SchBean;
 import com.exem9.lms.web.schedule.bean.SchNextBean;
@@ -47,6 +49,8 @@ public class ScheduleController {
 	public IDeptService iDeptService;
 	@Autowired
 	public ITeamService iTeamService;
+	@Autowired
+	public IMemberService iMemberService;
 	
 	@RequestMapping(value = "/schedule")
 	public ModelAndView mypage(HttpServletRequest request, 
@@ -246,6 +250,7 @@ public class ScheduleController {
 			List<CustomerPjtNmBean> pjt_list = iCustomerService.getcusPjtNminfo();
 			List<DeptBean> dept_list = iDeptService.getdept();
 			List<TeamBean> team_list = iTeamService.getteam();
+			List<MemberBean> mem_list = iMemberService.getallmem();
 			
 			LineBoardBean lbb = iScheduleService.getNCount(strfromYYYYMMDD,strtoYYYYMMDD,1);
 			
@@ -261,6 +266,7 @@ public class ScheduleController {
 			modelAndView.addObject("pjt_list", pjt_list);
 			modelAndView.addObject("dept_list", dept_list);
 			modelAndView.addObject("team_list", team_list);
+			modelAndView.addObject("mem_list", mem_list);
 			
 			modelAndView.setViewName("schedule/team_schedule");
 		}
@@ -300,6 +306,9 @@ public class ScheduleController {
 			List<DbmsBean> dbms_list = iDbmsService.getdbms();
 			List<CustomerNmBean> cus_list = iCustomerService.getcusNminfo2();
 			List<CustomerPjtNmBean> pjt_list = iCustomerService.getcusPjtNminfo();
+			List<DeptBean> dept_list = iDeptService.getdept();
+			List<TeamBean> team_list = iTeamService.getteam();
+			List<MemberBean> mem_list = iMemberService.getallmem();
 			
 			//LineBoardBean lbb = iScheduleService.getNCount(selectBtnVal,cusNm,pageNo);
 			LineBoardBean lbb = iScheduleService.getNCount(strfromYYYYMMDD, strtoYYYYMMDD, pageNo);
@@ -314,6 +323,9 @@ public class ScheduleController {
 			modelAndView.addObject("dbms_list", dbms_list);
 			modelAndView.addObject("cus_list", cus_list);
 			modelAndView.addObject("pjt_list", pjt_list);
+			modelAndView.addObject("dept_list", dept_list);
+			modelAndView.addObject("team_list", team_list);
+			modelAndView.addObject("mem_list", mem_list);
 			
 			//System.out.println( "---------------------------------------------------   : " + cat_list.get(0).getCatId() );
 			modelAndView.addObject("year", year);

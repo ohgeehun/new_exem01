@@ -224,7 +224,7 @@ a:hover {
     /* text-align: center; */
     color: #4CAF50;
     font-size: 20px;
-)
+}
 </style>
 
 </head>

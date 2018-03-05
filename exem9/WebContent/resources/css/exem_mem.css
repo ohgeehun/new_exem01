@@ -592,46 +592,6 @@ A:hover  { color:#000;text-decoration:none;}
 	padding:1px;
 }
 
-.box_01 {
-	width:39px;
-	left:20px;
-}
-
-.box_02 {
-	width:113px;
-	left:66px;
-}
-
-.box_03 {
-	width:135px;
-	left:186px;
-}
-
-.box_04 {
-	width:127px;
-	left:328px;
-}
-
-.box_05 {
-	width:137px;
-	left:462px;
-}
-
-.box_06 {
-	width:146px;
-	left:606px;
-}
-
-.box_07 {
-	width:127px;
-	left:759px;
-}
-
-.box_08 {
-	width:275px;
-	left:893px;
-}
-
 .nTitleFont {
 	font-family: 'NanumGothic', sans-serif;
 	font-weight: 600;
@@ -757,4 +717,24 @@ A:hover  { color:#000;text-decoration:none;}
 	text-align:right;
 	line-height: 35px;
 	width:50px;	
+}
+
+.previous {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.next {
+    background-color: #4CAF50;
+    color: white;
+}
+/*    */
+.week-label {
+    padding: 8px;
+}
+
+.week-label > div {
+    /* text-align: center; */
+    color: #4CAF50;
+    font-size: 20px;
 }
