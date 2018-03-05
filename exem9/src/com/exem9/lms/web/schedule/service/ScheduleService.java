@@ -201,4 +201,112 @@ public class ScheduleService implements IScheduleService{
 		
 		return strFromYYYYMMDD + strToYYYYMMDD;  // "yyyy-MM-ddyyyy-MM-dd"
 	}
+	
+	@Override
+	public List<SchBean> getTeamsch(String strfromYYYYMMDD, String strtoYYYYMMDD, int pageNo, int teamFilter) throws Throwable {
+		
+		HashMap params = new HashMap();
+		
+		java.sql.Timestamp fromYYYYMMDD=null;
+		java.sql.Timestamp toYYYYMMDD=null;
+		
+		System.out.println( "---------------------------------------------------   : strFromYYYYMMDD : " +  strfromYYYYMMDD);
+		System.out.println( "---------------------------------------------------   : strtoYYYYMMDD : " +  strtoYYYYMMDD);
+		
+		try {
+			  // String 타입을 java.util.Date 로 변환한다.
+			  java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy-MM-dd");
+			  java.util.Date datefromYYYYMMDD = formatter.parse(strfromYYYYMMDD);
+			  java.util.Date datetoYYYYMMDD = formatter.parse(strtoYYYYMMDD);
+
+			  // java.util.Date 를 java.sql.Timestamp 로 변환한다.
+			  fromYYYYMMDD = new java.sql.Timestamp( datefromYYYYMMDD.getTime() ) ;
+			  toYYYYMMDD = new java.sql.Timestamp( datetoYYYYMMDD.getTime() ) ;
+
+			} catch (Exception ex) {
+			  // Exception 에 대한 오류처리를 한다.
+				System.out.println( "---------------------------------------------------   : datetime convert Error" );
+			}
+		
+		params.put("fromYYYYMMDD", fromYYYYMMDD);
+		params.put("toYYYYMMDD",toYYYYMMDD);
+		
+		params.put("viewCount", CommonProperties.VIEWCOUNT);
+		
+		int startNo = 1+(CommonProperties.VIEWCOUNT * (pageNo-1));
+		int endNo = CommonProperties.VIEWCOUNT * pageNo;
+		
+		if(pageNo == 1){
+			params.put("pageNo", ""); 
+		}else{
+			params.put("pageNo", pageNo);
+		}
+		
+		params.put("startNo", startNo);
+		params.put("endNo", endNo);
+		params.put("teamFilter", teamFilter);
+		
+		return iSchDao.getsch(params);
+	}
+	
+	@Override
+	public LineBoardBean getTeamNCount(String strfromYYYYMMDD, String strtoYYYYMMDD, int nowPage, int teamFilter) throws Throwable {
+		
+		HashMap params = new HashMap();
+		
+		java.sql.Timestamp fromYYYYMMDD=null;
+		java.sql.Timestamp toYYYYMMDD=null;
+		
+		try {
+			  // String 타입을 java.util.Date 로 변환한다.
+			  java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy-MM-dd");
+			  java.util.Date datefromYYYYMMDD = formatter.parse(strfromYYYYMMDD);
+			  java.util.Date datetoYYYYMMDD = formatter.parse(strtoYYYYMMDD);
+
+			  // java.util.Date 를 java.sql.Timestamp 로 변환한다.
+			  fromYYYYMMDD = new java.sql.Timestamp( datefromYYYYMMDD.getTime() ) ;
+			  toYYYYMMDD = new java.sql.Timestamp( datetoYYYYMMDD.getTime() ) ;
+
+			} catch (Exception ex) {
+			  // Exception 에 대한 오류처리를 한다.
+				System.out.println( "---------------------------------------------------   : datetime convert Error" );
+			}
+		
+		params.put("fromYYYYMMDD", fromYYYYMMDD);
+		params.put("toYYYYMMDD", toYYYYMMDD);
+		params.put("teamFilter", teamFilter);
+		
+		int nCount = iSchDao.getNCount(params);
+		int maxPage=0;
+		int startPage=0;
+		int endPage=0;
+		int nowpage=0;
+		
+		if(nowPage == 0){
+			nowpage = 1;
+		}else if(nowPage != 0){
+			nowpage = nowPage;
+		}		
+		
+		if(nCount % CommonProperties.VIEWCOUNT == 0){
+			maxPage = nCount / CommonProperties.VIEWCOUNT;
+		}else{
+			maxPage = (nCount / CommonProperties.VIEWCOUNT) + 1;
+		}
+		
+		startPage = nowpage / CommonProperties.PAGECOUNT + 1;
+		endPage = startPage + CommonProperties.PAGECOUNT -1;
+		
+		if(endPage > maxPage){
+			endPage = maxPage;
+		}		
+		
+		LineBoardBean lbb = new LineBoardBean();
+		lbb.setStartPage(startPage);
+		lbb.setEndPage(endPage);
+		lbb.setMaxPage(maxPage);
+		lbb.setNowPage(nowpage);
+		return lbb;
+	}
+	
 }

@@ -287,6 +287,12 @@ public class ScheduleController {
 		String fromMM_YY = request.getParameter("week-label-from-day"); // 01-01
 		String toMM_YY = request.getParameter("week-label-to-day");   //  01-08
 		int pageNo = Integer.parseInt(request.getParameter("pageNo"));
+		int teamFilter = -1; // 팀이 선택되지 않았을 때
+		
+		String strTeamFilter = request.getParameter("teamFilter");
+		if ( strTeamFilter != null && !strTeamFilter.isEmpty() ) {
+			teamFilter = Integer.parseInt(strTeamFilter);
+		}
 		
 		System.out.println( "---------------------------------------------------  my_schedule_next : MM-YY(received) :" + fromMM_YY );
 		System.out.println( "---------------------------------------------------  my_schedule_next : pageNo :" + pageNo );
@@ -301,7 +307,8 @@ public class ScheduleController {
 		} else {
 			
 			//List<SchBean> sch_list = iScheduleService.getsch(selectBtnVal,cusNm,pageNo);
-			List<SchBean> sch_list = iScheduleService.getsch(strfromYYYYMMDD, strtoYYYYMMDD, pageNo);
+			//List<SchBean> sch_list = iScheduleService.getsch(strfromYYYYMMDD, strtoYYYYMMDD, pageNo);
+			List<SchBean> sch_list = iScheduleService.getTeamsch(strfromYYYYMMDD, strtoYYYYMMDD, pageNo, teamFilter);
 			List<CateBean> cat_list = iCateService.getcate();
 			List<DbmsBean> dbms_list = iDbmsService.getdbms();
 			List<CustomerNmBean> cus_list = iCustomerService.getcusNminfo2();
@@ -311,7 +318,8 @@ public class ScheduleController {
 			List<MemberBean> mem_list = iMemberService.getallmem();
 			
 			//LineBoardBean lbb = iScheduleService.getNCount(selectBtnVal,cusNm,pageNo);
-			LineBoardBean lbb = iScheduleService.getNCount(strfromYYYYMMDD, strtoYYYYMMDD, pageNo);
+			//LineBoardBean lbb = iScheduleService.getNCount(strfromYYYYMMDD, strtoYYYYMMDD, pageNo);
+			LineBoardBean lbb = iScheduleService.getTeamNCount(strfromYYYYMMDD, strtoYYYYMMDD, pageNo, teamFilter);
 			
 			modelAndView.addObject("startPage", lbb.getStartPage());
 			modelAndView.addObject("endPage", lbb.getEndPage());
@@ -331,6 +339,8 @@ public class ScheduleController {
 			modelAndView.addObject("year", year);
 			modelAndView.addObject("from_day", fromMM_YY);
 			modelAndView.addObject("to_day", toMM_YY);
+			
+			modelAndView.addObject("teamFilter", teamFilter);
 			
 			modelAndView.setViewName("schedule/team_schedule");
 		}

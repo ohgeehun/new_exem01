@@ -51,6 +51,9 @@
 							and s.start_time &lt;= #toYYYYMMDD#
 					</isNotEmpty>
 					
+					<isNotEmpty property="teamFilter">
+							and s.team_id = #teamFilter#
+					</isNotEmpty>
 					<!-- and s.start_time &gt;= '2018-02-22'  -->
 					<!-- and s.end_time &lt;= '2018-02-24'  -->
 					order by s.start_time 
@@ -80,6 +83,10 @@
 		</isNotEmpty>
 		<isNotEmpty property="toYYYYMMDD">
 				and s.start_time &lt;= #toYYYYMMDD#
+		</isNotEmpty>
+		
+		<isNotEmpty property="teamFilter">
+				and s.team_id = #teamFilter#
 		</isNotEmpty>
 	</select>
 	

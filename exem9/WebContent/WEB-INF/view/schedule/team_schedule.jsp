@@ -219,6 +219,20 @@ $(document).ready(function(){
     
 	$("#dept_select").val(userDept).change();
 	
+	$("input[name$='btnTeam']").click(function (){
+		//alert('clicked'); 
+		// ID : btnDept_${team.deptId}_Team_${team.teamId}
+		//		btnDept_2_Team_8
+		var teamId = $(this).attr('id');
+		//alert(teamId);
+		var index = teamId.lastIndexOf('_');
+		var len = teamId.length;
+		var Id = teamId.substring( index+1, len)
+		//alert('index: '+ index + ', len:' + len +  ', teamId: ' + teamId +  ', Id: ' + Id);
+		$("#teamFilter").val(Id); // 폼을 submit하기전에 teamFilter input값을 선택한 ID값으로 설정함
+		$("#form1").submit();
+	});
+	
 });
 
 </script>
@@ -407,7 +421,8 @@ function updateSchinfoCallBack(res){
 										<input type="button" name="btnTeam" value="${team.teamNm}" class="Btt_search btnSearch" id="btnDept_${team.deptId}_Team_${team.teamId}">		
 									</c:forEach>			
 								<!-- /select-->
-								
+									<!-- 선택된 버튼에 따라 form에 선택된 team id를 submit해야한다. -->
+									<input type="hidden" value="${teamFilter}" name="teamFilter" id="teamFilter">
 							</td>
 						</tr>
 						

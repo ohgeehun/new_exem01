@@ -26,4 +26,8 @@ public interface IScheduleService {
 	
 	/*금주 계산 유틸리티 */
 	public String getThisWeek();
+
+	List<SchBean> getTeamsch(String strfromYYYYMMDD, String strtoYYYYMMDD, int pageNo, int teamFilter) throws Throwable;
+	
+	public LineBoardBean getTeamNCount(String fromYYYYMMDD, String toYYYYMMDD, int nowPage, int teamFilter) throws Throwable;
 }
