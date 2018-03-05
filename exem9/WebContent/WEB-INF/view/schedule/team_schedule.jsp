@@ -31,9 +31,10 @@ var year = "${year}";
 var from_day = "${from_day}";
 var to_day = "${to_day}";
 
-console.log(year);
-console.log(from_day);
-console.log(to_day);
+//console.log(year);
+//console.log(from_day);
+//console.log(to_day);
+console.log(userDept);
 
 var temp = [];
 $(document).ready(function(){
@@ -199,6 +200,7 @@ $(document).ready(function(){
 </script>
 
 <script>
+/*
 // 이번주 월요일 날짜 구하기
 var currentDay = new Date();  
 var theYear = currentDay.getFullYear();
@@ -230,6 +232,7 @@ dd2 = String(dd2).length === 1 ? '0' + dd2 : dd2;
 thistoSunday = yyyy2 + '-' + mm2 + '-' + dd2;
 
 //console.log(thisMonday);
+*/
 
 // 이전주와 다음주 계산하는 함수
 function calWeek(yyyymmdd, isPrev ){
@@ -305,6 +308,11 @@ function updateSchinfoCallBack(res){
     color: #4CAF50;
     font-size: 20px;
 )
+
+.fltBox1 {
+	width: 185px;
+}
+
 </style>
 
 </head>
@@ -369,6 +377,41 @@ function updateSchinfoCallBack(res){
 			<div id="schedule_list">		
 		 		<table id="sch_list">	
 					<thead id="sch_list_th">
+					
+						<tr>
+							<td colspan="9"  class="left_align">
+						 			<!-- select id="dept_select" name="selectDeptId" class="main_input_box_2 nInputFont fltBox1">
+						 					<option value="0" selected>전체</option>
+											<option value="1">로그인ID</option>						
+											<option value="2">이름</option>
+											<option value="3">부서</option>
+											<option value="4">팀</option>
+									</select-->
+									
+									<select class="main_input_box_2 fltBox1 nInputFont" id="dept_select">
+											<option value="0" selected>부서 선택</option>
+										<c:forEach var="dept" items="${dept_list}">										
+											<option value="${dept.deptId}">${dept.deptNm}</option>	
+										</c:forEach>			
+									</select>
+						 	
+							 	    <!-- input type="button" id="select_btn" value="검색" class="Btt_search btnSearch"-->
+							 	    
+							 	    <!-- select class="main_input_box_2 fltBox1 nInputFont" id="team_buttons"-->
+									<!-- c:if test="${mem.userTeam == ''}">
+										<option value="0" selected>지정필요.</option-->
+									<!--/c:if-->
+									<c:forEach var="team" items="${team_list}">
+										<c:if test="${team.deptId  == 2 }">										
+												<!-- option value="${team.teamId}">${team.teamNm}</option-->
+												<input type="button" value="${team.teamNm}" class="Btt_search btnSearch" id="btnTeam_${team.teamId}">	
+										</c:if>		
+									</c:forEach>			
+								<!-- /select-->
+								
+							</td>
+						</tr>
+						
 						<tr>
 							<td>
 								<ul>

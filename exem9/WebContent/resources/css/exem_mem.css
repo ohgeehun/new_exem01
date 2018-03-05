@@ -678,6 +678,10 @@ A:hover  { color:#000;text-decoration:none;}
 	color:#fff;
 }
 
+.Btt_search:hover {
+	background:#3d4448;
+}
+
 .input_search {
 	font-family: 'NanumGothic', sans-serif;
 	font-weight: 600;
