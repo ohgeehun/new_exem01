@@ -486,7 +486,7 @@ function updateSchinfoCallBack(res){
 					
 					<tfoot id="sch_list_tf"> 
 						<tr>
-							<td colspan="8" class="center_align">
+							<td colspan="9" class="center_align">
 								<div>
 									<c:if test="${nowPage > 1}">
 											<a href="#" id="backVal" class="nTitleFont">이전</a>
@@ -508,7 +508,7 @@ function updateSchinfoCallBack(res){
 							</td>
 						</tr>
 						<tr>
-							<td colspan="8" class="center_align">
+							<td colspan="9" class="center_align">
 								<div>
 							  		<input type="button" id="edit_update_btn" value="수정" class="inBtt_OK_2">
 							  	</div>
