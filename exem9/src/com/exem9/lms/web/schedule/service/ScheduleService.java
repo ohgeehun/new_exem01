@@ -1,5 +1,8 @@
 package com.exem9.lms.web.schedule.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -32,6 +35,9 @@ public class ScheduleService implements IScheduleService{
 		
 		java.sql.Timestamp fromYYYYMMDD=null;
 		java.sql.Timestamp toYYYYMMDD=null;
+		
+		System.out.println( "---------------------------------------------------   : strFromYYYYMMDD : " +  strfromYYYYMMDD);
+		System.out.println( "---------------------------------------------------   : strtoYYYYMMDD : " +  strtoYYYYMMDD);
 		
 		try {
 			  // String 타입을 java.util.Date 로 변환한다.
@@ -176,5 +182,23 @@ public class ScheduleService implements IScheduleService{
 		//System.out.println("start_time : " + start_time);
 		
 		return iSchDao.updateSchinfo(params);
+	}
+	
+	@Override
+	public String getThisWeek(){
+
+		// 월요일
+		SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy-MM-dd");
+ 		Calendar c = Calendar.getInstance();
+ 		c.set(Calendar.DAY_OF_WEEK,Calendar.MONDAY);
+ 		String strFromYYYYMMDD = formatter.format(c.getTime());
+// 		System.out.println("=========================================================== : MONDAY : " + strFromYYYYMMDD);
+ 		
+ 		c.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+ 		c.add(Calendar.DATE,7);
+ 		String strToYYYYMMDD = formatter.format(c.getTime());
+// 		System.out.println("=========================================================== : SUNDAY : " + strToYYYYMMDD);
+		
+		return strFromYYYYMMDD + strToYYYYMMDD;  // "yyyy-MM-ddyyyy-MM-dd"
 	}
 }

@@ -102,21 +102,21 @@ $(document).ready(function(){
 	//alert('1st|'+year+'|');
 	// 이번주 날짜 셋팅하기
 	//$('#week-label-year').text(yyyy);
-	if ( year == null || year == '' || year == 'null') { 
-		$('#week-label-year').val(yyyy);
-	} else {
+	//if ( year == null || year == '' || year == 'null') { 
+		//$('#week-label-year').val(yyyy);
+	//} else {
 		$('#week-label-year').val(year);	
-	}
-	if ( from_day == null || from_day == '' || from_day == 'null') {
-		$('#week-label-from-day').val(mm + '-' + dd);
-	} else {
+	//}
+	//if ( from_day == null || from_day == '' || from_day == 'null') {
+	//	$('#week-label-from-day').val(mm + '-' + dd);
+	//} else {
 		$('#week-label-from-day').val(from_day);	
-	}
-	if ( to_day == null || to_day == '' || to_day == 'null') {
-		$('#week-label-to-day').val(mm2 + '-' + dd2 );
-	} else {
+	//}
+	//if ( to_day == null || to_day == '' || to_day == 'null') {
+		//$('#week-label-to-day').val(mm2 + '-' + dd2 );
+	//} else {
 		$('#week-label-to-day').val(to_day);	
-	}
+	//}
 	
 	//alert($('#week-label-year').val() + '|' + $('#week-label-from-day').val() + '|' + $('#week-label-to-day').val());
 	

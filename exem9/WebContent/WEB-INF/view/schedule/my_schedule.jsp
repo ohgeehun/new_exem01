@@ -99,26 +99,29 @@ $(document).ready(function(){
 		}
 	});
 	
+	
 	//alert('1st|'+year+'|');
 	// 이번주 날짜 셋팅하기
 	//$('#week-label-year').text(yyyy);
-	if ( year == null || year == '' || year == 'null') { 
-		$('#week-label-year').val(yyyy);
-	} else {
+	
+	//if ( year == null || year == '' || year == 'null') { 
+	//	$('#week-label-year').val(yyyy);
+	//} else {
 		$('#week-label-year').val(year);	
-	}
-	if ( from_day == null || from_day == '' || from_day == 'null') {
-		$('#week-label-from-day').val(mm + '-' + dd);
-	} else {
+	//}
+	//if ( from_day == null || from_day == '' || from_day == 'null') {
+	//	$('#week-label-from-day').val(mm + '-' + dd);
+	//} else {
 		$('#week-label-from-day').val(from_day);	
-	}
-	if ( to_day == null || to_day == '' || to_day == 'null') {
-		$('#week-label-to-day').val(mm2 + '-' + dd2 );
-	} else {
+	//}
+	//if ( to_day == null || to_day == '' || to_day == 'null') {
+	//	$('#week-label-to-day').val(mm2 + '-' + dd2 );
+	//} else {
 		$('#week-label-to-day').val(to_day);	
-	}
+	//}
 	
 	//alert($('#week-label-year').val() + '|' + $('#week-label-from-day').val() + '|' + $('#week-label-to-day').val());
+	
 	
 	// 이전주, 다음주 클릭시 이벤트 처리
 	$("#prevWeek").bind("click", function(){	
@@ -199,6 +202,7 @@ $(document).ready(function(){
 </script>
 
 <script>
+/*
 // 이번주 월요일 날짜 구하기
 var currentDay = new Date();  
 var theYear = currentDay.getFullYear();
@@ -228,8 +232,8 @@ mm2 = String(mm2).length === 1 ? '0' + mm2 : mm2;
 dd2 = String(dd2).length === 1 ? '0' + dd2 : dd2;
 
 thistoSunday = yyyy2 + '-' + mm2 + '-' + dd2;
-
 //console.log(thisMonday);
+*/
 
 // 이전주와 다음주 계산하는 함수
 function calWeek(yyyymmdd, isPrev ){

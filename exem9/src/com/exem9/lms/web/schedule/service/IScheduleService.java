@@ -23,4 +23,7 @@ public interface IScheduleService {
 								String dbms_id,String category_id,
 								String start_time, String end_time,
 								String contents, String chkId) throws Throwable ;
+	
+	/*금주 계산 유틸리티 */
+	public String getThisWeek();
 }
