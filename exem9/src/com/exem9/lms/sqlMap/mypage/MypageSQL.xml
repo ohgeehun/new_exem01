@@ -12,11 +12,15 @@
 			   
 	<select id="getUserinfo" parameterClass="String" resultClass="MypageBean">
 	SELECT  user_id as userId, user_name AS userNm, user_password AS userPw,
+		xt.team_id as userTeamId,
 		xt.team_name as userTeam,    
 		user_flag as userFlag,    
+		xd.dbms_id  as userDbmsId,
 		xd.dbms_name  as userDbms,    
 		user_level as userLevel,    
+		xdt.department_id as userDeptId,
 		xdt.department_name as userDept,    
+		xp.position_Id as userPosiId,
 		xp.position_name as userPosi,    
 		user_phone as userPhone,    
 		user_mail as userMail,    user_hint as userHint,    
@@ -89,5 +93,19 @@
 	SELECT USER_PASSWORD 
 	FROM XM_MEMBER
 	WHERE USER_ID = #userId#	                 
-	</select> 
+	</select>
+	
+	<!-- 사용자 정보 변경 -->
+	<update id="updateUserInfo2" parameterClass="java.util.HashMap">
+	UPDATE XM_MEMBER SET 
+						user_name = #user_name#,
+						<!-- user_password = #user_password#,-->
+						user_team_id = #user_team_id#,
+						user_dbms_id = #user_dbms_id#,
+						user_position_id = #user_position_id#,
+						user_phone = #user_phone#,
+						user_mail = #user_mail#,
+						user_point = #user_point#
+    WHERE USER_ID = #user_id#		                 
+	</update> 
 </sqlMap>

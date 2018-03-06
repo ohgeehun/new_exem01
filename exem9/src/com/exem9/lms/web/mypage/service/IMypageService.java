@@ -19,4 +19,8 @@ public interface IMypageService {
 	
 	public String updateUserPw(String userOldPw,String userNewPw)throws Throwable;
 	
+	// 개인정보 수정
+	public String updateUserInfo2(String user_id, String user_name, String user_password, 
+			int user_department_id, int user_team_id, int user_dbms_id, int user_position_id, 
+			String user_phone, String user_mail, int user_point) throws Throwable;
 }

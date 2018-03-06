@@ -7,13 +7,17 @@ public class MypageBean {
 	private String userId;
 	private String userNm;
 	private String userPw;
+	private String userTeamId;
 	private String userTeam;
 	private String userFlag;
+	private String userDbmsId;
 	private String userDbms;
 	private String userLevel;
+	private String userDeptId;
 	private String userDept;
 	private String userPhone;
 	private String userMail;
+	private String userPosiId;
 	private String userPosi;
 	private String userHint;
 	private int userPoint;
@@ -98,4 +102,28 @@ public class MypageBean {
 		this.userHint = userHint;
 	}
 	
+	public String getUserTeamId() {
+		return userTeamId;
+	}
+	public void setUserTeamId(String userTeamId) {
+		this.userTeamId = userTeamId;
+	}
+	public String getUserDbmsId() {
+		return userDbmsId;
+	}
+	public void setUserDbmsId(String userDbmsId) {
+		this.userDbmsId = userDbmsId;
+	}
+	public String getUserPosiId() {
+		return userPosiId;
+	}
+	public void setUserPosiId(String userPosiId) {
+		this.userPosiId = userPosiId;
+	}
+	public String getUserDeptId() {
+		return userDeptId;
+	}
+	public void setUserDeptId(String userDeptId) {
+		this.userDeptId = userDeptId;
+	}
 }

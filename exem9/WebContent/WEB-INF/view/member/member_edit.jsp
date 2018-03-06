@@ -392,7 +392,7 @@ function deleteMeminfoCallBack(res){
 								</ul>
 							</td>						
 							<td>
-								<input type="text" class="main_input_box_2 box2_02 nInputFont" value="${mem.userId}" id="userId_${mem.userId}">
+								<input type="text" class="main_input_box_2 box2_02 nInputFont" value="${mem.userId}" id="userId_${mem.userId}" readonly>
 							</td>
 							<td>
 								<input type="text" class="main_input_box_2 box2_03 nInputFont" value="${mem.userNm}" id="userNm_${mem.userId}">						

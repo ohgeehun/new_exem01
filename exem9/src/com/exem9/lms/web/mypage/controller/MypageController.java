@@ -57,10 +57,9 @@ public class MypageController {
 							   HttpServletResponse response,
 							   ModelAndView modelAndView) throws Throwable{
 		
-		request.setCharacterEncoding("UTF-8");
-		String myId = request.getParameter("myId");
-
 		HttpSession session=request.getSession();
+		request.setCharacterEncoding("UTF-8");
+		String myId = (String) session.getAttribute("sUserId");
 		
 		if(session.getAttribute("sUserId")==null) {
 			/*modelAndView.setViewName("redirect:Login");*/
@@ -73,7 +72,9 @@ public class MypageController {
 			List<PosiBean> posi_list = iPosiService.getposi();
 			List<DbmsBean> dbms_list = iDbmsService.getdbms();
 			
-			modelAndView.addObject("mypage_info", mypage_info);
+			//System.out.println("================================================= MypageBean : " + mypage_info.get(0) );
+			
+			modelAndView.addObject("mypage_info", mypage_info.get(0) );
 			modelAndView.addObject("dept_list", dept_list);
 			modelAndView.addObject("team_list", team_list);
 			modelAndView.addObject("posi_list", posi_list);

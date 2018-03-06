@@ -44,9 +44,31 @@ th, td {
 	var userPosi = "<%=(String)session.getAttribute("sUserPosi")%>"; 
 	var userDept = "<%=(String)session.getAttribute("sUserDept")%>";
 
-	$(document).ready(function(){		
-	    
-		IMypageService.getUserinfo(userId, userInfoCallBack);		
+	$(document).ready(function(){	
+		
+		//alert(userId + userDbms + userPosi + userDept);
+
+	$("#edit_update_btn").bind("click", function(){		
+			
+		IMypageService.updateUserInfo2(  
+				$("#user_id").val(),
+				$("#user_name").val(),
+				$("#user_password").val(),
+				$("#user_department_id").val(),
+				$("#user_team_id").val(),
+				$("#user_dbms_id").val(),
+				$("#user_position_id").val(),
+                $("#user_phone").val(),
+                $("#user_mail").val(),
+                $("#user_point").val(), UIupdateCallBack);
+		
+		});
+		
+		
+		
+		
+		
+		//IMypageService.getUserinfo(userId, userInfoCallBack);		
 		
 		$("#UIedit").bind("click", function(){ //개인정보 변경 버튼 클릭
 			
@@ -64,7 +86,6 @@ th, td {
 			text += "<tr><td>새비밀번호확인</td><td><input type='text' id='userNewPwR'/></td></tr>";
 					 
 			$("#mypageview").html(text);		
-
 		});	
 		
 		$("#UIeditBtn").bind("click", function(){		
@@ -99,6 +120,7 @@ th, td {
 				}
 			}			 
 		});		
+		
 	});
 	
 	function userInfoCallBack(res){	//마이페이지 기본 화면		
@@ -159,7 +181,6 @@ th, td {
 		$("#userPosi").append(text);
 	}
 	
-	
 	function UIupdateCallBack(res){ //개인/비밀번호 정보 변경 성공 여부
 		if(res == "FAILED"){
 			alert("실패");
@@ -197,12 +218,11 @@ th, td {
 
 <c:import url="/main_upview"></c:import>
 
-		<div class="top_SubMenuPart">
+		<!-- >div class="top_SubMenuPart">
 			<div class="top_MenuBase">
-				<a href="#" class="top_SubMenu01_m" id="mem_managed">사용자 관리</a>
-				<a href="#" class="top_SubMenu02_m" id="mem_insert">사용자 등록</a>
+				
 			</div>
-		</div>
+		</div-->
 		
 	<div class="row">
 			<div class="top_mainDisplayPart">
@@ -223,48 +243,84 @@ th, td {
 					<li class="input_title input_10 inputTxtFont">포인트</li>
 				  </ul>	
 				  
-				  
-					<input id="user_id" type="text" class="input_txt input_01 inputTxtFont">
-					<input id="user_name" type="text" class="input_txt input_02 inputTxtFont">
-					<input id="user_password" type="text" class="input_txt input_03 inputTxtFont">
+					<input id="user_id" type="text" class="input_txt input_01 inputTxtFont" value="${mypage_info.userId}" disabled>
+					<input id="user_name" type="text" class="input_txt input_02 inputTxtFont" value="${mypage_info.userNm}">
+					<input id="user_password" type="text" class="input_txt input_03 inputTxtFont" value="" placeholder="********">
 					
 					<!-- input type="text" name="customer" class="input_txt input_01 inputTxtFont"-->
 					<select id='user_department_id' class="input_txt input_04 inputTxtFont">
-								<option value="0" selected>지정하지않음.</option>
-							    <c:forEach var="dept" items="${dept_list}">
-				 	    			<option value="${dept.deptId}">${dept.deptNm}</option>		 	    	
-				 	    		</c:forEach>	
+		 	    			<c:if test="${mypage_info.userDeptId == ''}">
+								<option value="0" selected>지정필요.</option>
+							</c:if>
+							<c:forEach var="dept" items="${dept_list}">										
+										<c:choose>
+											<c:when test="${dept.deptId == mypage_info.userDeptId}">
+												<option value="${dept.deptId}" selected>${dept.deptNm}</option>
+											</c:when>
+											<c:otherwise>
+												<option value="${dept.deptId}">${dept.deptNm}</option>	
+											</c:otherwise>
+										</c:choose>		
+							</c:forEach>	
 					</select>
 					<!-- input type="text" name="project" class="input_txt input_02 inputTxtFont"-->
 					<select id='user_team_id' class="input_txt input_05 inputTxtFont">
-								<option value="0" selected>지정하지않음.</option>
+							<c:if test="${mypage_info.userTeamId == ''}">
+								<option value="0" selected>지정필요.</option>
+							</c:if>
 							    <c:forEach var="team" items="${team_list}">
-				 	    			<option value="${team.teamId}">${team.teamNm}</option>		 	    	
+							    	<c:choose>
+							    		<c:when test="${team.teamId == mypage_info.userTeamId }">
+							    			<option value="${team.teamId}" selected>${team.teamNm}</option>	
+							    		</c:when>
+							    		<c:otherwise>
+							    			<option value="${team.teamId}">${team.teamNm}</option>
+							    		</c:otherwise>
+							    	</c:choose>
 				 	    		</c:forEach>	
 					</select>
 					<!-- input type="text" name="product" class="input_txt input_03 inputTxtFont"-->
 					<select id='user_dbms_id' class="input_txt input_06 inputTxtFont">
-								<option value="0" selected>지정하지않음.</option>
+		
+				 	    	<c:if test="${mypage_info.userDbmsId == ''}">
+								<option value="0" selected>지정필요.</option>
+							</c:if>
 							    <c:forEach var="dbms" items="${dbms_list}">
-				 	    			<option value="${dbms.dbmsId}">${dbms.dbmsNm}</option>		 	    	
+							    	<c:choose>
+							    		<c:when test="${dbms.dbmsId == mypage_info.userDbmsId }">
+							    			<option value="${dbms.dbmsId}" selected>${dbms.dbmsNm}</option>	
+							    		</c:when>
+							    		<c:otherwise>
+							    			<option value="${dbms.dbmsId}">${dbms.dbmsNm}</option>
+							    		</c:otherwise>
+							    	</c:choose>
 				 	    		</c:forEach>	
 					</select>
 					<!-- input type="text" name="support" class="input_txt input_04 inputTxtFont"-->
 					<select id='user_position_id' class="input_txt input_07 inputTxtFont">
-								<option value="0" selected>지정하지않음.</option>
+				 	    	<c:if test="${mypage_info.userPosiId == ''}">
+								<option value="0" selected>지정필요.</option>
+							</c:if>
 							    <c:forEach var="posi" items="${posi_list}">
-				 	    			<option value="${posi.posiId}">${posi.posiNm}</option>		 	    	
+							    	<c:choose>
+							    		<c:when test="${posi.posiId == mypage_info.userPosiId }">
+							    			<option value="${posi.posiId}" selected>${posi.posiNm}</option>	
+							    		</c:when>
+							    		<c:otherwise>
+							    			<option value="${posi.posiId}">${posi.posiNm}</option>
+							    		</c:otherwise>
+							    	</c:choose>
 				 	    		</c:forEach>	
 					</select>
 					
-					<input id="user_phone" type="text" class="input_txt input_08 inputTxtFont">
-					<input id="user_mail" type="text" class="input_txt input_09 inputTxtFont">
-					<input id="user_point" type="text" class="input_txt input_10 inputTxtFont">
+					<input id="user_phone" type="text" class="input_txt input_08 inputTxtFont" value="${mypage_info.userPhone}">
+					<input id="user_mail" type="text" class="input_txt input_09 inputTxtFont" value="${mypage_info.userMail}">
+					<input id="user_point" type="text" class="input_txt input_10 inputTxtFont" value="${mypage_info.userPoint}">
 					<!-- input type="submit" name="OK" class="input_submit inBtt_OK" value="일정등록하기"-->
 					<!-- input type="button" id="edit_update_btn" name="OK" class="miBtt_submit" value="등록"></input-->
 							
 					<input type="password" placeholder="등록 비밀번호 입력." required class="reg_pass input_11 inputTxtFont"> &nbsp;&nbsp;
-					<input type="button" id="edit_update_btn" name="OK" class="miBtt_submit_top miBtt_submit" value="등록">
+					<input type="button" id="edit_update_btn" name="OK" class="miBtt_submit_top miBtt_submit" value="수정">
 				</div>
 			</div>
 			

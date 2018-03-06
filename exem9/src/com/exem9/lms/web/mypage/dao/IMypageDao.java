@@ -19,6 +19,8 @@ public interface IMypageDao {
 
 	public String updateUserPw(HashMap params) throws Throwable;
 
-	public String updateUserPwInfo(HashMap params) throws Throwable;;
+	public String updateUserPwInfo(HashMap params) throws Throwable;
+
+	public String updateUserInfo2(HashMap params) throws Throwable;
 
 }

@@ -98,4 +98,60 @@ public class MypageService implements IMypageService{
 			return "PW_FAILED";
 		}		
 	}
+	
+	public String updateUserInfo2(String user_id, String user_name, String user_password, 
+			int user_department_id, int user_team_id, int user_dbms_id, int user_position_id, 
+			String user_phone, String user_mail, int user_point) throws Throwable{
+				
+		WebContext wctx = WebContextFactory.get();
+		HttpServletRequest request = wctx.getHttpServletRequest();
+		HttpSession session = request.getSession();
+		
+		String user_id2 = (String)session.getAttribute("sUserId");
+		
+		HashMap params = new HashMap();
+		
+		params.put("user_id", user_id2 );
+		params.put("user_name", user_name );
+		params.put("user_password", user_password);
+		params.put("user_department_id", user_department_id );
+		params.put("user_team_id", user_team_id );
+		params.put("user_dbms_id", user_dbms_id);
+		params.put("user_position_id", user_position_id);
+		params.put("user_phone", user_phone);
+		params.put("user_mail", user_mail);
+		params.put("user_point", user_point);
+		
+		System.out.println( user_id2 + user_name+ 
+				user_department_id + user_department_id);
+		
+		String result = iMypageDao.updateUserInfo2(params);
+	
+		if (result == "SUCCESS"){
+			session.removeAttribute("sUserDbms");
+			session.removeAttribute("sUserPosi");
+			session.removeAttribute("sUserDept");
+			
+			try {
+				session.setAttribute("sUserDbms", String.valueOf(user_dbms_id) );
+				session.setAttribute("sUserPosi", String.valueOf(user_position_id) );
+				session.setAttribute("sUserDept", String.valueOf(user_department_id) );
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("부서id, 직급id, 업무id String 변환 실패");
+			}
+			
+//			System.out.println(  (String)session.getAttribute("sUserId")    );
+//			System.out.println(  (String)session.getAttribute("sUserPosi")  );
+//			System.out.println(  (String)session.getAttribute("sUserDept")  );
+//			System.out.println(  (String)session.getAttribute("sUserDbms")  );
+//			
+//			System.out.println(  user_position_id  );
+//			System.out.println(  user_department_id  );
+//			System.out.println(  user_dbms_id  );
+			
+		}
+		return result;
+		
+	}
 }

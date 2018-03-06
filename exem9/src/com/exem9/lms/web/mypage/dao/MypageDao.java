@@ -54,4 +54,13 @@ public class MypageDao implements IMypageDao{
 	}
 
 	
+	// 개인정보 변경
+	public String updateUserInfo2(HashMap params) throws Throwable {
+		String result = "FAILED";
+		
+		if(sqlMapClient.update("mypage.updateUserInfo2", params) > 0){
+			result = "SUCCESS";
+		}
+		return result;
+	}
 }
