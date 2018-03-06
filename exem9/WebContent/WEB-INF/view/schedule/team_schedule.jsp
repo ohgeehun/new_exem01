@@ -104,6 +104,28 @@ $(document).ready(function(){
 		}
 	});
 	
+	$("#edit_delete_btn").bind("click", function(){	
+		if ( $('#form1 input[type=checkbox]:checked').length == 0  ) {
+			alert("삭제할 행을 선택하세요.");
+		} else{
+			if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+				
+		   	    $('#checkbox_id:checked').each(function() {   	    
+	   	    	    var chkId = $(this).val();
+
+	   	         	IScheduleService.deleteSchinfo(
+	  					chkId,
+						deleteSchinfoCallBack
+					)
+		   	    });
+			
+			}else{   //취소
+			    return;
+			}
+
+		}
+	});
+	
 	//alert('1st|'+year+'|');
 	// 이번주 날짜 셋팅하기
 	//$('#week-label-year').text(yyyy);
@@ -326,6 +348,16 @@ function calWeek(yyyymmdd, isPrev ){
 }
 
 function updateSchinfoCallBack(res){
+	if(res == "FAILED"){
+		alert("실패");
+		location.href = "team_schedule";
+	}else if(res == "SUCCESS"){
+		alert("성공");
+		location.href = "team_schedule";
+	}
+}
+
+function deleteSchinfoCallBack(res){
 	if(res == "FAILED"){
 		alert("실패");
 		location.href = "team_schedule";
@@ -597,6 +629,7 @@ function updateSchinfoCallBack(res){
 							<td colspan="10" class="center_align">
 								<div>
 							  		<input type="button" id="edit_update_btn" value="수정" class="inBtt_OK_2">
+							  		<input type="button" id="edit_delete_btn" value="삭제" class="inBtt_OK_2">
 							  	</div>
 							</td>
 						</tr>				

@@ -309,4 +309,17 @@ public class ScheduleService implements IScheduleService{
 		return lbb;
 	}
 	
+	@Override
+	public String deleteSchinfo(String chkId) throws Throwable {
+
+		HashMap params = new HashMap();
+
+		params.put("chkId", Integer.parseInt(chkId) );
+		
+		//System.out.println("############################################ ");
+		//System.out.println("start_time : " + start_time);
+		
+		return iSchDao.deleteSchinfo(params);
+	}
+	
 }

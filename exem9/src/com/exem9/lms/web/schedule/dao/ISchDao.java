@@ -15,4 +15,6 @@ public interface ISchDao {
 	public int getNCount(HashMap params) throws Throwable;
 	
 	public String updateSchinfo(HashMap params) throws Throwable;
+	
+	public String deleteSchinfo(HashMap params) throws Throwable;
 }

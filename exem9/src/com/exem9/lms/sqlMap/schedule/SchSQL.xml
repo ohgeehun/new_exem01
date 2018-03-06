@@ -149,5 +149,11 @@
             to_timestamp(#end_time#, 'YYYY-MM-DD HH24:MI:22'), 
             #contents#)
             where support_history_id = #chkId#
+	 </update>
+	 
+	<!-- 내 일정 삭제 -->
+	<update id="deleteSchinfo" parameterClass="java.util.HashMap">        
+		delete from xm_support_history 
+		where support_history_id = #chkId# 
 	 </update> 
 </sqlMap>

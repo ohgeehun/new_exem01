@@ -29,4 +29,6 @@ public interface IMemberDao {
 	public String insertMeminfo(HashMap params)throws Throwable ;
 
 	public String updateMeminfo(HashMap params) throws Throwable;
+
+	public String deleteMeminfo(HashMap params) throws Throwable;
 }

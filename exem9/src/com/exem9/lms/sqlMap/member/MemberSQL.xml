@@ -242,4 +242,10 @@
 		where 1=1
 	</select>
 	
+	<!-- 사용자 삭제 -->
+	<update id="deleteMeminfo" parameterClass="java.util.HashMap">
+	 DELETE from XM_MEMBER 
+	 WHERE user_id = #chkId#  
+	 </update> 
+	
 </sqlMap>

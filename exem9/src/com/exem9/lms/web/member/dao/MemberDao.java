@@ -77,4 +77,14 @@ public class MemberDao implements IMemberDao{
 		}
 		return result;
 	}
+	
+	/*사용자 정보 삭제 처리*/
+	public String deleteMeminfo(HashMap params) throws Throwable {
+		String result = "FAILED";
+		
+		if(sqlMapClient.update("member.deleteMeminfo", params) > 0){
+			result = "SUCCESS";
+		}
+		return result;
+	}
 }

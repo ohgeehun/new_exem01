@@ -47,4 +47,14 @@ public class SchDao implements ISchDao{
 		return result;
 	}
 	
+	@Override
+	public String deleteSchinfo(HashMap params) throws Throwable {
+		String result = "FAILED";
+		
+		if(sqlMapClient.update("sch.deleteSchinfo", params) > 0){
+			result = "SUCCESS";
+		}
+		return result;
+	}
+	
 }

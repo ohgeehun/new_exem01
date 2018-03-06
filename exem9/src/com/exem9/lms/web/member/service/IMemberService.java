@@ -34,4 +34,7 @@ public interface IMemberService {
 								String user_team_id,String user_dbms_id,
 								String user_department_id, String user_phone,String user_mail, String user_position_id,
 								String user_point, String chkId) throws Throwable ;
+	
+	/*사용자 수정 updateMemInfo 이벤트*/
+	public String deleteMeminfo(String chkId) throws Throwable ;
 }

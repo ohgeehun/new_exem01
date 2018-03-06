@@ -168,4 +168,13 @@ public class MemberService implements IMemberService{
 		
 		return iMemberDao.updateMeminfo(params);
 	}
+	
+	public String deleteMeminfo(String chkId) throws Throwable {
+		
+		HashMap params = new HashMap();
+		params.put("chkId",chkId);
+		
+		return iMemberDao.deleteMeminfo(params);
+	}
+	
 }

@@ -69,6 +69,31 @@ $(document).ready(function(){
 		}
 	});
 
+	$("#edit_delete_btn").bind("click", function(){	
+		if ( $('#form1 input[type=checkbox]:checked').length == 0  ) {
+			alert("삭제할 행을 선택하세요.");
+		} else{
+			
+	   	    $('#checkbox_id:checked').each(function() {   	    
+   	    	    var chkId = $(this).val();
+
+	   	    	 if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+	 				
+	 		   	    $('#checkbox_id:checked').each(function() {   	    
+	 	   	    	    var chkId = $(this).val();
+	
+		 	   	    		IMemberService.deleteMeminfo( 
+		   	         			chkId, 
+		   	         			deleteMeminfoCallBack );
+	 		   	    });
+	 			
+	 			}else{   //취소
+	 			    return;
+	 			}
+   	         	
+	   	    });	
+		}
+	});
 
 	/* 사용자관리 좌측 버튼 이벤트  : 사용자 관리 버튼 클릭 시 */
     $("#mem_managed").bind("click", function(){	
@@ -208,6 +233,17 @@ function updateMeminfoCallBack(res){
 		location.href = "member_edit";
 	}
 }
+
+function deleteMeminfoCallBack(res){
+	if(res == "FAILED"){
+		alert("실패");
+		location.href = "member_edit";
+	}else if(res == "SUCCESS"){
+		alert("성공");
+		location.href = "member_edit";
+	}
+}
+
 </script>
 
 <style>
@@ -470,7 +506,8 @@ function updateMeminfoCallBack(res){
 					<tr>
 						<td colspan="10"  class="center_align">
 							<div>
-						  		<input type="button" id="edit_update_btn" value="수정" class="inBtt_OK_2"/>
+						  		<input type="button" id="edit_update_btn" value="수정" class="inBtt_OK_2">
+						  		<input type="button" id="edit_delete_btn" value="삭제" class="inBtt_OK_2">
 						  	</div>
 						</td>
 					</tr>

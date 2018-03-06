@@ -30,4 +30,7 @@ public interface IScheduleService {
 	List<SchBean> getTeamsch(String strfromYYYYMMDD, String strtoYYYYMMDD, int pageNo, int teamFilter) throws Throwable;
 	
 	public LineBoardBean getTeamNCount(String fromYYYYMMDD, String toYYYYMMDD, int nowPage, int teamFilter) throws Throwable;
+	
+	/*내 일정 삭제 */
+	public String deleteSchinfo(String chkId) throws Throwable ;
 }
