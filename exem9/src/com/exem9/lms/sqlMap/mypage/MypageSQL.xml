@@ -99,7 +99,7 @@
 	<update id="updateUserInfo2" parameterClass="java.util.HashMap">
 	UPDATE XM_MEMBER SET 
 						user_name = #user_name#,
-						<!-- user_password = #user_password#,-->
+						user_password = #user_password#,
 						user_team_id = #user_team_id#,
 						user_dbms_id = #user_dbms_id#,
 						user_position_id = #user_position_id#,

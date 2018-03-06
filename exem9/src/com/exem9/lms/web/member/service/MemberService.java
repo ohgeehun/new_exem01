@@ -123,11 +123,15 @@ public class MemberService implements IMemberService{
 		HttpServletRequest request = wctx.getHttpServletRequest();
 		HttpSession session = request.getSession();	
 		
+		String hashed = BCrypt.hashpw(user_password, BCrypt.gensalt(11));
+		//System.out.println("++++++++++++++++++++++++++++++++++++++++++++++ user_password : " + user_password);
+		//System.out.println("++++++++++++++++++++++++++++++++++++++++++++++ pwd : " + hashed);
+		
 		HashMap params = new HashMap();
 
 		params.put("user_id",user_id.toUpperCase());
 		params.put("user_name",user_name);
-		params.put("user_password",user_password);
+		params.put("user_password",hashed);
 		params.put("user_team_id",Integer.parseInt(user_team_id));
 		params.put("user_dbms_id",Integer.parseInt(user_dbms_id));		
 		params.put("user_department_id",Integer.parseInt(user_department_id));
@@ -135,7 +139,6 @@ public class MemberService implements IMemberService{
 		params.put("user_mail",user_mail);
 		params.put("user_position_id",Integer.parseInt(user_position_id));
 		params.put("usr_point",0);
-		
 
 		return iMemberDao.insertMeminfo(params);
 	}
@@ -151,7 +154,8 @@ public class MemberService implements IMemberService{
 		
 		HashMap params = new HashMap();
 
-		params.put("user_id",user_id.toUpperCase());
+//		params.put("user_id",user_id.toUpperCase());
+		params.put("user_id",user_id);
 		params.put("user_name",user_name);
 		params.put("user_password",user_password);
 		params.put("user_team_id",Integer.parseInt(user_team_id));

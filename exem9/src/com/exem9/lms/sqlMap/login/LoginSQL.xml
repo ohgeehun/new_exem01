@@ -54,7 +54,7 @@
 			user_password,
 			user_name
    	FROM XM_MEMBER xm
-	WHERE user_id = #userId# 
+	WHERE UPPER(user_id) = UPPER(#userId#)
 		<!-- AND user_password = #userPw#  -->
 	</select>
 	

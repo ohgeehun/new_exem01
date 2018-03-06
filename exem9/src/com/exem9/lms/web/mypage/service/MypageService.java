@@ -108,12 +108,15 @@ public class MypageService implements IMypageService{
 		HttpSession session = request.getSession();
 		
 		String user_id2 = (String)session.getAttribute("sUserId");
+		String hashed = BCrypt.hashpw(user_password, BCrypt.gensalt(11));
+		//System.out.println("++++++++++++++++++++++++++++++++++++++++++++++ user_password : " + user_password);
+		//System.out.println("++++++++++++++++++++++++++++++++++++++++++++++ pwd : " + hashed);
 		
 		HashMap params = new HashMap();
 		
 		params.put("user_id", user_id2 );
 		params.put("user_name", user_name );
-		params.put("user_password", user_password);
+		params.put("user_password", hashed);
 		params.put("user_department_id", user_department_id );
 		params.put("user_team_id", user_team_id );
 		params.put("user_dbms_id", user_dbms_id);
@@ -131,14 +134,21 @@ public class MypageService implements IMypageService{
 			session.removeAttribute("sUserDbms");
 			session.removeAttribute("sUserPosi");
 			session.removeAttribute("sUserDept");
+			session.removeAttribute("sUserName");
+			session.removeAttribute("sUserTeam");
+			
+//			System.out.println(  "++++++++++++++++++++++++++++++++++++++++++++++++++"  );
+//			System.out.println(  (String)session.getAttribute("sUserTeam")  );
 			
 			try {
 				session.setAttribute("sUserDbms", String.valueOf(user_dbms_id) );
 				session.setAttribute("sUserPosi", String.valueOf(user_position_id) );
 				session.setAttribute("sUserDept", String.valueOf(user_department_id) );
+				session.setAttribute("sUserName", user_name );
+				session.setAttribute("sUserTeam", String.valueOf(user_team_id) );
 			} catch (Exception e) {
 				e.printStackTrace();
-				System.out.println("부서id, 직급id, 업무id String 변환 실패");
+				System.out.println("부서id, 직급id, 업무id, 팀id String 변환 실패");
 			}
 			
 //			System.out.println(  (String)session.getAttribute("sUserId")    );
