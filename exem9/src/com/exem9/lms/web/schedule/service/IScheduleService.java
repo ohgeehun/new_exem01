@@ -7,7 +7,7 @@ import com.exem9.lms.web.schedule.bean.SchBean;
 
 public interface IScheduleService {
 	/*내 일정정보 조회*/
-	List<SchBean> getsch(String fromYYYYMMDD, String toYYYYMMDD, int pageNo) throws Throwable;
+	public List<SchBean> getsch(String fromYYYYMMDD, String toYYYYMMDD, int pageNo) throws Throwable;
 	
 	/*내 일정 등록 insertSchInfo 이벤트*/
 	public String insertSchinfo(String user_id,String customer_id, String project_id,
@@ -27,7 +27,7 @@ public interface IScheduleService {
 	/*금주 계산 유틸리티 */
 	public String getThisWeek();
 
-	List<SchBean> getTeamsch(String strfromYYYYMMDD, String strtoYYYYMMDD, int pageNo, int teamFilter) throws Throwable;
+	public List<SchBean> getTeamsch(String strfromYYYYMMDD, String strtoYYYYMMDD, int pageNo, int teamFilter) throws Throwable;
 	
 	public LineBoardBean getTeamNCount(String fromYYYYMMDD, String toYYYYMMDD, int nowPage, int teamFilter) throws Throwable;
 	

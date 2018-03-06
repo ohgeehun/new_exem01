@@ -240,8 +240,8 @@ public class CustomerService implements ICustomerService{
 		return iCustomerDao.getcusUserinfo(params);
 	}
 
-	public String insertCusinfo(String cusNm_hidden, String cusUser_hidden, String cusDbms_hidden, String cusPro_hidden,
-			String cusNm, String cusproNm, String dbmsNm, String cususerNm,
+	public String insertCusinfo(String cusNm_hidden, String cusPro_hidden, String cusDbms_hidden, String cusUser_hidden,
+			String cusNm, String cusproNm, String dbmsId, String cususerNm,
 			String cususerPhone, String cususerMail, String cuslocation,
 			String salesmanId, String etc) throws Throwable {
 		
@@ -260,7 +260,7 @@ public class CustomerService implements ICustomerService{
 		
 		params.put("cusNm",cusNm.toUpperCase());
 		params.put("cusproNm",cusproNm.toUpperCase());
-		params.put("dbmsNm",Integer.parseInt(dbmsNm));		
+		params.put("dbmsId",Integer.parseInt(dbmsId));		
 
 		
 		params.put("cuslocation",cuslocation.toUpperCase());
@@ -270,66 +270,53 @@ public class CustomerService implements ICustomerService{
 		
 		params.put("salesmanId",salesmanId);
 		
-		params.put("etc",etc);
+		params.put("etc",etc);	
 		
-	/*	System.out.println(cusNm_hidden);
-		System.out.println(cusUser_hidden);
-		System.out.println(supoinsdate);
-		System.out.println(supostartdate);
-		System.out.println(supoenddate);*/
-		
-		System.out.println(cusNm_hidden);   // 19 K뱅크
-		System.out.println(cusPro_hidden);   // 0
-		System.out.println(cusDbms_hidden);  // 0
-		System.out.println(cusUser_hidden);  // 0
-	
-//		
-//		try{
-//			if(Integer.parseInt(cusNm_hidden)  > 0){ // 0보다 크면 기존 고객사 아니면 신규 고객사
-//				if(Integer.parseInt(cusPro_hidden) > 0){  // 0보다 크면 기존 기존 프로젝트 아니면 신규 프로젝트
-//					if(Integer.parseInt(cusDbms_hidden) > 0){ // 0보다 크면 기존 업무  아니면 신규 업무
-//						if(Integer.parseInt(cusUser_hidden) > 0){ // 0보다 크면 기존 담당자 아니면 신구 담당자						
-//						
-//						}else{
-//							System.out.println("기존 고객사 / 기존 프로젝트 / 기존 업무 /신규 담당자 ");
-//							/*기존 고객사 / 기존 프로젝트 / 기존 업무 /신규 담당자*/
-//							return iCustomerDao.insertCusinfo5(params);	
-//						}
-//					}else{
-//						if(Integer.parseInt(cusUser_hidden) > 0){ // 0보다 크면 기존 담당자 아니면 신구 담당자
-//							System.out.println("기존 고객사 / 기존 프로젝트 / 신규 업무 /기존 담당자 ");
-//							/*기존 고객사 / 기존 프로젝트 / 기존 업무 /신규 담당자*/
-//							return iCustomerDao.insertCusinfo3(params);
-//						}else{
-//							System.out.println("기존 고객사 / 기존 프로젝트 /신규 업무 /신규 담당자 ");
-//							/*기존 고객사 / 기존 프로젝트 / 기존 업무 /신규 담당자*/
-//							return iCustomerDao.insertCusinfo4(params);
-//						}
-//					}
-//					
-//				}else{
-//					if(Integer.parseInt(cusUser_hidden) > 0){ // 0보다 크면 기존 담당자 아니면 신구 담당자
-//						System.out.println("기존 고객사 / 신규 프로젝트 / 신규 업무 /기존 담당자 ");
-//						/*기존 고객사 / 신규 프로젝트 / 신규 업무 /기존 담당자*/
-//						return iCustomerDao.insertCusinfo1(params);
-//					}else{
-//						
-//						System.out.println("기존 고객사 / 신규 프로젝트 / 신규 업무 / 신규 담당자 ");
-//						/*기존 고객사 / 신규 프로젝트 / 신규 업무 / 신규 담당자*/
-//						return iCustomerDao.insertCusinfo2(params);
-//					}
-//				}
-//				
-//			}else{
-//				/*신규고객사 / 신규 프로젝트 / 신규 업무 / 신규 담당자*/
-//				System.out.println("신규고객사 / 신규 프로젝트 / 신규 업무 / 신규 담당자");
-//				return iCustomerDao.insertCusinfo(params);
-//			}		
-//			
-//		}catch(Exception e){
-//			System.out.println(e);
-//		}
-		
+		try{
+			if(Integer.parseInt(cusNm_hidden)  > 0){ // 0보다 크면 기존 고객사 아니면 신규 고객사
+				if(Integer.parseInt(cusPro_hidden) > 0){  // 0보다 크면 기존 기존 프로젝트 아니면 신규 프로젝트
+					if(Integer.parseInt(cusDbms_hidden) > 0){ // 0보다 크면 기존 업무  아니면 신규 업무
+						if(Integer.parseInt(cusUser_hidden) > 0){ // 0보다 크면 기존 담당자 아니면 신구 담당자						
+						
+						}else{
+							System.out.println("기존 고객사 / 기존 프로젝트 / 기존 업무 /신규 담당자 ");
+							/*기존 고객사 / 기존 프로젝트 / 기존 업무 /신규 담당자*/
+							return iCustomerDao.insertCusinfo5(params);	
+						}
+					}else{
+						if(Integer.parseInt(cusUser_hidden) > 0){ // 0보다 크면 기존 담당자 아니면 신구 담당자
+							System.out.println("기존 고객사 / 기존 프로젝트 / 신규 업무 /기존 담당자 ");
+							/*기존 고객사 / 기존 프로젝트 / 기존 업무 /신규 담당자*/
+							return iCustomerDao.insertCusinfo3(params);
+						}else{
+							System.out.println("기존 고객사 / 기존 프로젝트 /신규 업무 /신규 담당자 ");
+							/*기존 고객사 / 기존 프로젝트 / 기존 업무 /신규 담당자*/
+							return iCustomerDao.insertCusinfo4(params);
+						}
+					}
+					
+				}else{
+					if(Integer.parseInt(cusUser_hidden) > 0){ // 0보다 크면 기존 담당자 아니면 신구 담당자
+						System.out.println("기존 고객사 / 신규 프로젝트 / 신규 업무 /기존 담당자 ");
+						/*기존 고객사 / 신규 프로젝트 / 신규 업무 /기존 담당자*/
+						return iCustomerDao.insertCusinfo1(params);
+					}else{
+						
+						System.out.println("기존 고객사 / 신규 프로젝트 / 신규 업무 / 신규 담당자 ");
+						/*기존 고객사 / 신규 프로젝트 / 신규 업무 / 신규 담당자*/
+						return iCustomerDao.insertCusinfo2(params);
+					}
+				}
+				
+			}else{
+				/*신규고객사 / 신규 프로젝트 / 신규 업무 / 신규 담당자*/
+				System.out.println("신규고객사 / 신규 프로젝트 / 신규 업무 / 신규 담당자");
+				return iCustomerDao.insertCusinfo(params);
+			}		
+			
+		}catch(Exception e){
+			System.out.println(e);
+		}
 		return result;
 	}
 	
@@ -348,15 +335,48 @@ public class CustomerService implements ICustomerService{
 		return iDbmsDao.getdbms();
 	}
 
-	public List<CustomerMemberBean> getprodbmsManagedinfo(String cusNm,	String proNm, String dbmsId) throws Throwable {
+	public List<CustomerMemberBean> getprodbmsManagedinfo(String cusNm) throws Throwable {
 		
 		HashMap params = new HashMap();
 		params.put("cusNm", cusNm);
-		params.put("proNm",proNm);
-		params.put("dbmsId",Integer.parseInt(dbmsId));
+/*		params.put("proNm",proNm);
+		params.put("dbmsId",Integer.parseInt(dbmsId));*/
 		
 		// TODO Auto-generated method stub
 		return iCustomerDao.getprodbmsManagedinfo(params);
+	}
+
+	public List<CustomerPjtNmBean> getCusProCheck(String cusNm, String proNm)
+			throws Throwable {
+		
+		HashMap params = new HashMap();
+		params.put("cusNm", cusNm);
+		params.put("proNm", proNm);
+		
+		return iCustomerDao.getCusProCheck(params);
+	}
+
+	public List<CustomerMemberBean> getprodbmsManagedcheck(String cusNm,
+			String proNm, String dbmsId) throws Throwable {
+
+		HashMap params = new HashMap();
+		params.put("cusNm", cusNm);
+		params.put("proNm", proNm);
+		params.put("dbmsId",Integer.parseInt(dbmsId));
+
+		return iCustomerDao.getprodbmsManagedcheck(params);
+	}
+
+	public List<CustomerMemberBean> getprodbmsmemberinfo(String cusNm,
+			String proNm, String dbmsId, String cususerNm) throws Throwable {
+		
+		HashMap params = new HashMap();
+		params.put("cusNm", cusNm);
+		params.put("proNm", proNm);
+		params.put("dbmsId",Integer.parseInt(dbmsId));
+		params.put("cususerNm",cususerNm);
+		
+		return iCustomerDao.getprodbmsmemberinfo(params);
 	}
 	
 }

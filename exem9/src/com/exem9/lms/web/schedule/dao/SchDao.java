@@ -20,7 +20,6 @@ public class SchDao implements ISchDao{
 		return sqlMapClient.queryForList("sch.getsch",params);
 	}
 
-	@Override
 	public String insertSchinfo(HashMap params) throws Throwable {
 		String result = "FAILED";
 		
@@ -30,14 +29,12 @@ public class SchDao implements ISchDao{
 		return result;
 	}
 
-	@Override
 	public int getNCount(HashMap params) throws Throwable {
 		
 		int count = (Integer) sqlMapClient.queryForObject("sch.getNCount", params);
 		return count;
 	}
 	
-	@Override
 	public String updateSchinfo(HashMap params) throws Throwable {
 		String result = "FAILED";
 		
@@ -47,7 +44,6 @@ public class SchDao implements ISchDao{
 		return result;
 	}
 	
-	@Override
 	public String deleteSchinfo(HashMap params) throws Throwable {
 		String result = "FAILED";
 		
