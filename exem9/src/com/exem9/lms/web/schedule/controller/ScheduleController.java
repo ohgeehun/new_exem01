@@ -288,11 +288,13 @@ public class ScheduleController {
 		String toMM_YY = request.getParameter("week-label-to-day");   //  01-08
 		int pageNo = Integer.parseInt(request.getParameter("pageNo"));
 		int teamFilter = -1; // 팀이 선택되지 않았을 때
+		//int deptFilter = -1; // 본부(부서)가 선택되지 않았을 때
 		
 		String strTeamFilter = request.getParameter("teamFilter");
 		if ( strTeamFilter != null && !strTeamFilter.isEmpty() ) {
 			teamFilter = Integer.parseInt(strTeamFilter);
 		}
+		String strDeptFilter = request.getParameter("deptFilter");
 		
 		System.out.println( "---------------------------------------------------  my_schedule_next : MM-YY(received) :" + fromMM_YY );
 		System.out.println( "---------------------------------------------------  my_schedule_next : pageNo :" + pageNo );
@@ -341,6 +343,7 @@ public class ScheduleController {
 			modelAndView.addObject("to_day", toMM_YY);
 			
 			modelAndView.addObject("teamFilter", teamFilter);
+			modelAndView.addObject("deptFilter", strDeptFilter);
 			
 			modelAndView.setViewName("schedule/team_schedule");
 		}

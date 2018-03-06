@@ -217,8 +217,18 @@ $(document).ready(function(){
 		}
 	});
     
-	$("#dept_select").val(userDept).change();
+    
+    // 현재 사용자 부서(사업본부)로 설정, 선택한 사업본부가 있으면, 선택이 유지되어야 함
+    //
+	//
 	
+	if ( "${deptFilter}" == null || "${deptFilter}" == '' || "${deptFilter}" == 'null') {
+	    $("#dept_select").val(userDept).change();
+	} else {
+		$("#dept_select").val("${deptFilter}").change();
+	}
+	
+	// 팀버튼 클릭시 이벤트 처리
 	$("input[name$='btnTeam']").click(function (){
 		//alert('clicked'); 
 		// ID : btnDept_${team.deptId}_Team_${team.teamId}
@@ -400,7 +410,7 @@ function updateSchinfoCallBack(res){
 											<option value="4">팀</option>
 									</select-->
 									
-									<select class="main_input_box_2 fltBox1 nInputFont" id="dept_select">
+									<select class="main_input_box_2 fltBox1 nInputFont" id="dept_select" name="deptFilter">
 											<option value="0" selected>부서 선택</option>
 										<c:forEach var="dept" items="${dept_list}">										
 											<option value="${dept.deptId}">${dept.deptNm}</option>	
