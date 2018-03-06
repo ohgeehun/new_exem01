@@ -272,9 +272,28 @@ public class CustomerDao implements ICustomerDao{
 		return result;
 	}
 
-	public List<CustomerMemberBean> getprodbmsManagedinfo(HashMap params)
+	public List<CustomerMemberBean> getprodbmsManagedinfo(HashMap params)throws Throwable {
+		// TODO Auto-generated method stub
+		return sqlMapClient.queryForList("customer.getprodbmsManagedinfo", params);
+	}
+
+	public List<CustomerPjtNmBean> getCusProCheck(HashMap params)
 			throws Throwable {
 		// TODO Auto-generated method stub
-		return sqlMapClient.queryForList("customer.getprodbmsManagedinfo");
+		return  sqlMapClient.queryForList("customer.getCusProCheck", params);
+	}
+
+	public List<CustomerMemberBean> getprodbmsManagedcheck(HashMap params)
+			throws Throwable {
+		// TODO Auto-generated method stub
+		return  sqlMapClient.queryForList("customer.getprodbmsManagedcheck", params);
+	}
+
+	public List<CustomerMemberBean> getprodbmsmemberinfo(HashMap params)
+			throws Throwable {
+		// TODO Auto-generated method stub
+		return sqlMapClient.queryForList("customer.getprodbmsmemberinfo", params);
 	}
 }
+	
+

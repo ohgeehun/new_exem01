@@ -210,7 +210,8 @@
 	select xp.project_id as proId,
        xp.project_name as proNm,
        xc.customer_id as cusId,
-       xc.customer_location as cusLoca       
+       xc.customer_location as cusLoca,
+       xc.salesman_id as salseId   
 	from xm_customer xc inner join xm_project xp
 	on xc.customer_id = xp.customer_id
 	where xc.customer_name  = #cusNm#
@@ -255,11 +256,27 @@
 	
 	
 	<select id="getprodbmsManagedinfo" parameterClass="java.util.HashMap" resultClass="customermemberBean">
-	select distinct xcm.cususer_id as cususerId,
+	select a.cususer_id as cususerId,
+	       xcm.cususer_name as cususerNm,
+	       xcm.cususer_phone as cususerPhone,
+	       xcm.cususer_mail as  cususerMail
+	from (select a.customer_id,
+		       a.project_id,
+		       xpdm.dbms_id,
+		       xpdm.cususer_id	        
+		from (select xp.project_id,
+			     xp.customer_id
+		from xm_customer xc join xm_project xp
+		on xc.customer_id = xp.customer_id
+		where xc.customer_name = #cusNm#) a join xm_project_dbms_member_managed xpdm
+		on a.project_id = xpdm.project_id ) a join xm_customer_member xcm 
+	on a.cususer_id = xcm.cususer_id	
+	group by a.cususer_id, xcm.cususer_name, xcm.cususer_phone, xcm.cususer_mail  
+<!-- 	select distinct xcm.cususer_id as cususerId,
 		   xcm.cususer_name as cususerNm	       
 	from xm_customer_member xcm, xm_customer xc
 	where xcm.customer_id = xc.customer_id
-	and xc.customer_name =  #cusNm#
+	and xc.customer_name =  #cusNm# -->
 	</select>
 		
 
@@ -307,7 +324,7 @@
 	<update id="insertCusinfo0010" parameterClass="java.util.HashMap">
 	INSERT INTO XM_PROJECT_DBMS_MANAGED VALUES(NEXTVAL('xm_project_dbms_next_val'),	 
 											   (select project_id from xm_project where project_name = #cusproNm# and customer_id = (select customer_id from xm_customer where customer_name = #cusNm#)), 
-											   #dbmsNm#)				                 
+											   #dbmsId#)				                 
 	</update> 
 	
 	<update id="insertCusinfo0001" parameterClass="java.util.HashMap">
@@ -317,7 +334,51 @@
 	<update id="insertCusinfo0001-1" parameterClass="java.util.HashMap">
 	INSERT INTO xm_project_dbms_member_managed VALUES(NEXTVAL('xm_project_dbms_member_next_val'), 
 													  (select project_id from xm_project where project_name = #cusproNm# and customer_id = (select customer_id from xm_customer where customer_name = #cusNm#)),
-													   #dbmsNm#,
+													   #dbmsId#,
 													   (select cususer_id from xm_customer_member where cususer_name = #cususerNm#))
 	</update> 
+	
+	<select id="getCusProCheck" parameterClass="java.util.HashMap" resultClass="customerPjtNmBean">
+		select p.project_id as pjtId
+		from xm_customer c, xm_project p 
+		where c.customer_id = p.customer_id
+		and c.customer_name = #cusNm#
+		and p.project_name = #proNm#
+	</select>	
+		
+	<select id="getprodbmsManagedcheck" parameterClass="java.util.HashMap" resultClass="customermemberBean">
+		select a.customer_id as cusId,
+		       a.project_id as proId,
+		       xpdm.dbms_id as dbmsId
+		from( select c.customer_id,
+		             p.project_id 
+			  from xm_customer c, xm_project p 
+			  where c.customer_id = p.customer_id
+			  and c.customer_name = #cusNm#
+			  and p.project_name = #proNm#) a join xm_project_dbms_managed xpdm
+		on a.project_id = xpdm.project_id
+		where xpdm.dbms_id = #dbmsId#
+	</select>
+	
+	<select id="getprodbmsmemberinfo" parameterClass="java.util.HashMap" resultClass="customermemberBean">
+	select a.customer_id as cusId,
+		   a.project_id as proId,
+	       a.dbms_id as dbmsId,
+		   a.cususer_id as cususerId,
+	       xcm.cususer_name as cususerNm,
+	       xcm.cususer_phone as cususerPhone,
+	       xcm.cususer_mail as  cususerMail
+	from (select a.customer_id,
+		       a.project_id,
+		       xpdm.dbms_id,
+		       xpdm.cususer_id	        
+		from (select xp.project_id,
+			     xp.customer_id
+		from xm_customer xc join xm_project xp
+		on xc.customer_id = xp.customer_id
+		where xc.customer_name = #cusNm#) a join xm_project_dbms_member_managed xpdm
+		on a.project_id = xpdm.project_id ) a join xm_customer_member xcm 
+	on a.cususer_id = xcm.cususer_id	
+	where xcm.cususer_name = #cususerNm#
+	</select>
 </sqlMap>

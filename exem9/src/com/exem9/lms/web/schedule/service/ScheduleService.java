@@ -28,7 +28,6 @@ public class ScheduleService implements IScheduleService{
 	@Autowired
 	public ISchDao iSchDao;
 	
-	@Override
 	public List<SchBean> getsch(String strfromYYYYMMDD, String strtoYYYYMMDD, int pageNo) throws Throwable {
 		
 		HashMap params = new HashMap();
@@ -74,7 +73,6 @@ public class ScheduleService implements IScheduleService{
 		return iSchDao.getsch(params);
 	}
 
-	@Override
 	public String insertSchinfo(String user_id, String customer_id, String project_id, String dbms_id,
 			String category_id, String start_time, String end_time, String contents) throws Throwable {
 		
@@ -99,7 +97,6 @@ public class ScheduleService implements IScheduleService{
 		return iSchDao.insertSchinfo(params);
 	}
 	
-	@Override
 	public LineBoardBean getNCount(String strfromYYYYMMDD, String strtoYYYYMMDD, int nowPage) throws Throwable {
 		
 		HashMap params = new HashMap();
@@ -158,7 +155,6 @@ public class ScheduleService implements IScheduleService{
 		return lbb;
 	}
 	
-	@Override
 	public String updateSchinfo(String user_id, String customer_id, String project_id, String dbms_id,
 			String category_id, String start_time, String end_time, String contents, String chkId) throws Throwable {
 		
@@ -184,7 +180,6 @@ public class ScheduleService implements IScheduleService{
 		return iSchDao.updateSchinfo(params);
 	}
 	
-	@Override
 	public String getThisWeek(){
 
 		// 월요일
@@ -202,7 +197,6 @@ public class ScheduleService implements IScheduleService{
 		return strFromYYYYMMDD + strToYYYYMMDD;  // "yyyy-MM-ddyyyy-MM-dd"
 	}
 	
-	@Override
 	public List<SchBean> getTeamsch(String strfromYYYYMMDD, String strtoYYYYMMDD, int pageNo, int teamFilter) throws Throwable {
 		
 		HashMap params = new HashMap();
@@ -249,7 +243,6 @@ public class ScheduleService implements IScheduleService{
 		return iSchDao.getsch(params);
 	}
 	
-	@Override
 	public LineBoardBean getTeamNCount(String strfromYYYYMMDD, String strtoYYYYMMDD, int nowPage, int teamFilter) throws Throwable {
 		
 		HashMap params = new HashMap();
@@ -309,7 +302,6 @@ public class ScheduleService implements IScheduleService{
 		return lbb;
 	}
 	
-	@Override
 	public String deleteSchinfo(String chkId) throws Throwable {
 
 		HashMap params = new HashMap();

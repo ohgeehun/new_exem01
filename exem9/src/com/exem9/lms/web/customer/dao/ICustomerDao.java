@@ -48,4 +48,10 @@ public interface ICustomerDao {
 	public String insertCusinfo(HashMap params) throws Throwable;
 
 	public List<CustomerMemberBean> getprodbmsManagedinfo(HashMap params) throws Throwable;
+
+	public List<CustomerPjtNmBean> getCusProCheck(HashMap params) throws Throwable;
+
+	public List<CustomerMemberBean> getprodbmsManagedcheck(HashMap params)throws Throwable;
+
+	public List<CustomerMemberBean> getprodbmsmemberinfo(HashMap params)throws Throwable;
 }

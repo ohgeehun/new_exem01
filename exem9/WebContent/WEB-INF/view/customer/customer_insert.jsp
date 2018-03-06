@@ -54,7 +54,6 @@ $(document).ready(function(){
 			
 			$("#dbms_select_id").prop("disabled",false);	
 						
-			alert($("#cusproName_id").val());
         }else{         	
         	$("#cusproName_id").val("");
         	$("#cusNm_hidden_id").val("0");	   
@@ -76,22 +75,14 @@ $(document).ready(function(){
         },        	        
         enabled: false
 	});  
-	
- 	/*
+		
+ 	
 	$("#cusNm_id").shieldComboBox({
     	dataSource: {
             data: ""
         },        	        
         enabled: false
 	});  
-	*/
-	
-	$("#cusNm_id").shieldComboBox({
-    	dataSource: {
-            data: ""
-        },        	        
-        enabled: true
-	});
 	
 	$("#dbms_select_id").change(function (){
 		var dbmsId = $("#dbms_select_id").val();	
@@ -99,13 +90,9 @@ $(document).ready(function(){
 		if(dbmsId > 0){	
 			var cusNm = $("#cusName_id").val();
 			var proNm = $("#cusproName_id").val();			
-			
-			//alert(cusNm);
-			//alert(proNm);
-			//alert(dbmsId);
-			
-			//ICustomerService.getprodbmsManagedinfo(cusNm, proNm, dbmsId, getprodbmsManagedinfoCallBack);
-		}else{
+			ICustomerService.getprodbmsManagedinfo(cusNm, getprodbmsManagedinfoCallBack);
+			ICustomerService.getprodbmsManagedcheck(cusNm,proNm, dbmsId, getprodbmsManagedcheckCallBack);
+		}else{			
 			$("#cusNm_id").swidget().destroy();
 			$("#cusNm_id").shieldComboBox({
 		    	dataSource: {
@@ -121,13 +108,12 @@ $(document).ready(function(){
     	
     	var cusNm_hidden = $("#cusName_hidden_id").val();
     	var cusPro_hidden = $("#cusPro_hidden_id").val();
-    	alert(cusPro_hidden);
     	var cusDbms_hidden = $("#dbmsNm_hidden_id").val();
-    	var cusUser_hidden = $("#cusNm_hidden_id").val();
+    	var cusUser_hidden = $("#cusNm_hidden_id").val();    	
     	
     	var cusNm = $("#cusName_id").val();
     	var cusproNm = $("#cusproName_id").val();
-    	var dbmsNm = $("#dbms_select_id").val();
+    	var dbmsId = $("#dbms_select_id").val();
     	var cususerNm = $("#cusNm_id").val();
     	var cususerPhone = $("#cusPhone_id").val();
     	var cususerMail = $("#cusMail_id").val();
@@ -135,20 +121,24 @@ $(document).ready(function(){
     	
     	var salesmanId = $("#salesman_select_id").val();  	
     	
-    	var etc = $("#etc_id").val();   	
+    	var etc = $("#etc_id").val();    
     	
-     	if(cusNm == ""){     		
-     		alert("고객사명을 입력해주세요.");	   		
-     	}else{
-			if(cusproNm == ""){
-				alert("프로젝트명을 입력해주세요.");
-     		}else{
-     			ICustomerService.insertCusinfo(cusNm_hidden,  cusPro_hidden, cusDbms_hidden, cusUser_hidden, 
-	                       cusNm, cusproNm, dbmsNm,
-	                       cususerNm, cususerPhone, cususerMail, cuslocation, 
-	                       salesmanId, etc, insertCusinfoCallBack); 
-     		}     	
-     	}    	
+    	if(cusNm_hidden > 0 && cusPro_hidden > 0 && cusDbms_hidden > 0 && cusUser_hidden > 0){
+    		alert("이미 등록된 정보입니다. 고객사 리스트에서 확인해주세요.");
+    	}else{
+    		if(cusNm == ""){     		
+         		alert("고객사명을 입력해주세요.");	   		
+         	}else{
+    			if(cusproNm == ""){
+    				alert("프로젝트명을 입력해주세요.");
+         		}else{
+         			ICustomerService.insertCusinfo(cusNm_hidden,  cusPro_hidden, cusDbms_hidden, cusUser_hidden, 
+    	                       cusNm, cusproNm, dbmsId,
+    	                       cususerNm, cususerPhone, cususerMail, cuslocation, 
+    	                       salesmanId, etc, insertCusinfoCallBack); 
+         		}     	
+         	}  
+    	}      	   	
     });
 	
     /* 고객사 등록 시 기존 고객사명 리스트를 가져오는 이벤트 */
@@ -190,15 +180,24 @@ function cusNminfoCallBack(res){
       		        $("#cusNm_hidden_id").val("0");	          			    
      		        $("#cusNm_id").val("");
      		        
-     		       $("#chk_id").attr("checked", false);
+     		        $("#cusNm_id").swidget().destroy();
+     		    	$("#cusNm_id").shieldComboBox({
+     		       	dataSource: {
+     		               data: ""
+     		           },        	        
+     		           enabled: false
+     		   		});  
+     		   		
+     		    	$("#cusPhone_id").val('');
+     			    $("#cusMail_id").val('');
+     			    $("#etc_id").val('');
+     		       
+     		        $("#chk_id").attr("checked", false);
      		        
     			    ICustomerService.getcusNmProinfo(cusNm,"", cusNmProinfoCallBack);	           			   
      	   		}
 	        }
  	}); 	
-	/* $( "#cusName_id" ).autocomplete({
-		  source: availableTags
-	}); */
 }
 
 function cusNmProinfoCallBack(res){
@@ -206,12 +205,14 @@ function cusNmProinfoCallBack(res){
 	
 	$("#chk_id").prop("disabled",false);
 	
-	if(res.length > 0){
+	if(res.length > 0){		
+		
 		for(var i = 0; i < res.length; i++){			
 			availableTags.push(res[i].proNm);			
 			
 		    $("#cusName_hidden_id").val(res[i].cusId); 
-			$("#cuslocation_id").val(res[i].cusLoca);
+			$("#cuslocation_id").val(res[i].cusLoca);			
+			
 		}
 		
 		 $("#cusproName_id").swidget().destroy();
@@ -223,36 +224,37 @@ function cusNmProinfoCallBack(res){
 		        autoComplete: {
 		            enabled: true
 		        },events: {
-		        	blur : function(e){   		        	
+		        	blur : function(e){   
+		        	var cusNm = $("#cusName_id").val();
 		        	var proNmtemp =  $("#cusproName_id").swidget().value();
-     				var proNm = proNmtemp.toUpperCase();
-     				
-     				$("#cusproName_id").val(proNm);
-     				
-	  				//var cusNm =  $("#cusName_id").val();	  				
+     				var proNm = proNmtemp.toUpperCase();     				
+     		     				
+     				$("#cusproName_id").val(proNm);     						
 	  				 
 	   			    $("#dbmsNm_hidden_id").val("0");
 	   			    $("#dbms_select_id").val("0");
 	   			 	$("#dbms_select_id").val("0").prop("selected", true);
+	   			 	
 	   			    if($("#cusproName_id").val() !=''){
 	   			    	$("#dbms_select_id").prop("disabled",false);			
 	   			    }else {
 	   			    	$("#dbms_select_id").prop("disabled",true);		
 	   			    }
+	   			    
 	   		        $("#cusNm_hidden_id").val("0");	          			    
 	  		        $("#cusNm_id").val("");
 	  		        
-	 			    //ICustomerService.getcusNmProinfo(cusNm,"", cusNmProinfoCallBack);	           			   
+	 			    ICustomerService.getCusProCheck(cusNm,proNm, getCusProCheckCallBack);	           			   
 	  	   			}
 		        }
 		}); 
 
 	}else{
+	
 		$("#cusName_hidden_id").val("0");
 		$("#cuslocation_id").val("");
 		
 		$("#cusPro_hidden_id").val("0");
-		//$("#cusproName_id").swidget().enabled(true);
 		$("#cusproName_id").val("");
 		
  		$("#dbmsNm_hidden_id").val("0");
@@ -261,41 +263,147 @@ function cusNmProinfoCallBack(res){
 	    $("#dbms_select_id").prop("disabled",true);	
 	    
 	    $("#cusNm_hidden_id").val("0");	          			    
-        $("#cusNm_id").val("");
+        $("#cusNm_id").val("");   
         
-
+        $("#cusNm_id").swidget().destroy();
+		 
+    	$("#cusNm_id").shieldComboBox({
+        	dataSource: {
+                data: ""
+            },        	        
+            enabled: false
+    	});  
+    	
+	    $("#cusPhone_id").val('');
+	    $("#cusMail_id").val('');
+	 	  
 		$("#cusproName_id").swidget().destroy();
 		 
     	$("#cusproName_id").shieldComboBox({
         	dataSource: {
                 data: ""
             },        	        
-            enabled: true,events: {
+            enabled: true,
+            events: {
             	blur : function(e){   
+            		var cusNm = $("#cusName_id").val();
             		var proNmtemp =  $("#cusproName_id").swidget().value();
      				var proNm = proNmtemp.toUpperCase();
      				
      				$("#cusproName_id").val(proNm);
-     				
-	  				//var cusNm =  $("#cusName_id").val();
-
-	  				//alert(cusNm);
-	  				//alert(proNm);		
 	  				
 	  			 	$("#dbmsNm_hidden_id").val("0");
 	   			    $("#dbms_select_id").val("0");
 	   			    $("#dbms_select_id").val("0").prop("selected", true);
+	   			    
 	   			 	if($("#cusproName_id").val() != ''){
 	   			    	$("#dbms_select_id").prop("disabled",false);			
 	   			    }else {
 	   			    	$("#dbms_select_id").prop("disabled",true);		
 	   			    }
+	   			 	
 	   		        $("#cusNm_hidden_id").val("0");	          			    
 	  		        $("#cusNm_id").val("");
 	        	}
             }
     	}); 
 	}	
+}
+
+function getprodbmsManagedinfoCallBack(res){
+	var availableTags = [];	 
+	
+	if(res.length > 0){
+		for(var i = 0; i < res.length; i++){
+			availableTags.push(res[i].cususerNm);	
+			
+			// $("#cusName_hidden_id").val(res[i].cusId);
+		}
+		
+		 $("#cusNm_id").swidget().destroy();
+			
+		 $("#cusNm_id").shieldComboBox({			 	
+		    	dataSource: {
+		            data: availableTags
+		        },	        
+		        autoComplete: {
+		            enabled: true
+		        },events: {
+		        	blur : function(e){   
+		        		var cusNm = $("#cusName_id").val();
+		    			var proNm = $("#cusproName_id").val();		
+		    			var dbmsId = $("#dbms_select_id").val();
+		        		var cususerNm =  $("#cusNm_id").swidget().value();
+		        		$("#cusNm_id").val(cususerNm);
+						
+		        		ICustomerService.getprodbmsmemberinfo(cusNm, proNm, dbmsId, cususerNm, getprodbmsmemberinfoCallBack);
+       			   
+	  	   			}
+		        }
+		}); 
+		 
+	}else{
+		$("#cusNm_hidden_id").val("0");
+		
+		$("#cusNm_id").swidget().destroy();
+		 
+    	$("#cusNm_id").shieldComboBox({
+        	dataSource: {
+                data: ""
+            },        	        
+            enabled: true,
+            events: {
+            	blur : function(e){
+            		var cusNm = $("#cusName_id").val();
+	    			var proNm = $("#cusproName_id").val();		
+	    			var dbmsId = $("#dbms_select_id").val();
+            		var cususerNm =  $("#cusNm_id").swidget().value();
+            		$("#cusNm_id").val(cususerNm);
+            		
+            		ICustomerService.getprodbmsmemberinfo(cusNm, proNm, dbmsId, cususerNm, getprodbmsmemberinfoCallBack);
+	        	}
+            }
+    	}); 
+	}
+}
+
+function getCusProCheckCallBack(res){
+	if(res.length > 0){
+		for(var i = 0; i < res.length; i++){	
+			 $("#cusPro_hidden_id").val(res[i].pjtId); 
+		}
+	}else{
+		  $("#cusPro_hidden_id").val("0");	        
+	}
+
+}
+
+function getprodbmsManagedcheckCallBack(res){
+	if(res.length > 0){
+		for(var i = 0; i < res.length; i++){	
+			 $("#dbmsNm_hidden_id").val(res[i].dbmsId); 
+		}
+	}else{
+		  $("#dbmsNm_hidden_id").val("0");	        
+	}
+
+}
+
+function getprodbmsmemberinfoCallBack(res){
+	if(res.length > 0){
+		for(var i = 0; i < res.length; i++){	
+			 $("#cusNm_hidden_id").val(res[i].cususerId);
+			 $("#cusPhone_id").val(res[i].cususerPhone);
+			 $("#cusMail_id").val(res[i].cususerMail);			 
+		}
+		
+		
+	}else{
+		  $("#cusNm_hidden_id").val("0");	
+		  $("#cusPhone_id").val('');
+		  $("#cusMail_id").val('');
+	}
+
 }
 
 function insertCusinfoCallBack(res){
@@ -307,7 +415,6 @@ function insertCusinfoCallBack(res){
 		location.href = "customer_insert";
 	}
 }
-
 
 //영문만 입력받도록 검증
 function isAlphabetForSpan(str){
@@ -363,25 +470,7 @@ function removeChar(event) {
 </script>
 
 <style>
-/* table, td, th {    
-    border: 1px solid #ddd;
-    text-align: left;
-}
 
-table {
-    border-collapse: collapse;
-    width: 50%;
-} */
-/*
-th, td {
-	width:290px;
-	top:46px;
-    padding: 10px;
-} 
-*/
-/* .redText{display: block;color: red;margin-left:10px;}
-.greenText{display: block;color: green;margin-left:10px;}
- */
 .miBtt_submit_top {
 	position:absolute; 
 	top: 560px;
@@ -410,17 +499,9 @@ th, td {
 		</div>
 		
 <div class="row">
-	 <!-- div class="column side">
-		   <h4>고객사 관리 페이지</h4></br>
-		   <a href="#" id="cus_managed">고객사 관리</a></br>		    
-		   <a href="#" id="cus_insert">고객사 등록</a></br>		 
-	 </div-->
-	 <!-- <div class="column middle"> -->
 	  <div class="top_mainDisplayPart">	 
 	  	<div align="center"><h3>고객사 등록 페이지</h3></div>
-		<!-- <div id="customer_list">		 -->
 		<div class="top_mainDisplayBase" >
-			<!-- <h3 align="left">고객사 등록 정보</h3> -->
 		 		<li class="input_title input_01 inputTxtFont">고객사명*</li>
 				<li class="input_title input_02 inputTxtFont">프로젝트명*</li>
 				<li class="input_title input_03 inputTxtFont">제품구분*</li>
@@ -440,9 +521,7 @@ th, td {
 				
 				<div class="input_txt_01 input_02 inputTxtFont">	
 					<input type="hidden" id="cusPro_hidden_id" value="0"/>
-					<input id='cusproName_id' value="" style='text-transform: uppercase'></input>
-					<!-- <input type="checkbox" id="chk_id" name="chk_info" value="1" disabled="disabled"><font style="font-size: 12px">고객사명과 동일하게 적용</font>	 -->	
-					<!-- <span id="idSpan1" class="redText"></span>	 -->	
+					<input id='cusproName_id' value="" style='text-transform: uppercase'></input>	
 				</div>	
 				
 	
@@ -463,8 +542,7 @@ th, td {
 				
 				<div class="input_txt_01 input_04 inputTxtFont">	
 					<input type="hidden" id="cusNm_hidden_id" value="0"/>
-					<!-- input id='cusNm_id' value=""  style='text-transform: uppercase' -->
-					<input id='cusNm_id' value="">
+					<input id='cusNm_id' value=""  style='text-transform: uppercase'>
 				</div>
 				
 				<input class="input_txt input_05 inputTxtFont" type='text' id='cusPhone_id' value="" onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' style='ime-mode:disabled;'>
@@ -482,153 +560,8 @@ th, td {
 				<textarea  class="input_txt_02 input_09 inputTxtFont" id="etc_id" name="contents"></textarea>
 				
 					<input type="password" placeholder="등록 비밀번호 입력." required class="reg_pass inputTxtFont"> &nbsp;&nbsp;
-					<input type="button" id="edit_update_btn" name="OK" class="miBtt_submit_top miBtt_submit" value="등록">
+					<input type="button" id="edit_update_btn" name="OK" class="miBtt_submit_top miBtt_submit" value="등록">				
 				
-				<%-- <select class="input_txt input_08 inputTxtFont" id='salesman_select_id'>
-						<option value="0" selected>지정하지않음.</option>
-					    <c:forEach var="sl" items="${salseman_list}">
-					    	<c:if test="${sl.userId == 0}">
-					    	<option value="${sl.userId}" selected>지정하지않음.</option>
-					    	</c:if>
-		 	    			<option value="${sl.userId}">${sl.userNm}</option>		 	    	
-		 	    		</c:forEach> 	
-				</select> --%>
-				
-				<%-- 		
-				<div class="input_txt_01 input_05 inputTxtFont">	
-					<input type='text' id='cusPhone_id' value="" onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' style='ime-mode:disabled;'>
-				</div>
-				
-				<div class="input_txt_01 input_06 inputTxtFont">	
-					<input type='text' id='cusMail_id' value="">
-				</div>
-				
-				<div class="input_txt_01 input_07 inputTxtFont">	
-					<input type='text' id='cuslocation_id' value=""  style='text-transform: uppercase'>
-				</div>
-				
-					
-				<select class="input_txt input_08 inputTxtFont" id='salesman_select_id'>
-						<option value="0" selected>지정하지않음.</option>
-					    <c:forEach var="sl" items="${salseman_list}">
-					    	<c:if test="${sl.userId == 0}">
-					    	<option value="${sl.userId}" selected>지정하지않음.</option>
-					    	</c:if>
-		 	    			<option value="${sl.userId}">${sl.userNm}</option>		 	    	
-		 	    		</c:forEach> 	
-				</select>
-								
-				
-				<div class="input_txt_01 input_09 inputTxtFont">	
-					<textarea id="etc_id" rows="5" cols="30" name="contents"></textarea>
-				</div>  --%>
-			<%-- 	<select id='customer_name_id' class="input_txt input_01 inputTxtFont">
-							<option value="0" selected>지정하지않음.</option>
-						    <c:forEach var="cusNm" items="${cusNm_list}">
-			 	    			<option value="${cusNm.cusId}">${cusNm.cusNm}</option>		 	    	
-			 	    		</c:forEach>	
-				</select> --%>
-			<%-- <table>	
-				<thead>
-					<tr>
-						<td><li class="input_title input_01 inputTxtFont">고객사명*</li></td>
-						<td>							
-							<div id="div_cusName_id">
-								<input type="hidden" id="cusName_hidden_id" value="0"/>
-								<!-- <input class="sui-input" id='cusName_id' value=""  style='text-transform: uppercase' onblur="onblur_event();"></input> -->
-								<input class="input_txt input_01 inputTxtFont" id='cusName_id' value=""  style='text-transform: uppercase'></input>
-								<span id="idSpan" class="redText"></span>	
-							</div>									
-						</td>
-					</tr>
-					</thead>
-						 <td>프로젝트명*</td>						
-						<td>
-							<input type="hidden" id="cusPro_hidden_id" value="0"/>
-							<input class="sui-input" id='cusproName_id' value="" style='text-transform: uppercase'></input>
-							<input type="checkbox" id="chk_id" name="chk_info" value="1" disabled="disabled"><font style="font-size: 12px">고객사명과 동일하게 적용</font>		
-							<span id="idSpan1" class="redText"></span>			
-											
-						</td>	
-						
-					</tr>
-					<tr>
-						<td>업무명*</td>
-						<td>
-						<input type="hidden" id="dbmsNm_hidden_id" value="0"/>
-						<select class="sui-input" id='dbms_select_id' disabled="disabled">
-							<!-- <option value="0" selected>지정하지않음.</option> -->
-						    <c:forEach var="dl" items="${dbms_list}">					    	   
-				    	    	<c:choose>
-									<c:when test="${dl.dbmsId == 0}">									
-										<option value="${dl.dbmsId}" selected>지정하지않음.</option>		
-									</c:when>
-									<c:otherwise>
-										<option value="${dl.dbmsId}">${dl.dbmsNm}</option>										 
-									</c:otherwise>
-								</c:choose>							    		
-						    		 	    					    	
-			 	    		</c:forEach>	
-						</select>
-						</td>	
-					</tr>		
-					<tr>
-						<td>고객명</td>												
-						<td>
-						<input type="hidden" id="cusNm_hidden_id" value="0"/>
-						<input class="sui-input" id='cusNm_id' value=""  style='text-transform: uppercase'>
-						</td>															
-					</tr>			
-					<tr>
-						<td>고객 연락처</td>						
-						<td>
-						<input class="sui-input" type='text' id='cusPhone_id' value="" onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' style='ime-mode:disabled;'>
-						</td>															
-					</tr>
-					<tr>
-						<td>고객 이메일</td>						
-						<td>
-						<input class="sui-input" type='text' id='cusMail_id' value="">
-						</td>													
-					</tr>		
-					<tr>
-						<td>고객사 위치</td>						
-						<td>
-						<input class="sui-input" type='text' id='cuslocation_id' value=""  style='text-transform: uppercase'>
-						</td>														
-					</tr>
-					<tr>
-						<td>담당영업</td>
-						<td>
-						<select class="sui-input" id='salesman_select_id'>
-							<option value="0" selected>지정하지않음.</option>
-						    <c:forEach var="sl" items="${salseman_list}">
-						    	<c:if test="${sl.userId == 0}">
-						    	<option value="${sl.userId}" selected>지정하지않음.</option>
-						    	</c:if>
-			 	    			<option value="${sl.userId}">${sl.userNm}</option>		 	    	
-			 	    		</c:forEach> 	
-						</select>
-						</td>									
-					</tr>							
-				</thead>
-				<tbody id="cus_list_tb">
-					<tr>
-						<td>비고</td>						
-						<td>
-						<textarea id="etc_id" rows="5" cols="30" name="contents"></textarea>
-						</td>													
-					</tr>																											
-				</tbody>
-				<tfoot id="cus_list_tf"> 					
-					<tr>	
-					<td colspan="2">
-						  <input type="password" placeholder="등록 비밀번호 입력." id="editPw" required>&nbsp;&nbsp;
-						  <input type="button" id="edit_update_btn" value="등록"></input>
-					</td>
-					</tr> 
-				</tfoot>
-	 		</table>	 --%>
 		</div>
 	</div>
 </div>

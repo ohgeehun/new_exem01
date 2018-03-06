@@ -71,13 +71,20 @@ public interface ICustomerService {
 	public List<CustomerMemberBean> getcusUserinfo(String cusUser,String cusId, String cusUserId) throws Throwable ;
 	
 	/*고객사 등록 updateCusInfo 이벤트*/
-	public String insertCusinfo(String cusNm_hidden,String cusUser_hidden, String cusDbms_hidden, String cusPro_hidden,
-								String cusNm, String cusproNm, String dbmsNm,
+	public String insertCusinfo(String cusNm_hidden, String cusPro_hidden, String cusDbms_hidden, String cusUser_hidden,
+								String cusNm, String cusproNm, String dbmsId,
 								String cususerNm, String cususerPhone,String cususerMail, String cuslocation,
 								String salesmanId, String etc) throws Throwable ;
 	
 	/*고객사 프로젝트명 가져오기 콤포박스에서 사용*/
 	public List<CustomerPjtNmBean> getcusPjtNminfo()throws Throwable ;
 	
-	public List<CustomerMemberBean> getprodbmsManagedinfo(String cusNm, String proNm, String dbmsId)throws Throwable ;
+	public List<CustomerMemberBean> getprodbmsManagedinfo(String cusNm)throws Throwable ;
+	
+	public List<CustomerPjtNmBean> getCusProCheck(String cusNm, String proNm)throws Throwable ;
+	
+	public List<CustomerMemberBean> getprodbmsManagedcheck(String cusNm, String proNm, String dbmsId)throws Throwable ;
+	
+	public List<CustomerMemberBean> getprodbmsmemberinfo(String cusNm, String proNm, String dbmsId, String cususerNm)throws Throwable ;
+	
 }
