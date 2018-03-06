@@ -175,47 +175,100 @@ th, td {
 	}
 
 </script>
+
+<style>
+.miBtt_submit_top {
+	position:absolute; 
+	top: 546px;
+	margin-left: 70px;
+}
+
+.reg_pass {
+	position:absolute; 
+	border:1px solid #d1cece; 
+	height:38px;
+	padding:1px;
+	left:238px;
+}
+</style>
+
 </head>
 <body>
 
 <c:import url="/main_upview"></c:import>
 
 		<div class="top_SubMenuPart">
-			<!-- div class="top_MenuBase">
+			<div class="top_MenuBase">
 				<a href="#" class="top_SubMenu01_m" id="mem_managed">사용자 관리</a>
 				<a href="#" class="top_SubMenu02_m" id="mem_insert">사용자 등록</a>
-			</div-->
+			</div>
 		</div>
 		
+	<div class="row">
 			<div class="top_mainDisplayPart">
 			
 				<div align="center"><h3>개인정보</h3></div>
 				<div class="top_mainDisplayBase" >
-				
-				
-				<div class="row">
-					<div class="column side">
-						   
-						   <a href="#" id="UIedit">개인정보 변경</a></br>		    
-						   <a href="#" id="PWedit">비밀번호 변경</a></br>
-					 </div>
-					 <div class="column middle">
-					    
-					   
-					   <table id ="mypageview">		
-					   </table> 
-						
-						
-				 	    <div id="UIeditBtn" align="center">
-				 	   		 <button>변경하기</button>
-						</div> 
-					</div>
-				</div>
-				
-				
-				
+				  
+				  <ul>
+					<li class="input_title input_01 inputTxtFont">로그인ID*</li>
+					<li class="input_title input_02 inputTxtFont">이름*</li>
+					<li class="input_title input_03 inputTxtFont">패스워드</li>
+					<li class="input_title input_04 inputTxtFont">부서</li>
+					<li class="input_title input_05 inputTxtFont">팀*</li>
+					<li class="input_title input_06 inputTxtFont">업무</li>
+					<li class="input_title input_07 inputTxtFont">직급</li>
+					<li class="input_title input_08 inputTxtFont">연락처</li>
+					<li class="input_title input_09 inputTxtFont">메일</li>
+					<li class="input_title input_10 inputTxtFont">포인트</li>
+				  </ul>	
+				  
+				  
+					<input id="user_id" type="text" class="input_txt input_01 inputTxtFont">
+					<input id="user_name" type="text" class="input_txt input_02 inputTxtFont">
+					<input id="user_password" type="text" class="input_txt input_03 inputTxtFont">
+					
+					<!-- input type="text" name="customer" class="input_txt input_01 inputTxtFont"-->
+					<select id='user_department_id' class="input_txt input_04 inputTxtFont">
+								<option value="0" selected>지정하지않음.</option>
+							    <c:forEach var="dept" items="${dept_list}">
+				 	    			<option value="${dept.deptId}">${dept.deptNm}</option>		 	    	
+				 	    		</c:forEach>	
+					</select>
+					<!-- input type="text" name="project" class="input_txt input_02 inputTxtFont"-->
+					<select id='user_team_id' class="input_txt input_05 inputTxtFont">
+								<option value="0" selected>지정하지않음.</option>
+							    <c:forEach var="team" items="${team_list}">
+				 	    			<option value="${team.teamId}">${team.teamNm}</option>		 	    	
+				 	    		</c:forEach>	
+					</select>
+					<!-- input type="text" name="product" class="input_txt input_03 inputTxtFont"-->
+					<select id='user_dbms_id' class="input_txt input_06 inputTxtFont">
+								<option value="0" selected>지정하지않음.</option>
+							    <c:forEach var="dbms" items="${dbms_list}">
+				 	    			<option value="${dbms.dbmsId}">${dbms.dbmsNm}</option>		 	    	
+				 	    		</c:forEach>	
+					</select>
+					<!-- input type="text" name="support" class="input_txt input_04 inputTxtFont"-->
+					<select id='user_position_id' class="input_txt input_07 inputTxtFont">
+								<option value="0" selected>지정하지않음.</option>
+							    <c:forEach var="posi" items="${posi_list}">
+				 	    			<option value="${posi.posiId}">${posi.posiNm}</option>		 	    	
+				 	    		</c:forEach>	
+					</select>
+					
+					<input id="user_phone" type="text" class="input_txt input_08 inputTxtFont">
+					<input id="user_mail" type="text" class="input_txt input_09 inputTxtFont">
+					<input id="user_point" type="text" class="input_txt input_10 inputTxtFont">
+					<!-- input type="submit" name="OK" class="input_submit inBtt_OK" value="일정등록하기"-->
+					<!-- input type="button" id="edit_update_btn" name="OK" class="miBtt_submit" value="등록"></input-->
+							
+					<input type="password" placeholder="등록 비밀번호 입력." required class="reg_pass input_11 inputTxtFont"> &nbsp;&nbsp;
+					<input type="button" id="edit_update_btn" name="OK" class="miBtt_submit_top miBtt_submit" value="등록">
 				</div>
 			</div>
+			
+	</div>
 
 </body>
 </html>
