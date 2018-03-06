@@ -76,22 +76,14 @@ $(document).ready(function(){
         },        	        
         enabled: false
 	});  
-	
- 	/*
+		
+ 	
 	$("#cusNm_id").shieldComboBox({
     	dataSource: {
             data: ""
         },        	        
         enabled: false
 	});  
-	*/
-	
-	$("#cusNm_id").shieldComboBox({
-    	dataSource: {
-            data: ""
-        },        	        
-        enabled: true
-	});
 	
 	$("#dbms_select_id").change(function (){
 		var dbmsId = $("#dbms_select_id").val();	
@@ -100,11 +92,11 @@ $(document).ready(function(){
 			var cusNm = $("#cusName_id").val();
 			var proNm = $("#cusproName_id").val();			
 			
-			//alert(cusNm);
-			//alert(proNm);
-			//alert(dbmsId);
+			alert(cusNm);
+			alert(proNm);
+			alert(dbmsId);
 			
-			//ICustomerService.getprodbmsManagedinfo(cusNm, proNm, dbmsId, getprodbmsManagedinfoCallBack);
+			ICustomerService.getprodbmsManagedinfo(cusNm, proNm, dbmsId, getprodbmsManagedinfoCallBack);
 		}else{
 			$("#cusNm_id").swidget().destroy();
 			$("#cusNm_id").shieldComboBox({
@@ -121,7 +113,6 @@ $(document).ready(function(){
     	
     	var cusNm_hidden = $("#cusName_hidden_id").val();
     	var cusPro_hidden = $("#cusPro_hidden_id").val();
-    	alert(cusPro_hidden);
     	var cusDbms_hidden = $("#dbmsNm_hidden_id").val();
     	var cusUser_hidden = $("#cusNm_hidden_id").val();
     	
@@ -463,8 +454,7 @@ th, td {
 				
 				<div class="input_txt_01 input_04 inputTxtFont">	
 					<input type="hidden" id="cusNm_hidden_id" value="0"/>
-					<!-- input id='cusNm_id' value=""  style='text-transform: uppercase' -->
-					<input id='cusNm_id' value="">
+					<input id='cusNm_id' value=""  style='text-transform: uppercase'>
 				</div>
 				
 				<input class="input_txt input_05 inputTxtFont" type='text' id='cusPhone_id' value="" onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' style='ime-mode:disabled;'>
@@ -473,7 +463,7 @@ th, td {
 				
 				<input class="input_txt input_07 inputTxtFont" type='text' id='cuslocation_id' value=""  style='text-transform: uppercase'>				
 				
-				<select class="input_txt input_08 inputTxtFont" id='salesman_select_id'>
+				<select class="input_txt input_08 inputTxtFont" id='salesman_select_id' disabled="disabled">
 					<option value="0" selected>지정하지않음.</option>
 					 <c:forEach var="sl" items="${salseman_list}">
 					    	<option value="${sl.userId}">${sl.userNm}</option>		 	    			 	    	
