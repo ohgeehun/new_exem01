@@ -15,11 +15,11 @@
 <!-- <script src="resources/script/jquery/jquery-latest.min.js"></script> 
 <script src="resources/script/jquery/jquery.prettydropdowns.js"></script>  -->
 
-
 <!-- DWR setting -->
 <script type="text/javascript" src="dwr/engine.js"></script>
 <script type="text/javascript" src="dwr/util.js"></script>
-<script type="text/javascript" src="dwr/interface/ICustomerService.js"></script> 
+<script type="text/javascript" src="dwr/interface/ICustomerService.js"></script>
+<script type="text/javascript" src="dwr/interface/IMatService.js"></script> 
 
 <script>
 var userId = "<%=(String)session.getAttribute("sUserId")%>";
@@ -44,7 +44,46 @@ $(document).ready(function(){
             $("input[name=chk]").prop("checked",false);
         }
     });
-});  
+	
+	
+	// 삭제 처리
+	$("#edit_delete_btn").bind("click", function(){	
+		if ( $('#form1 input[type=checkbox]:checked').length == 0  ) {
+			alert("삭제할 행을 선택하세요.");
+		} else{
+			
+	   	    $('#checkbox_id:checked').each(function() {   	    
+   	    	    var chkId = $(this).val();
+
+	   	    	 if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+	 				
+	 		   	    $('#checkbox_id:checked').each(function() {   	    
+	 	   	    	    var chkId = $(this).val();
+							
+		 	   	    		IMatService.deleteMatinfo( 
+		   	         			chkId, 
+		   	         			deleteMatinfoCallBack );
+	 		   	    });
+	 			
+	 			}else{   //취소
+	 			    return;
+	 			}
+   	         	
+	   	    });	
+		}
+	});
+	
+});
+
+function deleteMatinfoCallBack(res){
+	if(res == "FAILED"){
+		alert("실패");
+		location.href = "maintenance";
+	}else if(res == "SUCCESS"){
+		alert("성공");
+		location.href = "maintenance";
+	}
+}
 </script>
 
 <style>
@@ -120,7 +159,8 @@ $(document).ready(function(){
 		</div>
 	 
 <div class="row">
-<form method="post" action="maintenance_edit_next">	 	
+
+<form id="form1" method="post" action="maintenance_edit_next">	 	
 	 <!-- div class="column side">
 		   <h4>유지보수 관리 페이지</h4></br>
 		   <a href="#" id="mat_managed">유지보수 관리</a></br>		    
@@ -129,6 +169,7 @@ $(document).ready(function(){
 	 
 	 <div class="top_mainDisplayPart">
 	 	<div align="center"><h3>유지보수 관리 페이지</h3></div>
+	 	
 	 	<%-- <input type="hidden" id="lastBoardNo" value ="${cus_list[fn:length(cus_list)-1].boardNo}"/> --%>
 		<input type="hidden" id="nowPage" name="pageNo" value="${nowPage}"/>
 		<input type="hidden" id="cusId_hidden_id" name="cusId_hidden_name" value=""/>
@@ -425,6 +466,7 @@ $(document).ready(function(){
 						<td colspan="14" class="center_align">
 							<div>
 						  		<input type="button" id="edit_update_btn" value="수정" class="inBtt_OK_2"/>
+						  		<input type="button" id="edit_delete_btn" value="삭제" class="inBtt_OK_2">
 						  	</div>
 						</td>
 					</tr>
@@ -434,6 +476,7 @@ $(document).ready(function(){
 	 		
 		</div>
 	</div>
+	
 	</form>
 </div>
 

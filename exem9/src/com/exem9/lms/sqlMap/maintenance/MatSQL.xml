@@ -97,7 +97,6 @@
 -->		
 	</select>
 	
-	
 	<select id="getNCount" parameterClass="java.util.HashMap" resultClass="Integer">
 	select count(maintenance_id)
 		from xm_maintenance m
@@ -116,4 +115,10 @@
 		</isNotEmpty>
 	</select>
 		
+	<!-- 유지보수 삭제 -->
+	<update id="deleteMatinfo" parameterClass="java.util.HashMap">
+	 DELETE from XM_MAINTENANCE  
+	 WHERE maintenance_id = #chkId#  
+	 </update>
+	 	
 </sqlMap>

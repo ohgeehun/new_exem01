@@ -40,4 +40,9 @@ public interface IMatService {
 	public List<MatBean> getmatinfo(String selectBtnVal, String selectTextVal, int nowPage) throws Throwable; 
 
 	public LineBoardBean getNCount(String selectBtnVal, String selectTextVal, int nowPage) throws Throwable;
+	
+	
+	/* 유지보수 항목 삭제*/
+	public String deleteMatinfo(String chkId) throws Throwable;
+	
 }

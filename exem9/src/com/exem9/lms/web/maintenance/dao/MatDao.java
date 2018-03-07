@@ -36,4 +36,14 @@ public class MatDao implements IMatDao{
 		// TODO Auto-generated method stub
 		return count;
 	}
+	
+	/*유지보수 정보 삭제 처리*/
+	public String deleteMatinfo(HashMap params) throws Throwable {
+		String result = "FAILED";
+		
+		if(sqlMapClient.update("maintenance.deleteMatinfo", params) > 0){
+			result = "SUCCESS";
+		}
+		return result;
+	}
 }

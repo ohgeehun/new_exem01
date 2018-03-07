@@ -198,6 +198,15 @@ public class MatService implements IMatService{
 		return lbb;
 	}
 	
-	
+	// 삭제
+	public String deleteMatinfo(String chkId) throws Throwable {
+		
+		HashMap params = new HashMap();
+		params.put("chkId", Integer.parseInt(chkId) );
+		
+		System.out.println("============================================================== mat delete call : ");
+		
+		return iMatDao.deleteMatinfo(params);
+	}
 
 }

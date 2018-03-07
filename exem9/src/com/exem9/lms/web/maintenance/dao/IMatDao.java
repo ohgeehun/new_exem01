@@ -14,4 +14,7 @@ public interface IMatDao {
 
 	public int getNCount(HashMap params) throws Throwable;
 
+	public String deleteMatinfo(HashMap params) throws Throwable;
+
+
 }
