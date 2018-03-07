@@ -97,7 +97,6 @@ public class MemberController {
 		return modelAndView;
 	}
 	
-	
 	@RequestMapping(value = "/member_insert")
 	public ModelAndView member_insert(HttpServletRequest request, 
 							   HttpServletResponse response,

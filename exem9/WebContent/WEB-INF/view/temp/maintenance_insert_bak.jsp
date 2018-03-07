@@ -45,6 +45,7 @@ $(document).ready(function(){
 	    location.href = "maintenance_insert";
 	});
 	
+	
 	$("#mat_managed").bind("click", function(){	
 	   	location.href = "maintenance";
 	});
@@ -66,11 +67,10 @@ $(document).ready(function(){
         var supoendDatae = $("#supo_end_date_id").val();
         var etc = $("#etc_id").val();
 	
-        /*
-        alert(cusNm);
-        alert(proNm);
+/*         alert(proId);
     	alert(dbmsId);
     	alert(dbmsVersion);
+    	alert(cusNm);
     	alert(salesmanId);
     	alert(user1Id);
     	alert(user2Id);
@@ -79,8 +79,9 @@ $(document).ready(function(){
     	alert(supoinstallData);
     	alert(supostateDate);
     	alert(supoendDatae);
-    	alert(etc);
-    	*/
+    	alert(etc); */
+    	
+    	alert(supoinstallData);
     	
      	if(proNm == ""){     		
      		alert("프로젝트명을 선택하세요.");	   		
@@ -94,11 +95,9 @@ $(document).ready(function(){
      				if(user1Id == "0"){
      					alert("담당엔지니어를 선택하세요.");
      				}else{     				
-     					
      					IMatService.insertMatinfo(cusNm, proNm, dbmsId, dbmsVersion, cusUserNm, salesmanId,
      											user1Id, user2Id, supoLeverId, supoVisitId, supoinstallData,
-     											supostateDate, supoendDatae, etc, insertMatinfoCallBack);
-     					
+     											supostateDate, supoendDatae, etc, insertMatinfoCallBack);     	                       
      				}
      			}     		
      		}     	
@@ -120,7 +119,6 @@ $(document).ready(function(){
         
 	});  
 	
-	/*
 	$("#dbms_select_id").change(function (){
 		var dbmsId = $("#dbms_select_id").val();	
 		
@@ -138,7 +136,7 @@ $(document).ready(function(){
 			$("#user2_select_id").prop("disabled",true);							
 		}	
 	});
-	*/
+	
 	
 	$("#team_select_id").change(function (){
 	
@@ -156,7 +154,7 @@ $(document).ready(function(){
 		}	
 	});
 	
-	/*
+	
 	$("#user1_select_id").change(function (){
 		
 		var user1Nm = $("#user1_select_id").val();	
@@ -170,7 +168,6 @@ $(document).ready(function(){
 			$("#user2_select_id").prop("disabled",true);												
 		}	
 	});
-	*/
 	
 	$("#supo_level_select_id").change(function (){
 		var supoLevel = $("#supo_level_select_id").val();	
@@ -498,44 +495,32 @@ th, td {
 				 	    		</c:forEach>	
 							</select>
 						
-							<!-- select id='team_select_id' class="input_txt input_07 inputTxtFont sui-input">
+							<select id='team_select_id' disabled="disabled" class="input_txt input_07 inputTxtFont sui-input">
 								<option value="0" selected>지정하지 않음.</option>							  	
-							</select-->
-							<select id='dept_select_id' class="input_txt input_07 inputTxtFont sui-input">
-									<option value="0" selected>지정하지 않음.</option>
-								<c:forEach var="dept" items="${dept_list}">										
-									<option value="${dept.deptId}">${dept.deptNm}</option>	
-								</c:forEach>							  	
 							</select>
 						
-							<select id='user1_select_id' class="input_txt input_08 inputTxtFont sui-input">
-								<option value="0" selected>지정하지 않음.</option>
-								<c:forEach var="mem" items="${mem_list}">										
-									<option value="${mem.userId}">${mem.userNm}</option>	
-								</c:forEach>							  	
+							<select id='user1_select_id' disabled="disabled" class="input_txt input_08 inputTxtFont sui-input">
+								<option value="0" selected>지정하지 않음.</option>							  	
 							</select>
 						
-							<select id='user2_select_id' class="input_txt input_09 inputTxtFont sui-input">
-								<option value="0" selected>지정하지 않음.</option>
-								<c:forEach var="mem" items="${mem_list}">										
-									<option value="${mem.userId}">${mem.userNm}</option>	
-								</c:forEach>							  	
+							<select id='user2_select_id' disabled="disabled" class="input_txt input_09 inputTxtFont sui-input">
+								<option value="0" selected>지정하지 않음.</option>							  	
 							</select>
 												
 							<input type='date' id='install_date_id' class="input_txt input_10 inputTxtFont sui-input">														
 					
-							<select id='supo_level_select_id' class="input_txt input_11 inputTxtFont sui-input">
+							<select d='supo_level_select_id' class="input_txt input_11 inputTxtFont sui-input">
 								<option value="0" selected>지정하지 않음.</option>
 							    <c:forEach var="sll" items="${supo_level_list}">
 				 	    			<option value="${sll.supoId}">${sll.supoNm}</option>		 	    	
 				 	    		</c:forEach>	
 							</select>
 						
-						    <select id='supo_state_select_id' class="input_txt input_12 inputTxtFont sui-input">
+						    <select id='supo_state_select_id' disabled="disabled" class="input_txt input_12 inputTxtFont sui-input">
 								<option value="0" selected>지정하지 않음.</option>
-							    <c:forEach var="svl" items="${supo_visit_list}">
+							  <%--   <c:forEach var="svl" items="${supo_visit_list}">
 				 	    			<option value="${svl.supoVisitId}">${svl.supoVisitNm}</option>		 	    	
-				 	    		</c:forEach>
+				 	    		</c:forEach> --%>
 							</select>
 																							
 							<input type='date' id='supo_start_date_id' class="input_txt input_13 inputTxtFont sui-input">														

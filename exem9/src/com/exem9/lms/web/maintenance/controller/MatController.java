@@ -1,6 +1,5 @@
 package com.exem9.lms.web.maintenance.controller;
 
-
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,13 +12,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.exem9.lms.exception.UserNotFoundException;
+import com.exem9.lms.web.common.bean.LineBoardBean;
 import com.exem9.lms.web.common.bean.SupoBean;
+import com.exem9.lms.web.customer.bean.CustomerBean;
+import com.exem9.lms.web.customer.bean.CustomerMemberBean;
 import com.exem9.lms.web.customer.service.ICustomerService;
 import com.exem9.lms.web.dbms.bean.DbmsBean;
+import com.exem9.lms.web.department.bean.DeptBean;
+import com.exem9.lms.web.department.service.IDeptService;
+import com.exem9.lms.web.maintenance.bean.MatBean;
 import com.exem9.lms.web.maintenance.service.IMatService;
 import com.exem9.lms.web.member.bean.MemberBean;
-
-
+import com.exem9.lms.web.member.service.IMemberService;
+import com.exem9.lms.web.position.bean.PosiBean;
+import com.exem9.lms.web.team.bean.TeamBean;
 
 @Controller
 public class  MatController {
@@ -27,6 +33,10 @@ public class  MatController {
 	public IMatService iMatService;
 	@Autowired
 	public ICustomerService iCustomerService;
+	@Autowired
+	public IDeptService iDeptService;
+	@Autowired
+	public IMemberService iMemberService;
 	
 	@RequestMapping(value = "/maintenance")
 	public ModelAndView maintenance(HttpServletRequest request, 
@@ -38,6 +48,17 @@ public class  MatController {
 		if(session.getAttribute("sUserId")==null) {
 			throw new UserNotFoundException("자동 로그아웃 됐습니다.");
 		} else {
+			List<MatBean> mat_list = iMatService.getmatinfo("0","",1);
+			
+			LineBoardBean lbb = iMatService.getNCount("0","",1);
+		
+			modelAndView.addObject("mat_list", mat_list);
+			
+			modelAndView.addObject("startPage", lbb.getStartPage());
+			modelAndView.addObject("endPage", lbb.getEndPage());
+			modelAndView.addObject("maxPage", lbb.getMaxPage());
+			modelAndView.addObject("nowPage", lbb.getNowPage());
+			
 			modelAndView.setViewName("maintenance/maintenance");
 		}
 				
@@ -56,6 +77,8 @@ public class  MatController {
 		List<SupoBean> supo_level_list = iMatService.getSupolevel();
 		List<SupoBean> supo_visit_list = iMatService.getSupovisit("");
 		List<DbmsBean> dbms_list = iMatService.getdbms();
+		List<DeptBean> dept_list = iDeptService.getdept();
+		List<MemberBean> mem_list = iMemberService.getallmem();
 		
 		if(session.getAttribute("sUserId")==null) {
 			throw new UserNotFoundException("자동 로그아웃 됐습니다.");
@@ -64,12 +87,15 @@ public class  MatController {
 			modelAndView.addObject("supo_visit_list", supo_visit_list);
 			modelAndView.addObject("salseman_list", salseman_list);
 			modelAndView.addObject("dbms_list", dbms_list);
-			
+			modelAndView.addObject("dept_list", dept_list);
+			modelAndView.addObject("mem_list", mem_list);
 			
 			modelAndView.setViewName("maintenance/maintenance_insert");
 		}
 				
 		return modelAndView;
 	}
+	
+	
 	
 }

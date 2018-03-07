@@ -2,8 +2,10 @@ package com.exem9.lms.web.maintenance.service;
 
 import java.util.List;
 
+import com.exem9.lms.web.common.bean.LineBoardBean;
 import com.exem9.lms.web.common.bean.SupoBean;
 import com.exem9.lms.web.dbms.bean.DbmsBean;
+import com.exem9.lms.web.maintenance.bean.MatBean;
 import com.exem9.lms.web.member.bean.MemberBean;
 import com.exem9.lms.web.team.bean.TeamBean;
 
@@ -34,4 +36,8 @@ public interface IMatService {
 								String user1Id, String user2Id, String supoLeverId,
 								String supoVisitId, String supoinstallData, String supostateDate,
 								String supoendDatae, String etc) throws Throwable ;
+
+	public List<MatBean> getmatinfo(String selectBtnVal, String selectTextVal, int nowPage) throws Throwable; 
+
+	public LineBoardBean getNCount(String selectBtnVal, String selectTextVal, int nowPage) throws Throwable;
 }

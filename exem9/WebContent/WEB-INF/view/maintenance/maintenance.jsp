@@ -120,31 +120,31 @@ $(document).ready(function(){
 		<input type="hidden" id="cusId_hidden_id" name="cusId_hidden_name" value=""/>
 		<input type="hidden" id="userId_hidden_id" value=""/>		
 	
-		<div id="customer_list">		
-			<table id="cus_list">	
-				<thead id="cus_list_th">
+		<div id="maintenance_list">		
+			<table id="mat_list">	
+				<thead id="mat_list_th">
 					<tr>
 					 	<td colspan="14" class="left_align">
 						 		<!-- <label for="cus_select1" class="a11y-hidden">분류</label>  -->
-						 	    <select id="cus_select1" name="supoState" class="main_input_box_2 nInputFont fltBox1">
+						 	    <select id="mat_select1" name="supoState" class="main_input_box_2 nInputFont fltBox1">
 										<option value="0" selected>전체</option>
 										<%--  <c:forEach var="sl" items="${supo_list}">
 						 	    			<option value="${sl.supoId}">${sl.supoNm}</option>		 	    	
 						 	    		</c:forEach> --%>
 								</select>
-						 	    <select id="cus_select2" name="userDept" class="main_input_box_2 nInputFont fltBox1">
+						 	    <select id="mat_select2" name="userDept" class="main_input_box_2 nInputFont fltBox1">
 						 	   		 <option value="0">전체</option>
 						 	   		<%--  <c:forEach var="dl" items="${dept_list}">
 						 	    		<option value="${dl.deptId}"<c:if test="${cus_list[0].userDept == dl.deptNm}">selected</c:if>>${dl.deptNm}</option>		 	    	
 						 	    	</c:forEach>	 --%>	 	    		 			
 								</select>
-						 	    <select id="cus_select3" name="userDbms" class="main_input_box_2 nInputFont fltBox1">
+						 	    <select id="mat_select3" name="userDbms" class="main_input_box_2 nInputFont fltBox1">
 										<option value="0" selected>전체</option>
 										<%-- <c:forEach var="dbl" items="${dbms_list}">
 						 	    			<option value="${dbl.dbmsId}"<c:if test="${cus_list[0].userDbms == dbl.dbmsNm}">selected</c:if>>${dbl.dbmsNm}</option>		 	    	
 						 	    		</c:forEach>	 --%>
 								</select>
-					 			<select id="cus_select4" name="selectBtnVal" class="main_input_box_2 nInputFont fltBox1">
+					 			<select id="mat_select4" name="selectBtnVal" class="main_input_box_2 nInputFont fltBox1">
 					 					<option value="0" selected>검색조건없음</option>
 										<option value="1">고객사</option>
 										<option value="2">담당 엔지니어</option>
@@ -164,41 +164,43 @@ $(document).ready(function(){
 						</ul>
 						</td>
 						
-						<td><input class="main_title_box_2 box2_02 nTitleFont" value="고객사명" disabled="disabled"/></td>
-						<td><input class="main_title_box_2 box2_03 nTitleFont" value="프로젝트명" disabled="disabled"/></td>
-						<td><input class="main_title_box_2 box2_04 nTitleFont" value="담당부서" disabled="disabled"/></td>
-						<td><input class="main_title_box_2 box2_05 nTitleFont" value="업무" disabled="disabled"/></td>
-						<td><input class="main_title_box_2 box2_06 nTitleFont" value="엔지니어(정)" disabled="disabled"/></td>
-						<td><input class="main_title_box_2 box2_07 nTitleFont" value="엔지니어(부)" disabled="disabled"/></td>
-						<td><input class="main_title_box_2 box2_08 nTitleFont" value="영업대표" disabled="disabled"/></td>
-						<td><input class="main_title_box_2 box2_09 nTitleFont" value="최초설치일" disabled="disabled"/></td>
-						<td><input class="main_title_box_2 box2_10 nTitleFont" value="계약상태" disabled="disabled"/></td>
-						<td><input class="main_title_box_2 box2_11 nTitleFont" value="방문주기" disabled="disabled"/></td>
-						<td><input class="main_title_box_2 box2_12 nTitleFont" value="시작일" disabled="disabled"/></td>
-						<td><input class="main_title_box_2 box2_13 nTitleFont" value="종료일" disabled="disabled"/></td>
-						<td><input class="main_title_box_2 box2_14 nTitleFont" value="비고" disabled="disabled"/></td>
+						<td><input class="main_title_box_2 box2_02 nTitleFont" value="고객사명" disabled="disabled"></td>
+						<td><input class="main_title_box_2 box2_03 nTitleFont" value="프로젝트명" disabled="disabled"></td>
+						<td><input class="main_title_box_2 box2_04 nTitleFont" value="담당부서" disabled="disabled"></td>
+						<td><input class="main_title_box_2 box2_05 nTitleFont" value="업무" disabled="disabled"></td>
+						<td><input class="main_title_box_2 box2_06 nTitleFont" value="엔지니어(정)" disabled="disabled"></td>
+						<td><input class="main_title_box_2 box2_07 nTitleFont" value="엔지니어(부)" disabled="disabled"></td>
+						<td><input class="main_title_box_2 box2_08 nTitleFont" value="영업대표" disabled="disabled"></td>
+						<td><input class="main_title_box_2 box2_09 nTitleFont" value="최초설치일" disabled="disabled"></td>
+						<td><input class="main_title_box_2 box2_10 nTitleFont" value="계약상태" disabled="disabled"></td>
+						<td><input class="main_title_box_2 box2_11 nTitleFont" value="방문주기" disabled="disabled"></td>
+						<td><input class="main_title_box_2 box2_12 nTitleFont" value="시작일" disabled="disabled"></td>
+						<td><input class="main_title_box_2 box2_13 nTitleFont" value="종료일" disabled="disabled"></td>
+						<td><input class="main_title_box_2 box2_14 nTitleFont" value="비고" disabled="disabled"></td>
 					</tr>					
 				</thead>
-				<tbody id="cus_list_tb">
-					<c:forEach var="cli" items="${cus_list_info}">											
+				<tbody id="mat_list_tb">
+					<c:forEach var="mat" items="${mat_list}">											
 						<tr>
 							<td>
 							<ul>
 								<li class="main_title_box_2 box2_01 nCheckBox">
-									<input type="checkbox" name="chk" id="checkbox_id" value="${cli.proId}"/>
+									<input type="checkbox" name="chk" id="checkbox_id" value="${mat.matId}"/>
 								</li>
 							</ul>
 							</td>						
 							<td>
-								<input type="text" class="main_input_box_2 box2_02 nInputFont" value="${cli.cusNm}"/>
+								<input type="text" class="main_input_box_2 box2_02 nInputFont" value="${mat.custId}"/>
 							</td>
 							<td>
-								<input type="text" class="main_input_box_2 box2_03 nInputFont" value="${cli.proNm}"/>
+								<input type="text" class="main_input_box_2 box2_03 nInputFont" value="${mat.projId}"/>
 							</td>
 							<td>
-								<input type="hidden" id="select_team_hidden_id_${cli.proId}" value=""/>
-								<input type="hidden" id="cusId_hidden_id_${cli.proId}" value=""/>
-								<select id="edit_team_list_select_${cli.proId}" name="select_event" 
+								<input type="hidden" id="select_team_hidden_id_${cli.proId}" value="">
+								<input type="hidden" id="cusId_hidden_id_${cli.proId}" value="">
+								
+								
+								<select id="edit_team_list_select_${mat.matId}" name="select_event" 
 									class="main_input_box_2 box2_04 nInputFont" onchange="edit_team_select_change_event(${cli.proId})" >
 									<c:if test="${cli.teamNm == '0'}">
 											<option value="0" selected>지정필요.</option>
@@ -218,7 +220,7 @@ $(document).ready(function(){
 							</td>
 							<%-- <td>${cli.dbmsNm}</td> --%>
 							<td>
-								<select id="edit_dbms_list_select_${cli.proId}" class="main_input_box_2 box2_05 nInputFont">
+								<select id="edit_dbms_list_select_${mat.matId}" class="main_input_box_2 box2_05 nInputFont">
 									<c:forEach var="edl" items="${edit_dbms_list}">
 										<c:choose>
 											<c:when test="${edl.dbmsNm == cli.dbmsNm}">
@@ -233,7 +235,7 @@ $(document).ready(function(){
 							</td>							
 							<%-- <td>${cli.user1Nm}</td> --%>							
 							<td>
-								<select id="edit_user1_list_select_${cli.proId}" name="select_event" class="main_input_box_2 box2_06 nInputFont">
+								<select id="edit_user1_list_select_${mat.matId}" name="select_event" class="main_input_box_2 box2_06 nInputFont">
 									<c:if test="${cli.user1Nm eq null}">
 										<option value="0" selected>지정필요.</option>
 									</c:if>
@@ -251,7 +253,7 @@ $(document).ready(function(){
 							</td>
 							<%-- <td>${cli.user2Nm}</td> --%>
 							<td>
-								<select id="edit_user2_list_select_${cli.proId}" name="select_event" class="main_input_box_2 box2_07 nInputFont">
+								<select id="edit_user2_list_select_${mat.matId}" name="select_event" class="main_input_box_2 box2_07 nInputFont">
 									<c:if test="${cli.user2Nm eq null}">
 										<option value="0" selected>지정필요.</option>
 									</c:if>
@@ -269,7 +271,7 @@ $(document).ready(function(){
 							</td>																		
 							<%-- <td>${cli.salseNm}</td> --%>
 							<td>
-								<select id="edit_salseman_list_select_${cli.proId}" class="main_input_box_2 box2_08 nInputFont">
+								<select id="edit_salseman_list_select_${mat.matId}" class="main_input_box_2 box2_08 nInputFont">
 									<c:if test="${cli.salseNm == '0'}">
 										<option value="0" selected>지정필요.</option>
 									</c:if>
@@ -285,7 +287,7 @@ $(document).ready(function(){
 									</c:forEach>	
 								</select>
 							</td>
-							<td><input id="supoInsDate_id_${cli.proId}" type="date" value="${cli.supoInsDate}" class="main_input_box_2 box2_09 nInputFont"></td>
+							<td><input id="supoInsDate_id_${mat.matId}" type="date" value="${mat.installDay}" class="main_input_box_2 box2_09 nInputFont"></td>
 							<%-- <td>${cli.supoInsDate}</td> --%>
 							<%-- <td>${cli.supoState}</td>  --%>
 							<td>
@@ -308,7 +310,7 @@ $(document).ready(function(){
 							</td>						
 							<%-- <td>${cli.supoVisit}</td>  --%>
 							<td>
-								<select id="edit_supoVisit_list_select_${cli.proId}" name="select_event" class="main_input_box_2 box2_11 nInputFont">
+								<select id="edit_supoVisit_list_select_${mat.matId}" name="select_event" class="main_input_box_2 box2_11 nInputFont">
 									<c:if test="${cli.supoState eq null}">
 										<option value="0" selected>지정필요.</option>
 									</c:if>
@@ -329,18 +331,18 @@ $(document).ready(function(){
 							<%-- <td>${cli.supoStartDate}</td>
 							<td>${cli.supoEndDate}</td> --%>
 							<td>
-								<input id="supoStartDate_id_${cli.proId}" type="date" value="${cli.supoStartDate}" class="main_input_box_2 box2_12 nInputFont">
+								<input id="supoStartDate_id_${mat.matId}" type="date" value="${mat.startDay}" class="main_input_box_2 box2_12 nInputFont">
 							</td>
 							<td>
-								<input id="supoEndDate_id_${cli.proId}" type="date" value="${cli.supoEndDate}" class="main_input_box_2 box2_13 nInputFont">
+								<input id="supoEndDate_id_${mat.matId}" type="date" value="${mat.endDay}" class="main_input_box_2 box2_13 nInputFont">
 							</td>							
 							<td>
-								<textarea id="etc_id_${cli.proId}" name="contents" class="main_input_box_2 box2_14 nInputFont">${cli.etc}</textarea>
+								<textarea id="etc_id_${mat.matId}" name="contents" class="main_input_box_2 box2_14 nInputFont">${mat.etc}</textarea>
 							</td>
 						</tr>					
 					</c:forEach>										
 				</tbody>
-				<tfoot id="cus_list_tf"> 
+				<tfoot id="mat_list_tf"> 
 					
 					<tr>
 						<td colspan="14" class="center_align">
