@@ -20,6 +20,7 @@ import com.exem9.lms.web.customer.bean.CustomerNextBean;
 import com.exem9.lms.web.customer.service.ICustomerService;
 import com.exem9.lms.web.dbms.bean.DbmsBean;
 import com.exem9.lms.web.member.bean.MemberBean;
+import com.exem9.lms.web.member.bean.MemberBean2;
 
 
 @Controller
@@ -80,7 +81,7 @@ public class CustomerController {
 			throw new UserNotFoundException("자동 로그아웃 됐습니다.");
 		} else {			
 			
-			List<MemberBean> salseman_list = iCustomerService.getSalsemember(); 
+			List<MemberBean2> salseman_list = iCustomerService.getSalsemember(); 
 			List<DbmsBean> dbms_list = iCustomerService.getdbms();
 
 			modelAndView.addObject("salseman_list", salseman_list);
@@ -104,7 +105,7 @@ public class CustomerController {
 		} else {						
 			List<CustomerBean> cus_list_info = iCustomerService.getcusinfo("0","",1);
 			
-			List<MemberBean> edit_salseman_list = iCustomerService.getSalsemember(); 
+			List<MemberBean2> edit_salseman_list = iCustomerService.getSalsemember(); 
 			List<CustomerMemberBean> cus_member_list_info = iCustomerService.getcusUserinfo("", "0", "0");
 			LineBoardBean lbb = iCustomerService.getNCount("0","",1);
 		
@@ -143,7 +144,7 @@ public class CustomerController {
 		} else {						
 			List<CustomerBean> cus_list_info = iCustomerService.getcusinfo(selectBtnVal,cusNm,pageNo);
 			
-			List<MemberBean> edit_salseman_list = iCustomerService.getSalsemember(); 
+			List<MemberBean2> edit_salseman_list = iCustomerService.getSalsemember(); 
 			List<CustomerMemberBean> cus_member_list_info = iCustomerService.getcusUserinfo("", "0", "0");
 			LineBoardBean lbb = iCustomerService.getNCount(selectBtnVal,cusNm,pageNo);
 		

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.exem9.lms.web.customer.bean.CustomerBean;
 import com.exem9.lms.web.member.bean.MemberBean;
+import com.exem9.lms.web.member.bean.MemberBean2;
 import com.exem9.lms.web.mypage.bean.MypageBean;
 import com.exem9.lms.web.team.bean.TeamBean;
 
@@ -12,7 +13,7 @@ public interface IMemberDao {
 
 	public List<MemberBean> getUsermember(HashMap params) throws Throwable;
 
-	public List<MemberBean> getSalsemember()throws Throwable;
+	public List<MemberBean2> getSalsemember()throws Throwable;
 
 	public List<MemberBean> getteamuser(HashMap params) throws Throwable ;
 	

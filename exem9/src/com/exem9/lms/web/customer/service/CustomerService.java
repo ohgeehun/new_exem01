@@ -25,6 +25,7 @@ import com.exem9.lms.web.dbms.bean.DbmsBean;
 import com.exem9.lms.web.department.bean.DeptBean;
 import com.exem9.lms.web.department.dao.IDeptDao;
 import com.exem9.lms.web.member.bean.MemberBean;
+import com.exem9.lms.web.member.bean.MemberBean2;
 import com.exem9.lms.web.member.dao.IMemberDao;
 import com.exem9.lms.web.mypage.bean.MypageBean;
 import com.exem9.lms.web.mypage.dao.IMypageDao;
@@ -153,7 +154,7 @@ public class CustomerService implements ICustomerService{
 		return iMemberDao.getUsermember(params);
 	}
 
-	public List<MemberBean> getSalsemember() throws Throwable {
+	public List<MemberBean2> getSalsemember() throws Throwable {
 		// TODO Auto-generated method stub
 		return iMemberDao.getSalsemember();
 	}

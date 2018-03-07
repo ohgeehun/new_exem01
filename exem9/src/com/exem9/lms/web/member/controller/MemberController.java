@@ -28,6 +28,7 @@ import com.exem9.lms.web.dbms.service.IDbmsService;
 import com.exem9.lms.web.department.service.IDeptService;
 import com.exem9.lms.web.department.bean.DeptBean;
 import com.exem9.lms.web.member.bean.MemberBean;
+import com.exem9.lms.web.member.bean.MemberBean2;
 import com.exem9.lms.web.member.service.IMemberService;
 import com.exem9.lms.web.position.bean.PosiBean;
 import com.exem9.lms.web.position.service.IPosiService;
@@ -70,7 +71,7 @@ public class MemberController {
 			List<DbmsBean> dbms_list = iDbmsService.getdbms();
 			
 			List<CustomerBean> cus_list_info = iCustomerService.getcusinfo("0","",1);
-			List<MemberBean> edit_salseman_list = iCustomerService.getSalsemember(); 
+			List<MemberBean2> edit_salseman_list = iCustomerService.getSalsemember(); 
 			List<CustomerMemberBean> cus_member_list_info = iCustomerService.getcusUserinfo("", "0", "0");
 			
 			LineBoardBean lbb = iMemberService.getNCount("0","",1);

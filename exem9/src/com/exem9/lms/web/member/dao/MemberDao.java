@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.exem9.lms.web.customer.bean.CustomerBean;
 import com.exem9.lms.web.member.bean.MemberBean;
+import com.exem9.lms.web.member.bean.MemberBean2;
 import com.exem9.lms.web.mypage.bean.MypageBean;
 import com.exem9.lms.web.team.bean.TeamBean;
 import com.ibatis.sqlmap.client.SqlMapClient;
@@ -22,7 +23,7 @@ public class MemberDao implements IMemberDao{
 		return sqlMapClient.queryForList("member.getUsermember",params);
 	}
 
-	public List<MemberBean> getSalsemember() throws Throwable {
+	public List<MemberBean2> getSalsemember() throws Throwable {
 		// TODO Auto-generated method stub
 		return sqlMapClient.queryForList("member.getSalsemember");
 	}

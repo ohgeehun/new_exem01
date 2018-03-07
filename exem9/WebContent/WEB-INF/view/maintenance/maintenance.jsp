@@ -27,8 +27,22 @@ var userDept = "<%=(String)session.getAttribute("sUserDept")%>";
 var userDbms = "<%=(String)session.getAttribute("sUserDbms")%>";
 
 $(document).ready(function(){  
+	
     $("#mat_insert").bind("click", function(){	
     	location.href = "maintenance_insert";
+    });
+	
+	/* 체크박스 이벤트 */
+	$("#checkall").click(function(){
+        //클릭되었으면
+        if($("#checkall").prop("checked")){
+            //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의
+            $("input[name=chk]").prop("checked",true);
+            //클릭이 안되있으면
+        }else{
+            //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의
+            $("input[name=chk]").prop("checked",false);
+        }
     });
 });  
 </script>
@@ -75,22 +89,22 @@ $(document).ready(function(){
 }
 
 .box2_09 {
-	width:75px;
+	width:135px;
 }
 .box2_10 {
-	width:75px;
+	width:115px;
 }
 .box2_11 {
-	width:75px;
+	width:105px;
 }
 .box2_12 {
-	width:75px;
+	width:135px;
 }
 .box2_13 {
-	width:75px;
+	width:135px;
 }
 .box2_14 {
-	width:175px;
+	width:275px;
 }
 </style>
 
@@ -166,7 +180,7 @@ $(document).ready(function(){
 						
 						<td><input class="main_title_box_2 box2_02 nTitleFont" value="고객사명" disabled="disabled"></td>
 						<td><input class="main_title_box_2 box2_03 nTitleFont" value="프로젝트명" disabled="disabled"></td>
-						<td><input class="main_title_box_2 box2_04 nTitleFont" value="담당부서" disabled="disabled"></td>
+						<td><input class="main_title_box_2 box2_04 nTitleFont" value="고객명" disabled="disabled"></td>
 						<td><input class="main_title_box_2 box2_05 nTitleFont" value="업무" disabled="disabled"></td>
 						<td><input class="main_title_box_2 box2_06 nTitleFont" value="엔지니어(정)" disabled="disabled"></td>
 						<td><input class="main_title_box_2 box2_07 nTitleFont" value="엔지니어(부)" disabled="disabled"></td>
@@ -190,44 +204,82 @@ $(document).ready(function(){
 							</ul>
 							</td>						
 							<td>
-								<input type="text" class="main_input_box_2 box2_02 nInputFont" value="${mat.custId}"/>
-							</td>
-							<td>
-								<input type="text" class="main_input_box_2 box2_03 nInputFont" value="${mat.projId}"/>
-							</td>
-							<td>
-								<input type="hidden" id="select_team_hidden_id_${cli.proId}" value="">
-								<input type="hidden" id="cusId_hidden_id_${cli.proId}" value="">
+								<!-- input type="text" class="main_input_box_2 box2_02 nInputFont" value="${mat.custId}"-->
 								
-								
-								<select id="edit_team_list_select_${mat.matId}" name="select_event" 
-									class="main_input_box_2 box2_04 nInputFont" onchange="edit_team_select_change_event(${cli.proId})" >
-									<c:if test="${cli.teamNm == '0'}">
+								<select id="edit_cust_list_select_${mat.matId}" name="custId" 
+									class="main_input_box_2 box2_02 nInputFont">
+									<c:if test="${mat.custId == '0'}">
 											<option value="0" selected>지정필요.</option>
 									</c:if>
-									<c:forEach var="etl" items="${edit_team_list}">
+									<c:forEach var="cus" items="${cus_list}">
 										<c:choose>
-											<c:when test="${etl.teamNm == cli.teamNm}">
-												<option value="${etl.teamId}" selected>${etl.teamNm}</option>
+											<c:when test="${cus.cusId == mat.custId}">
+												<option value="${cus.cusId}" selected>${cus.cusNm}</option>
 											</c:when>
 											<c:otherwise>
-												<option value="${etl.teamId}">${etl.teamNm}</option>	
+												<option value="${cus.cusId}">${cus.cusNm}</option>	
 											</c:otherwise>
 										</c:choose>		
 																		
 									</c:forEach>	
 								</select>
+								
+							</td>
+							<td>
+								<!-- input type="text" class="main_input_box_2 box2_03 nInputFont" value="${mat.projId}"-->
+								
+								<select id="edit_pjt_list_select_${mat.matId}" name="pjtId" 
+									class="main_input_box_2 box2_03 nInputFont">
+									<c:if test="${mat.projId == '0'}">
+											<option value="0" selected>지정필요.</option>
+									</c:if>
+									<c:forEach var="pjt" items="${pjt_list}">
+										<c:choose>
+											<c:when test="${pjt.pjtId == mat.projId}">
+												<option value="${pjt.pjtId}" selected>${pjt.pjtNm}</option>
+											</c:when>
+											<c:otherwise>
+												<option value="${pjt.pjtId}">${pjt.pjtNm}</option>	
+											</c:otherwise>
+										</c:choose>		
+																		
+									</c:forEach>	
+								</select>
+								
+							</td>
+							<td>
+								<input type="hidden" id="select_team_hidden_id_${cli.proId}" value="">
+								<input type="hidden" id="cusId_hidden_id_${cli.proId}" value="">
+								
+								<select id="edit_cususer_list_select_${mat.matId}" name="cususer" 
+									class="main_input_box_2 box2_04 nInputFont" >
+									<c:if test="${mat.cususerId == '0'}">
+											<option value="0" selected>지정필요.</option>
+									</c:if>
+									<c:forEach var="cususer" items="${cususer_list}">
+										<c:choose>
+											<c:when test="${cususer.cususerId == mat.cususerId}">
+												<option value="${cususer.cususerId}" selected>${cususer.cususerNm}</option>
+											</c:when>
+											<c:otherwise>
+												<option value="${cususer.cususerId}">${cususer.cususerNm}</option>	
+											</c:otherwise>
+										</c:choose>		
+																		
+									</c:forEach>	
+								</select>
+								
 							</td>
 							<%-- <td>${cli.dbmsNm}</td> --%>
 							<td>
 								<select id="edit_dbms_list_select_${mat.matId}" class="main_input_box_2 box2_05 nInputFont">
-									<c:forEach var="edl" items="${edit_dbms_list}">
+									<c:forEach var="dbms" items="${dbms_list}">
 										<c:choose>
-											<c:when test="${edl.dbmsNm == cli.dbmsNm}">
-												<option value="${edl.dbmsId}" selected>${edl.dbmsNm}</option>
+											<c:when test="${dbms.dbmsId == mat.dbmsId}">
+												<option value="${dbms.dbmsId}" selected>${dbms.dbmsNm}</option>
 											</c:when>
 											<c:otherwise>
-												<option value="${edl.dbmsId}">${edl.dbmsNm}</option>	
+												<option value="${dbms.dbmsId}">${dbms.dbmsNm}</option>	
 											</c:otherwise>
 										</c:choose>										
 									</c:forEach>	
@@ -236,16 +288,16 @@ $(document).ready(function(){
 							<%-- <td>${cli.user1Nm}</td> --%>							
 							<td>
 								<select id="edit_user1_list_select_${mat.matId}" name="select_event" class="main_input_box_2 box2_06 nInputFont">
-									<c:if test="${cli.user1Nm eq null}">
+									<c:if test="${mat.mem1Id == '0'}">
 										<option value="0" selected>지정필요.</option>
 									</c:if>
-									<c:forEach var="eml" items="${edit_member_list}">
+									<c:forEach var="mem" items="${mem_list}">
 										<c:choose>
-											<c:when test="${eml.userNm == cli.user1Nm}">
-												<option value="${eml.userId}" selected>${eml.userNm}</option>
+											<c:when test="${mem.userId == mat.mem1Id}">
+												<option value="${mem.userId}" selected>${mem.userNm}</option>
 											</c:when>
 											<c:otherwise>
-												<option value="${eml.userId}">${eml.userNm}</option>	
+												<option value="${mem.userId}">${mem.userNm}</option>	
 											</c:otherwise>
 										</c:choose>										
 									</c:forEach>	
@@ -254,16 +306,16 @@ $(document).ready(function(){
 							<%-- <td>${cli.user2Nm}</td> --%>
 							<td>
 								<select id="edit_user2_list_select_${mat.matId}" name="select_event" class="main_input_box_2 box2_07 nInputFont">
-									<c:if test="${cli.user2Nm eq null}">
+									<c:if test="${mat.mem2Id == '0'}">
 										<option value="0" selected>지정필요.</option>
 									</c:if>
-									<c:forEach var="eml" items="${edit_member_list}">
+									<c:forEach var="mem" items="${mem_list}">
 										<c:choose>
-											<c:when test="${eml.userNm == cli.user2Nm}">
-												<option value="${eml.userId}" selected>${eml.userNm}</option>
+											<c:when test="${mem.userId == mat.mem2Id}">
+												<option value="${mem.userId}" selected>${mem.userNm}</option>
 											</c:when>
 											<c:otherwise>
-												<option value="${eml.userId}">${eml.userNm}</option>	
+												<option value="${mem.userId}">${mem.userNm}</option>	
 											</c:otherwise>
 										</c:choose>										
 									</c:forEach>	
@@ -272,37 +324,40 @@ $(document).ready(function(){
 							<%-- <td>${cli.salseNm}</td> --%>
 							<td>
 								<select id="edit_salseman_list_select_${mat.matId}" class="main_input_box_2 box2_08 nInputFont">
-									<c:if test="${cli.salseNm == '0'}">
+									<!-- option value="0" selected>${mat.salesmanId}</option-->
+									<c:if test="${mat.salesmanId eq null}">
 										<option value="0" selected>지정필요.</option>
 									</c:if>
-									<c:forEach var="esl" items="${edit_salseman_list}">
+									<c:forEach var="salman" items="${salesman_list}">
 										<c:choose>
-											<c:when test="${esl.userNm == cli.salseNm}">
-												<option value="${esl.userId}" selected>${esl.userNm}</option>
+											<c:when test="${salman.userId == mat.salesmanId}">
+												<option value="${salman.userId}" selected>${salman.userNm}</option>
 											</c:when>
 											<c:otherwise>
-												<option value="${esl.userId}">${esl.userNm}</option>	
+												<option value="${salman.userId}">${salman.userNm}</option>	
 											</c:otherwise>
 										</c:choose>										
 									</c:forEach>	
 								</select>
 							</td>
-							<td><input id="supoInsDate_id_${mat.matId}" type="date" value="${mat.installDay}" class="main_input_box_2 box2_09 nInputFont"></td>
+							<td>
+								<input id="supoInsDate_id_${mat.matId}" type="date" value="${mat.installDay}" class="main_input_box_2 box2_09 nInputFont">
+							</td>
 							<%-- <td>${cli.supoInsDate}</td> --%>
 							<%-- <td>${cli.supoState}</td>  --%>
 							<td>
-								<select id="edit_supo_list_select_${cli.proId}" name="select_event" 
-									class="main_input_box_2 box2_10 nInputFont" onchange="edit_supo_select_change_event(${cli.proId})">
-									<c:if test="${cli.supoState eq null}">
+								<select id="edit_supo_list_select_${mat.matId}" name="select_event" 
+									class="main_input_box_2 box2_10 nInputFont" onchange="edit_supo_select_change_event(${mat.matId})">
+									<c:if test="${mat.contractId == '0'}">
 										<option value="0" selected>지정필요.</option>
 									</c:if>
-									<c:forEach var="esll" items="${edit_supo_list}">
+									<c:forEach var="spll" items="${supo_level_list}">
 										<c:choose>
-											<c:when test="${esll.supoNm == cli.supoState}">
-												<option value="${esll.supoId}" selected>${esll.supoNm}</option>
+											<c:when test="${spll.supoId == mat.contractId}">
+												<option value="${spll.supoId}" selected>${spll.supoNm}</option>
 											</c:when>
 											<c:otherwise>
-												<option value="${esll.supoId}">${esll.supoNm}</option>	
+												<option value="${spll.supoId}">${spll.supoNm}</option>	
 											</c:otherwise>
 										</c:choose>										
 									</c:forEach>	
@@ -311,20 +366,20 @@ $(document).ready(function(){
 							<%-- <td>${cli.supoVisit}</td>  --%>
 							<td>
 								<select id="edit_supoVisit_list_select_${mat.matId}" name="select_event" class="main_input_box_2 box2_11 nInputFont">
-									<c:if test="${cli.supoState eq null}">
+									<c:if test="${mat.visitId == '0'}">
 										<option value="0" selected>지정필요.</option>
 									</c:if>
-									<c:forEach var="esvl" items="${edit_supo_visit_list}">
-										<c:if test="${esvl.supoNm == cli.supoState}">
+									<c:forEach var="spvl" items="${supo_visit_list}">
+										
 											<c:choose>
-												<c:when test="${esvl.supoVisitNm == cli.supoVisit}">
-													<option value="${esvl.supoVisitId}" selected>${esvl.supoVisitNm}</option>
+												<c:when test="${spvl.supoVisitNm == mat.visitId}">
+													<option value="${spvl.supoVisitId}" selected>${spvl.supoVisitNm}</option>
 												</c:when>
 												<c:otherwise>
-													<option value="${esvl.supoVisitId}">${esvl.supoVisitNm}</option>	
+													<option value="${spvl.supoVisitId}">${spvl.supoVisitNm}</option>	
 												</c:otherwise>
 											</c:choose>		
-										</c:if>								
+																
 									</c:forEach>	
 								</select>
 							</td>	

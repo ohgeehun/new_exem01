@@ -21,7 +21,7 @@
 		<result property="userHint" column="user_hint"/>
 		<result property="userPoint" column="user_point"/>
 	</resultMap>
-	
+
 	<select id="getTeammember" parameterClass="java.util.HashMap" resultClass="MemberBean">
 	SELECT XM.user_id as userId,
 	       XM.user_name as userNm,
@@ -44,14 +44,33 @@
 	WHERE user_team_id = #userTeam#		
 	</select> 		
 	
-	<select id="getSalsemember" resultClass="MemberBean">
+	<typeAlias alias="MemberBean2" 
+			   type="com.exem9.lms.web.member.bean.MemberBean2" />	
+			   	
+	<resultMap class="MemberBean2" id="MemberMap2">
+		<result property="userId" column="user_id"/>
+		<result property="userNm" column="user_name"/>
+		<result property="userPhone" column="user_phone"/>
+		<result property="userMail" column="user_mail"/>
+	</resultMap>
+	
+	<select id="getSalsemember" resultMap="MemberMap2">
+	SELECT user_id ,
+	       user_name,
+		   user_mail,
+		   user_phone	       
+	FROM XM_MEMBER xm inner join xm_team xt
+	on xm.user_team_id = xt.team_id
+	and xt.department_id = 4
+	<!-- 
 	SELECT user_id as userId,
 	       user_name as userNm,
 		   user_mail as userMail,
 		   user_phone as userPhone	       
 	FROM XM_MEMBER xm inner join xm_team xt
 	on xm.user_team_id = xt.team_id
-	and xt.department_id = 4	
+	and xt.department_id = 4
+	-->	
 	</select>
 	
 	<select id="getteamuser" parameterClass="java.util.HashMap" resultClass="MemberBean">

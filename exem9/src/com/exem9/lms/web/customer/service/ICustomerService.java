@@ -11,6 +11,7 @@ import com.exem9.lms.web.customer.bean.CustomerPjtNmBean;
 import com.exem9.lms.web.dbms.bean.DbmsBean;
 import com.exem9.lms.web.department.bean.DeptBean;
 import com.exem9.lms.web.member.bean.MemberBean;
+import com.exem9.lms.web.member.bean.MemberBean2;
 import com.exem9.lms.web.mypage.bean.MypageBean;
 import com.exem9.lms.web.team.bean.TeamBean;
 
@@ -41,7 +42,7 @@ public interface ICustomerService {
 	public List<MemberBean> getUsermember(String userTeam) throws Throwable;
 	
 	/*고객사 수정 이벤트 영업대표 리스트 데이터 가져오기 (MemberDao 연계) */
-	public List<MemberBean> getSalsemember()throws Throwable;
+	public List<MemberBean2> getSalsemember()throws Throwable;
 
 	/*고객사 정보 업데이트 */
 	public String updateCusInfo(String userId, int cusproId, int cususer, String cusloca,   String salseman, String etc)throws Throwable;
