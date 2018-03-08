@@ -63,29 +63,38 @@
 	
 	
 	<select id="getmatinfo" parameterClass="java.util.HashMap" resultMap="MatMap">
-		 select 
+ 		select 
 			 maintenance_id, customer_id, project_id, dbms_id, dbms_version, 
 			 cususer_id, salesman_id, user1_id, user2_id, support_install_date, support_level_id, 
 			 support_visit_id, support_start_date, support_end_date, etc, 
 			 create_user, create_date, last_update_user, last_update_date 
-		 from xm_maintenance
-			where 1=1     
-
-		<!-- isNotEmpty property="selectTextVal"-->
-			<!-- 검색조건이 전체 -->
-<!-- 			
-			<isEqual property="selectBtnVal" compareValue="0"> 
-				and 
-				(u.user_id like '%' || #selectTextVal# || '%' or
-				 user_name like '%' || #selectTextVal# || '%' or
-				 u.user_team_id in (select team_id from xm_team xt, xm_department xdt 
-				where xt.department_id = xdt.department_id and xdt.department_name like '%' || #selectTextVal# || '%') or
-				u.user_team_id in (select team_id from xm_team where team_name like '%' || #selectTextVal# || '%')
-				)
-			</isEqual>
-		</isNotEmpty>
-		order by dp.department_id, u.user_team_id, u.user_name asc
-		) u
+		from
+			 (
+				 select 
+					 maintenance_id, customer_id, project_id, dbms_id, dbms_version, 
+					 cususer_id, salesman_id, user1_id, user2_id, support_install_date, support_level_id, 
+					 support_visit_id, support_start_date, support_end_date, etc, 
+					 create_user, create_date, last_update_user, last_update_date,
+					 ROW_NUMBER() OVER(order by m.maintenance_id desc) as row_num 
+				 from xm_maintenance m
+					where 1=1     
+		
+				<!-- isNotEmpty property="selectTextVal"-->
+					<!-- 검색조건이 전체 -->
+				<!-- 			
+					<isEqual property="selectBtnVal" compareValue="0"> 
+						and 
+						(u.user_id like '%' || #selectTextVal# || '%' or
+						 user_name like '%' || #selectTextVal# || '%' or
+						 u.user_team_id in (select team_id from xm_team xt, xm_department xdt 
+						where xt.department_id = xdt.department_id and xdt.department_name like '%' || #selectTextVal# || '%') or
+						u.user_team_id in (select team_id from xm_team where team_name like '%' || #selectTextVal# || '%')
+						)
+					</isEqual>
+				</isNotEmpty>
+				-->		
+			order by maintenance_id desc
+			) u
 		where 1=1
 		
 		<isNotEmpty property="pageNo">
@@ -94,7 +103,7 @@
 		<isEmpty property="pageNo">
 		and u.row_num BETWEEN 1 AND #viewCount#
 		</isEmpty>
--->		
+		
 	</select>
 	
 	<select id="getNCount" parameterClass="java.util.HashMap" resultClass="Integer">

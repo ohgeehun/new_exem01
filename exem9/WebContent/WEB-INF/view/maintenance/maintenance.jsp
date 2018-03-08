@@ -7,6 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- <link rel="stylesheet" type="text/css" href="./resources/css/prettydropdowns.css" media="all" />  -->
 <link rel="stylesheet" type="text/css" href="./resources/css/main.css" media="all" /> 
+<link rel="stylesheet" type="text/css" href="./resources/css/maintenance/maintenance.css" media="all" ></link>
 
 <!-- jQuery Script -->
 <script type="text/javascript" src="resources/script/jquery/jquery-1.8.2.min.js"></script>
@@ -73,6 +74,31 @@ $(document).ready(function(){
 		}
 	});
 	
+	/*페이지 처리(이전 버튼 이벤트 )*/
+    $("#backVal").live("click", function(){
+    	
+    	$("#nowPage").val($("#nowPage").val() - 1);    	
+    	
+    	$("#form1").submit();	
+    	
+    });
+    
+    /*페이지 처리(다음 버튼 이벤트 )*/
+    $("#nextVal").live("click", function(){
+    	
+    	$("#nowPage").val($("#nowPage").val()*1 + 1);
+    	
+    	$("#form1").submit();	
+    });
+
+    /*페이지 처리(페이지 숫자 버튼 이벤트 )*/
+    $("a[name='moreArea']").live("click", function(){
+    	
+    	$("#nowPage").val($(this).attr("id"));
+    	
+    	$("#form1").submit();	
+    });
+	
 });
 
 function deleteMatinfoCallBack(res){
@@ -88,63 +114,6 @@ function deleteMatinfoCallBack(res){
 
 <style>
 
-.tb_search_lmargin {
-	margin-left : 165px;
-}
-.fltBox1 {
-	width: 85px;
-}
-
-.box2_01 {
-	width:39px;
-}
-
-.box2_02 {
-	width:113px;
-}
-
-.box2_03 {
-	width:135px;
-}
-
-.box2_04 {
-	width:75px;
-}
-
-.box2_05 {
-	width:75px;
-}
-
-.box2_06 {
-	width:95px;
-}
-
-.box2_07 {
-	width:95px;
-}
-
-.box2_08 {
-	width:75px;
-}
-
-.box2_09 {
-	width:135px;
-}
-.box2_10 {
-	width:115px;
-}
-.box2_11 {
-	width:105px;
-}
-.box2_12 {
-	width:135px;
-}
-.box2_13 {
-	width:135px;
-}
-.box2_14 {
-	width:275px;
-}
 </style>
 
 </head>
@@ -160,7 +129,7 @@ function deleteMatinfoCallBack(res){
 	 
 <div class="row">
 
-<form id="form1" method="post" action="maintenance_edit_next">	 	
+<form id="form1" method="post" action="maintenance_next">	 	
 	 <!-- div class="column side">
 		   <h4>유지보수 관리 페이지</h4></br>
 		   <a href="#" id="mat_managed">유지보수 관리</a></br>		    

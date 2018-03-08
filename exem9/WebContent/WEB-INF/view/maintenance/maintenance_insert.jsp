@@ -91,15 +91,15 @@ $(document).ready(function(){
      			if(salesmanId == "0"){
      				alert("담당영업을 선택하세요.");
      			}else{
-     				if(user1Id == "0"){
-     					alert("담당엔지니어를 선택하세요.");
-     				}else{     				
+     				//if(user1Id == "0"){
+     				//	alert("담당엔지니어를 선택하세요.");
+     				//}else{     				
      					
      					IMatService.insertMatinfo(cusNm, proNm, dbmsId, dbmsVersion, cusUserNm, salesmanId,
      											user1Id, user2Id, supoLeverId, supoVisitId, supoinstallData,
      											supostateDate, supoendDatae, etc, insertMatinfoCallBack);
      					
-     				}
+     				//}
      			}     		
      		}     	
      	}     	
@@ -480,7 +480,7 @@ th, td {
 							<input id="cusproName_id"/>										
 						</div>
 						
-							<select id="dbms_select_id" disabled="disabled" class="input_txt input_03 inputTxtFont sui-input">
+							<select id="dbms_select_id" class="input_txt input_03 inputTxtFont sui-input">
 								<option value="0" selected>지정하지 않음.</option>
 							    <c:forEach var="dl" items="${dbms_list}">
 				 	    			<option value="${dl.dbmsId}">${dl.dbmsNm}</option>		 	    	

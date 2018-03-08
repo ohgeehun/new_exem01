@@ -131,6 +131,61 @@ public class  MatController {
 		return modelAndView;
 	}
 	
-	
+	@RequestMapping(value = "/maintenance_next")
+	public ModelAndView maintenance_next(HttpServletRequest request, 
+							   HttpServletResponse response,
+							   ModelAndView modelAndView) throws Throwable{
+		
+		request.setCharacterEncoding("UTF-8");
+		
+		String cusNm = request.getParameter("selectTextVal");
+		String selectBtnVal = request.getParameter("selectBtnVal");
+		int pageNo = Integer.parseInt(request.getParameter("pageNo"));
+		
+		HttpSession session=request.getSession();
+		
+		if(session.getAttribute("sUserId")==null) {
+			throw new UserNotFoundException("자동 로그아웃 됐습니다.");
+		} else {
+			//List<MatBean> mat_list = iMatService.getmatinfo("0","",1);
+			List<MatBean> mat_list = iMatService.getmatinfo(selectBtnVal,cusNm,pageNo);
+			List<DbmsBean> dbms_list = iDbmsService.getdbms();
+			List<CustomerNmBean> cus_list = iCustomerService.getcusNminfo2();
+			List<CustomerPjtNmBean> pjt_list = iCustomerService.getcusPjtNminfo();
+			List<DeptBean> dept_list = iDeptService.getdept();
+			List<TeamBean> team_list = iTeamService.getteam();
+			List<MemberBean> mem_list = iMemberService.getallmem();
+			List<CustomerMemberBean> cususer_list = iCustomerService.getprodbmsManagedinfo("BGF리테일");
+			List<MemberBean2> salesman_list = iCustomerService.getSalsemember();
+			List<SupoBean> supo_level_list = iMatService.getSupolevel();
+			List<SupoBean> supo_visit_list = iMatService.getSupovisit("");
+			
+			//LineBoardBean lbb = iMatService.getNCount("0","",1);
+			LineBoardBean lbb = iMatService.getNCount(selectBtnVal,cusNm,pageNo);
+			
+			modelAndView.addObject("startPage", lbb.getStartPage());
+			modelAndView.addObject("endPage", lbb.getEndPage());
+			modelAndView.addObject("maxPage", lbb.getMaxPage());
+			modelAndView.addObject("nowPage", lbb.getNowPage());
+			
+			modelAndView.addObject("mat_list", mat_list);
+			modelAndView.addObject("dbms_list", dbms_list);
+			modelAndView.addObject("cus_list", cus_list);
+			modelAndView.addObject("pjt_list", pjt_list);
+			modelAndView.addObject("dept_list", dept_list);
+			modelAndView.addObject("team_list", team_list);
+			modelAndView.addObject("mem_list", mem_list);
+			modelAndView.addObject("cususer_list", cususer_list);
+			modelAndView.addObject("salesman_list", salesman_list);
+			modelAndView.addObject("supo_level_list", supo_level_list);
+			modelAndView.addObject("supo_visit_list", supo_visit_list);
+			
+			System.out.println( "+++++++++++++++++++++++++++++++++++++++++++++: salesman : "  + salesman_list.get(0).getUserId()  );
+			
+			modelAndView.setViewName("maintenance/maintenance");
+		}
+				
+		return modelAndView;
+	}
 	
 }
