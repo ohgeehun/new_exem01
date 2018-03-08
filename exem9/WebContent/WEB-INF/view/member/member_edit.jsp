@@ -6,7 +6,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- <link rel="stylesheet" type="text/css" href="./resources/css/prettydropdowns.css" media="all" />  -->
-<link rel="stylesheet" type="text/css" href="./resources/css/main.css" media="all" /> 
+<link rel="stylesheet" type="text/css" href="./resources/css/main.css" media="all" />
+<link rel="stylesheet" type="text/css" href="./resources/css/member/member_edit.css" media="all" ></link> 
 
 <!-- jQuery Script -->
 <script type="text/javascript" src="resources/script/jquery/jquery-1.8.2.min.js"></script>
@@ -253,62 +254,7 @@ function deleteMeminfoCallBack(res){
 </script>
 
 <style>
-/*
-#customer_list td,tr {    
-    border: 2px solid #ddd;
-    text-align: center;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-right: 5px;
-    padding-left: 5px;
-    font-size: 10px;
-}
-*/
-.tb_search_lmargin {
-	margin-left : 270px;
-}
-.fltBox1 {
-	width: 85px;
-}
 
-.box2_01 {
-	width:39px;
-}
-
-.box2_02 {
-	width:113px;
-}
-
-.box2_03 {
-	width:75px;
-}
-
-.box2_04 {
-	width:135px;
-}
-
-.box2_05 {
-	width:135px;
-}
-
-.box2_06 {
-	width:135px;
-}
-
-.box2_07 {
-	width:75px;
-}
-
-.box2_08 {
-	width:135px;
-}
-
-.box2_09 {
-	width:135px;
-}
-.box2_10 {
-	width:75px;
-}
 </style>
 
 </head>

@@ -199,6 +199,7 @@ public class MatService implements IMatService{
 	}
 	
 	// 삭제
+	@Override
 	public String deleteMatinfo(String chkId) throws Throwable {
 		
 		HashMap params = new HashMap();
@@ -207,6 +208,35 @@ public class MatService implements IMatService{
 		System.out.println("============================================================== mat delete call : ");
 		
 		return iMatDao.deleteMatinfo(params);
+	}
+	
+	@Override
+	public String updateMatinfo(String custId, String pjtId, String cususerId, String dbmsId, 
+			String user1Id, String user2Id,  String salesmanId, String installDay, String contractId, 
+			String visitId, String startDay, String endDay, String etc, String chkId) throws Throwable {
+	
+		WebContext wctx = WebContextFactory.get();
+		HttpServletRequest request = wctx.getHttpServletRequest();
+		HttpSession session = request.getSession();	
+		
+		HashMap params = new HashMap();
+		
+		params.put("custId",Integer.parseInt(custId));
+		params.put("pjtId",Integer.parseInt(pjtId));
+		params.put("cususerId",Integer.parseInt(cususerId));
+		params.put("dbmsId",Integer.parseInt(dbmsId)); 
+		params.put("user1Id",user1Id);
+		params.put("user2Id",user2Id);
+		params.put("salesmanId",salesmanId);
+		params.put("installDay",installDay);
+		params.put("contractId",Integer.parseInt(contractId));
+		params.put("visitId",Integer.parseInt(visitId));
+		params.put("startDay",startDay);
+		params.put("endDay",endDay);
+		params.put("etc",etc);
+		params.put("chkId",Integer.parseInt(chkId));
+		
+		return iMatDao.updateMatinfo(params);
 	}
 
 }

@@ -173,5 +173,41 @@
 	 DELETE from XM_MAINTENANCE  
 	 WHERE maintenance_id = #chkId#  
 	 </update>
-	 	
+
+	<!-- 유지보수 수정 -->
+	<update id="updateMatinfo" parameterClass="java.util.HashMap">
+	 Update XM_MAINTENANCE SET 
+	 		customer_id=#custId#,
+	 		project_id=#pjtId#, 
+            dbms_id=#dbmsId#, 
+            cususer_id=#cususerId#, 
+            salesman_id=#salesmanId#, 
+            user1_id=#user1Id#, 
+            user2_id=#user2Id#, 
+            support_install_date=to_date(#installDay#, 'YYYY-MM-DD'),
+            support_level_id=#contractId#, 
+            support_visit_id=#visitId#, 
+            support_start_date=to_date(#startDay#, 'YYYY-MM-DD'), 
+            support_end_date=to_date(#endDay#, 'YYYY-MM-DD'),
+            etc=#etc#  
+	 where maintenance_id = #chkId#
+	 <!-- 
+	 Update XM_MAINTENANCE SET 
+            customer_id=#custId#, 
+            project_id=#pjtId#, 
+            dbms_id=#dbmsId#, 
+            cususer_id=#cususerId#, 
+            salesman_id=#salesmanId#, 
+            user1_id=#user1Id#, 
+            user2_id=#user2Id#, 
+            support_install_date=#installDay#, 
+            support_level_id=#contractId#, 
+            support_visit_id=#visitId#, 
+            support_start_date=#startDay#, 
+            support_end_date=#endDay#, 
+            etc='테스트'  
+	 where maintenance_id = #chkId#
+	 -->
+	 </update>	 	
+	 
 </sqlMap>

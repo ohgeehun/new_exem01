@@ -46,6 +46,40 @@ $(document).ready(function(){
         }
     });
 	
+	// 등록내용 수정
+	$("#edit_update_btn").bind("click", function(){	
+		if ( $('#form1 input[type=checkbox]:checked').length == 0  ) {
+			alert("수정할 행을 선택하세요.");
+		} else{
+			
+	   	    $('#checkbox_id:checked').each(function() {   	    
+   	    	    var chkId = $(this).val();
+
+   	         	var custId = $("#edit_cust_list_select_"+chkId+" option:selected").val();
+   	         	var pjtId = $("#edit_pjt_list_select_"+chkId+" option:selected").val();
+   	         	var cususerId = $("#edit_cususer_list_select_"+chkId+" option:selected").val();
+   	         	var dbmsId = $("#edit_dbms_list_select_"+chkId+" option:selected").val();
+   	         	var user1Id = $("#edit_user1_list_select_"+chkId+" option:selected").val();
+   	         	var user2Id = $("#edit_user2_list_select_"+chkId+" option:selected").val();
+   	         	var salesmanId = $("#edit_salseman_list_select_"+chkId+" option:selected").val();
+   	         	var installDay = $("#supoInsDate_id_"+chkId).val();
+   	         	var contractId = $("#edit_supo_list_select_"+chkId+" option:selected").val();
+	         	var visitId = $("#edit_supoVisit_list_select_"+chkId+" option:selected").val();
+   	         	var startDay = $("#supoStartDate_id_"+chkId).val();
+   	        	var endDay = $("#supoEndDate_id_"+chkId).val();
+   	      		var etc = $("#etc_id_"+chkId).val();
+   	         	
+   	         	console.debug(" | " + custId + " | " + pjtId + " | " +cususerId + " | " +dbmsId + " | " + user1Id + " | " + 
+   	         			user2Id + " | " + salesmanId + " | " +installDay + " | " + contractId + " | " + visitId + " | " + 
+   	         			startDay + " | " + endDay + " | " + etc + " | " + chkId );
+   	         	
+   	         	IMatService.updateMatinfo(custId, pjtId, cususerId, dbmsId, 
+							user1Id, user2Id,  salesmanId, installDay, contractId, visitId, startDay, endDay, etc,
+							chkId,
+							updateMatinfoCallBack);
+	   	    });	
+		}
+	});
 	
 	// 삭제 처리
 	$("#edit_delete_btn").bind("click", function(){	
@@ -112,6 +146,16 @@ $(document).ready(function(){
 });
 
 function deleteMatinfoCallBack(res){
+	if(res == "FAILED"){
+		alert("실패");
+		location.href = "maintenance";
+	}else if(res == "SUCCESS"){
+		alert("성공");
+		location.href = "maintenance";
+	}
+}
+
+function updateMatinfoCallBack(res){
 	if(res == "FAILED"){
 		alert("실패");
 		location.href = "maintenance";

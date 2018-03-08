@@ -45,4 +45,9 @@ public interface IMatService {
 	/* 유지보수 항목 삭제*/
 	public String deleteMatinfo(String chkId) throws Throwable;
 	
+	/*유지보수 수정*/
+	public String updateMatinfo(String custId, String pjtId, String cususerId, String dbmsId, 
+								String user1Id, String user2Id,  String salesmanId, String installDay, String contractId, 
+								String visitId, String startDay, String endDay, String etc, String chkId) throws Throwable ;
+	
 }

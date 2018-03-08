@@ -16,5 +16,7 @@ public interface IMatDao {
 
 	public String deleteMatinfo(HashMap params) throws Throwable;
 
+	public String updateMatinfo(HashMap params) throws Throwable;
+
 
 }
