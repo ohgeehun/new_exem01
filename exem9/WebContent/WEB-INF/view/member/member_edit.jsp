@@ -111,8 +111,14 @@ $(document).ready(function(){
     		//alert("점색조건을 선택하세요.");
     	//	$("#select_text").val("");
     	//}else{
+    	//	$("#form1").submit();	
+    	//}
+    	if ($("#select_text").val() == ''){    		
+    		alert("점색어를 입력하세요.");
+    	}else{
+    		alert($("#select_text").val());
     		$("#form1").submit();	
-    	//}   	
+    	}
     });
     
     /*페이지 처리(이전 버튼 이벤트 )*/

@@ -74,6 +74,16 @@ $(document).ready(function(){
 		}
 	});
 	
+    /* 조회조건 설정 후 검색버튼 클릭 시 이벤트*/
+    $("#select_btn").bind("click", function(){	
+    	if ($("#select_text").val() == ''){    		
+    		alert("점색어를 입력하세요.");
+    	}else{
+    		//alert($("#select_text").val());
+    		$("#form1").submit();	
+    	}
+    });
+	
 	/*페이지 처리(이전 버튼 이벤트 )*/
     $("#backVal").live("click", function(){
     	
@@ -149,32 +159,16 @@ function deleteMatinfoCallBack(res){
 				<thead id="mat_list_th">
 					<tr>
 					 	<td colspan="14" class="left_align">
-						 		<!-- <label for="cus_select1" class="a11y-hidden">분류</label>  -->
-						 	    <select id="mat_select1" name="supoState" class="main_input_box_2 nInputFont fltBox1">
-										<option value="0" selected>전체</option>
-										<%--  <c:forEach var="sl" items="${supo_list}">
-						 	    			<option value="${sl.supoId}">${sl.supoNm}</option>		 	    	
-						 	    		</c:forEach> --%>
-								</select>
-						 	    <select id="mat_select2" name="userDept" class="main_input_box_2 nInputFont fltBox1">
-						 	   		 <option value="0">전체</option>
-						 	   		<%--  <c:forEach var="dl" items="${dept_list}">
-						 	    		<option value="${dl.deptId}"<c:if test="${cus_list[0].userDept == dl.deptNm}">selected</c:if>>${dl.deptNm}</option>		 	    	
-						 	    	</c:forEach>	 --%>	 	    		 			
-								</select>
-						 	    <select id="mat_select3" name="userDbms" class="main_input_box_2 nInputFont fltBox1">
-										<option value="0" selected>전체</option>
-										<%-- <c:forEach var="dbl" items="${dbms_list}">
-						 	    			<option value="${dbl.dbmsId}"<c:if test="${cus_list[0].userDbms == dbl.dbmsNm}">selected</c:if>>${dbl.dbmsNm}</option>		 	    	
-						 	    		</c:forEach>	 --%>
-								</select>
 					 			<select id="mat_select4" name="selectBtnVal" class="main_input_box_2 nInputFont fltBox1">
-					 					<option value="0" selected>검색조건없음</option>
+					 					<option value="0" selected>전체</option>
 										<option value="1">고객사</option>
-										<option value="2">담당 엔지니어</option>
-										<option value="3">영업대표</option>
+										<option value="2">프로젝트명</option>
+										<option value="3">제품(업무)</option>
+										<option value="4">담당 엔지니어(정/부)</option>
+										<option value="5">영업대표</option>
+										<option value="6">계약상태</option>
 								</select>
-						 	    <input type="text" id="select_text" name="selectTextVal" value="검색 조건을 선택하세요." class="main_input_box_2 nInputFont"></input>
+						 	    <input type="text" id="select_text" name="selectTextVal" placeholder="검색조건을 입력하세요." value="" class="main_input_box_2 nInputFont"></input>
 						 	    <input type="button" id="select_btn" value="검색" class="Btt_search btnSearch"></input>
 					 	</td>	 
 				 	</tr>
@@ -191,7 +185,7 @@ function deleteMatinfoCallBack(res){
 						<td><input class="main_title_box_2 box2_02 nTitleFont" value="고객사명" disabled="disabled"></td>
 						<td><input class="main_title_box_2 box2_03 nTitleFont" value="프로젝트명" disabled="disabled"></td>
 						<td><input class="main_title_box_2 box2_04 nTitleFont" value="고객명" disabled="disabled"></td>
-						<td><input class="main_title_box_2 box2_05 nTitleFont" value="업무" disabled="disabled"></td>
+						<td><input class="main_title_box_2 box2_05 nTitleFont" value="제품(업무)" disabled="disabled"></td>
 						<td><input class="main_title_box_2 box2_06 nTitleFont" value="엔지니어(정)" disabled="disabled"></td>
 						<td><input class="main_title_box_2 box2_07 nTitleFont" value="엔지니어(부)" disabled="disabled"></td>
 						<td><input class="main_title_box_2 box2_08 nTitleFont" value="영업대표" disabled="disabled"></td>

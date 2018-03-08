@@ -79,20 +79,64 @@
 				 from xm_maintenance m
 					where 1=1     
 		
-				<!-- isNotEmpty property="selectTextVal"-->
+				<isNotEmpty property="selectTextVal">
 					<!-- 검색조건이 전체 -->
-				<!-- 			
 					<isEqual property="selectBtnVal" compareValue="0"> 
+						and
+						( 
+							 m.customer_id in (select customer_id from xm_customer where customer_name like '%' || #selectTextVal# || '%')
+							or 
+							 m.project_id in (select project_id from xm_project where project_name like '%' || #selectTextVal# || '%') 
+							or 
+							 m.dbms_id in (select dbms_id from xm_dbms where dbms_name like '%' || #selectTextVal# || '%')
+							or 
+							 (
+							 	m.user1_id in (select user_id from xm_member where user_name like '%' || #selectTextVal# || '%')
+							 	or
+							 	m.user2_id in (select user_id from xm_member where user_name like '%' || #selectTextVal# || '%')
+							 )
+							or 
+							 m.salesman_id in (select user_id from xm_member where user_team_id = 14 and user_name like '%' || #selectTextVal# || '%')
+							or 
+							 m.support_level_id in (select support_level_id from xm_support_level where support_level_name like '%' || #selectTextVal# || '%')
+						 )   
+					</isEqual>
+					<!-- 검색조건이 고객사 -->
+					<isEqual property="selectBtnVal" compareValue="1">
 						and 
-						(u.user_id like '%' || #selectTextVal# || '%' or
-						 user_name like '%' || #selectTextVal# || '%' or
-						 u.user_team_id in (select team_id from xm_team xt, xm_department xdt 
-						where xt.department_id = xdt.department_id and xdt.department_name like '%' || #selectTextVal# || '%') or
-						u.user_team_id in (select team_id from xm_team where team_name like '%' || #selectTextVal# || '%')
-						)
+						 m.customer_id in (select customer_id from xm_customer where customer_name like '%' || #selectTextVal# || '%')
+					</isEqual>
+					<!-- 검색조건이 프로젝트 -->
+					<isEqual property="selectBtnVal" compareValue="2">
+						and 
+						 m.project_id in (select project_id from xm_project where project_name like '%' || #selectTextVal# || '%')
+					</isEqual>
+					<!-- 검색조건이 업무(제품명)-->
+					<isEqual property="selectBtnVal" compareValue="3">
+						and 
+						 m.dbms_id in (select dbms_id from xm_dbms where dbms_name like '%' || #selectTextVal# || '%')
+					</isEqual>
+					<!-- 담당 엔지니어 -->
+					<isEqual property="selectBtnVal" compareValue="4">
+						and 
+						 (
+						 	m.user1_id in (select user_id from xm_member where user_name like '%' || #selectTextVal# || '%')
+						 	or
+						 	m.user2_id in (select user_id from xm_member where user_name like '%' || #selectTextVal# || '%')
+						 )
+					</isEqual>
+					<!-- 영업대표 --> 
+					<isEqual property="selectBtnVal" compareValue="5">
+						and 
+						 m.salesman_id in (select user_id from xm_member where user_team_id = 14 and user_name like '%' || #selectTextVal# || '%')
+					</isEqual>
+					<!-- 계약상태 -->
+					<isEqual property="selectBtnVal" compareValue="6"> 
+						and 
+						 m.support_level_id in (select support_level_id from xm_support_level where support_level_name like '%' || #selectTextVal# || '%')
 					</isEqual>
 				</isNotEmpty>
-				-->		
+			
 			order by maintenance_id desc
 			) u
 		where 1=1
