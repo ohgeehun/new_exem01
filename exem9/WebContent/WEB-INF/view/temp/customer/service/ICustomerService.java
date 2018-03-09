@@ -88,6 +88,4 @@ public interface ICustomerService {
 	
 	public List<CustomerMemberBean> getprodbmsmemberinfo(String cusNm, String proNm, String dbmsId, String cususerNm)throws Throwable ;
 	
-	public String deleteCusinfo(String chkId) throws Throwable ;
-	
 }

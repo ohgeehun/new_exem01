@@ -89,24 +89,17 @@
 		on u.project_id = xpdm.project_id) u
 		where 1 = 1		
 		<isNotEmpty property="selectTextVal">
-			 <!-- 검색조건이 전체-->
-			<isEqual property="selectBtnVal" compareValue="0">
-				
-			</isEqual>
-			<!-- 검색조건이 고객사명 -->
+			<!-- 검색조건이 고객사 -->
 			<isEqual property="selectBtnVal" compareValue="1"> 
 				and u.customer_name like '%' || #selectTextVal# || '%'
 			</isEqual>
-			<!-- 검색조건이 프로젝트명 -->
-			<isEqual property="selectBtnVal" compareValue="2"> 
-				and u.customer_name like '%' || #selectTextVal# || '%'
-			</isEqual>
-			<!-- 검색조건이 고객명 -->
-			<isEqual property="selectBtnVal" compareValue="3"> 
-				and u.customer_name like '%' || #selectTextVal# || '%'
-			</isEqual>
-			 <!-- 검색조건이 영업대표명-->
-			<isEqual property="selectBtnVal" compareValue="4">
+			 <!-- 검색조건이 담당엔지니어 -->
+			<!-- <isEqual property="selectBtnVal" compareValue="2">
+				and (user1_name like '%' || #selectTextVal# || '%'
+				     or user2_name like '%' || #selectTextVal# || '%')
+			</isEqual> -->
+			 <!-- 검색조건이 영업대표-->
+			<isEqual property="selectBtnVal" compareValue="2">
 				and u.salesman_id in (select user_id from xm_member where user_name like '%' || #selectTextVal# || '%')
 			</isEqual>
 		</isNotEmpty>
@@ -129,78 +122,69 @@
 	<select id="getNCount" parameterClass="java.util.HashMap" resultClass="Integer">
 	select count(customer_id)
 		from 
-		(
-				select u.customer_id,
-				   u.customer_name,
-				   u.project_id,
-				   u.project_name,
-				   u.dbms_id,
-				   u.dbms_name,
-				   u.cususer_id,
-				   u.cususer_name,
-				   u.cususer_phone,
-				   u.cususer_mail,
-				   u.customer_location,
-				   u.salesman_id,
-				   u.etc,
-				   u.create_user,
-			       u.create_date,
-				   u.last_update_user,
-				   u.last_update_date,
-				   u.row_num	
-			from (select  u.customer_id,
-				        u.customer_name, 
-				        u.project_id,
-				        u.project_name,	
-				        (select dbms_id from xm_dbms xd where xd.dbms_id = xpdm.dbms_id) as dbms_id,
-						(select dbms_name from xm_dbms xd where xd.dbms_id = xpdm.dbms_id) as dbms_name,
-						(select cususer_id from xm_customer_member xcm where xcm.cususer_id = xpdm.cususer_id) as cususer_id,
-						(select cususer_name from xm_customer_member xcm where xcm.cususer_id = xpdm.cususer_id) as cususer_name,
-						(select cususer_phone from xm_customer_member xcm where xcm.cususer_id = xpdm.cususer_id) as cususer_phone,
-						(select cususer_mail from xm_customer_member xcm where xcm.cususer_id = xpdm.cususer_id) as cususer_mail,
-				        u.customer_location,	       
-				        u.salesman_id,
-				        u.etc,
-				        u.create_user,
-				        u.create_date,
-				        u.last_update_user,
-				        u.last_update_date,
-				        ROW_NUMBER() OVER (ORDER BY u.customer_name asc) as row_num    
-				from 
-				(
-				select xc.customer_id,
-				       xc.customer_name, 
-				       xp.project_id,
-				       xp.project_name,			 
-				       xc.customer_location,	       
-				       xc.salesman_id,
-				       xc.etc,
-				       xc.create_user,
-				       xc.create_date,
-				       xc.last_update_user,
-				       xc.last_update_date
-				from xm_customer xc inner join xm_project xp		
-				on xc.customer_id = xp.customer_id
-				where 1 = 1		
-				)u inner join xm_project_dbms_member_managed xpdm
-				on u.project_id = xpdm.project_id) u
-				where 1 = 1		
-				<isNotEmpty property="selectTextVal">
-					<!-- 검색조건이 고객사 -->
-					<isEqual property="selectBtnVal" compareValue="1"> 
-						and u.customer_name like '%' || #selectTextVal# || '%'
-					</isEqual>
-					 <!-- 검색조건이 담당엔지니어 -->
-					<!-- <isEqual property="selectBtnVal" compareValue="2">
-						and (user1_name like '%' || #selectTextVal# || '%'
-						     or user2_name like '%' || #selectTextVal# || '%')
-					</isEqual> -->
-					 <!-- 검색조건이 영업대표-->
-					<isEqual property="selectBtnVal" compareValue="2">
-						and u.salesman_id in (select user_id from xm_member where user_name like '%' || #selectTextVal# || '%')
-					</isEqual>
-				</isNotEmpty>
-		)u
+		(select customer_id<!-- ,
+		       customer_name, 
+		       (select department_name from xm_department xd where xd.department_id = xc.department_id) as department_id,
+		       (select team_name from xm_team xt where xt.team_id = xc.team_id) as team_id,
+		       (select dbms_name from xm_dbms xd where xd.dbms_id = xc.dbms_id) as dbms_id,
+		       user1_name,
+		       user2_name,   
+		       user1_phone,  
+		       user2_phone,
+		       user1_mail,
+		       user2_mail,
+		       salesman_name,  
+		       salesman_phone,
+		       salesman_mail,  
+		       (select support_level_name from xm_support_level xsl where xsl.support_level_id = xc.support_state_id) as support_state_id,
+		       support_visit_freq,
+		       support_start_date,
+		       support_end_date,
+		       customer_location,
+		       customer1_name,
+		       customer1_phone,
+		       customer2_phone,
+		       customer1_mail,
+		       customer2_mail,
+		       etc,
+		       create_user,
+		       create_date,
+		       last_update_user,
+		       last_update_date,
+		       ROW_NUMBER() OVER (ORDER BY customer_name asc) as row_num   -->  
+		from xm_customer xc
+		where 1 = 1
+		<!-- <isNotEmpty property="supoState">
+		and support_state_id  = #supoState#
+		</isNotEmpty>
+		<isNotEmpty property="userDept">
+		and department_id  = #userDept#
+		</isNotEmpty>
+		<isNotEmpty property="userDbms">
+		and dbms_id  = #userDbms#
+		</isNotEmpty> -->		
+		<isNotEmpty property="selectTextVal">
+			<!-- 검색조건이 고객사 -->
+			<isEqual property="selectBtnVal" compareValue="1"> 
+				and customer_name like '%' || #selectTextVal# || '%'
+			</isEqual>
+			 <!-- 검색조건이 담당엔지니어 -->
+			<isEqual property="selectBtnVal" compareValue="2">
+				and (user1_name like '%' || #selectTextVal# || '%'
+				     or user2_name like '%' || #selectTextVal# || '%')
+			</isEqual>
+			 <!-- 검색조건이 영업대표-->
+			<isEqual property="selectBtnVal" compareValue="3">
+				and salesman_id in (select user_id from xm_member where user_name like '%' || #selectTextVal# || '%')
+			</isEqual>
+		</isNotEmpty>
+		)u<!-- 
+		<isNotEmpty property="pageNo">
+		WHERE u.row_num BETWEEN #startNo# AND #endNo# 
+		</isNotEmpty>
+		<isEmpty property="pageNo">
+		WHERE u.row_num BETWEEN 1 AND #viewCount#
+		</isEmpty> -->
 	</select>
 	
 	
@@ -397,11 +381,4 @@
 	on a.cususer_id = xcm.cususer_id	
 	where xcm.cususer_name = #cususerNm#
 	</select>
-	
-	<!-- 고객정보 삭제 -->
-	<update id="deleteCusinfo" parameterClass="java.util.HashMap">
-	 DELETE from XM_customer  
-	 WHERE customer_id = #chkId#  
-	 </update>
-	 
 </sqlMap>

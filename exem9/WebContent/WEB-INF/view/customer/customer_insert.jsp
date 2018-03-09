@@ -43,6 +43,7 @@ $(document).ready(function(){
 	    });
 	 
 	/* 체크박스 이벤트 */
+	/*
 	$("#chk_id").click(function(){
 		var cusNm = $("#cusName_id").val();
         //클릭되었으면
@@ -83,6 +84,7 @@ $(document).ready(function(){
         },        	        
         enabled: false
 	});  
+	*/
 	
 	$("#dbms_select_id").change(function (){
 		var dbmsId = $("#dbms_select_id").val();	
@@ -109,7 +111,8 @@ $(document).ready(function(){
     	var cusNm_hidden = $("#cusName_hidden_id").val();
     	var cusPro_hidden = $("#cusPro_hidden_id").val();
     	var cusDbms_hidden = $("#dbmsNm_hidden_id").val();
-    	var cusUser_hidden = $("#cusNm_hidden_id").val();    	
+    	var cusUser_hidden = $("#cusNm_hidden_id").val();  
+    	alert(cusUser_hidden);
     	
     	var cusNm = $("#cusName_id").val();
     	var cusproNm = $("#cusproName_id").val();
@@ -146,6 +149,7 @@ $(document).ready(function(){
     
 });  
 
+/*
 function cusNminfoCallBack(res){
 	var availableTags = [];
 	
@@ -199,6 +203,7 @@ function cusNminfoCallBack(res){
 	        }
  	}); 	
 }
+
 
 function cusNmProinfoCallBack(res){
 	var availableTags = [];	 
@@ -309,6 +314,7 @@ function cusNmProinfoCallBack(res){
     	}); 
 	}	
 }
+
 
 function getprodbmsManagedinfoCallBack(res){
 	var availableTags = [];	 
@@ -466,6 +472,7 @@ function removeChar(event) {
 	else
 		event.target.value = event.target.value.replace(/[^0-9]/g, "");
 }
+*/
 
 </script>
 
@@ -502,6 +509,7 @@ function removeChar(event) {
 	  <div class="top_mainDisplayPart">	 
 	  	<div align="center"><h3>고객사 등록 페이지</h3></div>
 		<div class="top_mainDisplayBase" >
+			<ul>
 		 		<li class="input_title input_01 inputTxtFont">고객사명*</li>
 				<li class="input_title input_02 inputTxtFont">프로젝트명*</li>
 				<li class="input_title input_03 inputTxtFont">제품구분*</li>
@@ -511,22 +519,23 @@ function removeChar(event) {
 				<li class="input_title input_07 inputTxtFont">고객사 위치</li>
 				<li class="input_title input_08 inputTxtFont">담당영업</li>
 				<li class="input_title input_09 inputTxtFont">비고</li>				
+			</ul>
 						
-				<div class="input_txt_01 input_01 inputTxtFont">	
-					<input type="hidden" id="cusName_hidden_id" value="0"/>
+				<div>	
+					<input type="hidden" id="cusName_hidden_id">
 					<!-- <input class="sui-input" id='cusName_id' value=""  style='text-transform: uppercase' onblur="onblur_event();"></input> -->
-					<input  id='cusName_id' value=""  style='text-transform: uppercase'></input>
+					<input  id='cusName_id' class="input_txt input_01 inputTxtFont"></input>
 					<!-- <span id="idSpan" class="redText"></span> -->			
 				</div>
 				
-				<div class="input_txt_01 input_02 inputTxtFont">	
-					<input type="hidden" id="cusPro_hidden_id" value="0"/>
-					<input id='cusproName_id' value="" style='text-transform: uppercase'></input>	
+				<div>	
+					<input type="hidden" id="cusPro_hidden_id">
+					<input id='cusproName_id'  class="input_txt input_02 inputTxtFont">	
 				</div>	
 				
 	
-				<input type="hidden" id="dbmsNm_hidden_id" value="0"/>
-				<select class="input_txt input_03 inputTxtFont" id='dbms_select_id' disabled="disabled">
+				<input type="hidden" id="dbmsNm_hidden_id">
+				<select class="input_txt input_03 inputTxtFont" id='dbms_select_id'>
 					<!-- <option value="0" selected>지정하지않음.</option> -->
 				    <c:forEach var="dl" items="${dbms_list}">					    	   
 		    	    	<c:choose>
@@ -540,16 +549,16 @@ function removeChar(event) {
 	 	    		</c:forEach>	
 				</select>				
 				
-				<div class="input_txt_01 input_04 inputTxtFont">	
-					<input type="hidden" id="cusNm_hidden_id" value="0"/>
-					<input id='cusNm_id' value=""  style='text-transform: uppercase'>
+				<div>	
+					<input type="hidden" id="cusNm_hidden_id">
+					<input id='cusNm_id'  class="input_txt input_04 inputTxtFont">
 				</div>
 				
-				<input class="input_txt input_05 inputTxtFont" type='text' id='cusPhone_id' value="" onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' style='ime-mode:disabled;'>
+				<input class="input_txt input_05 inputTxtFont" type='text' id='cusPhone_id' onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' style='ime-mode:disabled;'>
 				
-				<input class="input_txt input_06 inputTxtFont" type='text' id='cusMail_id' value="">
+				<input class="input_txt input_06 inputTxtFont" type='text' id='cusMail_id' >
 				
-				<input class="input_txt input_07 inputTxtFont" type='text' id='cuslocation_id' value=""  style='text-transform: uppercase'>				
+				<input class="input_txt input_07 inputTxtFont" type='text' id='cuslocation_id' >				
 				
 				<select class="input_txt input_08 inputTxtFont" id='salesman_select_id'>
 					<option value="0" selected>지정하지않음.</option>

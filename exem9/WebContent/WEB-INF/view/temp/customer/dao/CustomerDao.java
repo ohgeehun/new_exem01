@@ -294,16 +294,6 @@ public class CustomerDao implements ICustomerDao{
 		// TODO Auto-generated method stub
 		return sqlMapClient.queryForList("customer.getprodbmsmemberinfo", params);
 	}
-	
-	/*고객사 정보 삭제 처리*/
-	public String deleteCusinfo(HashMap params) throws Throwable {
-		String result = "FAILED";
-		
-		if(sqlMapClient.update("customer.deleteCusinfo", params) > 0){
-			result = "SUCCESS";
-		}
-		return result;
-	}
 }
 	
 

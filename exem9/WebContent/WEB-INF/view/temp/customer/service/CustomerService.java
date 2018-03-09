@@ -380,16 +380,5 @@ public class CustomerService implements ICustomerService{
 		return iCustomerDao.getprodbmsmemberinfo(params);
 	}
 	
-	// 삭제
-	public String deleteCusinfo(String chkId) throws Throwable {
-		
-		HashMap params = new HashMap();
-		params.put("chkId", Integer.parseInt(chkId) );
-		
-		System.out.println("============================================================== cus delete call : ");
-		
-		return iCustomerDao.deleteCusinfo(params);
-	}
-	
 }
 

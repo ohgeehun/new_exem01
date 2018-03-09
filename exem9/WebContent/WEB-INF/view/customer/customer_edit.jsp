@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- <link rel="stylesheet" type="text/css" href="./resources/css/prettydropdowns.css" media="all" />  -->
 <link rel="stylesheet" type="text/css" href="./resources/css/main.css" media="all" /> 
-
+<link rel="stylesheet" type="text/css" href="./resources/css/customer/customer_edit.css" media="all" />
 
 <!-- jQuery Script -->
 <script type="text/javascript" src="resources/script/jquery/jquery-1.8.2.min.js"></script>
@@ -60,6 +60,33 @@ $(document).ready(function(){
    	    });	    
 	});
 
+	// 삭제 처리
+	$("#edit_delete_btn").bind("click", function(){	
+		if ( $('#form1 input[type=checkbox]:checked').length == 0  ) {
+			alert("삭제할 행을 선택하세요.");
+		} else{
+			
+	   	    $('#checkbox_id:checked').each(function() {   	    
+   	    	    var chkId = $(this).val();
+				
+	   	    	 if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+	 				
+	 		   	    $('#checkbox_id:checked').each(function() {   	    
+	 	   	    	    var chkId = $(this).val();
+							
+		 	   	    		ICustomerService.deleteCusinfo( 
+		   	         			chkId, 
+		   	         			deleteCusinfoCallBack );
+	 		   	    });
+	 			
+	 			}else{   //취소
+	 			    return;
+	 			}
+   	         	
+	   	    });	
+		}
+	});
+	
 
 	/* 고객사관리 좌측 버튼 이벤트  : 고객사 관리 버튼 클릭 시 */
     $("#cus_managed").bind("click", function(){	
@@ -78,12 +105,12 @@ $(document).ready(function(){
     
     /* 조회조건 설정 후 검색버튼 클릭 시 이벤트*/
     $("#select_btn").bind("click", function(){	
-    	if ($("#cus_select4").val() == 0){    		
-    		alert("점색조건을 선택하세요.");
-    		$("#select_text").val("");
+    	if ($("#select_text").val() == ''){    		
+    		alert("점색어를 입력하세요.");
     	}else{
+    		//alert($("#select_text").val());
     		$("#form1").submit();	
-    	}   	
+    	}  	
     });
     
     /*페이지 처리(이전 버튼 이벤트 )*/
@@ -301,51 +328,20 @@ function editcusMemberCallback(res){
     $("#edit_cus_phone_"+cusproId+"").html(resHtml); 
     $("#edit_cus_mail_"+cusproId+"").html(resHtm2);
 }
+
+function deleteMatinfoCallBack(res){
+	if(res == "FAILED"){
+		alert("실패");
+		location.href = "customer_edit";
+	}else if(res == "SUCCESS"){
+		alert("성공");
+		location.href = "customer_edit";
+	}
+}
 </script>
 
 <style>
-.tb_search_lmargin {
-	margin-left : 305px;
-}
-.fltBox1 {
-	width: 85px;
-}
 
-.box2_01 {
-	width:39px;
-}
-
-.box2_02 {
-	width:113px;
-}
-
-.box2_03 {
-	width:135px;
-}
-
-.box2_04 {
-	width:75px;
-}
-
-.box2_05 {
-	width:146px;
-}
-
-.box2_06 {
-	width:146px;
-}
-
-.box2_07 {
-	width:75px;
-}
-
-.box2_08 {
-	width:75px;
-}
-
-.box2_09 {
-	width:175px;
-}
 </style>
 
 </head>
@@ -378,11 +374,14 @@ function editcusMemberCallback(res){
 			<table id="cus_list">	
 				<thead id="cus_list_th">
 					<tr>
-							<td colspan="9" class="left_align">
+							<td colspan="10" class="left_align">
 									<select  class="main_input_box_2 nInputFont fltBox1" id="cus_select4" name="selectBtnVal">
 						 					<option value="0" selected>전체</option>
-											<option value="1">고객사</option>						
-											<option value="3">영업대표</option>
+											<option value="1">고객사명</option>
+											<option value="2">프로젝트명</option>
+											<option value="3">제품명</option>
+											<option value="4">고객명</option>						
+											<option value="5">영업대표</option>
 									</select>
 							 	    <input class="main_input_box_2 nInputFont" type="text" id="select_text" name="selectTextVal" value="검색 조건을 선택하세요."></input>
 							 	   
@@ -399,12 +398,13 @@ function editcusMemberCallback(res){
 						</td>
 						<td><input class="main_title_box_2 box2_02 nTitleFont" value="고객사명" disabled="disabled"/></td>
 						<td><input class="main_title_box_2 box2_03 nTitleFont" value="프로젝트명" disabled="disabled"/></td>
-						<td><input class="main_title_box_2 box2_04 nTitleFont" value="고객명" disabled="disabled"/></td>
-						<td><input class="main_title_box_2 box2_05 nTitleFont" value="고객 연락처" disabled="disabled"/></td>
-						<td><input class="main_title_box_2 box2_06 nTitleFont" value="고객 이메일" disabled="disabled"/></td>
-						<td><input class="main_title_box_2 box2_07 nTitleFont" value="고객사 위치" disabled="disabled"/></td>
-						<td><input class="main_title_box_2 box2_08 nTitleFont" value="영업대표" disabled="disabled"/></td>
-						<td><input class="main_title_box_2 box2_09 nTitleFont" value="비고" disabled="disabled"/></td>
+						<td><input class="main_title_box_2 box2_04 nTitleFont" value="제품(업무)" disabled="disabled"/></td>
+						<td><input class="main_title_box_2 box2_05 nTitleFont" value="고객명" disabled="disabled"/></td>
+						<td><input class="main_title_box_2 box2_06 nTitleFont" value="고객 연락처" disabled="disabled"/></td>
+						<td><input class="main_title_box_2 box2_07 nTitleFont" value="고객 이메일" disabled="disabled"/></td>
+						<td><input class="main_title_box_2 box2_08 nTitleFont" value="고객사 위치" disabled="disabled"/></td>
+						<td><input class="main_title_box_2 box2_09 nTitleFont" value="영업대표" disabled="disabled"/></td>
+						<td><input class="main_title_box_2 box2_10 nTitleFont" value="비고" disabled="disabled"/></td>
 					</tr>					
 				</thead>
 				<tbody id="cus_list_tb">
@@ -413,7 +413,7 @@ function editcusMemberCallback(res){
 							<td>
 							<ul>
 								<li class="main_title_box_2 box2_01 nCheckBox">
-									<input type="checkbox" name="chk" value="${cli.proId}"/>
+									<input type="checkbox" name="chk" value="${cli.proId}" id="checkbox_id"/>
 									<input type="hidden" id="checkbox_hidden_id_${cli.proId}" value="${cli.proId}"/>
 								</li>
 							</ul>
@@ -423,10 +423,24 @@ function editcusMemberCallback(res){
 							</td>
 							<td>
 								<input type="text" class="main_input_box_2 box2_03 nInputFont" value="${cli.proNm}"/>
+							</td>
+							<td>
+								<select id="edit_dbms_list_select_${cli.proId}" class="main_input_box_2 box2_04 nInputFont">
+									<c:forEach var="dbms" items="${dbms_list}">
+										<c:choose>
+											<c:when test="${dbms.dbmsId == cli.proId}">
+												<option value="${dbms.dbmsId}" selected>${dbms.dbmsNm}</option>
+											</c:when>
+											<c:otherwise>
+												<option value="${dbms.dbmsId}">${dbms.dbmsNm}</option>	
+											</c:otherwise>
+										</c:choose>										
+									</c:forEach>	
+								</select>
 							</td>							
 							<td>
 								<input type="hidden" id="select_cus_hidden_id_${cli.proId}" value=""/>
-								<select id="edit_cus_list_select_${cli.proId}" onchange="edit_cus_select_change_event(${cli.proId})" class="main_input_box_2 box2_04 nInputFont">
+								<select id="edit_cus_list_select_${cli.proId}" onchange="edit_cus_select_change_event(${cli.proId})" class="main_input_box_2 box2_05 nInputFont">
 									<c:if test="${cli.cusNm == ''}">
 										<option value="0" selected>지정필요.</option>
 									</c:if>
@@ -445,17 +459,17 @@ function editcusMemberCallback(res){
 								</select> 										
 							</td>
 							<td>
-								<input type="text" class="main_input_box_2 box2_05 nInputFont" value="${cli.cususerPhone}" id="edit_cus_phone_${cli.proId}"/>
+								<input type="text" class="main_input_box_2 box2_06 nInputFont" value="${cli.cususerPhone}" id="edit_cus_phone_${cli.proId}"/>
 							</td>							
 											
 							<td>
-								<input type="text" class="main_input_box_2 box2_06 nInputFont" value="${cli.cususerMail}" id="edit_cus_mail_${cli.proId}"/>
+								<input type="text" class="main_input_box_2 box2_07 nInputFont" value="${cli.cususerMail}" id="edit_cus_mail_${cli.proId}"/>
 							</td>
 							<td>
-								<input type="text" id="cuslocation_id_${cli.proId}" value="${cli.cusLoca}" class="main_input_box_2 box2_07 nInputFont">								
+								<input type="text" id="cuslocation_id_${cli.proId}" value="${cli.cusLoca}" class="main_input_box_2 box2_08 nInputFont">								
 							</td>																		
 							<td>								
-								<select id="edit_salseman_list_select_${cli.proId}" class="main_input_box_2 box2_08 nInputFont">
+								<select id="edit_salseman_list_select_${cli.proId}" class="main_input_box_2 box2_09 nInputFont">
 									<c:if test="${cli.salseId == '0'}">
 										<option value="0" selected>지정필요.</option>
 									</c:if>
@@ -472,7 +486,7 @@ function editcusMemberCallback(res){
 								</select>
 							</td>			
 							<td>
-								<textarea id="etc_id_${cli.proId}" name="contents" class="main_input_box_2 box2_09 nInputFont">${cli.etc}</textarea>
+								<textarea id="etc_id_${cli.proId}" name="contents" class="main_input_box_2 box2_10 nInputFont">${cli.etc}</textarea>
 							</td>
 						</tr>					
 					</c:forEach>										
@@ -480,7 +494,7 @@ function editcusMemberCallback(res){
 				<tfoot id="cus_list_tf"> 
 				
 					<tr>
-						<td colspan="9" class="center_align">
+						<td colspan="10" class="center_align">
 						
 							<div>
 								<c:if test="${nowPage > 1}">
@@ -503,9 +517,10 @@ function editcusMemberCallback(res){
 						</td>
 					</tr>
 					<tr>
-						<td colspan="9" class="center_align">
+						<td colspan="10" class="center_align">
 							<div>
 						  		<input type="button" id="edit_update_btn" value="수정" class="inBtt_OK_2"/>
+						  		<input type="button" id="edit_delete_btn" value="삭제" class="inBtt_OK_2">
 						  	</div>
 						</td>
 					</tr>

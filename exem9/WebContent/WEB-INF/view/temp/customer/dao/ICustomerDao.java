@@ -54,6 +54,4 @@ public interface ICustomerDao {
 	public List<CustomerMemberBean> getprodbmsManagedcheck(HashMap params)throws Throwable;
 
 	public List<CustomerMemberBean> getprodbmsmemberinfo(HashMap params)throws Throwable;
-
-	public String deleteCusinfo(HashMap params) throws Throwable;
 }
