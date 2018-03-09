@@ -134,8 +134,7 @@ public class MatService implements IMatService{
 		return iMatDao.insertMatinfo(params);
 	}
 
-	@Override
-	public List<MatBean> getmatinfo(String selectBtnVal, String selectTextVal, int pageNo) throws Throwable {
+		public List<MatBean> getmatinfo(String selectBtnVal, String selectTextVal, int pageNo) throws Throwable {
 		
 		HashMap params = new HashMap();
 		
@@ -158,7 +157,6 @@ public class MatService implements IMatService{
 		return iMatDao.getmatinfo(params);
 	}
 
-	@Override
 	public LineBoardBean getNCount(String selectBtnVal, String selectTextVal, int nowPage) throws Throwable {
 		HashMap params = new HashMap();
 		
@@ -199,7 +197,6 @@ public class MatService implements IMatService{
 	}
 	
 	// 삭제
-	@Override
 	public String deleteMatinfo(String chkId) throws Throwable {
 		
 		HashMap params = new HashMap();
@@ -210,7 +207,7 @@ public class MatService implements IMatService{
 		return iMatDao.deleteMatinfo(params);
 	}
 	
-	@Override
+	
 	public String updateMatinfo(String custId, String pjtId, String cususerId, String dbmsId, 
 			String user1Id, String user2Id,  String salesmanId, String installDay, String contractId, 
 			String visitId, String startDay, String endDay, String etc, String chkId) throws Throwable {
