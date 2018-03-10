@@ -404,4 +404,40 @@
 	 WHERE customer_id = #chkId#  
 	 </update>
 	 
+	 <!-- 고객사 신규 등록 -->
+	 <update id="insertCus" parameterClass="java.util.HashMap">
+	 INSERT INTO XM_CUSTOMER  (customer_id, customer_name,
+               				    create_user, create_date, last_update_user, last_update_date) 	 
+	  				    VALUES(NEXTVAL('xm_customer_next_val'), #cusNm#, 	
+	               			    #userId#, current_date::date, null,null)      			                 
+	</update>
+	
+	<!-- 특정 고객사의 고객사id 조회 : 사용하지 않음 -->
+	<select id="getCusId" parameterClass="java.util.HashMap" resultClass="Integer">
+		select customer_id
+		from xm_customer 
+		where customer_name like '%' || #customer_name# || '%'
+	</select>
+	
+	<!-- 등록한 고객사의 고객사id 조회 -->
+	<select id="getInsertedCusId" parameterClass="java.util.HashMap" resultClass="Integer">
+		select customer_id
+		from xm_customer 
+		where customer_name = #cusNm#
+	</select>
+	
+	<!-- 프로젝트 신규 등록 -->
+	 <update id="insertProj" parameterClass="java.util.HashMap">
+	 INSERT INTO XM_PROJECT  (project_id, project_name, customer_id,
+               				    create_user, create_date, last_update_user, last_update_date) 	 
+	  				    VALUES(NEXTVAL('xm_project_next_val'), #cusproNm#, #cusId#, 	
+	               			    #userId#, current_date::date, null,null)      			                 
+	</update>
+	
+	<!-- 등록한 프로젝트의 프로젝트id 조회 -->
+	<select id="getInsertedPjtId" parameterClass="java.util.HashMap" resultClass="Integer">
+		select project_id
+		from xm_projcet 
+		where customer_id = #cusId# and project_name = #cusproNm# 
+	</select>
 </sqlMap>

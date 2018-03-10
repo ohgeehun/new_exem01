@@ -107,7 +107,12 @@ $(document).ready(function(){
 	
 	/* 고객사 등록 버튼 이벤트 */
     $("#edit_update_btn").bind("click", function(){   	
+    	var cusNm = $("#cusName_id").val();
+    	var cusproNm = $("#cusproName_id").val();
     	
+		ICustomerService.insertCusinfo2(cusNm,  cusproNm, insertCusinfoCallBack);
+    	
+    	/*
     	var cusNm_hidden = $("#cusName_hidden_id").val();
     	var cusPro_hidden = $("#cusPro_hidden_id").val();
     	var cusDbms_hidden = $("#dbmsNm_hidden_id").val();
@@ -141,11 +146,12 @@ $(document).ready(function(){
     	                       salesmanId, etc, insertCusinfoCallBack); 
          		}     	
          	}  
-    	}      	   	
+    	}
+    	*/
     });
 	
     /* 고객사 등록 시 기존 고객사명 리스트를 가져오는 이벤트 */
-    ICustomerService.getcusNminfo(cusNminfoCallBack);
+    //ICustomerService.getcusNminfo(cusNminfoCallBack);
     
 });  
 
@@ -412,16 +418,6 @@ function getprodbmsmemberinfoCallBack(res){
 
 }
 
-function insertCusinfoCallBack(res){
-	if(res == "FAILED"){
-		alert("실패");
-		location.href = "customer_insert";
-	}else if(res == "SUCCESS"){
-		alert("성공");
-		location.href = "customer_insert";
-	}
-}
-
 //영문만 입력받도록 검증
 function isAlphabetForSpan(str){
 	var check = /[^A-Za-z\s]/;
@@ -474,6 +470,19 @@ function removeChar(event) {
 }
 */
 
+function insertCusinfoCallBack(res){
+	if(res == "FAILED"){
+		alert("실패");
+		location.href = "customer_insert";
+	}else if(res == "SUCCESS"){
+		alert("성공");
+		location.href = "customer_insert";
+	}else if(res == "CUSTOMER_ALEADY_EXIST"){
+			alert("이미 등록된 고객사입니다.");
+			//location.href = "customer_insert";
+	}
+}
+
 </script>
 
 <style>
@@ -512,7 +521,7 @@ function removeChar(event) {
 			<ul>
 		 		<li class="input_title input_01 inputTxtFont">고객사명*</li>
 				<li class="input_title input_02 inputTxtFont">프로젝트명*</li>
-				<li class="input_title input_03 inputTxtFont">제품구분*</li>
+				<li class="input_title input_03 inputTxtFont">제품구분</li>
 				<li class="input_title input_04 inputTxtFont">고객명</li>
 				<li class="input_title input_05 inputTxtFont">고객 연락처</li>
 				<li class="input_title input_06 inputTxtFont">고객 이메일</li>

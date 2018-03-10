@@ -304,6 +304,70 @@ public class CustomerDao implements ICustomerDao{
 		}
 		return result;
 	}
+	
+	// 사용안함
+	// 고객사 및 프로젝트 신규 등록
+	public String insertCusProj(HashMap params) throws Throwable {
+		String result = "FAILED";
+		
+		try{
+			// 고객사 신규등록
+			sqlMapClient.update("customer.insertCus", params);
+			// 등록된 고객사 정보 조회
+			//int cusId = (Integer) sqlMapClient.queryForObject("customer.getCusId", params);
+			//params.put("cusId", cusId);
+			// 프로젝트 신규등록
+			//sqlMapClient.update("customer.insertProj", params);
+			
+		} catch(Exception e) {
+			 e.printStackTrace();
+             //TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+             return result;
+		}
+		result = "SUCCESS";
+		return result;     
+	}
+	
+	// 고객사 신규 등록
+	public void insertCus(HashMap params) throws Throwable {
+		//String result = "FAILED";
+
+		//if(sqlMapClient.update("customer.insertCus", params) > 0){
+			//result = "SUCCESS";
+		//}
+		//return result;
+		if( sqlMapClient.update("customer.insertCus", params) <= 0 ) {
+			throw new Exception("transction: customer insert Error");
+		}
+	}
+	
+	// 고객사 id조회
+	public Integer getInsertedCusId(HashMap params)	throws Throwable {
+		// TODO Auto-generated method stub
+		Integer cusId = (Integer) sqlMapClient.queryForObject("customer.getInsertedCusId", params);
+		return  cusId;
+	}
+	
+	// 프로젝트 신규 등록
+	public void insertProj(HashMap params) throws Throwable {
+		//String result = "FAILED";
+
+		//if(sqlMapClient.update("customer.insertProj", params) > 0){
+//			result = "SUCCESS";
+//		}
+//		return result;    
+		if ( sqlMapClient.update("customer.insertProj", params) <= 0){
+			throw new Exception("transction: project insert Error");
+		}
+	}
+	
+	// 프로젝트id 조회
+	public Integer getInsertedPjtId(HashMap params)	throws Throwable {
+		// TODO Auto-generated method stub
+		Integer pjtId = (Integer) sqlMapClient.queryForObject("customer.getInsertedPjtId", params);
+		return  pjtId;
+	}
+	
 }
 	
 

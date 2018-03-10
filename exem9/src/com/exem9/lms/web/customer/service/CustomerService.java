@@ -11,6 +11,8 @@ import org.directwebremoting.WebContextFactory;
 import org.directwebremoting.annotations.RemoteProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.exem9.lms.common.CommonProperties;
 import com.exem9.lms.web.common.bean.LineBoardBean;
@@ -389,6 +391,58 @@ public class CustomerService implements ICustomerService{
 		System.out.println("============================================================== cus delete call : ");
 		
 		return iCustomerDao.deleteCusinfo(params);
+	}
+	
+	@Transactional(rollbackFor=Exception.class)
+	public String insertCusinfo2(String cusNm, String cusproNm) throws Throwable {
+		
+		String result = "FAILED";
+		
+		WebContext wctx = WebContextFactory.get();
+		HttpServletRequest request = wctx.getHttpServletRequest();
+		HttpSession session = request.getSession();	
+		
+		HashMap params = new HashMap();
+		params.put("userId", (String)session.getAttribute("sUserId"));
+				
+		params.put("cusNm",cusNm);
+		params.put("cusproNm",cusproNm);		
+
+		try{
+			// 고객사 신규등록
+//			System.out.println("--------------------------------------------");
+//			System.out.println("userId : " + (String)session.getAttribute("sUserId"));
+//			System.out.println("cusNm : " + cusNm);
+//			System.out.println("cusPrjNm : " + cusproNm);
+//			System.out.println("--------------------------------------------");
+			Integer cusId = iCustomerDao.getInsertedCusId(params); // 기 등록된 고객사이면 ID값 반환
+			
+			if(cusId == null) {   // 고객사 신규등록이 필요한 경우
+				// 고객사 신규 등록
+				iCustomerDao.insertCus(params); 
+				// 등록된 고객사 정보 조회
+				cusId = (Integer) iCustomerDao.getInsertedCusId(params); // 신규 등록후 고객사ID 값 반환
+				//return result = "CUSTOMER_ALEADY_EXIST";
+			}
+			//System.out.println("cusId : " + cusId);
+			params.put("cusId", cusId);
+
+			
+			Integer pjtId = iCustomerDao.getInsertedPjtId(params); // 해당고객사의 기 등록된 프로젝트이면 ID값 반환
+			if( pjtId == null) {   // 프로젝트 신규등록이 필요한 경우
+				// 프로젝트 신규등록
+				iCustomerDao.insertProj(params);
+				pjtId = (Integer) iCustomerDao.getInsertedPjtId(params); // 신규 등록후 프로젝트ID 값 반환
+			}
+			
+		} catch(Exception e) {
+			 e.printStackTrace();
+             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+             return result;
+		}
+		
+		result = "SUCCESS";
+		return 	result;
 	}
 	
 }
