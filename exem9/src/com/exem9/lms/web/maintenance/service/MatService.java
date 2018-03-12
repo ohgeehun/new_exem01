@@ -16,6 +16,8 @@ import com.exem9.lms.common.CommonProperties;
 import com.exem9.lms.web.common.bean.LineBoardBean;
 import com.exem9.lms.web.common.bean.SupoBean;
 import com.exem9.lms.web.common.dao.ICommonDao;
+import com.exem9.lms.web.customer.bean.CustomerMemberBean;
+import com.exem9.lms.web.customer.dao.ICustomerDao;
 import com.exem9.lms.web.dbms.bean.DbmsBean;
 import com.exem9.lms.web.dbms.dao.IDbmsDao;
 import com.exem9.lms.web.maintenance.bean.MatBean;
@@ -39,6 +41,9 @@ public class MatService implements IMatService{
 	
 	@Autowired
 	public IMemberDao iMemberDao;
+	
+	@Autowired
+	public ICustomerDao iCustomerDao;
 	
 	@Autowired
 	public ITeamDao iTeamDao;
@@ -90,10 +95,10 @@ public class MatService implements IMatService{
 	}*/
 	
 	//고객사 정보 등록시 담당부서에 해당 하는 팀정보 가져오기
-	public List<TeamBean> getdeptteam(String dbmsId) throws Throwable {
+	public List<TeamBean> getdeptteam(String deptId) throws Throwable {
 		// TODO Auto-generated method stub
 		HashMap params = new HashMap();
-		params.put("dbmsId",Integer.parseInt(dbmsId));
+		params.put("deptId",Integer.parseInt(deptId));
 		
 		
 		return iTeamDao.getdeptteam(params);
@@ -207,7 +212,6 @@ public class MatService implements IMatService{
 		return iMatDao.deleteMatinfo(params);
 	}
 	
-	
 	public String updateMatinfo(String custId, String pjtId, String cususerId, String dbmsId, 
 			String user1Id, String user2Id,  String salesmanId, String installDay, String contractId, 
 			String visitId, String startDay, String endDay, String etc, String chkId) throws Throwable {
@@ -234,6 +238,21 @@ public class MatService implements IMatService{
 		params.put("chkId",Integer.parseInt(chkId));
 		
 		return iMatDao.updateMatinfo(params);
+	}
+
+	public List<CustomerMemberBean> getprodbmsmemberinfo(String cusId, String proId, String dbmsId) throws Throwable {
+		
+		WebContext wctx = WebContextFactory.get();
+		HttpServletRequest request = wctx.getHttpServletRequest();
+		HttpSession session = request.getSession();	
+		
+		HashMap params = new HashMap();
+		
+		params.put("cusId",Integer.parseInt(cusId));
+		params.put("proId",Integer.parseInt(proId));
+		params.put("dbmsId",Integer.parseInt(dbmsId));
+		// TODO Auto-generated method stub
+		return iCustomerDao.getprodbmsmemberinfo(params);
 	}
 
 }

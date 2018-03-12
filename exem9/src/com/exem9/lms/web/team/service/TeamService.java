@@ -33,11 +33,11 @@ public class TeamService implements ITeamService{
 	public ITeamDao iTeamDao;
 	
 
-	public List getdeptteam2(HashMap params) throws Throwable {
+/*	public List getdeptteam2(HashMap params) throws Throwable {
 		
 		// TODO Auto-generated method stub
 		return iTeamDao.getdeptteam2(params);
-	}
+	}*/
 	
 	public List getteam() throws Throwable {
 		

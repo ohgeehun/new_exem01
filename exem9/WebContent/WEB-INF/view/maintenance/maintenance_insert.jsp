@@ -49,6 +49,15 @@ $(document).ready(function(){
 	   	location.href = "maintenance";
 	});
 	
+	$("#test_Btn").bind("click", function(){
+		 var cusId = $("#cusName_hidden_id").val();
+		 var proId = $("#cusproName_hidden_id").val();
+		 var dbmsId = $("#dbms_select_id").val();
+
+		 
+		popup("고객담당자 등록 페이지", cusId, proId, dbmsId);
+	});
+	
 	/* 유지보스 등록 버튼 이벤트 */
     $("#edit_update_btn").bind("click", function(){   	
     	var cusNm = $("#cusName_id").val();
@@ -120,13 +129,19 @@ $(document).ready(function(){
         
 	});  
 	
-	/*
+	
 	$("#dbms_select_id").change(function (){
-		var dbmsId = $("#dbms_select_id").val();	
-		
+		 var cusId = $("#cusName_hidden_id").val();
+		 var proId = $("#cusproName_hidden_id").val();
+		 var dbmsId = $("#dbms_select_id").val();
+
 		if(dbmsId > 0){	
-			IMatService.getdeptteam(dbmsId, getTeaminfoCallBack);
+			/* IMatService.getdeptteam(dbmsId, getTeaminfoCallBack); */
+			IMatService.getprodbmsmemberinfo(cusId, proId, dbmsId, getcusmemberCallBack);
 		}else{
+			$("#cusUser_select_id").val("0");
+			$("#cusUser_select_id").val("0").prop("selected", true);
+			
 			$("#team_select_id").val("0");
 			$("#team_select_id").val("0").prop("selected", true);
 			$("#user1_select_id").val("0");
@@ -136,9 +151,34 @@ $(document).ready(function(){
 			$("#team_select_id").prop("disabled",true);				
 			$("#user1_select_id").prop("disabled",true);
 			$("#user2_select_id").prop("disabled",true);							
+		} 	
+	});
+	
+	$("#dept_select_id").change(function (){
+		
+		var deptId = $("#dept_select_id").val();	
+
+		if(deptId > 0){	
+			$("#user1_select_id").val("0");
+			$("#user1_select_id").val("0").prop("selected", true);
+			$("#user2_select_id").val("0");
+			$("#user2_select_id").val("0").prop("selected", true);
+			$("#user1_select_id").prop("disabled",true);
+			$("#user2_select_id").prop("disabled",true);	
+			
+			IMatService.getdeptteam(deptId, getTeaminfoCallBack);	 
+		}else{		
+			$("#team_select_id").val("0");
+			$("#team_select_id").val("0").prop("selected", true);
+			$("#user1_select_id").val("0");
+			$("#user1_select_id").val("0").prop("selected", true);
+			$("#user2_select_id").val("0");
+			$("#user2_select_id").val("0").prop("selected", true);
+			$("#team_select_id").prop("disabled",true);
+			$("#user1_select_id").prop("disabled",true);
+			$("#user2_select_id").prop("disabled",true);							
 		}	
 	});
-	*/
 	
 	$("#team_select_id").change(function (){
 	
@@ -146,7 +186,7 @@ $(document).ready(function(){
 
 		if(teamId > 0){	
 			IMatService.getTeammember(teamId, "", getUserinfo1CallBack);	 
-		}else{
+		}else{			
 			$("#user1_select_id").val("0");
 			$("#user1_select_id").val("0").prop("selected", true);
 			$("#user2_select_id").val("0");
@@ -154,9 +194,8 @@ $(document).ready(function(){
 			$("#user1_select_id").prop("disabled",true);
 			$("#user2_select_id").prop("disabled",true);							
 		}	
-	});
+	});	
 	
-	/*
 	$("#user1_select_id").change(function (){
 		
 		var user1Nm = $("#user1_select_id").val();	
@@ -170,7 +209,7 @@ $(document).ready(function(){
 			$("#user2_select_id").prop("disabled",true);												
 		}	
 	});
-	*/
+	
 	
 	$("#supo_level_select_id").change(function (){
 		var supoLevel = $("#supo_level_select_id").val();	
@@ -204,10 +243,20 @@ function cusNminfoCallBack(res){
 	        autoComplete: {
 	            enabled: true
 	        },events: {
-	        	change : function(e){   
+	        	select : function(e){   
         			var cusNm =  $("#cusName_id").val();	        			
         		
-        			$("#cusUser_id").val("");
+        			$("#cusUser_id").val("");        			
+        			
+        			$("#cusUser_select_id").val("0");
+        			$("#cusUser_select_id").val("0").prop("selected", true);	        			        	
+
+        			$("#salesman_select_id").val("0");	
+        			$("#salesman_select_id").val("0").prop("selected", true);        			
+      
+        			$("#dbms_select_id").val("0");	
+        			$("#dbms_select_id").val("0").prop("selected", true);
+        			
        			    ICustomerService.getcusNmProinfo(cusNm,"", cusNmProinfoCallBack);	           			   
         	   	}
 	        }
@@ -234,9 +283,18 @@ function cusNmProinfoCallBack(res){
 	            enabled: true
 	        } ,
 	        events: {
-	        	change : function(e){    
+	        	select : function(e){    
         			var cusNm = $("#cusName_id").val();   		 
         			var proNm = $("#cusproName_id").val();	        			
+        			
+        			$("#cusUser_select_id").val("0");
+        			$("#cusUser_select_id").val("0").prop("selected", true);		
+        			
+        			$("#salesman_select_id").val("0");	
+        			$("#salesman_select_id").val("0").prop("selected", true);
+        			
+        			$("#dbms_select_id").val("0");	
+        			$("#dbms_select_id").val("0").prop("selected", true);        			
         		
        			    ICustomerService.getcusNmProinfo(cusNm,proNm, cusNmProcheckCallBack);	 
        			    
@@ -246,10 +304,15 @@ function cusNmProinfoCallBack(res){
 		
 	}else{
 		alert("해당 고객사는 존재하지 않습니다.");
-
-		$("#cusproName_id").swidget().enabled(false);
 		
-		$("#salesman_select_id").prop("disabled",true);	
+		$("#cusName_hidden_id").val("");
+		$("#cusproName_hidden_id").val("");
+
+		$("#cusproName_id").swidget().enabled(false);		
+
+		$("#cusUser_select_id").val("0");
+		$("#cusUser_select_id").val("0").prop("selected", true);		
+		
 		$("#salesman_select_id").val("0");	
 		$("#salesman_select_id").val("0").prop("selected", true);
 		
@@ -269,23 +332,42 @@ function cusNmProinfoCallBack(res){
 		$("#user2_select_id").val("0");
 		$("#user2_select_id").val("0").prop("selected", true);
 	}
+	
+	var text = "";			
+	
+	text += "<option value='0' selected>지정하지 않음.</option>";
+	
+	$("#cusUser_select_id").html(text);
 }	
 
 function cusNmProcheckCallBack(res){
 	if (res.length > 0){
+		
+		$("#dbms_select_id").prop("disabled",false);
+		
+		$("#cusName_hidden_id").val(res[0].cusId);
+		$("#cusproName_hidden_id").val(res[0].proId);
+		
 		$("#cusUser_id").val(res[0].cus1Nm);	
 		if (res[0].salseId != null){
-			$("#salesman_select_id").val(res[0].salseId).prop("selected", true);	
-		}else{
+			$("#salesman_select_id").val(res[0].salseId).prop("selected", false);
+		} else{
 			$("#salesman_select_id").val("0").prop("selected", true);
-		}		
+		}	 
 		
 		$("#dbms_select_id").attr("disabled",false);
 
 	}else{
-		alert("해당 프로젝트는 존재하지 않습니다.");	
+		alert("해당 프로젝트는 존재하지 않습니다.");		
 		
-		$("#salesman_select_id").prop("disabled",true);	
+		$("#cusName_hidden_id").val("");
+		$("#cusproName_hidden_id").val("");
+		
+
+		$("#cusUser_select_id").val("0");
+		$("#cusUser_select_id").val("0").prop("selected", true);
+		
+
 		$("#salesman_select_id").val("0");	
 		$("#salesman_select_id").val("0").prop("selected", true);
 		
@@ -306,6 +388,31 @@ function cusNmProcheckCallBack(res){
 		$("#user2_select_id").val("0").prop("selected", true);
 				
 	}
+	var text = "";			
+	
+	text += "<option value='0' selected>지정하지 않음.</option>";
+	
+	$("#cusUser_select_id").html(text);
+}
+
+function getcusmemberCallBack(res){
+	var text = "";			
+	
+	text += "<option value='0' selected>지정하지 않음.</option>";
+
+	if (res.length > 0){
+	
+		$("#cusUser_select_id").prop("disabled",false);	
+		
+		for(var i = 0; i < res.length; i++){				
+			text += "<option value="+res[i].cususerId+" selected>"+res[i].cususerNm+"</option>";
+		}
+	}else{
+		$("#cusUser_select_id").val("0").prop("selected", true);
+	}
+		
+	
+	$("#cusUser_select_id").html(text);
 }
 
 function getTeaminfoCallBack(res){
@@ -323,7 +430,7 @@ function getTeaminfoCallBack(res){
 		}
 	}
 	
-	$("#team_select_id").html(text);
+	$("#team_select_id").html(text);	
 }
 
 function getUserinfo1CallBack(res){
@@ -389,6 +496,21 @@ function insertMatinfoCallBack(res){
 		location.href = "maintenance_insert";
 	}
 }
+
+
+function getcusmemberCallBack1(res){
+	var str ="";	
+	
+	for(var i = 0; i < res.length; i++){
+		str += "<tr>";
+		str += "<td>"+res[i].cususerNm+"</td>";
+		str += "<td>"+res[i].cususerPhone+"</td>";
+		str += "<td>"+res[i].cususerMail+"</td>";
+		str += "</tr>";
+	}
+	
+	$("#member_list").html(str);
+}
 </script>
 
 <style>
@@ -424,12 +546,12 @@ th, td {
 	padding:1px;
 	width:290px;
 	left:238px;
-	top: 856px;
+	top: 910px;
 }
 
 .miBtt_submit_top {
 	position:absolute; 
-	top: 856px;
+	top: 910px;
 	margin-left: 70px;
 }
 </style>
@@ -452,8 +574,7 @@ th, td {
 	 </div -->
 	 <div class="top_mainDisplayPart">
 		<div align="center"><h3>유지보수 등록 페이지</h3></div>
-		<div id="customer_list" class="top_mainDisplayBase" >
-		
+		<div id="customer_list" class="top_mainDisplayBase" >		
 			 <ul>
 					<li class="input_title input_01 inputTxtFont">고객사명*</li>
 					<li class="input_title input_02 inputTxtFont">프로젝트명*</li>
@@ -462,25 +583,26 @@ th, td {
 					<li class="input_title input_05 inputTxtFont">고객담당자</li>
 					<li class="input_title input_06 inputTxtFont">담당영업*</li>
 					<li class="input_title input_07 inputTxtFont">담당부서</li>
-					<li class="input_title input_08 inputTxtFont">담당 엔지니어(정)</li>
-					<li class="input_title input_09 inputTxtFont">담당 엔지니어(부)</li>
-					<li class="input_title input_10 inputTxtFont">최초 설치일</li>
-					<li class="input_title input_11 inputTxtFont">MA 현 상태</li>
-					<li class="input_title input_12 inputTxtFont">MA 유형</li>
-					<li class="input_title input_13 inputTxtFont">MA 시작일</li>
-					<li class="input_title input_14 inputTxtFont">MA 종료일</li>
-					<li class="input_title input_15 inputTxtFont">비고</li>
-			</ul>
-	 			
-	 			
+					<li class="input_title input_08 inputTxtFont">담당팀</li>
+					<li class="input_title input_09 inputTxtFont">담당 엔지니어(정)</li>
+					<li class="input_title input_10 inputTxtFont">담당 엔지니어(부)</li>
+					<li class="input_title input_11 inputTxtFont">최초 설치일</li>
+					<li class="input_title input_12 inputTxtFont">MA 현 상태</li>
+					<li class="input_title input_13 inputTxtFont">MA 유형</li>
+					<li class="input_title input_14 inputTxtFont">MA 시작일</li>
+					<li class="input_title input_15 inputTxtFont">MA 종료일</li>
+					<li class="input_title input_16 inputTxtFont">비고</li>
+			</ul>	 			
 						<div class="input_txt_01 input_01 inputTxtFont">
+							<input type="hidden" id="cusName_hidden_id">
 						    <input id="cusName_id"/>		
 						</div>
 						<div class="input_txt_01 input_02 inputTxtFont">
+							<input type="hidden" id="cusproName_hidden_id">
 							<input id="cusproName_id"/>										
 						</div>
 						
-							<select id="dbms_select_id" class="input_txt input_03 inputTxtFont sui-input">
+							<select id="dbms_select_id" class="input_txt input_03 inputTxtFont sui-input" disabled="disabled">
 								<option value="0" selected>지정하지 않음.</option>
 							    <c:forEach var="dl" items="${dbms_list}">
 				 	    			<option value="${dl.dbmsId}">${dl.dbmsNm}</option>		 	    	
@@ -489,60 +611,67 @@ th, td {
 									
 						<input type="text" id='dbmsVer_id' value="" class="input_txt input_04 inputTxtFont sui-input">												
 							
-						<input type="text" id='cusUser_id' value="" readonly="readonly" class="input_txt input_05 inputTxtFont sui-input">													
+						<div class="input_txt input_05 inputTxtFont sui-input">
+							<select id='cusUser_select_id' >
+								<option value="0" selected>지정하지 않음.</option>							    	
+							</select>
+							<button id="test_Btn">test</button>
+						</div>						
+					<!-- 	<input type="text" id='cusUser_id' value="" readonly="readonly" class="input_txt input_05 inputTxtFont sui-input">	 -->												
 					
 							<select id='salesman_select_id' class="input_txt input_06 inputTxtFont sui-input">
 								<option value="0" selected>지정하지 않음.</option>
 							    <c:forEach var="sl" items="${salseman_list}">
 				 	    			<option value="${sl.userId}">${sl.userNm}</option>		 	    	
 				 	    		</c:forEach>	
-							</select>
-						
-							<!-- select id='team_select_id' class="input_txt input_07 inputTxtFont sui-input">
-								<option value="0" selected>지정하지 않음.</option>							  	
-							</select-->
+							</select>						
+							
 							<select id='dept_select_id' class="input_txt input_07 inputTxtFont sui-input">
 									<option value="0" selected>지정하지 않음.</option>
 								<c:forEach var="dept" items="${dept_list}">										
 									<option value="${dept.deptId}">${dept.deptNm}</option>	
 								</c:forEach>							  	
 							</select>
-						
-							<select id='user1_select_id' class="input_txt input_08 inputTxtFont sui-input">
-								<option value="0" selected>지정하지 않음.</option>
-								<c:forEach var="mem" items="${mem_list}">										
-									<option value="${mem.userId}">${mem.userNm}</option>	
-								</c:forEach>							  	
+							
+							<select id='team_select_id' class="input_txt input_08 inputTxtFont sui-input" disabled="disabled">
+								<option value="0" selected>지정하지 않음.</option>							  	
 							</select>
 						
-							<select id='user2_select_id' class="input_txt input_09 inputTxtFont sui-input">
+							<select id='user1_select_id' class="input_txt input_09 inputTxtFont sui-input" disabled="disabled">
 								<option value="0" selected>지정하지 않음.</option>
-								<c:forEach var="mem" items="${mem_list}">										
+							<%-- 	<c:forEach var="mem" items="${mem_list}">										
 									<option value="${mem.userId}">${mem.userNm}</option>	
-								</c:forEach>							  	
+								</c:forEach>	 --%>						  	
+							</select>
+						
+							<select id='user2_select_id' class="input_txt input_10 inputTxtFont sui-input" disabled="disabled">
+								<option value="0" selected>지정하지 않음.</option>
+							<%-- 	<c:forEach var="mem" items="${mem_list}">										
+									<option value="${mem.userId}">${mem.userNm}</option>	
+								</c:forEach>	 --%>						  	
 							</select>
 												
-							<input type='date' id='install_date_id' class="input_txt input_10 inputTxtFont sui-input">														
+							<input type='date' id='install_date_id' class="input_txt input_11 inputTxtFont sui-input">														
 					
-							<select id='supo_level_select_id' class="input_txt input_11 inputTxtFont sui-input">
+							<select id='supo_level_select_id' class="input_txt input_12 inputTxtFont sui-input">
 								<option value="0" selected>지정하지 않음.</option>
 							    <c:forEach var="sll" items="${supo_level_list}">
 				 	    			<option value="${sll.supoId}">${sll.supoNm}</option>		 	    	
 				 	    		</c:forEach>	
 							</select>
 						
-						    <select id='supo_state_select_id' class="input_txt input_12 inputTxtFont sui-input">
+						    <select id='supo_state_select_id' class="input_txt input_13 inputTxtFont sui-input">
 								<option value="0" selected>지정하지 않음.</option>
 							    <c:forEach var="svl" items="${supo_visit_list}">
 				 	    			<option value="${svl.supoVisitId}">${svl.supoVisitNm}</option>		 	    	
 				 	    		</c:forEach>
 							</select>
 																							
-							<input type='date' id='supo_start_date_id' class="input_txt input_13 inputTxtFont sui-input">														
+							<input type='date' id='supo_start_date_id' class="input_txt input_14 inputTxtFont sui-input">														
 					
-							<input type='date' id='supo_end_date_id' class="input_txt input_14 inputTxtFont sui-input">															
+							<input type='date' id='supo_end_date_id' class="input_txt input_15 inputTxtFont sui-input">															
 					
-							<textarea id="etc_id" name="contents" class="input_txt_02 input_15 inputTxtFont"></textarea>													
+							<textarea id="etc_id" name="contents" class="input_txt_02 input_16 inputTxtFont"></textarea>													
 					
 					
 						  <input type="password" placeholder="등록 비밀번호 입력." id="editPw" required class="reg_pass inputTxtFont"> &nbsp;&nbsp;

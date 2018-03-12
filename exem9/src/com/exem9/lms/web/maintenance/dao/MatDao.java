@@ -5,24 +5,46 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.exem9.lms.web.customer.bean.CustomerMemberBean;
 import com.exem9.lms.web.maintenance.bean.MatBean;
 import com.exem9.lms.web.member.bean.MemberBean;
 import com.ibatis.sqlmap.client.SqlMapClient;
 
+@Transactional
 @Repository(value="IMatDao")
 public class MatDao implements IMatDao{
 	
 	@Autowired
 	public SqlMapClient sqlMapClient;
 
+	
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public String insertMatinfo(HashMap params)throws Throwable {
 		String result = "FAILED";
 		
-		if(sqlMapClient.update("maintenance.insertMatinfo", params) > 0){
-			result = "SUCCESS";
+		sqlMapClient.startTransaction();
+		sqlMapClient.getCurrentConnection().setAutoCommit(false);		
+		try{
+			if(sqlMapClient.update("maintenance.insertMatinfo", params) > 0){
+				
+				/*if(sqlMapClient.update("maintenance.insertMatinfo1", params) > 0){*/
+					result = "SUCCESS";								
+					sqlMapClient.commitTransaction();
+					sqlMapClient .getCurrentConnection().commit();
+				/*}					*/
+			}	
+		}catch(Exception e){
+			result = "FAILED";
+			System.out.println(e);
+			
+		}finally{			
+			sqlMapClient.endTransaction();			
 		}
-		return result;
+		
+		return result;		
 	}
 
 	public List<MatBean> getmatinfo(HashMap params) throws Throwable {
@@ -56,5 +78,5 @@ public class MatDao implements IMatDao{
 		}
 		return result;
 	}
-	
+
 }

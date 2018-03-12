@@ -1,10 +1,13 @@
-function popup(title,list) {
+function popup(title,cusId, proId, dbmsId) {
 	var fpNo="";
 	var str="<div class=\"bg_div\" id=\"bg_div\"></div>";
 	str += "<div class=\"popup_div\" id=\"popup_div\">";
 	str += "<div class=\"popup_title\">&nbsp;"+title+"</div>";
 	str += "<div class=\"popup_content\">";
-	str += "<table id=\"member_list\"> </table>";
+	str += "<table>";
+	str += "<thead><tr><td>담당자명</td><td>연락처</td><td>이메일</td></tr></thead>";
+	str += "<tbody id=\"member_list\"></tbody>";
+	str += "</table>";
 /*	str += "<input type=\"text\" class=\"memNo\" id=\"memNo\"  onkeydown='if (event.keyCode == 13) fncCheck();' />";*/
 	str += "<br/>"; // 간격조정을 위해
 	str += "<br/>"; // 간격조정을 위해
@@ -20,7 +23,9 @@ function popup(title,list) {
 	$("#popup_div").fadeIn();
 	$("#popup_div").css("display","block");
 	
-	ICustomerService.getUsermember(list, testCallBack);
+	IMatService.getprodbmsmemberinfo(cusId, proId, dbmsId, getcusmemberCallBack1);
+	
+	/*ICustomerService.getUsermember(list, testCallBack);*/
 	
 	$(".ok_btn").unbind(); // 기존 바인드를 푼다. 그래야 시스템이 느려지는걸 방지한다.
 	$(".ok_btn").bind("click",function(){
@@ -33,17 +38,20 @@ function popup(title,list) {
 	$(".memNo").focus();
 }
 
-function testCallBack(res){
-	var str ="";
+/*function getcusmemberCallBack(res){
+	var str ="";	
+	alert("dddddddddddd");
 	
-	str += "<td>";
-	for(var i = 0; i < res.length; i++){	
-		str += "<td>"+res[i].userNm+"</td>";
+	for(var i = 0; i < res.length; i++){
+		str += "<tr>";
+		str += "<td>"+res[i].cususerNm+"</td>";
+		str += "<td>"+res[i].cususerPhone+"</td>";
+		str += "<td>"+res[i].cususerMail+"</td>";
+		str += "</tr>";
 	}
-	str += "</td>";
 	
 	$("#member_list").html(str);
-}
+}*/
 /*function fncCheck(){
 	fpNo=$("#memNo").val();  // 사원 로그인 데이터
 	$("#popup_div").remove();
