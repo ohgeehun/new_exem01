@@ -2,6 +2,8 @@ package com.exem9.lms.web.customer.service;
 
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.exem9.lms.web.common.bean.LineBoardBean;
 import com.exem9.lms.web.common.bean.SupoBean;
 import com.exem9.lms.web.customer.bean.CustomerBean;
@@ -15,6 +17,7 @@ import com.exem9.lms.web.member.bean.MemberBean2;
 import com.exem9.lms.web.mypage.bean.MypageBean;
 import com.exem9.lms.web.team.bean.TeamBean;
 
+@Transactional
 public interface ICustomerService {
 
 	/*현재 접속 중인 유저 정보 가져오기(MypageDao 연계)*/
@@ -78,7 +81,9 @@ public interface ICustomerService {
 								String salesmanId, String etc) throws Throwable ;
 	
 	/*고객사 등록 updateCusInfo2 */
-	public String insertCusinfo2(String cusNm, String cusproNm) throws Throwable ;
+	//public String insertCusinfo2(String cusNm, String cusproNm) throws Throwable ;
+	public String insertCusinfo2(String cusNm, String cusproNm, String dbmsId, String cuslocation, 
+			String cususerNm, String cususerPhone, String cususerMail, String salesmanId, String etc) throws Throwable;
 	
 	/*고객사 프로젝트명 가져오기 콤포박스에서 사용*/
 	public List<CustomerPjtNmBean> getcusPjtNminfo()throws Throwable ;

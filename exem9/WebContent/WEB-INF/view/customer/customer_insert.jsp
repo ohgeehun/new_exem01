@@ -85,7 +85,7 @@ $(document).ready(function(){
         enabled: false
 	});  
 	*/
-	
+	/*
 	$("#dbms_select_id").change(function (){
 		var dbmsId = $("#dbms_select_id").val();	
 		
@@ -104,20 +104,20 @@ $(document).ready(function(){
 			});  			
 		}	
 	});
+	*/
 	
 	/* 고객사 등록 버튼 이벤트 */
     $("#edit_update_btn").bind("click", function(){   	
-    	var cusNm = $("#cusName_id").val();
-    	var cusproNm = $("#cusproName_id").val();
+    	//var cusNm = $("#cusName_id").val();
+    	//var cusproNm = $("#cusproName_id").val();
     	
-		ICustomerService.insertCusinfo2(cusNm,  cusproNm, insertCusinfoCallBack);
+		//ICustomerService.insertCusinfo2(cusNm,  cusproNm, insertCusinfoCallBack);
     	
-    	/*
-    	var cusNm_hidden = $("#cusName_hidden_id").val();
-    	var cusPro_hidden = $("#cusPro_hidden_id").val();
-    	var cusDbms_hidden = $("#dbmsNm_hidden_id").val();
-    	var cusUser_hidden = $("#cusNm_hidden_id").val();  
-    	alert(cusUser_hidden);
+    	//var cusNm_hidden = $("#cusName_hidden_id").val();
+    	//var cusPro_hidden = $("#cusPro_hidden_id").val();
+    	//var cusDbms_hidden = $("#dbmsNm_hidden_id").val();
+    	//var cusUser_hidden = $("#cusNm_hidden_id").val();  
+    	//alert(cusUser_hidden);
     	
     	var cusNm = $("#cusName_id").val();
     	var cusproNm = $("#cusproName_id").val();
@@ -128,9 +128,13 @@ $(document).ready(function(){
     	var cuslocation = $("#cuslocation_id").val();
     	
     	var salesmanId = $("#salesman_select_id").val();  	
-    	
     	var etc = $("#etc_id").val();    
     	
+    	ICustomerService.insertCusinfo2( 
+                cusNm, cusproNm, dbmsId,
+                cususerNm, cususerPhone, cususerMail, cuslocation, 
+                salesmanId, etc, insertCusinfoCallBack);
+    	/*
     	if(cusNm_hidden > 0 && cusPro_hidden > 0 && cusDbms_hidden > 0 && cusUser_hidden > 0){
     		alert("이미 등록된 정보입니다. 고객사 리스트에서 확인해주세요.");
     	}else{
@@ -321,64 +325,6 @@ function cusNmProinfoCallBack(res){
 	}	
 }
 
-
-function getprodbmsManagedinfoCallBack(res){
-	var availableTags = [];	 
-	
-	if(res.length > 0){
-		for(var i = 0; i < res.length; i++){
-			availableTags.push(res[i].cususerNm);	
-			
-			// $("#cusName_hidden_id").val(res[i].cusId);
-		}
-		
-		 $("#cusNm_id").swidget().destroy();
-			
-		 $("#cusNm_id").shieldComboBox({			 	
-		    	dataSource: {
-		            data: availableTags
-		        },	        
-		        autoComplete: {
-		            enabled: true
-		        },events: {
-		        	blur : function(e){   
-		        		var cusNm = $("#cusName_id").val();
-		    			var proNm = $("#cusproName_id").val();		
-		    			var dbmsId = $("#dbms_select_id").val();
-		        		var cususerNm =  $("#cusNm_id").swidget().value();
-		        		$("#cusNm_id").val(cususerNm);
-						
-		        		ICustomerService.getprodbmsmemberinfo(cusNm, proNm, dbmsId, cususerNm, getprodbmsmemberinfoCallBack);
-       			   
-	  	   			}
-		        }
-		}); 
-		 
-	}else{
-		$("#cusNm_hidden_id").val("0");
-		
-		$("#cusNm_id").swidget().destroy();
-		 
-    	$("#cusNm_id").shieldComboBox({
-        	dataSource: {
-                data: ""
-            },        	        
-            enabled: true,
-            events: {
-            	blur : function(e){
-            		var cusNm = $("#cusName_id").val();
-	    			var proNm = $("#cusproName_id").val();		
-	    			var dbmsId = $("#dbms_select_id").val();
-            		var cususerNm =  $("#cusNm_id").swidget().value();
-            		$("#cusNm_id").val(cususerNm);
-            		
-            		ICustomerService.getprodbmsmemberinfo(cusNm, proNm, dbmsId, cususerNm, getprodbmsmemberinfoCallBack);
-	        	}
-            }
-    	}); 
-	}
-}
-
 function getCusProCheckCallBack(res){
 	if(res.length > 0){
 		for(var i = 0; i < res.length; i++){	
@@ -483,6 +429,62 @@ function insertCusinfoCallBack(res){
 	}
 }
 
+function getprodbmsManagedinfoCallBack(res){
+	var availableTags = [];	 
+	
+	if(res.length > 0){
+		for(var i = 0; i < res.length; i++){
+			availableTags.push(res[i].cususerNm);	
+			
+			// $("#cusName_hidden_id").val(res[i].cusId);
+		}
+		
+		 $("#cusNm_id").swidget().destroy();
+			
+		 $("#cusNm_id").shieldComboBox({			 	
+		    	dataSource: {
+		            data: availableTags
+		        },	        
+		        autoComplete: {
+		            enabled: true
+		        },events: {
+		        	blur : function(e){   
+		        		var cusNm = $("#cusName_id").val();
+		    			var proNm = $("#cusproName_id").val();		
+		    			var dbmsId = $("#dbms_select_id").val();
+		        		var cususerNm =  $("#cusNm_id").swidget().value();
+		        		$("#cusNm_id").val(cususerNm);
+						
+		        		ICustomerService.getprodbmsmemberinfo(cusNm, proNm, dbmsId, cususerNm, getprodbmsmemberinfoCallBack);
+       			   
+	  	   			}
+		        }
+		}); 
+		 
+	}else{
+		$("#cusNm_hidden_id").val("0");
+		
+		$("#cusNm_id").swidget().destroy();
+		 
+    	$("#cusNm_id").shieldComboBox({
+        	dataSource: {
+                data: ""
+            },        	        
+            enabled: true,
+            events: {
+            	blur : function(e){
+            		var cusNm = $("#cusName_id").val();
+	    			var proNm = $("#cusproName_id").val();		
+	    			var dbmsId = $("#dbms_select_id").val();
+            		var cususerNm =  $("#cusNm_id").swidget().value();
+            		$("#cusNm_id").val(cususerNm);
+            		
+            		ICustomerService.getprodbmsmemberinfo(cusNm, proNm, dbmsId, cususerNm, getprodbmsmemberinfoCallBack);
+	        	}
+            }
+    	}); 
+	}
+}
 </script>
 
 <style>
@@ -563,7 +565,8 @@ function insertCusinfoCallBack(res){
 					<input id='cusNm_id'  class="input_txt input_04 inputTxtFont">
 				</div>
 				
-				<input class="input_txt input_05 inputTxtFont" type='text' id='cusPhone_id' onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' style='ime-mode:disabled;'>
+				<!-- input class="input_txt input_05 inputTxtFont" type='text' id='cusPhone_id' onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' style='ime-mode:disabled;'-->
+				<input class="input_txt input_05 inputTxtFont" type='text' id='cusPhone_id'>
 				
 				<input class="input_txt input_06 inputTxtFont" type='text' id='cusMail_id' >
 				

@@ -20,7 +20,8 @@
 		</property>
 	</bean>
 	
-	<tx:annotation-driven />
+	<!-- tx:annotation-driven /-->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
 	
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="${jdbc.driverClassName}"/>

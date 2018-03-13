@@ -11,8 +11,12 @@ import org.directwebremoting.WebContextFactory;
 import org.directwebremoting.annotations.RemoteProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import com.exem9.lms.common.CommonProperties;
 import com.exem9.lms.web.common.bean.LineBoardBean;
@@ -61,6 +65,13 @@ public class CustomerService implements ICustomerService{
 	
 	@Autowired
 	public ICommonDao iCommonDao;
+	
+	@Autowired
+	private PlatformTransactionManager transactionManager;
+	
+//	public void setTransactionManager(PlatformTransactionManager transactionManager){
+//		this.transactionManager = transactionManager;
+//	}
 	
 	public List<MypageBean> getUserinfo(String userId) throws Throwable {
 		return iMypageDao.getUserinfo(userId);
@@ -393,8 +404,10 @@ public class CustomerService implements ICustomerService{
 		return iCustomerDao.deleteCusinfo(params);
 	}
 	
-	@Transactional(rollbackFor=Exception.class)
-	public String insertCusinfo2(String cusNm, String cusproNm) throws Throwable {
+	//@Transactional(readOnly = false, propagation=Propagation.REQUIRED) //이메소드를 트랜잭션처리
+	//public String insertCusinfo2(String cusNm, String cusproNm) throws Throwable {
+	public String insertCusinfo2(String cusNm, String cusproNm, String dbmsId, String cuslocation, 
+			String cususerNm, String cususerPhone, String cususerMail, String salesmanId, String etc) throws Throwable {
 		
 		String result = "FAILED";
 		
@@ -406,15 +419,30 @@ public class CustomerService implements ICustomerService{
 		params.put("userId", (String)session.getAttribute("sUserId"));
 				
 		params.put("cusNm",cusNm);
-		params.put("cusproNm",cusproNm);		
+		params.put("cusproNm",cusproNm);
+		
+//		params.put("cusdbms_hidden",Integer.parseInt(cusDbms_hidden));
+//		params.put("cusUser_hidden",Integer.parseInt(cusUser_hidden));
+		//params.put("dbmsId",Integer.parseInt(dbmsId));		
+		params.put("cuslocation",cuslocation);
+		params.put("cususerNm",cususerNm);
+		params.put("cususerPhone",cususerPhone);
+		params.put("cususerMail",cususerMail);
+		
+		params.put("salesmanId",salesmanId);
+		params.put("etc",etc);	
 
+		TransactionStatus status = this.transactionManager.getTransaction(new DefaultTransactionDefinition() );
+		
 		try{
 			// 고객사 신규등록
 //			System.out.println("--------------------------------------------");
 //			System.out.println("userId : " + (String)session.getAttribute("sUserId"));
 //			System.out.println("cusNm : " + cusNm);
 //			System.out.println("cusPrjNm : " + cusproNm);
+//			System.out.println("cusPrjNm : " + params.get("cusproNm") );
 //			System.out.println("--------------------------------------------");
+			
 			Integer cusId = iCustomerDao.getInsertedCusId(params); // 기 등록된 고객사이면 ID값 반환
 			
 			if(cusId == null) {   // 고객사 신규등록이 필요한 경우
@@ -423,11 +451,11 @@ public class CustomerService implements ICustomerService{
 				// 등록된 고객사 정보 조회
 				cusId = (Integer) iCustomerDao.getInsertedCusId(params); // 신규 등록후 고객사ID 값 반환
 				//return result = "CUSTOMER_ALEADY_EXIST";
+				//throw new Exception("-------------- Transaction: -----------------------------------------");  // 고의로 트랜잭션 에러 유발, roll back확인을 위해
 			}
 			//System.out.println("cusId : " + cusId);
 			params.put("cusId", cusId);
 
-			
 			Integer pjtId = iCustomerDao.getInsertedPjtId(params); // 해당고객사의 기 등록된 프로젝트이면 ID값 반환
 			if( pjtId == null) {   // 프로젝트 신규등록이 필요한 경우
 				// 프로젝트 신규등록
@@ -435,9 +463,13 @@ public class CustomerService implements ICustomerService{
 				pjtId = (Integer) iCustomerDao.getInsertedPjtId(params); // 신규 등록후 프로젝트ID 값 반환
 			}
 			
+			this.transactionManager.commit(status);
 		} catch(Exception e) {
-			 e.printStackTrace();
-             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			
+			this.transactionManager.rollback(status);
+			e.printStackTrace();
+			 //throw new Exception("Transaction2: ");
+             //TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
              return result;
 		}
 		

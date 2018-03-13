@@ -406,9 +406,9 @@
 	 
 	 <!-- 고객사 신규 등록 -->
 	 <update id="insertCus" parameterClass="java.util.HashMap">
-	 INSERT INTO XM_CUSTOMER  (customer_id, customer_name,
+	 INSERT INTO XM_CUSTOMER  (customer_id, customer_name, etc,
                				    create_user, create_date, last_update_user, last_update_date) 	 
-	  				    VALUES(NEXTVAL('xm_customer_next_val'), #cusNm#, 	
+	  				    VALUES(NEXTVAL('xm_customer_next_val'), #cusNm#, #etc#, 	
 	               			    #userId#, current_date::date, null,null)      			                 
 	</update>
 	
@@ -434,10 +434,10 @@
 	               			    #userId#, current_date::date, null,null)      			                 
 	</update>
 	
-	<!-- 등록한 프로젝트의 프로젝트id 조회 -->
+	<!-- 등록한 프로젝트의 프로젝트id 조회 --> 
 	<select id="getInsertedPjtId" parameterClass="java.util.HashMap" resultClass="Integer">
 		select project_id
-		from xm_projcet 
+		from xm_project 
 		where customer_id = #cusId# and project_name = #cusproNm# 
 	</select>
 </sqlMap>
