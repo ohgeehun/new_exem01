@@ -424,7 +424,7 @@ public class CustomerService implements ICustomerService{
 //		params.put("cusdbms_hidden",Integer.parseInt(cusDbms_hidden));
 //		params.put("cusUser_hidden",Integer.parseInt(cusUser_hidden));
 		//params.put("dbmsId",Integer.parseInt(dbmsId));		
-		params.put("cuslocation",cuslocation);
+		params.put("cuslocation",cuslocation); 
 		params.put("cususerNm",cususerNm);
 		params.put("cususerPhone",cususerPhone);
 		params.put("cususerMail",cususerMail);
