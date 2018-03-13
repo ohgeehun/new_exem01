@@ -406,8 +406,9 @@ public class CustomerService implements ICustomerService{
 	
 	//@Transactional(readOnly = false, propagation=Propagation.REQUIRED) //이메소드를 트랜잭션처리
 	//public String insertCusinfo2(String cusNm, String cusproNm) throws Throwable {
-	public String insertCusinfo2(String cusNm, String cusproNm, String dbmsId, String cuslocation, 
-			String cususerNm, String cususerPhone, String cususerMail, String salesmanId, String etc) throws Throwable {
+	public String insertCusinfo2(String cusNm, String cusproNm, String dbmsId,  
+			String cususerNm, String cususerPhone, String cususerMail, 
+			String cuslocation, String salesmanId, String etc) throws Throwable {
 		
 		String result = "FAILED";
 		
@@ -423,7 +424,7 @@ public class CustomerService implements ICustomerService{
 		
 //		params.put("cusdbms_hidden",Integer.parseInt(cusDbms_hidden));
 //		params.put("cusUser_hidden",Integer.parseInt(cusUser_hidden));
-		//params.put("dbmsId",Integer.parseInt(dbmsId));		
+		params.put("dbmsId",Integer.parseInt(dbmsId));		
 		params.put("cuslocation",cuslocation); 
 		params.put("cususerNm",cususerNm);
 		params.put("cususerPhone",cususerPhone);
@@ -436,13 +437,6 @@ public class CustomerService implements ICustomerService{
 		
 		try{
 			// 고객사 신규등록
-//			System.out.println("--------------------------------------------");
-//			System.out.println("userId : " + (String)session.getAttribute("sUserId"));
-//			System.out.println("cusNm : " + cusNm);
-//			System.out.println("cusPrjNm : " + cusproNm);
-//			System.out.println("cusPrjNm : " + params.get("cusproNm") );
-//			System.out.println("--------------------------------------------");
-			
 			Integer cusId = iCustomerDao.getInsertedCusId(params); // 기 등록된 고객사이면 ID값 반환
 			
 			if(cusId == null) {   // 고객사 신규등록이 필요한 경우
@@ -450,8 +444,6 @@ public class CustomerService implements ICustomerService{
 				iCustomerDao.insertCus(params); 
 				// 등록된 고객사 정보 조회
 				cusId = (Integer) iCustomerDao.getInsertedCusId(params); // 신규 등록후 고객사ID 값 반환
-				//return result = "CUSTOMER_ALEADY_EXIST";
-				//throw new Exception("-------------- Transaction: -----------------------------------------");  // 고의로 트랜잭션 에러 유발, roll back확인을 위해
 			}
 			//System.out.println("cusId : " + cusId);
 			params.put("cusId", cusId);
@@ -462,6 +454,16 @@ public class CustomerService implements ICustomerService{
 				iCustomerDao.insertProj(params);
 				pjtId = (Integer) iCustomerDao.getInsertedPjtId(params); // 신규 등록후 프로젝트ID 값 반환
 			}
+			params.put("pjtId", pjtId);
+			
+			// 담당영업등록 (고객사/프로젝트/업무) 1명
+				iCustomerDao.insertSalesman(params);
+
+			// 고객담당자 등록 (고객사/프로젝트/업무) 여러명, 무조건 같은 사람이 있어도 추가 등록
+			iCustomerDao.insertCusmember(params);
+			Integer cusmemberId = iCustomerDao.getInsertedCusmemberId(params); // 해당고객사의 기 등록된 담당자 ID값 반환
+			params.put("cusmemberId", cusmemberId);
+			iCustomerDao.insertPjtDbmsCusmember(params);
 			
 			this.transactionManager.commit(status);
 		} catch(Exception e) {

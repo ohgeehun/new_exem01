@@ -82,8 +82,9 @@ public interface ICustomerService {
 	
 	/*고객사 등록 updateCusInfo2 */
 	//public String insertCusinfo2(String cusNm, String cusproNm) throws Throwable ;
-	public String insertCusinfo2(String cusNm, String cusproNm, String dbmsId, String cuslocation, 
-			String cususerNm, String cususerPhone, String cususerMail, String salesmanId, String etc) throws Throwable;
+	public String insertCusinfo2(String cusNm, String cusproNm, String dbmsId,  
+			String cususerNm, String cususerPhone, String cususerMail, 
+			String cuslocation, String salesmanId, String etc) throws Throwable;
 	
 	/*고객사 프로젝트명 가져오기 콤포박스에서 사용*/
 	public List<CustomerPjtNmBean> getcusPjtNminfo()throws Throwable ;

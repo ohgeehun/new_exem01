@@ -66,6 +66,8 @@ public interface ICustomerDao {
 	public Integer getInsertedCusId(HashMap params) throws Throwable;
 	public void insertProj(HashMap params)  throws Throwable;
 	public Integer getInsertedPjtId(HashMap params) throws Throwable;
-
-		
+	public void insertSalesman(HashMap params)  throws Throwable;
+	public void insertCusmember(HashMap params)  throws Throwable;
+	public Integer getInsertedCusmemberId(HashMap params) throws Throwable;
+	public void insertPjtDbmsCusmember(HashMap params)  throws Throwable;	
 }

@@ -375,7 +375,31 @@ public class CustomerDao implements ICustomerDao{
 		return  pjtId;
 	}
 
+	// (고객사/프로젝트/업무) 담당영업 등록
+	public void insertSalesman(HashMap params) throws Throwable {
+		if ( sqlMapClient.update("customer.insertSalesman", params) <= 0){
+			throw new Exception("transction: Salesman insert Error");
+		}
+	}
+		
+	// (고객사/프로젝트/업무) 고객사담당자 등록, 여러명 등록 가능
+	public void insertCusmember(HashMap params) throws Throwable {
+		if ( sqlMapClient.update("customer.insertCusmember", params) <= 0){
+			throw new Exception("transction: Customer member insert Error");
+		}
+	}
+	// (고객사/프로젝트/업무) 고객사담당자 등록, 여러명 등록 가능
+	public void insertPjtDbmsCusmember(HashMap params) throws Throwable {
+		if ( sqlMapClient.update("customer.insertPjtDbmsCusmember", params) <= 0){
+			throw new Exception("transction: xm_project_dbms_cusmember table insert Error");
+		}
+	}
 	
+	// 특정이름의 고객사담당자id 조회
+	public Integer getInsertedCusmemberId(HashMap params) throws Throwable {
+		Integer cusmemberId = (Integer) sqlMapClient.queryForObject("customer.getInsertedCusmemberId", params);
+		return  cusmemberId;
+	}
 }
 	
 

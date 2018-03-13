@@ -106,6 +106,26 @@ $(document).ready(function(){
 	});
 	*/
 	
+	// 제품구분 선택 시
+	$("#dbms_select_id").change(function (){
+		var dbmsId = $("#dbms_select_id").val();	
+		
+		if(dbmsId > 0){	
+			$("#cusNm_id").removeAttr('disabled');
+			$("#cusPhone_id").removeAttr('disabled');
+	    	$("#cusMail_id").removeAttr('disabled');
+	    	$("#cuslocation_id").removeAttr('disabled');
+	    	$("#salesman_select_id").removeAttr('disabled');
+		} else {
+			$("#cusNm_id").attr('disabled','disabled');
+			$("#cusPhone_id").attr('disabled','disabled');
+	    	$("#cusMail_id").attr('disabled','disabled');
+	    	$("#cuslocation_id").attr('disabled','disabled');
+	    	$("#salesman_select_id").val(0);
+	    	$("#salesman_select_id").attr('disabled','disabled');
+		}	
+	});
+	
 	/* 고객사 등록 버튼 이벤트 */
     $("#edit_update_btn").bind("click", function(){   	
     	//var cusNm = $("#cusName_id").val();
@@ -122,8 +142,8 @@ $(document).ready(function(){
     	var cusNm = $("#cusName_id").val();
     	var cusproNm = $("#cusproName_id").val();
     	var dbmsId = $("#dbms_select_id").val();
-    	var cususerNm = $("#cusNm_id").val();
-    	var cususerPhone = $("#cusPhone_id").val();
+    	var cususerNm = $("#cusNm_id").val();   // 고객담당자 명
+    	var cususerPhone = $("#cusPhone_id").val();   // 고객담당자 전화번호
     	var cususerMail = $("#cusMail_id").val();
     	var cuslocation = $("#cuslocation_id").val();
     	
@@ -562,17 +582,17 @@ function getprodbmsManagedinfoCallBack(res){
 				
 				<div>	
 					<input type="hidden" id="cusNm_hidden_id">
-					<input id='cusNm_id'  class="input_txt input_04 inputTxtFont">
+					<input id='cusNm_id'  class="input_txt input_04 inputTxtFont" disabled="true">
 				</div>
 				
 				<!-- input class="input_txt input_05 inputTxtFont" type='text' id='cusPhone_id' onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' style='ime-mode:disabled;'-->
-				<input class="input_txt input_05 inputTxtFont" type='text' id='cusPhone_id'>
+				<input class="input_txt input_05 inputTxtFont" type='text' id='cusPhone_id' disabled="true">
 				
-				<input class="input_txt input_06 inputTxtFont" type='text' id='cusMail_id' >
+				<input class="input_txt input_06 inputTxtFont" type='text' id='cusMail_id' disabled="true">
 				
-				<input class="input_txt input_07 inputTxtFont" type='text' id='cuslocation_id' >				
+				<input class="input_txt input_07 inputTxtFont" type='text' id='cuslocation_id' disabled="true">				
 				
-				<select class="input_txt input_08 inputTxtFont" id='salesman_select_id'>
+				<select class="input_txt input_08 inputTxtFont" id='salesman_select_id' disabled="true">
 					<option value="0" selected>지정하지않음.</option>
 					 <c:forEach var="sl" items="${salseman_list}">
 					    	<option value="${sl.userId}">${sl.userNm}</option>		 	    			 	    	
