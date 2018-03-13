@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.exem9.lms.web.common.bean.LineBoardBean;
 import com.exem9.lms.web.common.bean.SupoBean;
+import com.exem9.lms.web.customer.bean.CustomerMemberBean;
 import com.exem9.lms.web.dbms.bean.DbmsBean;
 import com.exem9.lms.web.maintenance.bean.MatBean;
 import com.exem9.lms.web.member.bean.MemberBean;
@@ -25,7 +26,7 @@ public interface IMatService {
 /*	public List<TeamBean> getuserteam(String userDept)throws Throwable;*/
 	
 	/*고객사 정보 등록시 담당팀 리스트 가져오기*/
-	public List<TeamBean> getdeptteam(String dbmsId) throws Throwable;
+	public List<TeamBean> getdeptteam(String deptId) throws Throwable;
 	
 	/*고객사 관리 검색 조건 중 업무 리스트 정보 가져오기 (DbmsDao 연계)*/
 	public List<DbmsBean> getdbms() throws Throwable;
@@ -49,5 +50,9 @@ public interface IMatService {
 	public String updateMatinfo(String custId, String pjtId, String cususerId, String dbmsId, 
 								String user1Id, String user2Id,  String salesmanId, String installDay, String contractId, 
 								String visitId, String startDay, String endDay, String etc, String chkId) throws Throwable ;
+	
+	public List<CustomerMemberBean> getcusmemberinfo(int cusId)throws Throwable ;
+	
+	public List<CustomerMemberBean> getprodbmsmemberinfo(int cusId, int proId,int dbmsId)throws Throwable ; 
 	
 }

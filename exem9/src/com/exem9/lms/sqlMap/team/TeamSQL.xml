@@ -18,18 +18,18 @@
 	select xt.team_id as teamId,
 	       xt.team_name as teamNm,
 	       xt.department_id as deptId
-	from xm_team xt, xm_dbms xd
+	from xm_team xt, xm_department xd
 	where xt.department_id  = xd.department_id
-	and xd.dbms_id = #dbmsId#
+	and xd.department_id = #deptId# 
 	</select>
-	
+<!-- 	
 	<select id="getDeptteam2" parameterClass="java.util.HashMap" resultClass="TeamBean">
 	select xt.team_id as teamId,
 	       xt.team_name as teamNm,
 	       xt.department_id as deptId
 	from xm_team xt, xm_dbms xd
 	where xt.department_id  = #xd.department_id#
-	</select>
+	</select> -->
 	
 	<select id="getteam" parameterClass="java.util.HashMap" resultClass="TeamBean">
 	select xt.team_id as teamId,

@@ -12,7 +12,7 @@
 		<result property="projId" column="project_id"/>
 		<result property="dbmsId" column="dbms_id"/>
 		<result property="dbmsVersion" column="dbms_version"/>
-		<result property="cususerId" column="cususer_id"/>
+		<!-- <result property="cususerId" column="cususer_id"/> -->
 		<result property="salesmanId" column="salesman_id"/>
 		<result property="mem1Id" column="user1_id"/>
 		<result property="mem2Id" column="user2_id"/>		
@@ -25,7 +25,7 @@
 	</resultMap>			   
 	
 	<update id="insertMatinfo" parameterClass="java.util.HashMap">
-	insert into xm_maintenance (maintenance_id, customer_id, project_id, dbms_id, dbms_version, cususer_id, salesman_id, user1_id, user2_id, support_level_id, support_visit_id, 
+	insert into xm_maintenance (maintenance_id, customer_id, project_id, dbms_id, dbms_version, salesman_id, user1_id, user2_id, support_level_id, support_visit_id, 
 								<isNotEmpty property="supoinstallData">
 								support_install_date,
 								</isNotEmpty>								
@@ -46,7 +46,7 @@
 										and c.customer_name = #cusNm#
 										and p.project_name = #proNm# 
 								), 
-											  #dbmsId#, #dbmsVersion#, 40, 
+											  #dbmsId#, #dbmsVersion#, 
 			                                  #salesmanId#, #user1Id#, #user2Id#, #supoLeverId#, #supoVisitId#,
 			                                  <isNotEmpty property="supoinstallData">
 			                                  #supoinstallData#::date, 
@@ -61,18 +61,21 @@
 			                                  current_date::date, null, null)          
 	</update>
 	
+	<update id="insertMatinfo1" parameterClass="java.util.HashMap">
+	insert into xm_maintenance_cusmember values(1,37)      
+	</update>
 	
 	<select id="getmatinfo" parameterClass="java.util.HashMap" resultMap="MatMap">
  		select 
 			 maintenance_id, customer_id, project_id, dbms_id, dbms_version, 
-			 cususer_id, salesman_id, user1_id, user2_id, support_install_date, support_level_id, 
+			<!--  cususer_id, --> salesman_id, user1_id, user2_id, support_install_date, support_level_id, 
 			 support_visit_id, support_start_date, support_end_date, etc, 
 			 create_user, create_date, last_update_user, last_update_date 
 		from
 			 (
 				 select 
 					 maintenance_id, customer_id, project_id, dbms_id, dbms_version, 
-					 cususer_id, salesman_id, user1_id, user2_id, support_install_date, support_level_id, 
+					 <!-- cususer_id, --> salesman_id, user1_id, user2_id, support_install_date, support_level_id, 
 					 support_visit_id, support_start_date, support_end_date, etc, 
 					 create_user, create_date, last_update_user, last_update_date,
 					 ROW_NUMBER() OVER(order by m.maintenance_id desc) as row_num 

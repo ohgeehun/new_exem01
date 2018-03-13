@@ -1,0 +1,297 @@
+@CHARSET "UTF-8";
+body {
+	margin : 0px 0px 0px 0px;	
+	padding: 0px 0px 0px 0px;
+}
+.bg_div {
+	position:absolute;
+	width:100%;
+	height:100%;
+/* 	background-color:gray; */
+	opacity:0.2;
+	/* filter:Alpha(opacity=20); explore*/
+	z-index:1;
+	display:none;
+}
+.popup_div {
+	position:absolute;
+	width:830px;
+	height:600px;
+	left:50%;
+	top:50%;
+	margin-left:-400px;
+	margin-top:-250px;
+	background-color:white;
+	border:solid 2px #666666;
+	z-index:300;
+	display:none;
+}
+.popup_title {
+	width:830px;
+	height:50px;
+	background-color:#662233;
+	color:#ffffff;
+	font-family:나눔고딕,고딕,돋움, 굴림,궁서,arial;
+	font-size:16pt;
+	fonr-weight:bold;
+	padding-top:15px;
+	padding-botton:15px;
+	text-align:center;
+}
+.popup_content {
+	width:830px;
+	height:550px;
+	color:#000000;
+	font-family:나눔고딕,고딕,돋움,굴림,궁서;
+	font-size:12pt;
+	padding-top:40px;
+	padding-bottom:15px;
+	text-align:center;
+
+}
+
+.popup_input_title {
+	position:absolute; 
+	border:0px; 
+	height:36px;
+	padding:1px;
+	left:150px;
+	text-align:center;
+	color:#777;
+}
+
+.popup_inputTxtFont {
+	font-family: 'NanumGothic', sans-serif;
+	font-weight: 600;
+    font-size:14px;
+	line-height: 37px;
+	text-indent: 7px;
+}
+
+.popup_input_01 {
+	width:100px;
+	left:100px;
+	top:70px;
+}
+.popup_input_02 {
+	width:100px;
+	left:300px;
+	top:70px;
+}
+.popup_input_03 {
+	width:100px;
+	left:500px;
+	top:70px;
+}
+
+.popup_inBtt_OK {
+	position:absolute; 
+	width:237px;
+	height:36px; 
+    padding:7px;
+	background:#262d31;
+	border:0px;
+	font-family: 'Archivo Narrow', sans-serif;
+    font-size:15px;
+	color:#fff;
+
+	left:270px;
+	top:490px;
+}
+
+.inBtt_OK:hover {
+	background:#3d4448;
+	color:#EAEAEA;
+}
+
+.popup_input_txt {
+	position:absolute; 
+	border:1px solid #d1cece; 
+	height:40px;
+	padding:1px;
+	left:70px;
+	top:110px;	
+}
+
+.popup_input_txt_01_1 {
+	width:190px;
+	left:60px;
+	top:110px;
+}
+.popup_input_txt_01_2 {
+	width:190px;
+	left:260px;
+	top:110px;
+}
+.popup_input_txt_01_3 {
+	width:190px;
+	left:460px;
+	top:110px;
+}
+.popup_input_txt_01_4 {
+	width:50px;
+	left:660px;
+	top:110px;
+}
+.popup_input_txt_01_5 {
+	width:50px;
+	left:715px;
+	top:110px;
+}
+
+.popup_input_txt_02_1 {
+	width:190px;
+	left:60px;
+	top:160px;
+}
+.popup_input_txt_02_2 {
+	width:190px;
+	left:260px;
+	top:160px;
+}
+.popup_input_txt_02_3 {
+	width:190px;
+	left:460px;
+	top:160px;
+}
+.popup_input_txt_02_4 {
+	width:50px;
+	left:660px;
+	top:160px;
+}
+.popup_input_txt_02_5 {
+	width:50px;
+	left:715px;
+	top:160px;
+}
+
+.popup_input_txt_03_1 {
+	width:190px;
+	left:60px;
+	top:210px;
+}
+.popup_input_txt_03_2 {
+	width:190px;
+	left:260px;
+	top:210px;
+}
+.popup_input_txt_03_3 {
+	width:190px;
+	left:460px;
+	top:210px;
+}
+.popup_input_txt_03_4 {
+	width:50px;
+	left:660px;
+	top:210px;
+}
+.popup_input_txt_03_5 {
+	width:50px;
+	left:715px;
+	top:210px;
+}
+
+.popup_input_txt_04_1 {
+	width:190px;
+	left:60px;
+	top:260px;
+}
+.popup_input_txt_04_2 {
+	width:190px;
+	left:260px;
+	top:260px;
+}
+.popup_input_txt_04_3 {
+	width:190px;
+	left:460px;
+	top:260px;
+}
+.popup_input_txt_04_4 {
+	width:50px;
+	left:660px;
+	top:260px;
+}
+.popup_input_txt_04_5 {
+	width:50px;
+	left:715px;
+	top:260px;
+}
+
+
+.popup_input_txt_05_1 {
+	width:190px;
+	left:60px;
+	top:310px;
+}
+.popup_input_txt_05_2 {
+	width:190px;
+	left:260px;
+	top:310px;
+}
+.popup_input_txt_05_3 {
+	width:190px;
+	left:460px;
+	top:310px;
+}
+.popup_input_txt_05_4 {
+	width:50px;
+	left:660px;
+	top:310px;
+}
+.popup_input_txt_05_5 {
+	width:50px;
+	left:715px;
+	top:310px;
+}
+
+.popup_input_txt_06_1 {
+	width:190px;
+	left:60px;
+	top:360px;
+}
+.popup_input_txt_06_2 {
+	width:190px;
+	left:260px;
+	top:360px;
+}
+.popup_input_txt_06_3 {
+	width:190px;
+	left:460px;
+	top:360px;
+}
+.popup_input_txt_06_4 {
+	width:50px;
+	left:660px;
+	top:360px;
+}
+.popup_input_txt_06_5 {
+	width:50px;
+	left:715px;
+	top:360px;
+}
+
+.popup_input_txt_07_1 {
+	width:190px;
+	left:60px;
+	top:410px;
+}
+.popup_input_txt_07_2 {
+	width:190px;
+	left:260px;
+	top:410px;
+}
+.popup_input_txt_07_3 {
+	width:190px;
+	left:460px;
+	top:410px;
+}
+.popup_input_txt_07_4 {
+	width:50px;
+	left:660px;
+	top:410px;
+}
+.popup_input_txt_07_5 {
+	width:50px;
+	left:715px;
+	top:410px;
+}

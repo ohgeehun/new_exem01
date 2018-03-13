@@ -24,11 +24,11 @@ public class TeamDao implements ITeamDao{
 		// TODO Auto-generated method stub
 		return sqlMapClient.queryForList("team.getDeptteam",params);
 	}
-	
+/*	
 	public List<TeamBean> getdeptteam2(HashMap params) throws Throwable {
 		// TODO Auto-generated method stub
 		return sqlMapClient.queryForList("team.getDeptteam",params);
-	}
+	}*/
 	
 	public List<TeamBean> getteam() throws Throwable {
 		// TODO Auto-generated method stub

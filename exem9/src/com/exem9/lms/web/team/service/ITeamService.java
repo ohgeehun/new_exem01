@@ -8,7 +8,7 @@ import com.exem9.lms.web.team.bean.TeamBean;
 
 
 public interface ITeamService {	
-	public List getdeptteam2(HashMap params) throws Throwable;	
+/*	public List getdeptteam2(HashMap params) throws Throwable;	*/
 	
 	public List<TeamBean> getteam() throws Throwable;
 }

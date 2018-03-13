@@ -12,8 +12,8 @@ public interface ITeamDao {
 	public List<TeamBean> getuserteam(HashMap params) throws Throwable;
 	
 	public List<TeamBean> getdeptteam(HashMap params) throws Throwable ;
-	
-	public List<TeamBean> getdeptteam2(HashMap params) throws Throwable ;
+	/*
+	public List<TeamBean> getdeptteam2(HashMap params) throws Throwable ;*/
 	
 	public List<TeamBean> getteam() throws Throwable ;
 	

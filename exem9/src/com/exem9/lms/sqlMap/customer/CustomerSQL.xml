@@ -377,7 +377,7 @@
 	</select>
 	
 	<select id="getprodbmsmemberinfo" parameterClass="java.util.HashMap" resultClass="customermemberBean">
-	select a.customer_id as cusId,
+<!-- 	select a.customer_id as cusId,
 		   a.project_id as proId,
 	       a.dbms_id as dbmsId,
 		   a.cususer_id as cususerId,
@@ -395,8 +395,38 @@
 		where xc.customer_name = #cusNm#) a join xm_project_dbms_member_managed xpdm
 		on a.project_id = xpdm.project_id ) a join xm_customer_member xcm 
 	on a.cususer_id = xcm.cususer_id	
-	where xcm.cususer_name = #cususerNm#
+	where xcm.cususer_name = #cususerNm# -->
+	select xpdc.customer_id as cusId,
+	       xpdc.project_id as proId,
+	       xpdc.dbms_id as dbmsId,
+	       xcm.cususer_id as cususerId,
+	       xcm.cususer_name as cususerNm,
+	       xcm.cususer_phone as cususerPhone,
+	       xcm.cususer_mail as  cususerMail
+	from xm_project_dbms_cusmember xpdc, xm_customer_member xcm
+	where xpdc.cususer_id = xcm.cususer_id
+	and xpdc.customer_id = #cusId#
+	and xpdc.project_id = #proId#
+	and xpdc.dbms_id = #dbmsId#	
+	order by xpdc.cususer_id asc
 	</select>
+	
+	<select id="getcusmemberinfo" parameterClass="java.util.HashMap" resultClass="customermemberBean">
+	select xpdc.customer_id as cusId,
+	       xpdc.project_id as proId,
+	       xpdc.dbms_id as dbmsId,
+	       xcm.cususer_id as cususerId,
+	       xcm.cususer_name as cususerNm,
+	       xcm.cususer_phone as cususerPhone,
+	       xcm.cususer_mail as  cususerMail
+	from xm_project_dbms_cusmember xpdc, xm_customer_member xcm
+	where xpdc.cususer_id = xcm.cususer_id
+	<isNotEmpty property="cusId">
+	and xpdc.customer_id = #cusId#
+	</isNotEmpty>
+	order by xpdc.cususer_id asc
+	</select>
+	
 	
 	<!-- 고객정보 삭제 -->
 	<update id="deleteCusinfo" parameterClass="java.util.HashMap">
