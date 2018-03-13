@@ -295,6 +295,13 @@ public class CustomerDao implements ICustomerDao{
 		return sqlMapClient.queryForList("customer.getprodbmsmemberinfo", params);
 	}
 	
+
+	public List<CustomerMemberBean> getcusmemberinfo(HashMap params)
+			throws Throwable {
+		// TODO Auto-generated method stub
+		return sqlMapClient.queryForList("customer.getcusmemberinfo", params);
+	}
+	
 	/*고객사 정보 삭제 처리*/
 	public String deleteCusinfo(HashMap params) throws Throwable {
 		String result = "FAILED";
@@ -367,6 +374,7 @@ public class CustomerDao implements ICustomerDao{
 		Integer pjtId = (Integer) sqlMapClient.queryForObject("customer.getInsertedPjtId", params);
 		return  pjtId;
 	}
+
 	
 }
 	

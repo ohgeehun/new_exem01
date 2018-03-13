@@ -240,7 +240,7 @@ public class MatService implements IMatService{
 		return iMatDao.updateMatinfo(params);
 	}
 
-	public List<CustomerMemberBean> getprodbmsmemberinfo(String cusId, String proId, String dbmsId) throws Throwable {
+	public List<CustomerMemberBean> getcusmemberinfo(int cusId) throws Throwable {
 		
 		WebContext wctx = WebContextFactory.get();
 		HttpServletRequest request = wctx.getHttpServletRequest();
@@ -248,11 +248,27 @@ public class MatService implements IMatService{
 		
 		HashMap params = new HashMap();
 		
-		params.put("cusId",Integer.parseInt(cusId));
-		params.put("proId",Integer.parseInt(proId));
-		params.put("dbmsId",Integer.parseInt(dbmsId));
+		params.put("cusId",cusId);
+
+		// TODO Auto-generated method stub
+		return iCustomerDao.getcusmemberinfo(params);
+	}
+	
+
+	public List<CustomerMemberBean> getprodbmsmemberinfo(int cusId,int proId,int dbmsId) throws Throwable {
+		
+		WebContext wctx = WebContextFactory.get();
+		HttpServletRequest request = wctx.getHttpServletRequest();
+		HttpSession session = request.getSession();	
+		
+		HashMap params = new HashMap();
+		
+		params.put("cusId",cusId);
+		params.put("proId",proId);
+		params.put("dbmsId",dbmsId);
+
 		// TODO Auto-generated method stub
 		return iCustomerDao.getprodbmsmemberinfo(params);
 	}
-
+	
 }

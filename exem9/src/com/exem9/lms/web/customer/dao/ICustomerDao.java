@@ -55,6 +55,8 @@ public interface ICustomerDao {
 
 	public List<CustomerMemberBean> getprodbmsmemberinfo(HashMap params)throws Throwable;
 
+	public List<CustomerMemberBean> getcusmemberinfo(HashMap params)throws Throwable;
+	
 	public String deleteCusinfo(HashMap params) throws Throwable;
 	
 	// 테스트 중. 사용안함
@@ -63,5 +65,7 @@ public interface ICustomerDao {
 	public void insertCus(HashMap params) throws Throwable;
 	public Integer getInsertedCusId(HashMap params) throws Throwable;
 	public void insertProj(HashMap params)  throws Throwable;
-	public Integer getInsertedPjtId(HashMap params) throws Throwable;	
+	public Integer getInsertedPjtId(HashMap params) throws Throwable;
+
+		
 }

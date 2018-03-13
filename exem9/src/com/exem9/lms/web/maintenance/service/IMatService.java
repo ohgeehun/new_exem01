@@ -51,6 +51,8 @@ public interface IMatService {
 								String user1Id, String user2Id,  String salesmanId, String installDay, String contractId, 
 								String visitId, String startDay, String endDay, String etc, String chkId) throws Throwable ;
 	
-	public List<CustomerMemberBean> getprodbmsmemberinfo(String cusId, String proId, String dbmsId)throws Throwable ;
+	public List<CustomerMemberBean> getcusmemberinfo(int cusId)throws Throwable ;
+	
+	public List<CustomerMemberBean> getprodbmsmemberinfo(int cusId, int proId,int dbmsId)throws Throwable ; 
 	
 }

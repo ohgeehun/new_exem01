@@ -21,8 +21,8 @@
 <script type="text/javascript" src="//www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script> -->
 
 <!--popup event -->
-<link type="text/css" rel="stylesheet" href="resources/css/member/member_list_popup.css" />
-<script type="text/javascript" src="resources/script/member/member_list_popup.js"></script>
+<link type="text/css" rel="stylesheet" href="resources/css/member/cusmemberinfo_popup.css" />
+<script type="text/javascript" src="resources/script/member/cusmemberinfo_popup.js"></script>
 
 <!-- <script src="resources/script/jquery/jquery-latest.min.js"></script> 
 <script src="resources/script/jquery/jquery.prettydropdowns.js"></script> 
@@ -37,6 +37,9 @@
 var userId = "<%=(String)session.getAttribute("sUserId")%>";
 var userDept = "<%=(String)session.getAttribute("sUserDept")%>";
 var userDbms = "<%=(String)session.getAttribute("sUserDbms")%>";
+var rowNum = 1;
+var rowNum_end = 0;
+var rowNum_add = 0;
 
 var temp = [];
 $(document).ready(function(){
@@ -51,11 +54,8 @@ $(document).ready(function(){
 	
 	$("#test_Btn").bind("click", function(){
 		 var cusId = $("#cusName_hidden_id").val();
-		 var proId = $("#cusproName_hidden_id").val();
-		 var dbmsId = $("#dbms_select_id").val();
-
 		 
-		popup("고객담당자 등록 페이지", cusId, proId, dbmsId);
+		cusmemberinfo_popup("고객담당자 등록 페이지", cusId);
 	});
 	
 	/* 유지보스 등록 버튼 이벤트 */
@@ -497,19 +497,23 @@ function insertMatinfoCallBack(res){
 	}
 }
 
+//숫자만 입력받도록 처리 
+function onlyNumber(event){
+	event = event || window.event;
+	var keyID = (event.which) ? event.which : event.keyCode;
+	if ( (keyID >= 48 && keyID <= 57) || (keyID >= 96 && keyID <= 105) || keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39 || keyID == 9 ) 
+		return;
+	else
+		return false;
+}
 
-function getcusmemberCallBack1(res){
-	var str ="";	
-	
-	for(var i = 0; i < res.length; i++){
-		str += "<tr>";
-		str += "<td>"+res[i].cususerNm+"</td>";
-		str += "<td>"+res[i].cususerPhone+"</td>";
-		str += "<td>"+res[i].cususerMail+"</td>";
-		str += "</tr>";
-	}
-	
-	$("#member_list").html(str);
+function removeChar(event) {
+	event = event || window.event;
+	var keyID = (event.which) ? event.which : event.keyCode;
+	if ( keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39 ) 
+		return;
+	else
+		event.target.value = event.target.value.replace(/[^0-9]/g, "");
 }
 </script>
 
