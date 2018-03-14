@@ -27,8 +27,8 @@ public class CustomerDao implements ICustomerDao{
 	}
 
 	public List<CustomerBean> getcusinfo(HashMap params) throws Throwable {
-		// TODO Auto-generated method stub
-		return sqlMapClient.queryForList("customer.getcusinfo", params);
+		//return sqlMapClient.queryForList("customer.getcusinfo", params);
+		return sqlMapClient.queryForList("customer.getcusinfo2", params);
 	}
 
 	public int getNCount(HashMap params) throws Throwable {
