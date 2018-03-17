@@ -98,5 +98,8 @@ public interface ICustomerService {
 	public List<CustomerMemberBean> getprodbmsmemberinfo(String cusNm, String proNm, String dbmsId, String cususerNm)throws Throwable ;
 	
 	public String deleteCusinfo(String chkId) throws Throwable ;
+
+	/* 모든 등록된 고객사담당자 정보 가져오기*/
+	public List<CustomerMemberBean> getcusUserinfo2() throws Throwable ;
 	
 }

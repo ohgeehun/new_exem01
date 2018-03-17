@@ -253,6 +253,11 @@ public class CustomerService implements ICustomerService{
 		
 		return iCustomerDao.getcusUserinfo(params);
 	}
+	
+	public List<CustomerMemberBean> getcusUserinfo2() throws Throwable {
+				
+		return iCustomerDao.getcusUserinfo2();
+	}
 
 	public String insertCusinfo(String cusNm_hidden, String cusPro_hidden, String cusDbms_hidden, String cusUser_hidden,
 			String cusNm, String cusproNm, String dbmsId, String cususerNm,
@@ -454,16 +459,21 @@ public class CustomerService implements ICustomerService{
 				iCustomerDao.insertProj(params);
 				pjtId = (Integer) iCustomerDao.getInsertedPjtId(params); // 신규 등록후 프로젝트ID 값 반환
 			}
+//			System.out.println("----------------------------------pjtId: "+pjtId);
 			params.put("pjtId", pjtId);
 			
-			// 담당영업등록 (고객사/프로젝트/업무) 1명
-				iCustomerDao.insertSalesman(params);
-
+			// 담당영업등록 (고객사/프로젝트/업무) 1명. 담당영업이 기 등록되어 있지 않을 때만 등록
+			String registeredSalesmanId = iCustomerDao.getSalesmanId(params); // 담당영업사원 등록여부 확인
+			if( registeredSalesmanId == null) 	iCustomerDao.insertSalesman(params);
+			
 			// 고객담당자 등록 (고객사/프로젝트/업무) 여러명, 무조건 같은 사람이 있어도 추가 등록
-			iCustomerDao.insertCusmember(params);
-			Integer cusmemberId = iCustomerDao.getInsertedCusmemberId(params); // 해당고객사의 기 등록된 담당자 ID값 반환
-			params.put("cusmemberId", cusmemberId);
-			iCustomerDao.insertPjtDbmsCusmember(params);
+			// 고객담당자 정보가 등록되어 있을때만 추가할 것
+			if ( cususerNm != null && !cususerNm.equals("") ){
+				iCustomerDao.insertCusmember(params);
+				Integer cusmemberId = iCustomerDao.getInsertedCusmemberId(params); // 해당고객사의 기 등록된 담당자 ID값 반환
+				params.put("cusmemberId", cusmemberId);
+				iCustomerDao.insertPjtDbmsCusmember(params);
+			}
 			
 			this.transactionManager.commit(status);
 		} catch(Exception e) {

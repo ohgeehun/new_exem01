@@ -19,9 +19,14 @@ public class CustomerBean {
 	private String createDate;
 	private String lastUpUserId;
 	private String lastUpDate;
-	
-	
+	private String dbmsId;
 
+	public String getDbmsId() {
+		return dbmsId;
+	}
+	public void setDbmsId(String dbmsId) {
+		this.dbmsId = dbmsId;
+	}
 	public String getCususerId() {
 		return cususerId;
 	}

@@ -150,10 +150,17 @@ $(document).ready(function(){
     	var salesmanId = $("#salesman_select_id").val();  	
     	var etc = $("#etc_id").val();    
     	
-    	ICustomerService.insertCusinfo2( 
-                cusNm, cusproNm, dbmsId,
-                cususerNm, cususerPhone, cususerMail, cuslocation, 
-                salesmanId, etc, insertCusinfoCallBack);
+    	// 고객사연락처나 이메일은 있는데, 고객명이 있으면 입력하도록 유도
+    	if( cususerNm == "" && ( cususerPhone != "" || cususerMail != "" )) {
+    		alert("고객담당자 정보입력시 담당자명을 입력해 주세요!");
+    		return false;
+    	} else {
+    	
+	    	ICustomerService.insertCusinfo2( 
+	                cusNm, cusproNm, dbmsId,
+	                cususerNm, cususerPhone, cususerMail, cuslocation, 
+	                salesmanId, etc, insertCusinfoCallBack);
+    	}
     	/*
     	if(cusNm_hidden > 0 && cusPro_hidden > 0 && cusDbms_hidden > 0 && cusUser_hidden > 0){
     		alert("이미 등록된 정보입니다. 고객사 리스트에서 확인해주세요.");
@@ -439,7 +446,7 @@ function removeChar(event) {
 function insertCusinfoCallBack(res){
 	if(res == "FAILED"){
 		alert("실패");
-		location.href = "customer_insert";
+		//location.href = "customer_insert";
 	}else if(res == "SUCCESS"){
 		alert("성공");
 		location.href = "customer_insert";
@@ -590,7 +597,7 @@ function getprodbmsManagedinfoCallBack(res){
 				
 				<input class="input_txt input_06 inputTxtFont" type='text' id='cusMail_id' disabled="true">
 				
-				<input class="input_txt input_07 inputTxtFont" type='text' id='cuslocation_id' disabled="true">				
+				<input class="input_txt input_07 inputTxtFont" type='text' id='cuslocation_id'>				
 				
 				<select class="input_txt input_08 inputTxtFont" id='salesman_select_id' disabled="true">
 					<option value="0" selected>지정하지않음.</option>

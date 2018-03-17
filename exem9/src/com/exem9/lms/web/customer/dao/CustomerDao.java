@@ -33,7 +33,7 @@ public class CustomerDao implements ICustomerDao{
 
 	public int getNCount(HashMap params) throws Throwable {
 		
-		int count = (Integer) sqlMapClient.queryForObject("customer.getNCount", params);
+		int count = (Integer) sqlMapClient.queryForObject("customer.getNCount2", params);
 		// TODO Auto-generated method stub
 		return count;
 	}
@@ -70,6 +70,11 @@ public class CustomerDao implements ICustomerDao{
 	public List<CustomerMemberBean> getcusUserinfo(HashMap params) throws Throwable {
 		// TODO Auto-generated method stub
 		return sqlMapClient.queryForList("customer.getcusUserinfo", params);
+	}
+	
+	public List<CustomerMemberBean> getcusUserinfo2() throws Throwable {
+		// TODO Auto-generated method stub
+		return sqlMapClient.queryForList("customer.getcusUserinfo2");
 	}
 	
 	// 고객사 프로젝트명 콤보박스 조회 용
@@ -399,6 +404,12 @@ public class CustomerDao implements ICustomerDao{
 	public Integer getInsertedCusmemberId(HashMap params) throws Throwable {
 		Integer cusmemberId = (Integer) sqlMapClient.queryForObject("customer.getInsertedCusmemberId", params);
 		return  cusmemberId;
+	}
+	
+	// 담당영업이 등록되어 있는지 확인
+	public String getSalesmanId(HashMap params) throws Throwable {
+		String salesmanId = (String) sqlMapClient.queryForObject("customer.getSalesmanId", params);
+		return  salesmanId;
 	}
 }
 	

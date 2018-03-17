@@ -329,7 +329,7 @@ function editcusMemberCallback(res){
     $("#edit_cus_mail_"+cusproId+"").html(resHtm2);
 }
 
-function deleteMatinfoCallBack(res){
+function deleteCusinfoCallBack(res){
 	if(res == "FAILED"){
 		alert("실패");
 		location.href = "customer_edit";
@@ -428,7 +428,7 @@ function deleteMatinfoCallBack(res){
 								<select id="edit_dbms_list_select_${cli.proId}" class="main_input_box_2 box2_04 nInputFont">
 									<c:forEach var="dbms" items="${dbms_list}">
 										<c:choose>
-											<c:when test="${dbms.dbmsId == cli.proId}">
+											<c:when test="${dbms.dbmsId == cli.dbmsId}">
 												<option value="${dbms.dbmsId}" selected>${dbms.dbmsNm}</option>
 											</c:when>
 											<c:otherwise>
@@ -440,23 +440,36 @@ function deleteMatinfoCallBack(res){
 							</td>							
 							<td>
 								<input type="hidden" id="select_cus_hidden_id_${cli.proId}" value=""/>
+								
 								<select id="edit_cus_list_select_${cli.proId}" onchange="edit_cus_select_change_event(${cli.proId})" class="main_input_box_2 box2_05 nInputFont">
-									<c:if test="${cli.cusNm == ''}">
-										<option value="0" selected>지정필요.</option>
-									</c:if>
-									<c:forEach var="cmli" items="${cus_member_list_info}">										
-									 	    <c:if test="${cli.cusId  == cmli.cusId}"> 
-												<c:choose>
-													<c:when test="${cli.cusNm == cmli.cususerNm}">
-														<option value="${cmli.cususerId}" selected>${cmli.cususerNm}</option>
-													</c:when>
-													<c:otherwise>
-														<option value="${cmli.cususerId}">${cmli.cususerNm}</option>	
-													</c:otherwise>
-												</c:choose>		
-										    </c:if>			 																	
-									</c:forEach>			
-								</select> 										
+									<%--
+									<c:out value="${cli.cususerNm}"/>
+									<c:forEach var="cmli" items="${cus_member_list_info}">
+										<c:out value="${cmli.cususerId},${cmli.cususerNm}"/>
+									</c:forEach>
+									 --%>
+									
+										<c:choose>
+											<c:when test="${cli.cususerNm eq null}">
+												<option value="0" selected></option>
+											</c:when>
+											<c:otherwise>
+												<c:forEach var="cmli" items="${cus_member_list_info}">
+												<c/out value=${cmli.proId}/>
+										 	    <c:if test="${cli.proId == cmli.proId}"> 
+													<c:choose>
+														<c:when test="${cli.cusNm == cli.cususerId}">
+															<option value="${cmli.cususerId}" selected>${cmli.cususerNm}</option>
+														</c:when>
+														<c:otherwise>
+															<option value="${cmli.cususerId}">${cmli.cususerNm}</option>	
+														</c:otherwise>
+													</c:choose>	
+											    </c:if>			 																	
+											</c:forEach>
+										</c:otherwise>
+									</c:choose>	
+								</select>
 							</td>
 							<td>
 								<input type="text" class="main_input_box_2 box2_06 nInputFont" value="${cli.cususerPhone}" id="edit_cus_phone_${cli.proId}"/>

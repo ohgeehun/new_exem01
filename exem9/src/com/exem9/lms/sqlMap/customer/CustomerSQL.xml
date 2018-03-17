@@ -30,8 +30,10 @@
 		<result property="createDate" column="create_date"/>
 		<result property="lastUpUserId" column="last_update_user"/>
 		<result property="lastUpDate" column="last_update_date"/>
+		<result property="dbmsId" column="dbms_id"/>
 	</resultMap> 
 	
+	<!-- 사용하지 않음 -->
 	<select id="getcusinfo" parameterClass="java.util.HashMap" resultMap="cusInfoMap">
 	  select customer_id, customer_name,          
 			project_id, project_name, customer_location, etc, 
@@ -103,7 +105,7 @@
        	   support_level_name as supoNm 
 	from xm_support_level  	
 	</select>  -->
-	
+	<!-- 사용하지 않음 -->
 	<select id="getNCount" parameterClass="java.util.HashMap" resultClass="Integer">
 		select count(customer_id) from    
 	  	(   
@@ -249,50 +251,74 @@
 	</select>  -->
 	
 	<select id="getNCount2" parameterClass="java.util.HashMap" resultClass="Integer">
-		select count(customer_id) from    
-	  	(   
-		    select 
-		    	xc.customer_id,          xc.customer_name,          
-				xp.project_id,          xp.project_name,              xp.customer_location, xp.etc, 
-				xpd.dbms_id, 
-				xcm.cususer_id, xcm.cususer_name, xcm.cususer_phone, xcm.cususer_mail,
-				xpd.salesman_id,													
-				xp.create_user, xp.create_date, xp.last_update_user,          xp.last_update_date
-			from xm_customer xc 
-				left outer join xm_project xp  on xc.customer_id = xp.customer_id   
-				left outer join xm_project_dbms xpd on xc.customer_id = xpd.customer_id and xp.project_id = xpd.project_id
-				left outer join xm_project_dbms_cusmember xpdc on xc.customer_id = xpdc.customer_id and xp.project_id = xpdc.project_id and xpd.dbms_id = xpdc.dbms_id
-				left outer join xm_customer_member xcm on xpdc.cususer_id = xcm.cususer_id
-			where 1 = 1
-				
-			<isNotEmpty property="selectTextVal">
-				 <!-- 검색조건이 전체-->
-				<isEqual property="selectBtnVal" compareValue="0">
-					and 
-					( 
-						xc.customer_name like '%' || #selectTextVal# || '%' or
-						xp.project_name like '%' || #selectTextVal# || '%' or
-						xcm.cususer_name like '%' || #selectTextVal# || '%' or
-						xpd.salesman_id in (select user_id from xm_member where user_name like '%' || #selectTextVal# || '%')
-					)
-				</isEqual>
-				<!-- 검색조건이 고객사명 -->
-				<isEqual property="selectBtnVal" compareValue="1"> 
-					and xc.customer_name like '%' || #selectTextVal# || '%'
-				</isEqual>
-				<!-- 검색조건이 프로젝트명 -->
-				<isEqual property="selectBtnVal" compareValue="2"> 
-					and xp.project_name like '%' || #selectTextVal# || '%'
-				</isEqual>
-				<!-- 검색조건이 고객명 -->
-				<isEqual property="selectBtnVal" compareValue="3"> 
-					and xcm.cususer_name like '%' || #selectTextVal# || '%'
-				</isEqual>
-				 <!-- 검색조건이 영업대표명-->
-				<isEqual property="selectBtnVal" compareValue="4">
-					and xpd.salesman_id in (select user_id from xm_member where user_name like '%' || #selectTextVal# || '%')
-				</isEqual>
-			</isNotEmpty>
+		select count(u.customer_id)          
+	  from    
+	  	<!-- 고객담당자 대표값(담당자ID최소값)만 가져오기 -->
+	  (	
+	  	select 	
+	  		customer_id,          customer_name,          
+			project_id,          project_name,              customer_location, etc, 
+			dbms_id, 
+			min(cususer_id) as cususer_id,
+			salesman_id,													
+			create_user, create_date, last_update_user,   last_update_date,
+			ROW_NUMBER() OVER (ORDER BY customer_name asc, project_name asc) as row_num
+				from				
+	  			<!-- 전체 고객/프로젝트/고객담당자 가져오기 -->
+			  	(   
+				    select 
+				    	xc.customer_id,          xc.customer_name,          
+						xp.project_id,          xp.project_name,              xp.customer_location, xp.etc, 
+						xpd.dbms_id, 
+						xcm.cususer_id, xcm.cususer_name, xcm.cususer_phone, xcm.cususer_mail,
+						xpd.salesman_id,													
+						xp.create_user, xp.create_date, xp.last_update_user,          xp.last_update_date
+					from xm_customer xc 
+						left outer join xm_project xp  on xc.customer_id = xp.customer_id   
+						left outer join xm_project_dbms xpd on xc.customer_id = xpd.customer_id and xp.project_id = xpd.project_id
+						left outer join xm_project_dbms_cusmember xpdc on xc.customer_id = xpdc.customer_id and xp.project_id = xpdc.project_id and xpd.dbms_id = xpdc.dbms_id
+						left outer join xm_customer_member xcm on xpdc.cususer_id = xcm.cususer_id
+					where 1 = 1
+						
+					<isNotEmpty property="selectTextVal">
+						 <!-- 검색조건이 전체-->
+						<isEqual property="selectBtnVal" compareValue="0">
+							and 
+							(
+								xc.customer_name like '%' || #selectTextVal# || '%' or
+								xp.project_name like '%' || #selectTextVal# || '%' or
+								xcm.cususer_name like '%' || #selectTextVal# || '%' or
+								xpd.salesman_id in (select user_id from xm_member where user_name like '%' || #selectTextVal# || '%')
+							)
+						</isEqual>
+						<!-- 검색조건이 고객사명 -->
+						<isEqual property="selectBtnVal" compareValue="1"> 
+							and xc.customer_name like '%' || #selectTextVal# || '%'
+						</isEqual>
+						<!-- 검색조건이 프로젝트명 -->
+						<isEqual property="selectBtnVal" compareValue="2"> 
+							and xp.project_name like '%' || #selectTextVal# || '%'
+						</isEqual>
+						<!-- 검색조건이 고객명 -->
+						<isEqual property="selectBtnVal" compareValue="3"> 
+							and xcm.cususer_name like '%' || #selectTextVal# || '%'
+						</isEqual>
+						 <!-- 검색조건이 영업대표명-->
+						<isEqual property="selectBtnVal" compareValue="4">
+							and xpd.salesman_id in (select user_id from xm_member where user_name like '%' || #selectTextVal# || '%')
+						</isEqual>
+					</isNotEmpty>
+					
+					order by xc.customer_name, xp.project_name													
+				) u
+				<!-- 전체 고객담당자 가져오기 끝 -->
+			group by 
+				        customer_id,          customer_name,          
+						project_id,          project_name,              customer_location, etc, 
+						dbms_id, 
+						cususer_id,
+						salesman_id,													
+						create_user, create_date, last_update_user, last_update_date	
 		) u
 	
 	</select>
@@ -521,6 +547,19 @@
 	order by xpdc.cususer_id asc
 	</select>
 	
+	<!-- 모든 고객담당자정보 가져오기 -->
+	<select id="getcusUserinfo2" resultClass="customermemberBean">
+	select xpdc.customer_id as cusId,
+	       xpdc.project_id as proId,
+	       xpdc.dbms_id as dbmsId,
+	       xcm.cususer_id as cususerId,
+	       xcm.cususer_name as cususerNm,
+	       xcm.cususer_phone as cususerPhone,
+	       xcm.cususer_mail as  cususerMail
+	from xm_project_dbms_cusmember xpdc, xm_customer_member xcm
+	where xpdc.cususer_id = xcm.cususer_id 
+	order by xcm.cususer_id asc
+	</select>
 	
 	<!-- 고객정보 삭제 -->
 	<update id="deleteCusinfo" parameterClass="java.util.HashMap">
@@ -589,4 +628,10 @@
 		where cususer_name = #cususerNm# 
 	</select>
 	
+	<!-- 등록되어 있는 영업담당자 ID조회 -->
+	<select id="getSalesmanId" parameterClass="java.util.HashMap" resultClass="String">
+		SELECT salesman_id	  
+		from xm_project_dbms	
+		where customer_id = #cusId# and project_id = #pjtId# and dbms_id = #dbmsId#
+	</select>
 </sqlMap>

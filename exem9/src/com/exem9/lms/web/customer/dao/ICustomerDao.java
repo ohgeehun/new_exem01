@@ -33,6 +33,9 @@ public interface ICustomerDao {
 
 	public List<CustomerMemberBean> getcusUserinfo(HashMap params) throws Throwable;
 
+	// 전체 고객사담당자 정보 가져오기
+	public List<CustomerMemberBean> getcusUserinfo2() throws Throwable;
+
 	public String insertCusinfo1(HashMap params)throws Throwable ;
 
 	public String insertCusinfo2(HashMap params)throws Throwable ;
@@ -69,5 +72,7 @@ public interface ICustomerDao {
 	public void insertSalesman(HashMap params)  throws Throwable;
 	public void insertCusmember(HashMap params)  throws Throwable;
 	public Integer getInsertedCusmemberId(HashMap params) throws Throwable;
-	public void insertPjtDbmsCusmember(HashMap params)  throws Throwable;	
+	public void insertPjtDbmsCusmember(HashMap params)  throws Throwable;
+
+	public String getSalesmanId(HashMap params) throws Throwable;
 }
