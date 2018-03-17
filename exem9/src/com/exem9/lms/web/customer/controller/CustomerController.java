@@ -109,7 +109,8 @@ public class CustomerController {
 			List<CustomerBean> cus_list_info = iCustomerService.getcusinfo(selectBtnVal,selectTextVal,pageNo);
 			
 			List<MemberBean2> edit_salseman_list = iCustomerService.getSalsemember(); 
-			List<CustomerMemberBean> cus_member_list_info = iCustomerService.getcusUserinfo("", "0", "0");
+			//List<CustomerMemberBean> cus_member_list_info = iCustomerService.getcusUserinfo("", "0", "0");
+			List<CustomerMemberBean> cus_member_list_info = iCustomerService.getcusUserinfo2();
 			List<DbmsBean> dbms_list = iDbmsService.getdbms();
 			
 			LineBoardBean lbb = iCustomerService.getNCount(selectBtnVal,selectTextVal,pageNo);
