@@ -187,7 +187,7 @@ public class CustomerService implements ICustomerService{
 	}
 
 	public String updateCusInfo2(String userId, String chkId, String cusNm, String pjtNm, 
-			int newDbmsId, String cususerId, String phone, 
+			int newDbmsId, String cususerId, String cususerNm, String phone, 
 			String email, String cuslocation, String salesmanId, String etc) throws Throwable {
 		
 		// chkId에 들어가 있는 값 cusId_pjtId_dbmsId_cususerId
@@ -232,7 +232,20 @@ public class CustomerService implements ICustomerService{
 				iCustomerDao.insertSalesman(params); // 제품등록하고, 담당영업도 등록한다.
 			} 
 			iCustomerDao.updateDbmsInfo(params); // 제품명, 영업대표 update
-			if ( chkIds.length == 4 ) {
+			
+			if(chkIds.length == 3 && cususerId != null && cususerId.equals("-1")) { // 고객담당자 신규 등록
+				
+				params.put("cususerNm", cususerNm);
+				params.put("cususerPhone", phone);
+				params.put("cususerMail", email);
+//				System.out.println("------------------------------------------------cususerNm: " + cususerNm);
+//				throw new Exception("test");
+				iCustomerDao.insertCusmember(params);
+				Integer cusmemberId = iCustomerDao.getInsertedCusmemberId(params); // 해당고객사의 기 등록된 담당자 ID값 반환
+				params.put("cusmemberId", cusmemberId);
+				iCustomerDao.insertPjtDbmsCusmember(params);
+				
+			}else if ( chkIds.length == 4 ) {
 				iCustomerDao.updateCusmemberInfo(params); // 고객담당자명, 담당자 전화, 담당자email update
 			}
 //			iCustomerDao.updateCusmemberInfo(params); // 고객사명 update

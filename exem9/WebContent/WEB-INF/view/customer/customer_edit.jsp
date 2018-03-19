@@ -62,11 +62,12 @@ $(document).ready(function(){
      	        var newDbmsId = $("#select_dbms_"+chkId+" option:selected").val();
      	       	var salesmanId = $("#select_salesman_"+chkId+" option:selected").val();
      	       	var cususerId = $("#select_cususer_"+chkId+" option:selected").val();
+     	       	var cususerNm = $("#input_cususer_"+chkId).val();
      	       	var phone = $("#input_phone_"+chkId+"").val();
      	       	var email = $("#input_email_"+chkId+"").val();
       	 
       	        //ICustomerService.updateCusInfo(userId, cusproId, cususer, cuslocation, salseman, etc, CusupdateCallBack); 
-      	      	ICustomerService.updateCusInfo2(userId, chkId, cusNm, pjtNm, newDbmsId, cususerId, phone, email, cuslocation, salesmanId, etc, CusupdateCallBack);
+      	      	ICustomerService.updateCusInfo2(userId, chkId, cusNm, pjtNm, newDbmsId, cususerId, cususerNm, phone, email, cuslocation, salesmanId, etc, CusupdateCallBack);
    	    	});	   
 		}
 	});
@@ -316,6 +317,24 @@ $(document).ready(function(){
     	
     	$("#form1").submit();	
     });
+    
+    $("input[name=input_cususer]").hide();
+    
+    /* 고객명 추가입력 선택 시 inputbox 생성 */
+    $("select[name=select_cususer]").on("change", function(){
+    	if ($("select[name=select_cususer]").val() == '-1'){ // 추가입력인 경우,    		
+    		//alert("점색어를 입력하세요.");
+    		var selectboxId = $(this).attr('id');
+    		//alert(selectboxId);
+    		var strTemp = selectboxId.split('_'); 
+    		var tempId = 'input_cususer_' + strTemp[2] + '_' + strTemp[3] + '_' + strTemp[4] + '_' ;
+    		//alert(tempId);
+    		$('#'+selectboxId).hide();
+    		$('#'+tempId).show();
+			//$("#form1").submit();
+    	}  	
+    });
+    
 });
 
 /*팀 셀렉트 박스 변경 시 담당엔지니어 정보변경 이벤트*/
@@ -604,8 +623,8 @@ function deleteCusinfoCallBack(res){
 							</td>							
 							<td>
 								<input type="hidden" id="select_cus_hidden_id_${cli.proId}" value=""/>
-								
-								<select id="select_cususer_${cli.cusId}_${cli.proId}_${cli.dbmsId}_${cli.cususerId}" class="main_input_box_2 box2_05 nInputFont">
+								<input type="text" id="input_cususer_${cli.cusId}_${cli.proId}_${cli.dbmsId}_${cli.cususerId}" name="input_cususer" value="" class="main_input_box_2 box2_05 nInputFont"/>
+								<select id="select_cususer_${cli.cusId}_${cli.proId}_${cli.dbmsId}_${cli.cususerId}" name="select_cususer" class="main_input_box_2 box2_05 nInputFont">
 								<!-- select id="select_cususer_${cli.cusId}_${cli.proId}_${cli.dbmsId}_${cli.cususerId}" onchange="edit_cus_select_change_event(${cli.proId})" class="main_input_box_2 box2_05 nInputFont"-->
 									<%--
 									<c:out value="${cli.cususerNm}"/>
@@ -630,6 +649,8 @@ function deleteCusinfoCallBack(res){
 													</c:choose>	
 											    </c:if>			 																	
 											</c:forEach>
+											
+											<option value="-1">추가입력</option>
 								</select>
 							</td>
 							<td>
