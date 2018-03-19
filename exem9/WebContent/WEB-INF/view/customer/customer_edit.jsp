@@ -60,7 +60,7 @@ $(document).ready(function(){
    	    });	    
 	});
 
-	// 삭제 처리
+	// 삭제 처리(사용하지 않음)
 	$("#edit_delete_btn").bind("click", function(){	
 		if ( $('#form1 input[type=checkbox]:checked').length == 0  ) {
 			alert("삭제할 행을 선택하세요.");
@@ -68,7 +68,7 @@ $(document).ready(function(){
 			
 	   	    $('#checkbox_id:checked').each(function() {   	    
    	    	    var chkId = $(this).val();
-				
+				 
 	   	    	 if (confirm("정말 삭제하시겠습니까??") == true){    //확인
 	 				
 	 		   	    $('#checkbox_id:checked').each(function() {   	    
@@ -84,6 +84,31 @@ $(document).ready(function(){
 	 			}
    	         	
 	   	    });	
+		}
+	});
+	
+	
+	// 고객담당자 삭제 처리
+	$("#edit_delete_cusmember_btn").bind("click", function(){	
+		if ( $('#form1 input[type=checkbox]:checked').length == 0  ) {
+			alert("삭제할 행을 선택하세요.");
+		} else{
+			
+   	    	 if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+ 				
+ 		   	    $('#checkbox_id:checked').each(function() {   	    
+ 	   	    	    var chkId = $(this).val();
+						
+	 	   	    		ICustomerService.deleteCusmemberinfo( 
+	   	         			chkId, 
+	   	         			deleteCusinfoCallBack );
+						
+ 		   	    });
+ 			
+ 			}else{   //취소
+ 			    return;
+ 			}
+	   	    	 
 		}
 	});
 	
@@ -341,7 +366,16 @@ function deleteCusinfoCallBack(res){
 </script>
 
 <style>
-
+.inBtt_OK_CUS {
+	width:137px;
+	height:36px; 
+    padding:7px;
+	background:#262d31;
+	border:0px;
+	font-family: 'Archivo Narrow', sans-serif;
+    font-size:15px;
+	color:#fff;
+}
 </style>
 
 </head>
@@ -413,7 +447,7 @@ function deleteCusinfoCallBack(res){
 							<td>
 							<ul>
 								<li class="main_title_box_2 box2_01 nCheckBox">
-									<input type="checkbox" name="chk" value="${cli.proId}" id="checkbox_id"/>
+									<input type="checkbox" name="chk" value="${cli.cusId}_${cli.proId}_${cli.dbmsId}_${cli.cususerId}" id="checkbox_id"/>
 									<input type="hidden" id="checkbox_hidden_id_${cli.proId}" value="${cli.proId}"/>
 								</li>
 							</ul>
@@ -426,16 +460,23 @@ function deleteCusinfoCallBack(res){
 							</td>
 							<td>
 								<select id="edit_dbms_list_select_${cli.proId}" class="main_input_box_2 box2_04 nInputFont">
-									<c:forEach var="dbms" items="${dbms_list}">
-										<c:choose>
-											<c:when test="${dbms.dbmsId == cli.dbmsId}">
-												<option value="${dbms.dbmsId}" selected>${dbms.dbmsNm}</option>
-											</c:when>
-											<c:otherwise>
-												<option value="${dbms.dbmsId}">${dbms.dbmsNm}</option>	
-											</c:otherwise>
-										</c:choose>										
-									</c:forEach>	
+									<c:choose>
+										<c:when test="${cli.dbmsId eq null}">
+												<option value="0" selected></option>
+										</c:when>
+										<c:otherwise>
+											<c:forEach var="dbms" items="${dbms_list}">
+												<c:choose>
+													<c:when test="${dbms.dbmsId == cli.dbmsId}">
+														<option value="${dbms.dbmsId}" selected>${dbms.dbmsNm}</option>
+													</c:when>
+													<c:otherwise>
+														<option value="${dbms.dbmsId}">${dbms.dbmsNm}</option>	
+													</c:otherwise>
+												</c:choose>										
+											</c:forEach>
+										</c:otherwise>
+									</c:choose>			
 								</select>
 							</td>							
 							<td>
@@ -455,7 +496,7 @@ function deleteCusinfoCallBack(res){
 											</c:when>
 											<c:otherwise>
 												<c:forEach var="cmli" items="${cus_member_list_info}">
-												<c/out value=${cmli.proId}/>
+												<%--/out value=${cmli.proId}/--%>
 										 	    <c:if test="${cli.proId == cmli.proId}"> 
 													<c:choose>
 														<c:when test="${cli.cusNm == cli.cususerId}">
@@ -483,19 +524,23 @@ function deleteCusinfoCallBack(res){
 							</td>																		
 							<td>								
 								<select id="edit_salseman_list_select_${cli.proId}" class="main_input_box_2 box2_09 nInputFont">
-									<c:if test="${cli.salseId == '0'}">
-										<option value="0" selected>지정필요.</option>
-									</c:if>
-									<c:forEach var="esl" items="${edit_salseman_list}">
-										<c:choose>
-											<c:when test="${esl.userId == cli.salseId}">
-												<option value="${esl.userId}" selected>${esl.userNm}</option>
-											</c:when>
-											<c:otherwise>
-												<option value="${esl.userId}">${esl.userNm}</option>	
-											</c:otherwise>
-										</c:choose>										
-									</c:forEach>	
+									<c:choose>
+										<c:when test="${cli.salseId eq null}">
+												<option value="0" selected></option>
+										</c:when>
+										<c:otherwise>
+											<c:forEach var="esl" items="${edit_salseman_list}">
+												<c:choose>
+													<c:when test="${esl.userId == cli.salseId}">
+														<option value="${esl.userId}" selected>${esl.userNm}</option>
+													</c:when>
+													<c:otherwise>
+														<option value="${esl.userId}">${esl.userNm}</option>	
+													</c:otherwise>
+												</c:choose>										
+											</c:forEach>
+										</c:otherwise>
+									</c:choose>		
 								</select>
 							</td>			
 							<td>
@@ -532,8 +577,11 @@ function deleteCusinfoCallBack(res){
 					<tr>
 						<td colspan="10" class="center_align">
 							<div>
-						  		<input type="button" id="edit_update_btn" value="수정" class="inBtt_OK_2"/>
-						  		<input type="button" id="edit_delete_btn" value="삭제" class="inBtt_OK_2">
+						  		<input type="button" id="edit_update_btn" value="수정" class="inBtt_OK_CUS"/>
+						  		<input type="button" id="edit_delete_customer_btn" value="고객사 삭제" class="inBtt_OK_CUS">
+						  		<input type="button" id="edit_delete_project_btn" value="프로젝트 삭제" class="inBtt_OK_CUS">
+						  		<input type="button" id="edit_delete_dbms_btn" value="업무 삭제" class="inBtt_OK_CUS">
+						  		<input type="button" id="edit_delete_cusmember_btn" value="고객담당자 삭제" class="inBtt_OK_CUS">
 						  	</div>
 						</td>
 					</tr>
