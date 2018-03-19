@@ -327,7 +327,7 @@ $(document).ready(function(){
     		var selectboxId = $(this).attr('id');
     		//alert(selectboxId);
     		var strTemp = selectboxId.split('_'); 
-    		var tempId = 'input_cususer_' + strTemp[2] + '_' + strTemp[3] + '_' + strTemp[4] + '_' ;
+    		var tempId = 'input_cususer_' + strTemp[2] + '_' + strTemp[3] + '_' + strTemp[4] + '_' + strTemp[5] ;
     		//alert(tempId);
     		$('#'+selectboxId).hide();
     		$('#'+tempId).show();

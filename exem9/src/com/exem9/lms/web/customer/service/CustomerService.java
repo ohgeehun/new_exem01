@@ -233,7 +233,7 @@ public class CustomerService implements ICustomerService{
 			} 
 			iCustomerDao.updateDbmsInfo(params); // 제품명, 영업대표 update
 			
-			if(chkIds.length == 3 && cususerId != null && cususerId.equals("-1")) { // 고객담당자 신규 등록
+			if(cususerId != null && cususerId.equals("-1")) { // 고객담당자 신규 등록
 				
 				params.put("cususerNm", cususerNm);
 				params.put("cususerPhone", phone);
