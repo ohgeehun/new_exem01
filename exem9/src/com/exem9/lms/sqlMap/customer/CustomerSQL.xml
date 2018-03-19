@@ -569,8 +569,11 @@
 	 
 	 <!-- 고객사담당자 관리테이블(xm_project_dbms_cusmember 삭제 -->
 	<update id="deletePjtDbmsCusmemberinfo" parameterClass="java.util.HashMap">
-	 DELETE from XM_project_dbms_cusmember  
-	 WHERE customer_id = #cusId#  and project_id = #pjtId#  and dbms_id = #dbmsId# 
+		 DELETE from XM_project_dbms_cusmember  
+		 	WHERE customer_id = #cusId#  and project_id = #pjtId#  
+		 <isNotEmpty property="dbmsId">
+		 	and dbms_id = #dbmsId# 
+		 </isNotEmpty> 
 	 </update>
 	 
 	 <!-- 고객사담당자 삭제 -->
@@ -583,13 +586,27 @@
 	<update id="deleteCusmembersinfo" parameterClass="java.util.HashMap">
 	 DELETE from XM_customer_member 
 	 WHERE cususer_id in 
-	 	(select cususer_id from xm_project_dbms_cusmember where customer_id = #cusId# and project_id = #pjtId# and dbms_id = #dbmsId# )
+	 	(
+		 	select cususer_id from xm_project_dbms_cusmember where customer_id = #cusId# and project_id = #pjtId# 
+		 	<isNotEmpty property="dbmsId">
+		 		and dbms_id = #dbmsId#
+		 	</isNotEmpty> 
+	 	)
 	 </update>
 	 
 	<!-- 고객사/프로젝트 업무 삭제 -->
 	<update id="deleteCusPjtDbmsinfo" parameterClass="java.util.HashMap">
-	 DELETE from XM_project_dbms 
-	 WHERE customer_id = #cusId# and project_id = #pjtId# and dbms_id = #dbmsId#
+		 DELETE from XM_project_dbms 
+		 WHERE customer_id = #cusId# and project_id = #pjtId# 
+		 <isNotEmpty property="dbmsId">
+		 	and dbms_id = #dbmsId#
+		 </isNotEmpty>
+	 </update>
+	 
+	 <!-- 고객사/프로젝트 삭제 -->
+	<update id="deleteCusPjtinfo" parameterClass="java.util.HashMap">
+		 DELETE from XM_project 
+		 WHERE customer_id = #cusId# and project_id = #pjtId# 
 	 </update>
 	 
 	 <!-- 고객사 신규 등록 -->

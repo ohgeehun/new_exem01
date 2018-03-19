@@ -356,6 +356,17 @@ public class CustomerDao implements ICustomerDao{
 		}
 		return result;
 	}
+	
+	/*고객사의 프로젝트 삭제 처리*/
+	public String deleteCusPjtinfo(HashMap params) throws Throwable {
+		String result = "FAILED";
+		
+		if(sqlMapClient.update("customer.deleteCusPjtinfo", params) > 0){
+			result = "SUCCESS";
+		}
+		return result;
+	}
+	
 	// 사용안함
 	// 고객사 및 프로젝트 신규 등록
 	public String insertCusProj(HashMap params) throws Throwable {

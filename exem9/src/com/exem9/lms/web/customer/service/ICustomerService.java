@@ -105,4 +105,6 @@ public interface ICustomerService {
 	/* 모든 등록된 고객사담당자 정보 가져오기*/
 	public List<CustomerMemberBean> getcusUserinfo2() throws Throwable ;
 	
+	// 고객사 프로젝트 정보 삭제
+	public String deleteCusPjtinfo(String chkId) throws Throwable ;
 }

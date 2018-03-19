@@ -491,6 +491,44 @@ public class CustomerService implements ICustomerService{
 		return result;
 	}
 	
+	// 프로젝트 삭제
+	public String deleteCusPjtinfo(String chkId) throws Throwable {
+		
+		// chkId에 들어가 있는 값 cusId_pjtId_dbmsId_cususerId
+		String chkIds[] = chkId.split("_");
+		
+		HashMap params = new HashMap();
+		params.put("cusId", Integer.parseInt(chkIds[0]) );
+		params.put("pjtId", Integer.parseInt(chkIds[1]) );
+//		params.put("dbmsId", Integer.parseInt(chkIds[2]) );
+		//params.put("cusmemberId", Integer.parseInt(chkIds[3]) );
+		
+		TransactionStatus status = this.transactionManager.getTransaction(new DefaultTransactionDefinition() );
+		
+		String result = "FAILED";
+		
+		try{
+			// 프로젝트업무고객담당자 테이블(xm_project_dbms_cusmember) 여러명 삭제
+			iCustomerDao.deletePjtDbmsCusmemberinfo(params);
+			// xm_customer_member 테이블 여러건 삭제
+			iCustomerDao.deleteCusmembersinfo(params);
+			// xm_project_dbms 테이블 삭제
+			iCustomerDao.deleteCusPjtDbmsinfo(params);
+			// xm_project 테이블 삭제
+			iCustomerDao.deleteCusPjtinfo(params);
+			
+			this.transactionManager.commit(status);
+		} catch(Exception e) {
+			
+			this.transactionManager.rollback(status);
+			e.printStackTrace();
+            return result;
+		}
+		
+		result = "SUCCESS";
+		return result;
+	}
+	
 	//@Transactional(readOnly = false, propagation=Propagation.REQUIRED) //이메소드를 트랜잭션처리
 	//public String insertCusinfo2(String cusNm, String cusproNm) throws Throwable {
 	public String insertCusinfo2(String cusNm, String cusproNm, String dbmsId,  
