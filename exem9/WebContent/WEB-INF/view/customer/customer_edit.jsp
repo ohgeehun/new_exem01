@@ -193,6 +193,41 @@ $(document).ready(function(){
 		}
 	});
 	
+	// 프로젝트 삭제 처리
+	$("#edit_delete_customer_btn").bind("click", function(){	
+		if ( $('#form1 input[type=checkbox]:checked').length == 0  ) {
+			alert("삭제할 행을 선택하세요.");
+		} else{
+   	    	 if (confirm("고객사가 삭제되면, 고객사의 모든 프로젝트가 삭제되며,\n해당 프로젝트에 등록된 모든 제품(업무)에 대한 정보와 \n 해당 업무에 등록된 고객담당자와 담당영업대표 정보도 같이 삭제됩니다. \n정말 삭제하시겠습니까??") == true){    //확인
+   	    		 
+ 		   	    $('#checkbox_id:checked').each(function() {   	    
+ 		   	 		// 제품(업무)가 없는 행을 선택하였으면, 삭제할 업무가 없습니다 표시
+ 	   				var chkId = $(this).val();  // chkId구조는 고객사ID_프로젝트ID_제품ID_고객담당자ID, 값이 없으면 10_5__ 이렇게 들어온다.
+ 	   				var strArray = chkId.split('_');
+ 	   				//alert(strArray[0] + "_" + strArray[1] + "_" + strArray[2] + "_" + strArray[3] );
+ 					/*
+ 	   				var dbmsId = $('#select_dbms_'+chkId+' option:selected').val();
+ 	   				if( dbmsId == '0' ) {
+ 						dbmsId = '';
+ 					} */
+ 					
+ 	   				if (strArray[0]== "") { // 고객사가 없으면, 없을리가 없음
+ 						alert( $('#input_cus_'+chkId).val() +   
+ 								  "에 삭제할 고객사가 없습니다.");
+ 					} else {
+	 	   	    		ICustomerService.deleteCusinfo( 
+	   	         			chkId, 
+	   	         			deleteCusinfoCallBack );
+ 					}
+						
+ 		   	    });
+ 			
+ 			}else{   //취소
+ 			    return;
+ 			}
+		}
+	});
+	
 	/* 고객사관리 좌측 버튼 이벤트  : 고객사 관리 버튼 클릭 시 */
     $("#cus_managed").bind("click", function(){	
     	location.href = "customer_edit";

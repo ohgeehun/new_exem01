@@ -399,15 +399,15 @@ public class CustomerService implements ICustomerService{
 	}
 	
 	// 삭제
-	public String deleteCusinfo(String chkId) throws Throwable {
-		
-		HashMap params = new HashMap();
-		params.put("chkId", Integer.parseInt(chkId) );
-		
-//		System.out.println("============================================================== cus delete call : ");
-		
-		return iCustomerDao.deleteCusinfo(params);
-	}
+//	public String deleteCusinfo(String chkId) throws Throwable {
+//		
+//		HashMap params = new HashMap();
+//		params.put("chkId", Integer.parseInt(chkId) );
+//		
+////		System.out.println("============================================================== cus delete call : ");
+//		
+//		return iCustomerDao.deleteCusinfo(params);
+//	}
 	
 	// 고객사담당자 삭제
 	public String deleteCusmemberinfo(String chkId) throws Throwable {
@@ -516,6 +516,46 @@ public class CustomerService implements ICustomerService{
 			iCustomerDao.deleteCusPjtDbmsinfo(params);
 			// xm_project 테이블 삭제
 			iCustomerDao.deleteCusPjtinfo(params);
+			
+			this.transactionManager.commit(status);
+		} catch(Exception e) {
+			
+			this.transactionManager.rollback(status);
+			e.printStackTrace();
+            return result;
+		}
+		
+		result = "SUCCESS";
+		return result;
+	}
+	
+	// 고객사 삭제
+	public String deleteCusinfo(String chkId) throws Throwable {
+		
+		// chkId에 들어가 있는 값 cusId_pjtId_dbmsId_cususerId
+		String chkIds[] = chkId.split("_");
+		
+		HashMap params = new HashMap();
+		params.put("cusId", Integer.parseInt(chkIds[0]) );
+//		params.put("pjtId", Integer.parseInt(chkIds[1]) );
+//			params.put("dbmsId", Integer.parseInt(chkIds[2]) );
+		//params.put("cusmemberId", Integer.parseInt(chkIds[3]) );
+		
+		TransactionStatus status = this.transactionManager.getTransaction(new DefaultTransactionDefinition() );
+		
+		String result = "FAILED";
+		
+		try{
+			// 프로젝트업무고객담당자 테이블(xm_project_dbms_cusmember) 여러명 삭제
+			iCustomerDao.deletePjtDbmsCusmemberinfo(params);
+			// xm_customer_member 테이블 여러건 삭제
+			iCustomerDao.deleteCusmembersinfo(params);
+			// xm_project_dbms 테이블 삭제
+			iCustomerDao.deleteCusPjtDbmsinfo(params);
+			// xm_project 테이블 삭제
+			iCustomerDao.deleteCusPjtinfo(params);
+			// xm_project 테이블 삭제
+			iCustomerDao.deleteCusinfo(params);
 			
 			this.transactionManager.commit(status);
 		} catch(Exception e) {

@@ -97,8 +97,6 @@ public interface ICustomerService {
 	
 	public List<CustomerMemberBean> getprodbmsmemberinfo(String cusNm, String proNm, String dbmsId, String cususerNm)throws Throwable ;
 	
-	public String deleteCusinfo(String chkId) throws Throwable ;
-	
 	// 고객사 담당자 정보 삭제
 	public String deleteCusmemberinfo(String chkId) throws Throwable ;
 
@@ -107,4 +105,8 @@ public interface ICustomerService {
 	
 	// 고객사 프로젝트 정보 삭제
 	public String deleteCusPjtinfo(String chkId) throws Throwable ;
+
+	// 고객사  삭제
+	public String deleteCusinfo(String chkId) throws Throwable ;
+
 }

@@ -86,4 +86,6 @@ public interface ICustomerDao {
 	public String deleteCusPjtDbmsinfo(HashMap params) throws Throwable;
 	// 프로젝트 정보 삭제
 	public String deleteCusPjtinfo(HashMap params) throws Throwable;
+	// 고객사 정보 삭제
+	public String deleteCusinfo(HashMap params) throws Throwable;
 }
