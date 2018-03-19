@@ -326,6 +326,12 @@
 	
 	<update id="updateCusInfo" parameterClass="java.util.HashMap">
 	UPDATE XM_CUSTOMER 
+		SET customer_name = #cusNm#,
+			LAST_UPDATE_USER = #userId#,
+	    	LAST_UPDATE_DATE = current_date::date
+	WHERE CUSTOMER_ID = #cusId#
+	<!-- 
+	UPDATE XM_CUSTOMER 
 	SET customer1_name = (select cususer_name from xm_customer_member where cususer_id = #cususer#),
 	    customer_location = #cuslocation#,
 	    salesman_id =  #salseman#,	 
@@ -333,6 +339,36 @@
 	    LAST_UPDATE_USER = #userId#,
 	    LAST_UPDATE_DATE = current_date::date
 	WHERE PROJECT_ID = #cusproId#
+	 -->
+	</update>
+	
+	<!-- 프로젝트, 고객사위치, 비고 Update -->
+	<update id="updatePjtInfo" parameterClass="java.util.HashMap">
+	UPDATE XM_PROJECT 
+		SET project_name = #pjtNm#,
+			customer_location = #cuslocation#, 
+			etc=#etc#,
+			LAST_UPDATE_USER = #userId#,
+	    	LAST_UPDATE_DATE = current_date::date
+	WHERE CUSTOMER_ID = #cusId# and project_id=#pjtId#
+	</update>
+	
+	<!-- 제품, 담당영업 Update -->
+	<update id="updateDbmsInfo" parameterClass="java.util.HashMap">
+	UPDATE XM_PROJECT_DBMS 
+		SET 
+			salesman_id = #salesmanId#,
+			dbms_id = #newDbmsId#
+	WHERE CUSTOMER_ID = #cusId# and project_id=#pjtId# and dbms_id = #dbmsId#
+	</update>
+	
+	<!-- 고객담당자 전화 email Update -->
+	<update id="updateCusmemberInfo" parameterClass="java.util.HashMap">
+	UPDATE XM_customer_member 
+		SET 
+			cususer_phone = #phone#,
+			cususer_mail = #email#
+	WHERE cususer_ID = #cusmemberId#
 	</update>
 	
 	<select id="getcusNminfo" resultClass="customerBean">
@@ -658,10 +694,17 @@
 		where customer_id = #cusId# and project_name = #cusproNm# 
 	</select>
 	 
-	<!-- 담당영업 등록 -->
+	<!-- 제품등록 및 담당영업 등록 -->
 	 <update id="insertSalesman" parameterClass="java.util.HashMap">
-	 INSERT INTO XM_PROJECT_DBMS  (customer_id, project_id, dbms_id, salesman_id) 	 
-	  				    VALUES( #cusId#, #pjtId#, #dbmsId#, #salesmanId# )        			                 
+	 INSERT INTO XM_PROJECT_DBMS  (customer_id, project_id, dbms_id
+		 <isNotEmpty property="salesmanId"> 
+		 	, salesman_id
+	 	</isNotEmpty>
+	 ) 	 
+	    VALUES( #cusId#, #pjtId#, #newDbmsId#
+	    <isNotEmpty property="salesmanId">
+	     	,#salesmanId# )
+	     </isNotEmpty>        			                 
 	</update>
 	
 	<!-- 고객사 담당자 상세정보 등록 -->

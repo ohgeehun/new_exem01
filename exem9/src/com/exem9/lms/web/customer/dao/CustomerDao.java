@@ -46,6 +46,36 @@ public class CustomerDao implements ICustomerDao{
 		}
 		return result;
 	}
+	
+	// 프로젝트, 고객사위치, 비고 정보 수정
+	public String updatePjtInfo(HashMap params) throws Throwable {
+		String result = "FAILED";
+		
+		if(sqlMapClient.update("customer.updatePjtInfo", params) > 0){
+			result = "SUCCESS";
+		}
+		return result;
+	}
+	
+	// 제품, 영업대표 수정
+	public String updateDbmsInfo(HashMap params) throws Throwable {
+		String result = "FAILED";
+		
+		if(sqlMapClient.update("customer.updateDbmsInfo", params) > 0){
+			result = "SUCCESS";
+		}
+		return result;
+	}
+	
+	// 고객담당자, 전화, email 수정
+	public String updateCusmemberInfo(HashMap params) throws Throwable {
+		String result = "FAILED";
+		
+		if(sqlMapClient.update("customer.updateCusmemberInfo", params) > 0){
+			result = "SUCCESS";
+		}
+		return result;
+	}
 
 	public List<CustomerBean> getcusNminfo() throws Throwable {
 		// TODO Auto-generated method stub

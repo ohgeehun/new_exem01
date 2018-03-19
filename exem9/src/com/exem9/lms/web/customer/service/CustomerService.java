@@ -172,6 +172,7 @@ public class CustomerService implements ICustomerService{
 		return iMemberDao.getSalsemember();
 	}
 
+	// 사용안함
 	public String updateCusInfo(String userId, int cusproId, int cususer, String cuslocation,   String salseman, String etc) throws Throwable {
 		
 		HashMap params = new HashMap();
@@ -185,7 +186,71 @@ public class CustomerService implements ICustomerService{
 		return iCustomerDao.updateCusInfo(params);
 	}
 
-
+	public String updateCusInfo2(String userId, String chkId, String cusNm, String pjtNm, 
+			int newDbmsId, String cususerId, String phone, 
+			String email, String cuslocation, String salesmanId, String etc) throws Throwable {
+		
+		// chkId에 들어가 있는 값 cusId_pjtId_dbmsId_cususerId
+//		System.out.println("----------------------------------------------------" + chkId);
+		String result = "FAILED";
+		String chkIds[] = chkId.split("_");
+		
+		HashMap params = new HashMap();
+		params.put("userId", userId);
+		
+		params.put("cusId", Integer.parseInt(chkIds[0]) );
+		params.put("pjtId", Integer.parseInt(chkIds[1]) );
+//		System.out.println("----------------------------------------------------" + chkIds.length);
+//		System.out.println("----------------------------------------------------" + chkIds[2]);
+		
+		if( chkIds.length >= 3 ) {
+			params.put("dbmsId", Integer.parseInt(chkIds[2]) );
+			
+			if ( chkIds.length == 4 ) {
+				params.put("cusmemberId", Integer.parseInt(chkIds[3]) );
+			}
+		} 
+		
+		params.put("cusNm", cusNm);
+		params.put("pjtNm", pjtNm);
+		params.put("cuslocation",cuslocation);
+		params.put("etc", etc);	
+		params.put("newDbmsId", newDbmsId);
+		params.put("salesmanId", salesmanId);
+		params.put("phone", phone);
+		params.put("email", email);
+//		params.put("cususer", cususer);
+		
+		TransactionStatus status = this.transactionManager.getTransaction(new DefaultTransactionDefinition() );
+		
+		try{
+			iCustomerDao.updateCusInfo(params); // 고객사명,
+			iCustomerDao.updatePjtInfo(params); // 프로젝트명, 고객사위치, 비고 update
+			
+			// 제품이 등록이 안되어 있으면, 제품부터 등록한다.
+			if ( chkIds.length == 2 ){		// 제품등록이 안되어 있는 상태
+				iCustomerDao.insertSalesman(params); // 제품등록하고, 담당영업도 등록한다.
+			} 
+			iCustomerDao.updateDbmsInfo(params); // 제품명, 영업대표 update
+			if ( chkIds.length == 4 ) {
+				iCustomerDao.updateCusmemberInfo(params); // 고객담당자명, 담당자 전화, 담당자email update
+			}
+//			iCustomerDao.updateCusmemberInfo(params); // 고객사명 update
+//			iCustomerDao.updateCusInfo(params); // 고객사명 update
+			
+			this.transactionManager.commit(status);
+		} catch(Exception e) {
+			
+			this.transactionManager.rollback(status);
+			e.printStackTrace();
+			 //throw new Exception("Transaction2: ");
+             //TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+             return result;
+		}
+		
+		result = "SUCCESS";
+		return 	result;
+	}
 
 	public List<DbmsBean> getdeptdbms(String deptId) throws Throwable {
 		
@@ -648,6 +713,5 @@ public class CustomerService implements ICustomerService{
 		result = "SUCCESS";
 		return 	result;
 	}
-	
 }
 

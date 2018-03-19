@@ -47,8 +47,11 @@ public interface ICustomerService {
 	/*고객사 수정 이벤트 영업대표 리스트 데이터 가져오기 (MemberDao 연계) */
 	public List<MemberBean2> getSalsemember()throws Throwable;
 
-	/*고객사 정보 업데이트 */
+	/*고객사 정보 업데이트 */ // 사용안함
 	public String updateCusInfo(String userId, int cusproId, int cususer, String cusloca,   String salseman, String etc)throws Throwable;
+	
+	/*고객사 정보 업데이트 */
+	public String updateCusInfo2(String userId, String chkId, String cusNm, String pjtNm, int newDbmsId, String cususerId, String phone, String email, String cuslocation, String salesmanId, String etc)throws Throwable;
 	
 	/*고객사 정보 등록시 업무 리스트 가져오기*/
 	public List<DbmsBean> getdeptdbms(String deptId) throws Throwable;

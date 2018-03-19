@@ -45,19 +45,30 @@ $(document).ready(function(){
         }
     });
 
-	$("#edit_update_btn").bind("click", function(){	
+	$("#edit_update_btn").bind("click", function(){	 // 수정버튼 클릭 시
 		
-   	    $('#checkbox_id:checked').each(function() {   	    
-   	            var cusproId = $(this).val();
+		if ( $('#form1 input[type=checkbox]:checked').length == 0  ) {
+			alert("수정할 행을 선택하세요.");
+		} else{
+			
+			$('#checkbox_id:checked').each(function() {   	    
+   	            var chkId = $(this).val(); // id_id_id_id
    	    
   	        	var userId = "<%=(String)session.getAttribute("sUserId")%>";
-      	        var cususer = $("#edit_cus_list_select_"+cusproId+" option:selected").val();
-      	        var cuslocation = $("#cuslocation_id_"+cusproId).val();
-      	        var salseman = $("#edit_salseman_list_select_"+cusproId+" option:selected").val();      	    
-      	        var etc = $("#etc_id_"+cusproId+"").val();    	        
+  	        	var cusNm = $("#input_cus_"+chkId).val();
+  	        	var pjtNm = $("#input_pjt_"+chkId).val();
+      	        var cuslocation = $("#input_location_"+chkId).val();
+      	        var etc = $("#input_etc_"+chkId+"").val();
+     	        var newDbmsId = $("#select_dbms_"+chkId+" option:selected").val();
+     	       	var salesmanId = $("#select_salesman_"+chkId+" option:selected").val();
+     	       	var cususerId = $("#select_cususer_"+chkId+" option:selected").val();
+     	       	var phone = $("#input_phone_"+chkId+"").val();
+     	       	var email = $("#input_email_"+chkId+"").val();
       	 
-      	        ICustomerService.updateCusInfo(userId, cusproId, cususer, cuslocation, salseman, etc, CusupdateCallBack); 
-   	    });	    
+      	        //ICustomerService.updateCusInfo(userId, cusproId, cususer, cuslocation, salseman, etc, CusupdateCallBack); 
+      	      	ICustomerService.updateCusInfo2(userId, chkId, cusNm, pjtNm, newDbmsId, cususerId, phone, email, cuslocation, salesmanId, etc, CusupdateCallBack);
+   	    	});	   
+		}
 	});
 
 	// 삭제 처리(사용하지 않음)
@@ -575,42 +586,38 @@ function deleteCusinfoCallBack(res){
 							</td>
 							<td>
 								<select id="select_dbms_${cli.cusId}_${cli.proId}_${cli.dbmsId}_${cli.cususerId}" class="main_input_box_2 box2_04 nInputFont">
-									<c:choose>
-										<c:when test="${cli.dbmsId eq null}">
-												<option value="0" selected></option>
-										</c:when>
-										<c:otherwise>
-											<c:forEach var="dbms" items="${dbms_list}">
-												<c:choose>
-													<c:when test="${dbms.dbmsId == cli.dbmsId}">
-														<option value="${dbms.dbmsId}" selected>${dbms.dbmsNm}</option>
-													</c:when>
-													<c:otherwise>
-														<option value="${dbms.dbmsId}">${dbms.dbmsNm}</option>	
-													</c:otherwise>
-												</c:choose>										
-											</c:forEach>
-										</c:otherwise>
-									</c:choose>			
+									<c:if test="${cli.dbmsId eq null}">
+											<option value="0" selected></option>
+									</c:if>
+									
+									<c:forEach var="dbms" items="${dbms_list}">
+										<c:choose>
+											<c:when test="${dbms.dbmsId == cli.dbmsId}">
+												<option value="${dbms.dbmsId}" selected>${dbms.dbmsNm}</option>
+											</c:when>
+											<c:otherwise>
+												<option value="${dbms.dbmsId}">${dbms.dbmsNm}</option>	
+											</c:otherwise>
+										</c:choose>										
+									</c:forEach>
 								</select>
 							</td>							
 							<td>
 								<input type="hidden" id="select_cus_hidden_id_${cli.proId}" value=""/>
 								
-								<select id="select_cususer_${cli.cusId}_${cli.proId}_${cli.dbmsId}_${cli.cususerId}" onchange="edit_cus_select_change_event(${cli.proId})" class="main_input_box_2 box2_05 nInputFont">
+								<select id="select_cususer_${cli.cusId}_${cli.proId}_${cli.dbmsId}_${cli.cususerId}" class="main_input_box_2 box2_05 nInputFont">
+								<!-- select id="select_cususer_${cli.cusId}_${cli.proId}_${cli.dbmsId}_${cli.cususerId}" onchange="edit_cus_select_change_event(${cli.proId})" class="main_input_box_2 box2_05 nInputFont"-->
 									<%--
 									<c:out value="${cli.cususerNm}"/>
 									<c:forEach var="cmli" items="${cus_member_list_info}">
 										<c:out value="${cmli.cususerId},${cmli.cususerNm}"/>
 									</c:forEach>
 									 --%>
-									
-										<c:choose>
-											<c:when test="${cli.cususerNm eq null}">
+											<c:if test="${cli.cususerNm eq null}">
 												<option value="0" selected></option>
-											</c:when>
-											<c:otherwise>
-												<c:forEach var="cmli" items="${cus_member_list_info}">
+											</c:if>
+											
+											<c:forEach var="cmli" items="${cus_member_list_info}">
 												<%--/out value=${cmli.proId}/--%>
 										 	    <c:if test="${cli.proId == cmli.proId}"> 
 													<c:choose>
@@ -623,8 +630,6 @@ function deleteCusinfoCallBack(res){
 													</c:choose>	
 											    </c:if>			 																	
 											</c:forEach>
-										</c:otherwise>
-									</c:choose>	
 								</select>
 							</td>
 							<td>
@@ -639,23 +644,20 @@ function deleteCusinfoCallBack(res){
 							</td>																		
 							<td>								
 								<select class="main_input_box_2 box2_09 nInputFont" id="select_salesman_${cli.cusId}_${cli.proId}_${cli.dbmsId}_${cli.cususerId}">
-									<c:choose>
-										<c:when test="${cli.salseId eq null}">
-												<option value="0" selected></option>
-										</c:when>
-										<c:otherwise>
-											<c:forEach var="esl" items="${edit_salseman_list}">
-												<c:choose>
-													<c:when test="${esl.userId == cli.salseId}">
-														<option value="${esl.userId}" selected>${esl.userNm}</option>
-													</c:when>
-													<c:otherwise>
-														<option value="${esl.userId}">${esl.userNm}</option>	
-													</c:otherwise>
-												</c:choose>										
-											</c:forEach>
-										</c:otherwise>
-									</c:choose>		
+									<c:if test="${cli.salseId eq null}">
+											<option value="0" selected></option>
+									</c:if>
+									
+									<c:forEach var="esl" items="${edit_salseman_list}">
+										<c:choose>
+											<c:when test="${esl.userId == cli.salseId}">
+												<option value="${esl.userId}" selected>${esl.userNm}</option>
+											</c:when>
+											<c:otherwise>
+												<option value="${esl.userId}">${esl.userNm}</option>	
+											</c:otherwise>
+										</c:choose>										
+									</c:forEach>
 								</select>
 							</td>			
 							<td>
