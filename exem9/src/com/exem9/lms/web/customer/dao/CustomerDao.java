@@ -316,6 +316,26 @@ public class CustomerDao implements ICustomerDao{
 		}
 		return result;
 	}
+
+	/*xm_projtect_dbms_cusmember테이블의 정보 삭제 처리*/
+	public String deletePjtDbmsCusmemberinfo(HashMap params) throws Throwable {
+		String result = "FAILED";
+		
+		if(sqlMapClient.update("customer.deletePjtDbmsCusmemberinfo", params) > 0){
+			result = "SUCCESS";
+		}
+		return result;
+	}
+	
+	/*고객사담당자 정보 삭제 처리*/
+	public String deleteCusmemberinfo(HashMap params) throws Throwable {
+		String result = "FAILED";
+		
+		if(sqlMapClient.update("customer.deleteCusmemberinfo", params) > 0){
+			result = "SUCCESS";
+		}
+		return result;
+	}
 	
 	// 사용안함
 	// 고객사 및 프로젝트 신규 등록

@@ -75,4 +75,8 @@ public interface ICustomerDao {
 	public void insertPjtDbmsCusmember(HashMap params)  throws Throwable;
 
 	public String getSalesmanId(HashMap params) throws Throwable;
+
+	// 고객사담당자 삭제
+	public String deleteCusmemberinfo(HashMap params) throws Throwable;
+	public String deletePjtDbmsCusmemberinfo(HashMap params) throws Throwable;
 }

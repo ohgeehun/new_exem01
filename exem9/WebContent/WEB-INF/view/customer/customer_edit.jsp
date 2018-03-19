@@ -93,15 +93,26 @@ $(document).ready(function(){
 		if ( $('#form1 input[type=checkbox]:checked').length == 0  ) {
 			alert("삭제할 행을 선택하세요.");
 		} else{
-			
    	    	 if (confirm("정말 삭제하시겠습니까??") == true){    //확인
- 				
+   	    		 
  		   	    $('#checkbox_id:checked').each(function() {   	    
- 	   	    	    var chkId = $(this).val();
-						
+ 		   	 		// 담당자가 없는 행을 선택하였으면, 삭제할 담당자가 없습니다 표시
+ 	   				var chkId = $(this).val();  // chkId구조는 고객사ID_프로젝트ID_제품ID_고객담당자ID, 값이 없으면 10_5__ 이렇게 들어온다.
+ 	   				var strArray = chkId.split('_');
+ 	   				//alert(strArray[0] + "_" + strArray[1] + "_" + strArray[2] + "_" + strArray[3] );
+ 					var dbmsId = $('#select_dbms_'+chkId+' option:selected').val();
+ 	   				if( dbmsId == '0' ) {
+ 						dbmsId = '';
+ 					} 
+ 					
+ 	   				if (strArray[3]== "") {
+ 						alert( $('#input_cus_'+chkId).val() + " / " + $('#input_pjt_'+chkId).val() + " / " + 
+ 								 dbmsId + "에 삭제할 고객담당자가 없습니다.");
+ 					} else {
 	 	   	    		ICustomerService.deleteCusmemberinfo( 
 	   	         			chkId, 
 	   	         			deleteCusinfoCallBack );
+ 					}
 						
  		   	    });
  			
@@ -453,13 +464,13 @@ function deleteCusinfoCallBack(res){
 							</ul>
 							</td>							
 							<td>
-								<input type="text" class="main_input_box_2 box2_02 nInputFont" value="${cli.cusNm}"/>
+								<input type="text" class="main_input_box_2 box2_02 nInputFont" value="${cli.cusNm}" id="input_cus_${cli.cusId}_${cli.proId}_${cli.dbmsId}_${cli.cususerId}"/>
 							</td>
 							<td>
-								<input type="text" class="main_input_box_2 box2_03 nInputFont" value="${cli.proNm}"/>
+								<input type="text" class="main_input_box_2 box2_03 nInputFont" value="${cli.proNm}" id="input_pjt_${cli.cusId}_${cli.proId}_${cli.dbmsId}_${cli.cususerId}"/>
 							</td>
 							<td>
-								<select id="edit_dbms_list_select_${cli.proId}" class="main_input_box_2 box2_04 nInputFont">
+								<select id="select_dbms_${cli.cusId}_${cli.proId}_${cli.dbmsId}_${cli.cususerId}" class="main_input_box_2 box2_04 nInputFont">
 									<c:choose>
 										<c:when test="${cli.dbmsId eq null}">
 												<option value="0" selected></option>
@@ -482,7 +493,7 @@ function deleteCusinfoCallBack(res){
 							<td>
 								<input type="hidden" id="select_cus_hidden_id_${cli.proId}" value=""/>
 								
-								<select id="edit_cus_list_select_${cli.proId}" onchange="edit_cus_select_change_event(${cli.proId})" class="main_input_box_2 box2_05 nInputFont">
+								<select id="select_cususer_${cli.cusId}_${cli.proId}_${cli.dbmsId}_${cli.cususerId}" onchange="edit_cus_select_change_event(${cli.proId})" class="main_input_box_2 box2_05 nInputFont">
 									<%--
 									<c:out value="${cli.cususerNm}"/>
 									<c:forEach var="cmli" items="${cus_member_list_info}">
@@ -513,17 +524,17 @@ function deleteCusinfoCallBack(res){
 								</select>
 							</td>
 							<td>
-								<input type="text" class="main_input_box_2 box2_06 nInputFont" value="${cli.cususerPhone}" id="edit_cus_phone_${cli.proId}"/>
+								<input type="text" class="main_input_box_2 box2_06 nInputFont" value="${cli.cususerPhone}" id="input_phone_${cli.cusId}_${cli.proId}_${cli.dbmsId}_${cli.cususerId}"/>
 							</td>							
 											
 							<td>
-								<input type="text" class="main_input_box_2 box2_07 nInputFont" value="${cli.cususerMail}" id="edit_cus_mail_${cli.proId}"/>
+								<input type="text" class="main_input_box_2 box2_07 nInputFont" value="${cli.cususerMail}" id="input_email_${cli.cusId}_${cli.proId}_${cli.dbmsId}_${cli.cususerId}""/>
 							</td>
 							<td>
-								<input type="text" id="cuslocation_id_${cli.proId}" value="${cli.cusLoca}" class="main_input_box_2 box2_08 nInputFont">								
+								<input type="text" value="${cli.cusLoca}" class="main_input_box_2 box2_08 nInputFont" id="input_location_${cli.cusId}_${cli.proId}_${cli.dbmsId}_${cli.cususerId}">								
 							</td>																		
 							<td>								
-								<select id="edit_salseman_list_select_${cli.proId}" class="main_input_box_2 box2_09 nInputFont">
+								<select class="main_input_box_2 box2_09 nInputFont" id="select_salesman_${cli.cusId}_${cli.proId}_${cli.dbmsId}_${cli.cususerId}">
 									<c:choose>
 										<c:when test="${cli.salseId eq null}">
 												<option value="0" selected></option>
@@ -544,7 +555,7 @@ function deleteCusinfoCallBack(res){
 								</select>
 							</td>			
 							<td>
-								<textarea id="etc_id_${cli.proId}" name="contents" class="main_input_box_2 box2_10 nInputFont">${cli.etc}</textarea>
+								<textarea name="contents" class="main_input_box_2 box2_10 nInputFont" id="input_etc_${cli.cusId}_${cli.proId}_${cli.dbmsId}_${cli.cususerId}">${cli.etc}</textarea>
 							</td>
 						</tr>					
 					</c:forEach>										

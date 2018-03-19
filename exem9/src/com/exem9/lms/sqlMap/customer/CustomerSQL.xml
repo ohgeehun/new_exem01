@@ -567,6 +567,18 @@
 	 WHERE customer_id = #chkId#  
 	 </update>
 	 
+	 <!-- 고객사담당자 관리테이블(xm_project_dbms_cusmember 삭제 -->
+	<update id="deletePjtDbmsCusmemberinfo" parameterClass="java.util.HashMap">
+	 DELETE from XM_project_dbms_cusmember  
+	 WHERE customer_id = #cusId#  and project_id = #pjtId#  and dbms_id = #dbmsId# 
+	 </update>
+	 
+	 <!-- 고객사담당자 삭제 -->
+	<update id="deleteCusmemberinfo" parameterClass="java.util.HashMap">
+	 DELETE from XM_customer_member 
+	 WHERE cususer_id = #cusmemberId#  
+	 </update>
+	 
 	 <!-- 고객사 신규 등록 -->
 	 <update id="insertCus" parameterClass="java.util.HashMap">
 	 INSERT INTO XM_CUSTOMER  (customer_id, customer_name, 
