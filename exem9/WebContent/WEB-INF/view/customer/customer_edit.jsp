@@ -124,6 +124,42 @@ $(document).ready(function(){
 	});
 	
 
+	// 프로젝트의 업무 삭제 처리
+	$("#edit_delete_dbms_btn").bind("click", function(){	
+		if ( $('#form1 input[type=checkbox]:checked').length == 0  ) {
+			alert("삭제할 행을 선택하세요.");
+		} else{
+   	    	 if (confirm("프로젝트에 등록된 제품이 삭제되면, \n해당 업무에 등록된 고객담당자와 담당영업대표 정보도 같이 삭제됩니다. \n정말 삭제하시겠습니까??") == true){    //확인
+   	    		 
+ 		   	    $('#checkbox_id:checked').each(function() {   	    
+ 		   	 		// 제품(업무)가 없는 행을 선택하였으면, 삭제할 업무가 없습니다 표시
+ 	   				var chkId = $(this).val();  // chkId구조는 고객사ID_프로젝트ID_제품ID_고객담당자ID, 값이 없으면 10_5__ 이렇게 들어온다.
+ 	   				var strArray = chkId.split('_');
+ 	   				//alert(strArray[0] + "_" + strArray[1] + "_" + strArray[2] + "_" + strArray[3] );
+ 					/*
+ 	   				var dbmsId = $('#select_dbms_'+chkId+' option:selected').val();
+ 	   				if( dbmsId == '0' ) {
+ 						dbmsId = '';
+ 					} */
+ 					
+ 	   				if (strArray[2]== "") { // 제품이 없으면
+ 						alert( $('#input_cus_'+chkId).val() + " / " + $('#input_pjt_'+chkId).val() +  
+ 								  "에 삭제할 제품(업무)가 없습니다.");
+ 					} else {
+	 	   	    		ICustomerService.deleteCusPjtDbmsinfo( 
+	   	         			chkId, 
+	   	         			deleteCusinfoCallBack );
+ 					}
+						
+ 		   	    });
+ 			
+ 			}else{   //취소
+ 			    return;
+ 			}
+	   	    	 
+		}
+	});
+	
 	/* 고객사관리 좌측 버튼 이벤트  : 고객사 관리 버튼 클릭 시 */
     $("#cus_managed").bind("click", function(){	
     	location.href = "customer_edit";
@@ -591,7 +627,7 @@ function deleteCusinfoCallBack(res){
 						  		<input type="button" id="edit_update_btn" value="수정" class="inBtt_OK_CUS"/>
 						  		<input type="button" id="edit_delete_customer_btn" value="고객사 삭제" class="inBtt_OK_CUS">
 						  		<input type="button" id="edit_delete_project_btn" value="프로젝트 삭제" class="inBtt_OK_CUS">
-						  		<input type="button" id="edit_delete_dbms_btn" value="업무 삭제" class="inBtt_OK_CUS">
+						  		<input type="button" id="edit_delete_dbms_btn" value="제품(업무) 삭제" class="inBtt_OK_CUS">
 						  		<input type="button" id="edit_delete_cusmember_btn" value="고객담당자 삭제" class="inBtt_OK_CUS">
 						  	</div>
 						</td>

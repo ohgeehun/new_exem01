@@ -306,7 +306,7 @@ public class CustomerDao implements ICustomerDao{
 		// TODO Auto-generated method stub
 		return sqlMapClient.queryForList("customer.getcusmemberinfo", params);
 	}
-	
+
 	/*고객사 정보 삭제 처리*/
 	public String deleteCusinfo(HashMap params) throws Throwable {
 		String result = "FAILED";
@@ -337,6 +337,25 @@ public class CustomerDao implements ICustomerDao{
 		return result;
 	}
 	
+	/*고객사담당자 여러건 정보 삭제 처리*/
+	public String deleteCusmembersinfo(HashMap params) throws Throwable {
+		String result = "FAILED";
+		
+		if(sqlMapClient.update("customer.deleteCusmembersinfo", params) > 0){
+			result = "SUCCESS";
+		}
+		return result;
+	}
+	
+	/*고객사프로젝트의 업무 삭제 처리*/
+	public String deleteCusPjtDbmsinfo(HashMap params) throws Throwable {
+		String result = "FAILED";
+		
+		if(sqlMapClient.update("customer.deleteCusPjtDbmsinfo", params) > 0){
+			result = "SUCCESS";
+		}
+		return result;
+	}
 	// 사용안함
 	// 고객사 및 프로젝트 신규 등록
 	public String insertCusProj(HashMap params) throws Throwable {

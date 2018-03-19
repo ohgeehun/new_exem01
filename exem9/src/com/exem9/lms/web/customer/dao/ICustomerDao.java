@@ -79,4 +79,9 @@ public interface ICustomerDao {
 	// 고객사담당자 삭제
 	public String deleteCusmemberinfo(HashMap params) throws Throwable;
 	public String deletePjtDbmsCusmemberinfo(HashMap params) throws Throwable;
+
+	// 고객사프로젝트업무의 담당자 여러건 삭제
+	public String deleteCusmembersinfo(HashMap params) throws Throwable;
+	// 고객사프로젝트의 해당 업무 삭제
+	public String deleteCusPjtDbmsinfo(HashMap params) throws Throwable;
 }
