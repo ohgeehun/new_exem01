@@ -13,6 +13,7 @@ import com.exem9.lms.web.customer.bean.CustomerBean;
 import com.exem9.lms.web.customer.bean.CustomerMemberBean;
 import com.exem9.lms.web.customer.bean.CustomerNmBean;
 import com.exem9.lms.web.customer.bean.CustomerPjtNmBean;
+import com.exem9.lms.web.customer.bean.CususerBean;
 import com.ibatis.sqlmap.client.SqlMapClient;
 
 @Transactional
@@ -472,7 +473,22 @@ public class CustomerDao implements ICustomerDao{
 		if ( sqlMapClient.update("customer.insertCusmember", params) <= 0){
 			throw new Exception("transction: Customer member insert Error");
 		}
+//		System.out.println("-----------------------------------------------------------------");
+//		System.out.println( params.get("gencususerId") );
+//		return 1;
 	}
+	
+	public int insertCusmember2(CususerBean cususerBean) throws Throwable {
+		int id = sqlMapClient.update("customer.insertCusmember2", cususerBean);
+		if (  id <= 0){
+			throw new Exception("transction: Customer member insert Error");
+		}
+		System.out.println("-----------------------------------------------------------------");
+		System.out.println( "getGencususerId() : " + cususerBean.getGencususerId() );
+//		System.out.println( "id : " + id );
+		return cususerBean.getGencususerId();
+	}
+	
 	// (고객사/프로젝트/업무) 고객사담당자 등록, 여러명 등록 가능
 	public void insertPjtDbmsCusmember(HashMap params) throws Throwable {
 		if ( sqlMapClient.update("customer.insertPjtDbmsCusmember", params) <= 0){

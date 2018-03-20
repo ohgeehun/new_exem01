@@ -26,6 +26,7 @@ import com.exem9.lms.web.customer.bean.CustomerBean;
 import com.exem9.lms.web.customer.bean.CustomerMemberBean;
 import com.exem9.lms.web.customer.bean.CustomerNmBean;
 import com.exem9.lms.web.customer.bean.CustomerPjtNmBean;
+import com.exem9.lms.web.customer.bean.CususerBean;
 import com.exem9.lms.web.customer.dao.ICustomerDao;
 import com.exem9.lms.web.dbms.bean.DbmsBean;
 import com.exem9.lms.web.department.bean.DeptBean;
@@ -240,7 +241,17 @@ public class CustomerService implements ICustomerService{
 				params.put("cususerMail", email);
 //				System.out.println("------------------------------------------------cususerNm: " + cususerNm);
 //				throw new Exception("test");
-				iCustomerDao.insertCusmember(params);
+				iCustomerDao.insertCusmember(params);  
+				
+//				CususerBean cususerBean = new CususerBean(); 
+//				cususerBean.setCususerNm(cususerNm);
+//				cususerBean.setCususerPhone(phone);
+//				cususerBean.setCususerMail(email);
+//				Integer cusmemberId = iCustomerDao.insertCusmember2(cususerBean);  // 방금 입력한 cususer_id를 가지고 와야함
+				
+//				System.out.println("========================================================cusmemberId : " + cusmemberId);
+//				if(1==1 ) throw new Exception("test");
+				
 				Integer cusmemberId = iCustomerDao.getInsertedCusmemberId(params); // 해당고객사의 기 등록된 담당자 ID값 반환
 				params.put("cusmemberId", cusmemberId);
 				iCustomerDao.insertPjtDbmsCusmember(params);

@@ -917,22 +917,36 @@
 	     </isNotEmpty>        			                 
 	</update>
 	
-	<!-- 고객사 담당자 상세정보 등록 -->
-	 <update id="insertCusmember" parameterClass="java.util.HashMap">
+	<!-- 고객사 담당자 상세정보 등록 -->	
+	 <insert id="insertCusmember" parameterClass="java.util.HashMap">
 	 INSERT INTO XM_CUSTOMER_MEMBER  (cususer_id, cususer_name, cususer_phone, cususer_mail) 	 
-	  				    VALUES( NEXTVAL('xm_customer_member_next_val'), #cususerNm#, #cususerPhone#, #cususerMail# )        			                 
-	</update>
+	  				    VALUES(nextVal('xm_customer_member_next_val'), #cususerNm#, #cususerPhone#, #cususerMail# )
+	</insert>
+	
+	 <!-- 고객사 담당자 상세정보 등록, 사용안함 --> 
+	 <insert id="insertCusmember2" >
+		<selectKey keyProperty="gencususerId" resultClass="int">
+    		SELECT nextVal('xm_customer_member_next_val')
+  		</selectKey>
+	 INSERT INTO XM_CUSTOMER_MEMBER  (cususer_id, cususer_name, cususer_phone, cususer_mail) 	 
+	  				    VALUES( #gencususerId#, #cususerNm#, #cususerPhone#, #cususerMail# )
+	</insert>
+	
 	<!-- 고객사/프로젝트 업무별 담당자 관리테이블 등록 -->
 	 <update id="insertPjtDbmsCusmember" parameterClass="java.util.HashMap">
 	 INSERT INTO XM_PROJECT_DBMS_CUSMEMBER  (customer_id, project_id, dbms_id, cususer_id) 	 
 	  				    VALUES( #cusId#, #pjtId#, #dbmsId#, #cusmemberId# )        			                 
 	</update>
 	
-	<!-- 등록한 고객사담당자id 조회 --> 
+	<!-- 등록한 고객사담당자id 조회, max값 가져오는것으로 수정함 --> 
 	<select id="getInsertedCusmemberId" parameterClass="java.util.HashMap" resultClass="Integer">
+		select max(cususer_id)
+		from xm_customer_member 
+		<!-- 
 		select cususer_id
 		from xm_customer_member 
-		where cususer_name = #cususerNm# 
+		where cususer_name = #cususerNm#
+		--> 
 	</select>
 	
 	<!-- 등록되어 있는 영업담당자 ID조회 -->

@@ -51,12 +51,13 @@ $(document).ready(function(){
 	/* 고객명 추가입력 선택 시 inputbox 생성 */
     $("select[name=select_cususer]").on("change", function(){
     	//console.log("---------------------------------------------------------------");
+    	var selectboxId = $(this).attr('id');
+   		//alert(selectboxId);
+   		var strTemp = selectboxId.split('_'); 
+   		var tempId = 'input_cususer_' + strTemp[2] + '_' + strTemp[3] + '_' + strTemp[4] + '_' + strTemp[5] ;
+   		
     	if ($(this).val() == '-1'){ // 추가입력인 경우,    		
     		//alert("점색어를 입력하세요.");
-    		var selectboxId = $(this).attr('id');
-    		//alert(selectboxId);
-    		var strTemp = selectboxId.split('_'); 
-    		var tempId = 'input_cususer_' + strTemp[2] + '_' + strTemp[3] + '_' + strTemp[4] + '_' + strTemp[5] ;
     		//console.log('------------------------' + tempId);
     		//console.log('------------------------' + selectboxId);
     		//alert(tempId);
@@ -64,7 +65,17 @@ $(document).ready(function(){
     		$('#'+tempId).show();   // 콤보박스에 '추가입력' 선택 시만 고객명 보이게 전환
 			//$("#form1").submit();
     	} else { // 특정 고객명 선택시 해당하는 고객의 연락처,이메일 정보가 출력되도록 이벤트 처리 필요
-    		
+    		var cususerId = $(this).val();
+    		//alert(cususerId);
+    		//ICustomerService.getCususerInfo(cususerId, getCususerCallBack);
+    		var temp2Id = 'input_phone_' + strTemp[2] + '_' + strTemp[3] + '_' + strTemp[4] + '_' + strTemp[5] ;
+    		var temp3Id = 'select_phone_' + strTemp[2] + '_' + strTemp[3] + '_' + strTemp[4] + '_' + strTemp[5] ;
+    		//alert( $(this).val() );
+    		var selectedVal = $('#'+temp3Id); 
+    		//$('#'+temp3Id +" option:eq(selectedVal)").attr("selected", "selected");
+			//alert( $('#'+temp3Id +" option:eq(selectedVal)").text() );
+    		//$('#'+temp2Id).val( $('#'+temp3Id).index( $(this).index ) );
+    		//$('#'+temp2Id).val($('#'+temp3Id).val());
     	} 	
     });
 	
@@ -456,7 +467,15 @@ function CusupdateCallBack(res){ //고객사 정보  변경 성공 여부
 		location.href = "customer_edit";
 	}
 }
-
+/*
+function CusupdateCallBack(res){ //고객담당자 정보  조회 성공 여부
+	if(res == "FAILED"){
+		alert("담당자 정보 가져오기 실패");
+	}else if(res == "SUCCESS"){
+		// 
+	}
+}
+*/
 /*검색 텍스트 처리 이벤트*/
 $(function() {
     var input = $('input[id=select_text]');
@@ -675,11 +694,25 @@ function cususerListener(obj){
 								</select>
 							</td>
 							<td>
-								<input type="text" class="main_input_box_2 box2_06 nInputFont" value="${cli.cususerPhone}" id="input_phone_${cli.cusId}_${cli.proId}_${cli.dbmsId}_${cli.cususerId}"/>
+								<input type="text" class="main_input_box_2 box2_06 nInputFont" value="${cli.cususerPhone}" id="input_phone_${cli.cusId}_${cli.proId}_${cli.dbmsId}_${cli.cususerId}">
+								<select hidden id="select_phone_${cli.cusId}_${cli.proId}_${cli.dbmsId}_${cli.cususerId}" class="main_input_box_2 box2_06 nInputFont">
+											<c:forEach var="cmli" items="${cus_member_list_info}">
+										 	    <c:if test="${cli.proId == cmli.proId}"> 
+													<c:choose>
+														<c:when test="${cli.cususerPhone == cmli.cususerPhone}">
+															<option value="${cmli.cususerId}" selected>${cmli.cususerPhone}</option>
+														</c:when>
+														<c:otherwise>
+															<option value="${cmli.cususerId}">${cmli.cususerPhone}</option>	
+														</c:otherwise>
+													</c:choose>	
+											    </c:if>			 																	
+											</c:forEach>
+								</select>
 							</td>							
 											
 							<td>
-								<input type="text" class="main_input_box_2 box2_07 nInputFont" value="${cli.cususerMail}" id="input_email_${cli.cusId}_${cli.proId}_${cli.dbmsId}_${cli.cususerId}""/>
+								<input type="text" class="main_input_box_2 box2_07 nInputFont" value="${cli.cususerMail}" id="input_email_${cli.cusId}_${cli.proId}_${cli.dbmsId}_${cli.cususerId}">
 							</td>
 							<td>
 								<input type="text" value="${cli.cusLoca}" class="main_input_box_2 box2_08 nInputFont" id="input_location_${cli.cusId}_${cli.proId}_${cli.dbmsId}_${cli.cususerId}">								

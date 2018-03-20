@@ -10,6 +10,7 @@ import com.exem9.lms.web.customer.bean.CustomerBean;
 import com.exem9.lms.web.customer.bean.CustomerMemberBean;
 import com.exem9.lms.web.customer.bean.CustomerNmBean;
 import com.exem9.lms.web.customer.bean.CustomerPjtNmBean;
+import com.exem9.lms.web.customer.bean.CususerBean;
 import com.exem9.lms.web.mypage.bean.MypageBean;
 
 
@@ -94,4 +95,6 @@ public interface ICustomerDao {
 	public String updateDbmsInfo(HashMap params) throws Throwable;
 	// 고객담당자, 전화, email 수정
 	public String updateCusmemberInfo(HashMap params)  throws Throwable;
+
+	public int insertCusmember2(CususerBean cususerBean) throws Throwable;
 }
