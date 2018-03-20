@@ -47,23 +47,25 @@ $(document).ready(function(){
 
 	// 고객명 추가 입력하는 input box를 안보이게 처리
     $("input[name=input_cususer]").hide();
-    /* 고객명 추가입력 선택 시 inputbox 생성 */
+
+	/* 고객명 추가입력 선택 시 inputbox 생성 */
     $("select[name=select_cususer]").on("change", function(){
-    	if ($("select[name=select_cususer]").val() == '-1'){ // 추가입력인 경우,    		
+    	//console.log("---------------------------------------------------------------");
+    	if ($(this).val() == '-1'){ // 추가입력인 경우,    		
     		//alert("점색어를 입력하세요.");
     		var selectboxId = $(this).attr('id');
     		//alert(selectboxId);
     		var strTemp = selectboxId.split('_'); 
     		var tempId = 'input_cususer_' + strTemp[2] + '_' + strTemp[3] + '_' + strTemp[4] + '_' + strTemp[5] ;
-    		console.log('------------------------' + tempId);
-    		console.log('------------------------' + selectboxId);
+    		//console.log('------------------------' + tempId);
+    		//console.log('------------------------' + selectboxId);
     		//alert(tempId);
     		$('#'+selectboxId).hide();  // 콤보박스 안보이게 처리
     		$('#'+tempId).show();   // 콤보박스에 '추가입력' 선택 시만 고객명 보이게 전환
 			//$("#form1").submit();
     	}  	
     });
-
+	
 	$("#edit_update_btn").bind("click", function(){	 // 수정버튼 클릭 시
 		
 		if ( $('#form1 input[type=checkbox]:checked').length == 0  ) {
@@ -453,7 +455,6 @@ function CusupdateCallBack(res){ //고객사 정보  변경 성공 여부
 	}
 }
 
-
 /*검색 텍스트 처리 이벤트*/
 $(function() {
     var input = $('input[id=select_text]');
@@ -509,6 +510,24 @@ function deleteCusinfoCallBack(res){
 		location.href = "customer_edit";
 	}
 }
+/*
+function cususerListener(obj){
+	if (obj.value == '-1'){ // 추가입력인 경우,    		
+		//alert("점색어를 입력하세요.");
+		//var selectboxId = $(this).attr('id');
+		var selectboxId = this.id;
+		alert(selectboxId);
+		var strTemp = selectboxId.split('_'); 
+		var tempId = 'input_cususer_' + strTemp[2] + '_' + strTemp[3] + '_' + strTemp[4] + '_' + strTemp[5] ;
+		console.log('------------------------' + tempId);
+		console.log('------------------------' + selectboxId);
+		//alert(tempId);
+		$('#'+selectboxId).hide();  // 콤보박스 안보이게 처리
+		$('#'+tempId).show();   // 콤보박스에 '추가입력' 선택 시만 고객명 보이게 전환
+		//$("#form1").submit();
+	}
+}
+*/
 </script>
 
 <style>
@@ -650,7 +669,6 @@ function deleteCusinfoCallBack(res){
 													</c:choose>	
 											    </c:if>			 																	
 											</c:forEach>
-											
 											<option value="-1">추가입력</option>
 								</select>
 							</td>
