@@ -28,12 +28,12 @@ public class CustomerDao implements ICustomerDao{
 
 	public List<CustomerBean> getcusinfo(HashMap params) throws Throwable {
 		//return sqlMapClient.queryForList("customer.getcusinfo", params);
-		return sqlMapClient.queryForList("customer.getcusinfo2", params);
+		return sqlMapClient.queryForList("customer.getcusinfo3", params);
 	}
 
 	public int getNCount(HashMap params) throws Throwable {
 		
-		int count = (Integer) sqlMapClient.queryForObject("customer.getNCount2", params);
+		int count = (Integer) sqlMapClient.queryForObject("customer.getNCount3", params);
 		// TODO Auto-generated method stub
 		return count;
 	}

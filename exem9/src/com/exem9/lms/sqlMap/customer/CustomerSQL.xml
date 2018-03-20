@@ -155,6 +155,216 @@
 	
 	</select>
 	
+	<select id="getcusinfo3" parameterClass="java.util.HashMap" resultMap="cusInfoMap">
+	 
+	 SELECT u.customer_id, 
+       u.customer_name, 
+       u.project_id, 
+       u.project_name, 
+       u.customer_location, 
+       u.etc, 
+       u.dbms_id, 
+       u.cususer_id, 
+       u.cususer_name, 
+       u.cususer_phone, 
+       u.cususer_mail, 
+       u.salesman_id, 
+       u.create_user, 
+       u.create_date, 
+       u.last_update_user, 
+       u.last_update_date 
+	FROM   
+		   (
+			SELECT customer_id, 
+		               customer_name, 
+		               project_id, 
+		               project_name, 
+		               customer_location, 
+		               etc, 
+		               dbms_id, 
+		               cususer_id,
+					   cususer_name, 
+		               cususer_phone, 
+		               cususer_mail,								
+		               salesman_id, 
+		               create_user, 
+		               create_date, 
+		               last_update_user, 
+		               last_update_date, 
+		               Row_number()  over (ORDER BY customer_name ASC, project_name ASC) AS row_num 
+		        FROM   (
+																							
+					    SELECT u.customer_id, 
+		                       xc.customer_name, 
+		                       u.project_id, 
+		                       xp.project_name, 
+		                       xp.customer_location, 
+		                       xp.etc, 
+		                       u.dbms_id, 
+		                       u.cususer_id, 
+		                       xcm.cususer_name, 
+		                       xcm.cususer_phone, 
+		                       xcm.cususer_mail, 
+		                       xpd.salesman_id, 
+		                       xp.create_user, 
+		                       xp.create_date, 
+		                       xp.last_update_user, 
+		                       xp.last_update_date 
+		                FROM  (
+								SELECT xc.customer_id, 
+		               			xp.project_id, 
+		               			xpdc.dbms_id, 
+		               			Min(xpdc.cususer_id) AS cususer_id
+								FROM   xm_customer xc 
+		                       	left outer join xm_project xp 
+		                                    ON xc.customer_id = xp.customer_id 
+		                       	left outer join xm_project_dbms xpd 
+		                                    ON xc.customer_id = xpd.customer_id 
+		                                       AND xp.project_id = xpd.project_id 
+		                       	left outer join xm_project_dbms_cusmember xpdc 
+		                                    ON xc.customer_id = xpdc.customer_id 
+		                                       AND xp.project_id = xpdc.project_id 
+		                                       AND xpd.dbms_id = xpdc.dbms_id 
+		                       	left outer join xm_customer_member xcm 
+		                                    ON xpdc.cususer_id = xcm.cususer_id 
+								group by xc.customer_id, xp.project_id, xpdc.dbms_id
+		     				) u 
+						
+		                        left outer join xm_customer xc on xc.customer_id = u.customer_id
+								left outer join xm_project xp ON xp.project_id = xp.project_id 
+		                        left outer join xm_project_dbms xpd ON xpd.customer_id = u.customer_id 
+		                                       						AND xpd.project_id = u.project_id 
+																	and xpd.dbms_id = u.dbms_id 	
+		                        left outer join xm_customer_member xcm ON u.cususer_id = xcm.cususer_id 
+						
+						WHERE  1 = 1 
+						
+					<isNotEmpty property="selectTextVal">
+						 <!-- 검색조건이 전체-->
+						<isEqual property="selectBtnVal" compareValue="0">
+							and 
+							(
+								xc.customer_name like '%' || #selectTextVal# || '%' or
+								xp.project_name like '%' || #selectTextVal# || '%' or
+								xcm.cususer_name like '%' || #selectTextVal# || '%' or
+								xpd.salesman_id in (select user_id from xm_member where user_name like '%' || #selectTextVal# || '%')
+							)
+						</isEqual>
+						<!-- 검색조건이 고객사명 -->
+						<isEqual property="selectBtnVal" compareValue="1"> 
+							and xc.customer_name like '%' || #selectTextVal# || '%'
+						</isEqual>
+						<!-- 검색조건이 프로젝트명 -->
+						<isEqual property="selectBtnVal" compareValue="2"> 
+							and xp.project_name like '%' || #selectTextVal# || '%'
+						</isEqual>
+						<!-- 검색조건이 고객명 -->
+						<isEqual property="selectBtnVal" compareValue="3"> 
+							and xcm.cususer_name like '%' || #selectTextVal# || '%'
+						</isEqual>
+						 <!-- 검색조건이 영업대표명-->
+						<isEqual property="selectBtnVal" compareValue="4">
+							and xpd.salesman_id in (select user_id from xm_member where user_name like '%' || #selectTextVal# || '%')
+						</isEqual>
+					</isNotEmpty>
+					
+		                ORDER  BY xc.customer_name, xp.project_name
+				) u 
+			) u
+				WHERE  1 = 1 
+		      <isNotEmpty property="pageNo">
+				and u.row_num BETWEEN #startNo# AND #endNo# 
+			  </isNotEmpty>
+			  <isEmpty property="pageNo">
+				and u.row_num BETWEEN 1 AND #viewCount#
+			  </isEmpty> 
+	
+	</select>
+	
+	<select id="getNCount3" parameterClass="java.util.HashMap" resultClass="Integer">
+
+			SELECT count(customer_id) 
+		                
+		        FROM   (
+																							
+					    SELECT u.customer_id, 
+		                       xc.customer_name, 
+		                       u.project_id, 
+		                       xp.project_name, 
+		                       xp.customer_location, 
+		                       xp.etc, 
+		                       u.dbms_id, 
+		                       u.cususer_id, 
+		                       xcm.cususer_name, 
+		                       xcm.cususer_phone, 
+		                       xcm.cususer_mail, 
+		                       xpd.salesman_id, 
+		                       xp.create_user, 
+		                       xp.create_date, 
+		                       xp.last_update_user, 
+		                       xp.last_update_date 
+		                FROM  (
+								SELECT xc.customer_id, 
+		               			xp.project_id, 
+		               			xpdc.dbms_id, 
+		               			Min(xpdc.cususer_id) AS cususer_id
+								FROM   xm_customer xc 
+		                       	left outer join xm_project xp 
+		                                    ON xc.customer_id = xp.customer_id 
+		                       	left outer join xm_project_dbms xpd 
+		                                    ON xc.customer_id = xpd.customer_id 
+		                                       AND xp.project_id = xpd.project_id 
+		                       	left outer join xm_project_dbms_cusmember xpdc 
+		                                    ON xc.customer_id = xpdc.customer_id 
+		                                       AND xp.project_id = xpdc.project_id 
+		                                       AND xpd.dbms_id = xpdc.dbms_id 
+		                       	left outer join xm_customer_member xcm 
+		                                    ON xpdc.cususer_id = xcm.cususer_id 
+								group by xc.customer_id, xp.project_id, xpdc.dbms_id
+		     				) u 
+						
+		                        left outer join xm_customer xc on xc.customer_id = u.customer_id
+								left outer join xm_project xp ON xp.project_id = xp.project_id 
+		                        left outer join xm_project_dbms xpd ON xpd.customer_id = u.customer_id 
+		                                       						AND xpd.project_id = u.project_id 
+																	and xpd.dbms_id = u.dbms_id 	
+		                        left outer join xm_customer_member xcm ON u.cususer_id = xcm.cususer_id 
+						
+						WHERE  1 = 1 
+						
+					<isNotEmpty property="selectTextVal">
+						 <!-- 검색조건이 전체-->
+						<isEqual property="selectBtnVal" compareValue="0">
+							and 
+							(
+								xc.customer_name like '%' || #selectTextVal# || '%' or
+								xp.project_name like '%' || #selectTextVal# || '%' or
+								xcm.cususer_name like '%' || #selectTextVal# || '%' or
+								xpd.salesman_id in (select user_id from xm_member where user_name like '%' || #selectTextVal# || '%')
+							)
+						</isEqual>
+						<!-- 검색조건이 고객사명 -->
+						<isEqual property="selectBtnVal" compareValue="1"> 
+							and xc.customer_name like '%' || #selectTextVal# || '%'
+						</isEqual>
+						<!-- 검색조건이 프로젝트명 -->
+						<isEqual property="selectBtnVal" compareValue="2"> 
+							and xp.project_name like '%' || #selectTextVal# || '%'
+						</isEqual>
+						<!-- 검색조건이 고객명 -->
+						<isEqual property="selectBtnVal" compareValue="3"> 
+							and xcm.cususer_name like '%' || #selectTextVal# || '%'
+						</isEqual>
+						 <!-- 검색조건이 영업대표명-->
+						<isEqual property="selectBtnVal" compareValue="4">
+							and xpd.salesman_id in (select user_id from xm_member where user_name like '%' || #selectTextVal# || '%')
+						</isEqual>
+					</isNotEmpty>
+					
+		                ORDER  BY xc.customer_name, xp.project_name
+				) u 
+	</select>
+	
 	<select id="getcusinfo2" parameterClass="java.util.HashMap" resultMap="cusInfoMap">
 	  select u.customer_id, u.customer_name,          
 			u.project_id, u.project_name, u.customer_location, u.etc, 
