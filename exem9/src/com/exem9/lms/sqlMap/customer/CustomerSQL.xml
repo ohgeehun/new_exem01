@@ -213,7 +213,7 @@
 		                FROM  (
 								SELECT xc.customer_id, 
 		               			xp.project_id, 
-		               			xpdc.dbms_id, 
+		               			xpd.dbms_id, 
 		               			Min(xpdc.cususer_id) AS cususer_id
 								FROM   xm_customer xc 
 		                       	left outer join xm_project xp 
@@ -227,7 +227,7 @@
 		                                       AND xpd.dbms_id = xpdc.dbms_id 
 		                       	left outer join xm_customer_member xcm 
 		                                    ON xpdc.cususer_id = xcm.cususer_id 
-								group by xc.customer_id, xp.project_id, xpdc.dbms_id
+								group by xc.customer_id, xp.project_id, xpd.dbms_id
 		     				) u 
 						
 		                        left outer join xm_customer xc on xc.customer_id = u.customer_id
@@ -306,7 +306,7 @@
 		                FROM  (
 								SELECT xc.customer_id, 
 		               			xp.project_id, 
-		               			xpdc.dbms_id, 
+		               			xpd.dbms_id, 
 		               			Min(xpdc.cususer_id) AS cususer_id
 								FROM   xm_customer xc 
 		                       	left outer join xm_project xp 
@@ -320,7 +320,7 @@
 		                                       AND xpd.dbms_id = xpdc.dbms_id 
 		                       	left outer join xm_customer_member xcm 
 		                                    ON xpdc.cususer_id = xcm.cususer_id 
-								group by xc.customer_id, xp.project_id, xpdc.dbms_id
+								group by xc.customer_id, xp.project_id, xpd.dbms_id
 		     				) u 
 						
 		                        left outer join xm_customer xc on xc.customer_id = u.customer_id

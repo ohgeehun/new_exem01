@@ -63,7 +63,9 @@ $(document).ready(function(){
     		$('#'+selectboxId).hide();  // 콤보박스 안보이게 처리
     		$('#'+tempId).show();   // 콤보박스에 '추가입력' 선택 시만 고객명 보이게 전환
 			//$("#form1").submit();
-    	}  	
+    	} else { // 특정 고객명 선택시 해당하는 고객의 연락처,이메일 정보가 출력되도록 이벤트 처리 필요
+    		
+    	} 	
     });
 	
 	$("#edit_update_btn").bind("click", function(){	 // 수정버튼 클릭 시
