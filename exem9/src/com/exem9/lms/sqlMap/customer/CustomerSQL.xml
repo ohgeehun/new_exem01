@@ -231,7 +231,7 @@
 		     				) u 
 						
 		                        left outer join xm_customer xc on xc.customer_id = u.customer_id
-								left outer join xm_project xp ON xp.project_id = xp.project_id 
+								left outer join xm_project xp ON xp.project_id = u.project_id 
 		                        left outer join xm_project_dbms xpd ON xpd.customer_id = u.customer_id 
 		                                       						AND xpd.project_id = u.project_id 
 																	and xpd.dbms_id = u.dbms_id 	
@@ -324,7 +324,7 @@
 		     				) u 
 						
 		                        left outer join xm_customer xc on xc.customer_id = u.customer_id
-								left outer join xm_project xp ON xp.project_id = xp.project_id 
+								left outer join xm_project xp ON xp.project_id = u.project_id 
 		                        left outer join xm_project_dbms xpd ON xpd.customer_id = u.customer_id 
 		                                       						AND xpd.project_id = u.project_id 
 																	and xpd.dbms_id = u.dbms_id 	
