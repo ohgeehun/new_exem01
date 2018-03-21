@@ -126,7 +126,7 @@ $(document).ready(function(){
 function insertSchinfoCallBack(res){
 	if(res == "FAILED"){
 		alert("실패");
-		location.href = "schedule_insert";
+		//location.href = "schedule_insert";
 	}else if(res == "SUCCESS"){
 		alert("성공");
 		location.href = "schedule_insert";

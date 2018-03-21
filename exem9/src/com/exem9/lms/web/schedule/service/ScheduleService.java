@@ -1,8 +1,10 @@
 package com.exem9.lms.web.schedule.service;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -14,6 +16,9 @@ import org.directwebremoting.WebContextFactory;
 import org.directwebremoting.annotations.RemoteProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import com.exem9.lms.common.CommonProperties;
 import com.exem9.lms.web.common.bean.LineBoardBean;
@@ -27,6 +32,8 @@ public class ScheduleService implements IScheduleService{
 	
 	@Autowired
 	public ISchDao iSchDao;
+	@Autowired
+	private PlatformTransactionManager transactionManager;
 	
 	public List<SchBean> getsch(String strfromYYYYMMDD, String strtoYYYYMMDD, int pageNo) throws Throwable {
 		
@@ -91,10 +98,71 @@ public class ScheduleService implements IScheduleService{
 		params.put("end_time",end_time);
 		params.put("contents",contents);
 		
-		System.out.println("############################################ ");
-		System.out.println("start_time : " + start_time);
+		//System.out.println("############################################ ");
+		//System.out.println("start_time : " + start_time);
 		
-		return iSchDao.insertSchinfo(params);
+		TransactionStatus status = this.transactionManager.getTransaction(new DefaultTransactionDefinition() );
+		String result = "FAILED";
+		
+		//System.out.println("======================================================================");
+		long diffDays = getDiffDate(start_time, end_time);
+		//System.out.println("=====================================================================날짜차이=" + diffDays);
+		
+		try {
+			if( diffDays >= 1 ){ //시작일과 종료일이 다르면, 날짜별로 쪼개서 insert
+				for(long i = 0 ; i <= diffDays ; i++) {
+					String calDate = doDateAdd(start_time);  // 하루하루씩 증가시키면서 입력 필요
+					if(i !=0 ) start_time = getDate(calDate, true);  // 시작날짜 시작시각값 계산
+					else start_time = calDate;
+					if ( i != diffDays ) end_time =  getDate(calDate, false); // 종료날짜시각값 계산
+					else end_time = calDate;
+					
+					params.put("start_time",start_time);
+					params.put("end_time",end_time);
+					
+					iSchDao.insertSchinfo(params);  // 해달날짜를 넣는다.
+				}
+			} else {
+				iSchDao.insertSchinfo(params);  // 시작일자, 종료일자가 같은 날이면 그냥 insert
+			}
+			
+			this.transactionManager.commit(status);
+		} catch (Exception e){
+			this.transactionManager.rollback(status);
+			e.printStackTrace();
+            return result;
+		}
+		return result;
+	}
+	
+	private long getDiffDate(String start, String end) throws ParseException{
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date beginDate = formatter.parse(start);
+        Date endDate = formatter.parse(end);
+        // 시간차이를 시간,분,초를 곱한 값으로 나누면 하루 단위가 나옴
+        long diff = endDate.getTime() - beginDate.getTime();
+        long diffDays = diff / (24 * 60 * 60 * 1000);
+        return diffDays;
+	}
+	
+	private String doDateAdd(String date){
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date tempDate = formatter.parse(date);
+        
+        GregorianCalendar cal = new GregorianCalendar(Locale.KOREA);
+	    cal.setTime(tempDate);
+	    cal.add(Calendar.DAY_OF_YEAR, 1); // 하루를 더한다.
+	     
+	    SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	    String strDate = fm.format(cal.getTime());
+	    return strDate;
+	}
+	
+	private String getDate(String date, boolean isStart) {
+		String convertedDate;
+		if(isStart) convertedDate = date.substring(0,10) + " 09:00:00";
+		else convertedDate = date.substring(0,10) + " 18:00:00";
+        return convertedDate;
 	}
 	
 	public LineBoardBean getNCount(String strfromYYYYMMDD, String strtoYYYYMMDD, int nowPage) throws Throwable {
