@@ -48,6 +48,14 @@ $(document).ready(function(){
 	   	location.href = "team_schedule";
 	});
 	
+	$('.cal_start').bind('click', function(){	
+	   	$('#startDate').focus();
+	});
+	
+	$('.cal_end').bind('click', function(){	
+	   	$('#endDate').focus();
+	});
+	
 	// dateTimePicker 한글화
 	$.datetimepicker.setLocale('ko');
 	// dateTimePicker moment.js와 연동
@@ -65,7 +73,7 @@ $(document).ready(function(){
 	$(function(){
 	    // datetimepicker init
 	    $('.datetimepicker').datetimepicker({
-	          format:'YYYY-MM-DD HH:mm:ss',
+	          format:'YYYY-MM-DD HH:mm',
 	          formatTime:'HH:mm',
 	          formatDate:'YYYY-MM-DD'
 	    });
@@ -238,8 +246,8 @@ th, td {
 					<!-- textarea name="content" class="text_area"></textarea-->
 					<textarea id="etc_id" name="contents" class="text_area"></textarea>
 
-					<a href="" class="cal_start"></a>
-					<a href="" class="cal_end"></a>
+					<div class="cal_start"></div>
+					<div class="cal_end"></div>
 
 					<!-- input type="submit" name="OK" class="input_submit inBtt_OK" value="일정등록하기"-->
 					<input type="button" id="edit_update_btn" name="OK" class="input_submit inBtt_OK" value="일정등록하기"></input>

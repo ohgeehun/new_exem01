@@ -258,12 +258,16 @@
 						<isEqual property="selectBtnVal" compareValue="2"> 
 							and xp.project_name like '%' || #selectTextVal# || '%'
 						</isEqual>
-						<!-- 검색조건이 고객명 -->
+						<!-- 검색조건이 제품(업무)명 -->
 						<isEqual property="selectBtnVal" compareValue="3"> 
+							and xp.project_name like '%' || #selectTextVal# || '%'
+						</isEqual>
+						<!-- 검색조건이 고객명 -->
+						<isEqual property="selectBtnVal" compareValue="4"> 
 							and xcm.cususer_name like '%' || #selectTextVal# || '%'
 						</isEqual>
 						 <!-- 검색조건이 영업대표명-->
-						<isEqual property="selectBtnVal" compareValue="4">
+						<isEqual property="selectBtnVal" compareValue="5">
 							and xpd.salesman_id in (select user_id from xm_member where user_name like '%' || #selectTextVal# || '%')
 						</isEqual>
 					</isNotEmpty>
