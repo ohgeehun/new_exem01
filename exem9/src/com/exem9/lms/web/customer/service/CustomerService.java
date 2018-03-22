@@ -475,13 +475,13 @@ public class CustomerService implements ICustomerService{
 		return iCustomerDao.getprodbmsManagedcheck(params);
 	}
 
-	public List<CustomerMemberBean> getprodbmsmemberinfo(String cusNm,
-			String proNm, String dbmsId, String cususerNm) throws Throwable {
+	public List<CustomerMemberBean> getprodbmsmemberinfo(String cusId,
+			String proId, String dbmsId, String cususerNm) throws Throwable {
 		
 		HashMap params = new HashMap();
-		params.put("cusNm", cusNm);
-		params.put("proNm", proNm);
-		params.put("dbmsId",Integer.parseInt(dbmsId));
+		params.put("cusId", Integer.parseInt(cusId));
+/*		params.put("proId", Integer.parseInt(proId));
+		params.put("dbmsId",Integer.parseInt(dbmsId));*/
 		params.put("cususerNm",cususerNm);
 		
 		return iCustomerDao.getprodbmsmemberinfo(params);
@@ -698,6 +698,7 @@ public class CustomerService implements ICustomerService{
 				iCustomerDao.insertCus(params); 
 				// 등록된 고객사 정보 조회
 				cusId = (Integer) iCustomerDao.getInsertedCusId(params); // 신규 등록후 고객사ID 값 반환
+				result = "SUCCESS";
 			}
 			//System.out.println("cusId : " + cusId);
 			params.put("cusId", cusId);
@@ -707,13 +708,17 @@ public class CustomerService implements ICustomerService{
 				// 프로젝트 신규등록
 				iCustomerDao.insertProj(params);
 				pjtId = (Integer) iCustomerDao.getInsertedPjtId(params); // 신규 등록후 프로젝트ID 값 반환
+				result = "SUCCESS";
 			}
 //			System.out.println("----------------------------------pjtId: "+pjtId);
 			params.put("pjtId", pjtId);
 			
 			// 담당영업등록 (고객사/프로젝트/업무) 1명. 담당영업이 기 등록되어 있지 않을 때만 등록
 			String registeredSalesmanId = iCustomerDao.getSalesmanId(params); // 담당영업사원 등록여부 확인
-			if( registeredSalesmanId == null) 	iCustomerDao.insertSalesman(params);
+			if( registeredSalesmanId == null) 	{
+				iCustomerDao.insertSalesman(params);
+				result = "SUCCESS";
+			}
 			
 			// 고객담당자 등록 (고객사/프로젝트/업무) 여러명, 무조건 같은 사람이 있어도 추가 등록
 			// 고객담당자 정보가 등록되어 있을때만 추가할 것
@@ -722,9 +727,10 @@ public class CustomerService implements ICustomerService{
 				Integer cusmemberId = iCustomerDao.getInsertedCusmemberId(params); // 해당고객사의 기 등록된 담당자 ID값 반환
 				params.put("cusmemberId", cusmemberId);
 				iCustomerDao.insertPjtDbmsCusmember(params);
+				result = "SUCCESS";
 			}
-			
 			this.transactionManager.commit(status);
+			
 		} catch(Exception e) {
 			
 			this.transactionManager.rollback(status);
@@ -732,10 +738,16 @@ public class CustomerService implements ICustomerService{
 			 //throw new Exception("Transaction2: ");
              //TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
              return result;
-		}
-		
-		result = "SUCCESS";
+		}	
+	
 		return 	result;
+	}
+
+	public List<CustomerBean> getProinfo(String cusNm) throws Throwable {
+		HashMap params = new HashMap();
+		params.put("cusNm",cusNm);
+		
+		return iCustomerDao.getProinfo(params);
 	}
 }
 

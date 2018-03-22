@@ -55,7 +55,7 @@ $(document).ready(function(){
 	$("#test_Btn").bind("click", function(){
 		 var cusId = $("#cusName_hidden_id").val();
 		 
-		cusmemberinfo_popup("고객담당자 등록 페이지", cusId);
+		cusmemberinfo_popup("고객담당자 관리 페이지", cusId);
 	});
 	
 	/* 유지보스 등록 버튼 이벤트 */
@@ -64,7 +64,7 @@ $(document).ready(function(){
     	var proNm = $("#cusproName_id").val();
     	var dbmsId = $("#dbms_select_id").val();    	
     	var dbmsVersion = $("#dbmsVer_id").val();
-    	var cusUserNm = $("#cusUser_id").val();
+    	var cusUserId = $("#cusUser_select_id").val();
     	var salesmanId =$("#salesman_select_id").val();
     	var user1Id = $("#user1_select_id").val();
     	var user2Id = $("#user2_select_id").val();
@@ -75,8 +75,8 @@ $(document).ready(function(){
         var supoendDatae = $("#supo_end_date_id").val();
         var etc = $("#etc_id").val();
 	
-        /*
-        alert(cusNm);
+        
+  /*       alert(cusNm);
         alert(proNm);
     	alert(dbmsId);
     	alert(dbmsVersion);
@@ -89,8 +89,8 @@ $(document).ready(function(){
     	alert(supostateDate);
     	alert(supoendDatae);
     	alert(etc);
-    	*/
-    	
+    	 */
+
      	if(proNm == ""){     		
      		alert("프로젝트명을 선택하세요.");	   		
      	}else{
@@ -100,15 +100,18 @@ $(document).ready(function(){
      			if(salesmanId == "0"){
      				alert("담당영업을 선택하세요.");
      			}else{
-     				//if(user1Id == "0"){
-     				//	alert("담당엔지니어를 선택하세요.");
-     				//}else{     				
+     				if(user1Id == "0"){
+     					alert("담당엔지니어를 선택하세요.");
+     				}else{     	
+     					if(supoLeverId == "0"){
+         					alert("MA 현 상태를 선택하세요.");
+         				}else{     				
      					
-     					IMatService.insertMatinfo(cusNm, proNm, dbmsId, dbmsVersion, cusUserNm, salesmanId,
-     											user1Id, user2Id, supoLeverId, supoVisitId, supoinstallData,
-     											supostateDate, supoendDatae, etc, insertMatinfoCallBack);
-     					
-     				//}
+     						IMatService.insertMatinfo(cusNm, proNm, dbmsId, dbmsVersion, cusUserId, salesmanId,
+     													user1Id, user2Id, supoLeverId, supoVisitId, supoinstallData,
+     													supostateDate, supoendDatae, etc, insertMatinfoCallBack);
+         				}
+     				}
      			}     		
      		}     	
      	}     	
@@ -257,7 +260,7 @@ function cusNminfoCallBack(res){
         			$("#dbms_select_id").val("0");	
         			$("#dbms_select_id").val("0").prop("selected", true);
         			
-       			    ICustomerService.getcusNmProinfo(cusNm,"", cusNmProinfoCallBack);	           			   
+       			    ICustomerService.getProinfo(cusNm, cusNmProinfoCallBack);	           			   
         	   	}
 	        }
     }); 	
@@ -582,7 +585,7 @@ th, td {
 			 <ul>
 					<li class="input_title input_01 inputTxtFont">고객사명*</li>
 					<li class="input_title input_02 inputTxtFont">프로젝트명*</li>
-					<li class="input_title input_03 inputTxtFont">업무명*</li>
+					<li class="input_title input_03 inputTxtFont">제품 구분*</li>
 					<li class="input_title input_04 inputTxtFont">제품 버전</li>
 					<li class="input_title input_05 inputTxtFont">고객담당자</li>
 					<li class="input_title input_06 inputTxtFont">담당영업*</li>
@@ -606,6 +609,7 @@ th, td {
 							<input id="cusproName_id"/>										
 						</div>
 						
+						
 							<select id="dbms_select_id" class="input_txt input_03 inputTxtFont sui-input" disabled="disabled">
 								<option value="0" selected>지정하지 않음.</option>
 							    <c:forEach var="dl" items="${dbms_list}">
@@ -615,12 +619,12 @@ th, td {
 									
 						<input type="text" id='dbmsVer_id' value="" class="input_txt input_04 inputTxtFont sui-input">												
 							
-						<div class="input_txt input_05 inputTxtFont sui-input">
-							<select id='cusUser_select_id' >
+					<!-- 	<div class="input_txt input_05 inputTxtFont sui-input"> -->
+							<select id='cusUser_select_id' class="input_txt input_05 inputTxtFont sui-input" >
 								<option value="0" selected>지정하지 않음.</option>							    	
 							</select>
-							<button id="test_Btn">test</button>
-						</div>						
+							<!-- <button id="test_Btn">test</button> -->
+						<!-- </div>						 -->
 					<!-- 	<input type="text" id='cusUser_id' value="" readonly="readonly" class="input_txt input_05 inputTxtFont sui-input">	 -->												
 					
 							<select id='salesman_select_id' class="input_txt input_06 inputTxtFont sui-input">
@@ -664,7 +668,7 @@ th, td {
 				 	    		</c:forEach>	
 							</select>
 						
-						    <select id='supo_state_select_id' class="input_txt input_13 inputTxtFont sui-input">
+						    <select id='supo_state_select_id' class="input_txt input_13 inputTxtFont sui-input" disabled="disabled">
 								<option value="0" selected>지정하지 않음.</option>
 							    <c:forEach var="svl" items="${supo_visit_list}">
 				 	    			<option value="${svl.supoVisitId}">${svl.supoVisitNm}</option>		 	    	

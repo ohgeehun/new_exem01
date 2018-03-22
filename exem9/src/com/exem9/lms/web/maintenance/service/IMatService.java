@@ -33,7 +33,7 @@ public interface IMatService {
 	
 	/*유지보수 등록  이벤트*/
 	public String insertMatinfo(String cusNm, String proNm, String dbmsId,
-								String dbmsVersion, String cusUserNm, String salesmanId,
+								String dbmsVersion, String cusUserId, String salesmanId,
 								String user1Id, String user2Id, String supoLeverId,
 								String supoVisitId, String supoinstallData, String supostateDate,
 								String supoendDatae, String etc) throws Throwable ;

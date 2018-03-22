@@ -25,7 +25,11 @@
 	</resultMap>			   
 	
 	<update id="insertMatinfo" parameterClass="java.util.HashMap">
-	insert into xm_maintenance (maintenance_id, customer_id, project_id, dbms_id, dbms_version, salesman_id, user1_id, user2_id, support_level_id, support_visit_id, 
+	insert into xm_maintenance (maintenance_id, customer_id, project_id, dbms_id, dbms_version, salesman_id, user1_id, 
+								<isNotEmpty property="user2Id">
+								user2_id, 
+								</isNotEmpty>
+								support_level_id, support_visit_id, 
 								<isNotEmpty property="supoinstallData">
 								support_install_date,
 								</isNotEmpty>								
@@ -47,7 +51,11 @@
 										and p.project_name = #proNm# 
 								), 
 											  #dbmsId#, #dbmsVersion#, 
-			                                  #salesmanId#, #user1Id#, #user2Id#, #supoLeverId#, #supoVisitId#,
+			                                  #salesmanId#, #user1Id#, 
+			                                  <isNotEmpty property="user2Id">
+			                                  #user2Id#, 
+			                                  </isNotEmpty>
+			                                  #supoLeverId#, #supoVisitId#,
 			                                  <isNotEmpty property="supoinstallData">
 			                                  #supoinstallData#::date, 
 			                                  </isNotEmpty>
@@ -61,8 +69,18 @@
 			                                  current_date::date, null, null)          
 	</update>
 	
-	<update id="insertMatinfo1" parameterClass="java.util.HashMap">
-	insert into xm_maintenance_cusmember values(1,37)      
+	<select id="getmatIdinfo" parameterClass="java.util.HashMap" resultClass="Integer">
+		select max(maintenance_id)
+		from xm_maintenance 
+		<!-- 
+		select cususer_id
+		from xm_customer_member 
+		where cususer_name = #cususerNm#
+		--> 
+	</select>
+	
+	<update id="insertMatCusinfo" parameterClass="java.util.HashMap">
+	insert into xm_maintenance_cusmember values(#matId#,#cusUserId#)      
 	</update>
 	
 	<select id="getmatinfo" parameterClass="java.util.HashMap" resultMap="MatMap">

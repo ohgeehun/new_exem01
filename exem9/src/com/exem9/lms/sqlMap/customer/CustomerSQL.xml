@@ -592,14 +592,29 @@
 	order by customer_name asc
 	</select>
 	
+	<select id="getProinfo" parameterClass="java.util.HashMap" resultClass="customerBean">
+	select xp.project_id as proId,
+	       xp.project_name as proNm,
+	       xc.customer_id as cusId,
+	       xc.customer_location as cusLoca
+	from xm_customer xc inner join xm_project xp
+	on xc.customer_id = xp.customer_id	
+	where xc.customer_name  = #cusNm#
+	</select>
+	
 	<select id="getcusNmProinfo" parameterClass="java.util.HashMap" resultClass="customerBean">
 	select xp.project_id as proId,
        xp.project_name as proNm,
        xc.customer_id as cusId,
        xc.customer_location as cusLoca,
-       xc.salesman_id as salseId   
+       pd.salesman_id as salseId   
 	from xm_customer xc inner join xm_project xp
 	on xc.customer_id = xp.customer_id
+	
+	inner join xm_project_dbms pd
+	on xc.customer_id = pd.customer_id
+	and xp.project_id = pd.project_id
+	
 	where xc.customer_name  = #cusNm#
 	<isNotEmpty property="cusProNm">
 	and xp.project_name = #cusProNm#
@@ -776,8 +791,15 @@
 	from xm_project_dbms_cusmember xpdc, xm_customer_member xcm
 	where xpdc.cususer_id = xcm.cususer_id
 	and xpdc.customer_id = #cusId#
+	<isNotEmpty property="proId">
 	and xpdc.project_id = #proId#
+	</isNotEmpty>
+	<isNotEmpty property="dbmsId">
 	and xpdc.dbms_id = #dbmsId#	
+	</isNotEmpty>
+	<isNotEmpty property="cususerNm">
+	and xcm.cususer_name = #cususerNm#	
+	</isNotEmpty>
 	order by xpdc.cususer_id asc
 	</select>
 	
@@ -915,7 +937,7 @@
 		 	, salesman_id
 	 	</isNotEmpty>
 	 ) 	 
-	    VALUES( #cusId#, #pjtId#, #newDbmsId#
+	    VALUES( #cusId#, #pjtId#, #dbmsId#
 	    <isNotEmpty property="salesmanId">
 	     	,#salesmanId# )
 	     </isNotEmpty>        			                 

@@ -11,6 +11,9 @@ import org.directwebremoting.WebContextFactory;
 import org.directwebremoting.annotations.RemoteProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
+import org.springframework.transaction.PlatformTransactionManager;
 
 import com.exem9.lms.common.CommonProperties;
 import com.exem9.lms.web.common.bean.LineBoardBean;
@@ -50,6 +53,9 @@ public class MatService implements IMatService{
 	
 	@Autowired
 	public IDbmsDao iDbmsDao;
+	
+	@Autowired
+	private PlatformTransactionManager transactionManager;
 	
 	public List<SupoBean> getSupolevel() throws Throwable {
 		// TODO Auto-generated method stub
@@ -110,23 +116,28 @@ public class MatService implements IMatService{
 	}
 
 	public String insertMatinfo(String cusNm, String proNm, String dbmsId,
-			String dbmsVersion, String cusUserNm, String salesmanId,
+			String dbmsVersion, String cusUserId, String salesmanId,
 			String user1Id, String user2Id, String supoLeverId,
 			String supoVisitId, String supoinstallData, String supostateDate,
 			String supoendDatae, String etc) throws Throwable {
+
+		String result = "FAILED";
 		
 		WebContext wctx = WebContextFactory.get();
 		HttpServletRequest request = wctx.getHttpServletRequest();
 		HttpSession session = request.getSession();	
-		
+				
 		HashMap params = new HashMap();
 		params.put("cusNm",cusNm);
 		params.put("proNm",proNm);
 		params.put("dbmsId",Integer.parseInt(dbmsId));
 		params.put("dbmsVersion",dbmsVersion);
-		params.put("cusUserNm",cusUserNm);
+		params.put("cusUserId",Integer.parseInt(cusUserId));
 		params.put("salesmanId",salesmanId);
 		params.put("user1Id",user1Id);
+		if(user2Id.equals("0")){
+			user2Id = null;
+		}
 		params.put("user2Id",user2Id);
 		params.put("supoLeverId",Integer.parseInt(supoLeverId));
 		params.put("supoVisitId",Integer.parseInt(supoVisitId));
@@ -136,7 +147,32 @@ public class MatService implements IMatService{
 		params.put("etc",etc);
 		params.put("userId", (String)session.getAttribute("sUserId"));
 		
-		return iMatDao.insertMatinfo(params);
+		TransactionStatus status = this.transactionManager.getTransaction(new DefaultTransactionDefinition() );
+		
+		try{
+			iMatDao.insertMatinfo(params);
+			
+			Integer matId = (Integer) iMatDao.getInsertedMatId(params); // 신규 등록후 고객사ID 값 반환
+					
+			params.put("matId", matId);
+
+			if(matId != null){
+				iMatDao.insertMatCusinfo(params);
+			}					
+			
+			this.transactionManager.commit(status);
+			
+		} catch(Exception e) {
+			
+			this.transactionManager.rollback(status);
+			e.printStackTrace();
+			 //throw new Exception("Transaction2: ");
+             //TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+             return result;
+		}
+		
+		result = "SUCCESS";
+		return 	result;
 	}
 
 		public List<MatBean> getmatinfo(String selectBtnVal, String selectTextVal, int pageNo) throws Throwable {

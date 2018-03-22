@@ -71,6 +71,8 @@ public interface ICustomerService {
 	/*선택된고객사에 등록된 프로젝트명 가져오기 이벤트*/
 	public List<CustomerBean> getcusNmProinfo(String cusNm, String cusProNm)throws Throwable ;
 	
+	public List<CustomerBean> getProinfo(String cusNm)throws Throwable ;
+	
 	/*선택된고객사에 등록된 담당자명 가져오기 이벤트*/
 	public List<CustomerBean> getcusNmUserinfo(String cusNm)throws Throwable ;
 	
@@ -98,7 +100,7 @@ public interface ICustomerService {
 	
 	public List<CustomerMemberBean> getprodbmsManagedcheck(String cusNm, String proNm, String dbmsId)throws Throwable ;
 	
-	public List<CustomerMemberBean> getprodbmsmemberinfo(String cusNm, String proNm, String dbmsId, String cususerNm)throws Throwable ;
+	public List<CustomerMemberBean> getprodbmsmemberinfo(String cusId, String proId, String dbmsId, String cususerNm)throws Throwable ;
 	
 	// 고객사 담당자 정보 삭제
 	public String deleteCusmemberinfo(String chkId) throws Throwable ;

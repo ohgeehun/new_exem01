@@ -43,23 +43,24 @@ $(document).ready(function(){
 	    });
 	 
 	/* 체크박스 이벤트 */
-	/*
+	
 	$("#chk_id").click(function(){
 		var cusNm = $("#cusName_id").val();
         //클릭되었으면
         if($("#chk_id").prop("checked")){
           
             $("#cusproName_id").swidget().destroy();			
-			$("#cusproName_id").val($("#cusName_id").val());
-			$("#cusproName_id").prop("disabled",true);	
+			$("#cusproName_id").val(cusNm);
 			
+		
+			$("#cusproName_id").prop("disabled",true);	
 			$("#dbms_select_id").prop("disabled",false);	
 						
         }else{         	
         	$("#cusproName_id").val("");
         	$("#cusNm_hidden_id").val("0");	   
         	$("#dbms_select_id").prop("disabled",true);	
-        	ICustomerService.getcusNmProinfo(cusNm,"", cusNmProinfoCallBack);	
+        	ICustomerService.getProinfo(cusNm,cusNmProinfoCallBack);	
         }
     });
 	
@@ -84,16 +85,16 @@ $(document).ready(function(){
         },        	        
         enabled: false
 	});  
-	*/
-	/*
-	$("#dbms_select_id").change(function (){
+	
+	
+    $("#dbms_select_id").change(function (){
 		var dbmsId = $("#dbms_select_id").val();	
 		
 		if(dbmsId > 0){	
-			var cusNm = $("#cusName_id").val();
+			var cusId = $("#cusName_hidden_id").val();
 			var proNm = $("#cusproName_id").val();			
-			ICustomerService.getprodbmsManagedinfo(cusNm, getprodbmsManagedinfoCallBack);
-			ICustomerService.getprodbmsManagedcheck(cusNm,proNm, dbmsId, getprodbmsManagedcheckCallBack);
+			ICustomerService.getprodbmsmemberinfo(cusId, getprodbmsManagedinfoCallBack);
+		/* 	ICustomerService.getprodbmsManagedcheck(cusNm,proNm, dbmsId, getprodbmsManagedcheckCallBack); */
 		}else{			
 			$("#cusNm_id").swidget().destroy();
 			$("#cusNm_id").shieldComboBox({
@@ -103,11 +104,11 @@ $(document).ready(function(){
 		        enabled: false
 			});  			
 		}	
-	});
-	*/
+	}); 
+	
 	
 	// 제품구분 선택 시
-	$("#dbms_select_id").change(function (){
+/* 	$("#dbms_select_id").change(function (){
 		var dbmsId = $("#dbms_select_id").val();	
 		
 		if(dbmsId > 0){	
@@ -124,7 +125,7 @@ $(document).ready(function(){
 	    	$("#salesman_select_id").val(0);
 	    	$("#salesman_select_id").attr('disabled','disabled');
 		}	
-	});
+	}); */
 	
 	/* 고객사 등록 버튼 이벤트 */
     $("#edit_update_btn").bind("click", function(){   	
@@ -182,11 +183,11 @@ $(document).ready(function(){
     });
 	
     /* 고객사 등록 시 기존 고객사명 리스트를 가져오는 이벤트 */
-    //ICustomerService.getcusNminfo(cusNminfoCallBack);
+    ICustomerService.getcusNminfo(cusNminfoCallBack);
     
 });  
 
-/*
+
 function cusNminfoCallBack(res){
 	var availableTags = [];
 	
@@ -203,7 +204,7 @@ function cusNminfoCallBack(res){
 	        autoComplete: {
 	            enabled: true
 	        },events: {
-	        	blur : function(e){   	        		
+	        	select : function(e){   	        		
 	        		
      				var cusNmtemp =  $("#cusName_id").swidget().value();
      				var cusNm = cusNmtemp.toUpperCase();
@@ -234,8 +235,9 @@ function cusNminfoCallBack(res){
      			    $("#etc_id").val('');
      		       
      		        $("#chk_id").attr("checked", false);
-     		        
-    			    ICustomerService.getcusNmProinfo(cusNm,"", cusNmProinfoCallBack);	           			   
+     		        $("#chk_id").prop("disabled",false);
+     		       
+    			    ICustomerService.getProinfo(cusNm, cusNmProinfoCallBack);	           			   
      	   		}
 	        }
  	}); 	
@@ -251,8 +253,8 @@ function cusNmProinfoCallBack(res){
 		
 		for(var i = 0; i < res.length; i++){			
 			availableTags.push(res[i].proNm);			
-			
-		    $("#cusName_hidden_id").val(res[i].cusId); 
+		
+	        $("#cusName_hidden_id").val(res[i].cusId);  
 			$("#cuslocation_id").val(res[i].cusLoca);			
 			
 		}
@@ -266,7 +268,7 @@ function cusNmProinfoCallBack(res){
 		        autoComplete: {
 		            enabled: true
 		        },events: {
-		        	blur : function(e){   
+		        	select : function(e){   
 		        	var cusNm = $("#cusName_id").val();
 		        	var proNmtemp =  $("#cusproName_id").swidget().value();
      				var proNm = proNmtemp.toUpperCase();     				
@@ -327,7 +329,7 @@ function cusNmProinfoCallBack(res){
             },        	        
             enabled: true,
             events: {
-            	blur : function(e){   
+            	select : function(e){   
             		var cusNm = $("#cusName_id").val();
             		var proNmtemp =  $("#cusproName_id").swidget().value();
      				var proNm = proNmtemp.toUpperCase();
@@ -363,7 +365,7 @@ function getCusProCheckCallBack(res){
 
 }
 
-function getprodbmsManagedcheckCallBack(res){
+/* function getprodbmsManagedcheckCallBack(res){
 	if(res.length > 0){
 		for(var i = 0; i < res.length; i++){	
 			 $("#dbmsNm_hidden_id").val(res[i].dbmsId); 
@@ -372,17 +374,16 @@ function getprodbmsManagedcheckCallBack(res){
 		  $("#dbmsNm_hidden_id").val("0");	        
 	}
 
-}
+} */
 
 function getprodbmsmemberinfoCallBack(res){
 	if(res.length > 0){
 		for(var i = 0; i < res.length; i++){	
+			alert(res[i].cususerId);
 			 $("#cusNm_hidden_id").val(res[i].cususerId);
 			 $("#cusPhone_id").val(res[i].cususerPhone);
 			 $("#cusMail_id").val(res[i].cususerMail);			 
-		}
-		
-		
+		}		
 	}else{
 		  $("#cusNm_hidden_id").val("0");	
 		  $("#cusPhone_id").val('');
@@ -441,7 +442,7 @@ function removeChar(event) {
 	else
 		event.target.value = event.target.value.replace(/[^0-9]/g, "");
 }
-*/
+
 
 function insertCusinfoCallBack(res){
 	if(res == "FAILED"){
@@ -475,14 +476,15 @@ function getprodbmsManagedinfoCallBack(res){
 		        autoComplete: {
 		            enabled: true
 		        },events: {
-		        	blur : function(e){   
-		        		var cusNm = $("#cusName_id").val();
-		    			var proNm = $("#cusproName_id").val();		
+		        	select : function(e){   
+		        		var cusId = $("#cusName_hidden_id").val();
+		    			var proId = $("#cusPro_hidden_id").val();		
 		    			var dbmsId = $("#dbms_select_id").val();
 		        		var cususerNm =  $("#cusNm_id").swidget().value();
-		        		$("#cusNm_id").val(cususerNm);
-						
-		        		ICustomerService.getprodbmsmemberinfo(cusNm, proNm, dbmsId, cususerNm, getprodbmsmemberinfoCallBack);
+		        		
+		        		$("#cusNm_id").val(cususerNm);		        		
+		        		
+		        		ICustomerService.getprodbmsmemberinfo(cusId, "", "", cususerNm, getprodbmsmemberinfoCallBack);
        			   
 	  	   			}
 		        }
@@ -499,14 +501,14 @@ function getprodbmsManagedinfoCallBack(res){
             },        	        
             enabled: true,
             events: {
-            	blur : function(e){
-            		var cusNm = $("#cusName_id").val();
-	    			var proNm = $("#cusproName_id").val();		
+            	select : function(e){
+            		var cusId = $("#cusName_hidden_id").val();
+	    			var proId = $("#cusPro_hidden_id").val();		
 	    			var dbmsId = $("#dbms_select_id").val();
             		var cususerNm =  $("#cusNm_id").swidget().value();
             		$("#cusNm_id").val(cususerNm);
             		
-            		ICustomerService.getprodbmsmemberinfo(cusNm, proNm, dbmsId, cususerNm, getprodbmsmemberinfoCallBack);
+            		ICustomerService.getprodbmsmemberinfo(cusId, "", "", cususerNm, getprodbmsmemberinfoCallBack);
 	        	}
             }
     	}); 
@@ -559,20 +561,21 @@ function getprodbmsManagedinfoCallBack(res){
 				<li class="input_title input_09 inputTxtFont">비고</li>				
 			</ul>
 						
-				<div>	
-					<input type="hidden" id="cusName_hidden_id">
+				<div class="input_txt_01 input_01 inputTxtFont">	
+					<input type="hidden" id="cusName_hidden_id"> 
 					<!-- <input class="sui-input" id='cusName_id' value=""  style='text-transform: uppercase' onblur="onblur_event();"></input> -->
-					<input  id='cusName_id' class="input_txt input_01 inputTxtFont"></input>
+					<input id='cusName_id'></input>
 					<!-- <span id="idSpan" class="redText"></span> -->			
 				</div>
-				
-				<div>	
-					<input type="hidden" id="cusPro_hidden_id">
-					<input id='cusproName_id'  class="input_txt input_02 inputTxtFont">	
+						
+				<div class="input_txt_01 input_02 inputTxtFont">	
+					<input type="hidden" id="cusPro_hidden_id"> 
+					<input class="input_txt_03 input_02_01 inputTxtFont sui-input"  id='cusproName_id' >	
 				</div>	
-				
-	
-				<input type="hidden" id="dbmsNm_hidden_id">
+				<div class="input_title_01 input_02 inputTxtFont">
+					<input id="chk_id" type="checkbox" disabled="disabled"/> 고객사명과 동일
+				</div>
+				<!-- <input type="hidden" id="dbmsNm_hidden_id"> -->
 				<select class="input_txt input_03 inputTxtFont" id='dbms_select_id'>
 					<!-- <option value="0" selected>지정하지않음.</option> -->
 				    <c:forEach var="dl" items="${dbms_list}">					    	   
@@ -587,19 +590,19 @@ function getprodbmsManagedinfoCallBack(res){
 	 	    		</c:forEach>	
 				</select>				
 				
-				<div>	
-					<input type="hidden" id="cusNm_hidden_id">
-					<input id='cusNm_id'  class="input_txt input_04 inputTxtFont" disabled="true">
+				<div  class="input_txt_01 input_04 inputTxtFont">	
+					<!-- <input type="hidden" id="cusNm_hidden_id"> -->
+					<input id='cusNm_id'  disabled="true">
 				</div>
 				
 				<!-- input class="input_txt input_05 inputTxtFont" type='text' id='cusPhone_id' onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' style='ime-mode:disabled;'-->
-				<input class="input_txt input_05 inputTxtFont" type='text' id='cusPhone_id' disabled="true">
+				<input class="input_txt input_05 inputTxtFont" type='text' id='cusPhone_id'>
 				
-				<input class="input_txt input_06 inputTxtFont" type='text' id='cusMail_id' disabled="true">
+				<input class="input_txt input_06 inputTxtFont" type='text' id='cusMail_id'>
 				
 				<input class="input_txt input_07 inputTxtFont" type='text' id='cuslocation_id'>				
 				
-				<select class="input_txt input_08 inputTxtFont" id='salesman_select_id' disabled="true">
+				<select class="input_txt input_08 inputTxtFont" id='salesman_select_id'>
 					<option value="0" selected>지정하지않음.</option>
 					 <c:forEach var="sl" items="${salseman_list}">
 					    	<option value="${sl.userId}">${sl.userNm}</option>		 	    			 	    	

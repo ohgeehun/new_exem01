@@ -507,6 +507,11 @@ public class CustomerDao implements ICustomerDao{
 		String salesmanId = (String) sqlMapClient.queryForObject("customer.getSalesmanId", params);
 		return  salesmanId;
 	}
+
+	public List<CustomerBean> getProinfo(HashMap params) throws Throwable {
+		// TODO Auto-generated method stub
+		return sqlMapClient.queryForList("customer.getProinfo", params);
+	}
 }
 	
 

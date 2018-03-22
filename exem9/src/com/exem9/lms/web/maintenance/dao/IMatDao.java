@@ -9,7 +9,7 @@ import com.exem9.lms.web.maintenance.bean.MatBean;
 
 public interface IMatDao {
 
-	public String insertMatinfo(HashMap params) throws Throwable;
+	public void insertMatinfo(HashMap params) throws Throwable;
 
 	public List<MatBean> getmatinfo(HashMap params) throws Throwable;
 
@@ -18,5 +18,9 @@ public interface IMatDao {
 	public String deleteMatinfo(HashMap params) throws Throwable;
 
 	public String updateMatinfo(HashMap params) throws Throwable;
+
+	public Integer getInsertedMatId(HashMap params)throws Throwable;
+
+	public void insertMatCusinfo(HashMap params) throws Throwable;
 
 }

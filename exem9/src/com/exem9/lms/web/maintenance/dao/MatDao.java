@@ -21,32 +21,20 @@ public class MatDao implements IMatDao{
 	public SqlMapClient sqlMapClient;
 
 	
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public String insertMatinfo(HashMap params)throws Throwable {
-		String result = "FAILED";
-		
-		sqlMapClient.startTransaction();
-		sqlMapClient.getCurrentConnection().setAutoCommit(false);		
-		try{
-			if(sqlMapClient.update("maintenance.insertMatinfo", params) > 0){
-				
-				/*if(sqlMapClient.update("maintenance.insertMatinfo1", params) > 0){*/
-					result = "SUCCESS";								
-					sqlMapClient.commitTransaction();
-					sqlMapClient .getCurrentConnection().commit();
-				/*}					*/
-			}	
-		}catch(Exception e){
-			result = "FAILED";
-			System.out.println(e);
-			
-		}finally{			
-			sqlMapClient.endTransaction();			
-		}
-		
-		return result;		
+	/*@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)*/
+	public void insertMatinfo(HashMap params)throws Throwable {
+
+		if( sqlMapClient.update("maintenance.insertMatinfo", params) <= 0 ) {
+			throw new Exception("transction: maintenance insert Error");
+		}		
 	}
 
+	public void insertMatCusinfo(HashMap params) throws Throwable {
+		if( sqlMapClient.update("maintenance.insertMatCusinfo", params) <= 0 ) {
+			throw new Exception("transction: maintenance_cusmember insert Error");
+		}			
+	}
+	
 	public List<MatBean> getmatinfo(HashMap params) throws Throwable {
 		// TODO Auto-generated method stub
 		return sqlMapClient.queryForList("maintenance.getmatinfo", params);
@@ -77,6 +65,11 @@ public class MatDao implements IMatDao{
 			result = "SUCCESS";
 		}
 		return result;
+	}
+
+	public Integer getInsertedMatId(HashMap params) throws Throwable {
+		// TODO Auto-generated method stub
+		return (Integer) sqlMapClient.queryForObject("maintenance.getmatIdinfo", params);
 	}
 
 }

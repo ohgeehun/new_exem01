@@ -420,6 +420,16 @@ A:hover  { color:#000;text-decoration:none;}
 	color:#777;
 }
 
+.input_title_01 {
+	position:absolute; 
+	border:0px; 
+	height:36px;
+	padding:1px;
+	left:770px;
+	text-align:left;
+	color:#777;
+}
+
 .input_txt {
 	position:absolute; 
 	border:1px solid #d1cece; 
@@ -435,6 +445,24 @@ A:hover  { color:#000;text-decoration:none;}
 	padding:1px;
 	left:470px;
 }
+
+
+.input_txt_03 {
+	position:absolute; 
+	/* border:1px solid #d1cece; */ 
+	/* height:38px; */
+	padding:1px;
+	left:8px;
+}
+
+
+/* input_txt_01_1{
+	position:absolute; 
+	border:1px solid #d1cece; 
+	height:38px;
+	padding:1px;
+	left:970px;
+} */
 
 .input_txt_02 {
 	position:absolute; 
@@ -472,6 +500,10 @@ A:hover  { color:#000;text-decoration:none;}
 .input_02 {
 	width:290px;
 	top:96px;
+}
+.input_02_01 {
+	width:290px;
+	top:0px;
 }
 .input_03 {
 	width:290px;
