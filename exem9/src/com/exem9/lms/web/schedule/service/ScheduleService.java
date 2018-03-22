@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -110,28 +111,48 @@ public class ScheduleService implements IScheduleService{
 		
 		try {
 			if( diffDays >= 1 ){ //시작일과 종료일이 다르면, 날짜별로 쪼개서 insert
+				String calStartDate = start_time;
+				String calEndDate = end_time;
 				for(long i = 0 ; i <= diffDays ; i++) {
-					String calDate = doDateAdd(start_time);  // 하루하루씩 증가시키면서 입력 필요
-					if(i !=0 ) start_time = getDate(calDate, true);  // 시작날짜 시작시각값 계산
-					else start_time = calDate;
-					if ( i != diffDays ) end_time =  getDate(calDate, false); // 종료날짜시각값 계산
-					else end_time = calDate;
+					if(i !=0 ) calStartDate = getDate(calStartDate, true);  // 시작날짜 시작시각값 계산, 9:00고정, 단, 종료일종료시간이 9:00보다작으면, 종료일종료시간으로
+					else {
+						calStartDate = start_time+":00";  // 첫날은 시작시간
+					}
+					if ( i != diffDays ) calEndDate =  getDate(calStartDate, false); // 종료날짜시각값 계산, 18:00 고정, 단, 시작일시작시간이 18:00시보다크면, 시작일시작시간으로
+					else {
+						calEndDate = end_time+":00";   // 마지막날은 끝나는 시간,
+						String tempStrEndtime = end_time.substring(11, 13);
+						String replaceEndtime = end_time.substring(11, 16);
+						int tempEndtime = Integer.parseInt( tempStrEndtime );
+						if( tempEndtime < 9 ) calStartDate = calStartDate.replace(" 09:00:00", " "+replaceEndtime+":00")  ;  // 종료일종료시간이 9:00보다작으면, start_time을 종료일종료시간으로 수정
+					}
+					if (i == 0 ) {
+						String tempStrStarttime = start_time.substring(11, 13);
+						String replaceStarttime = start_time.substring(11, 16);
+						int tempStarttime = Integer.parseInt( tempStrStarttime );
+						if( tempStarttime > 18 ) calEndDate = calEndDate.replace(" 18:00:00", " "+replaceStarttime+":00")  ;  // 시작일시작시간이 18:00시보다크면, end_time을 시작일시작시간으로 수정
+					}
 					
-					params.put("start_time",start_time);
-					params.put("end_time",end_time);
+//					System.out.println("------------------------------------------------------ start_time: " + calStartDate);
+//					System.out.println("------------------------------------------------------ end_time: " + calEndDate);
+					
+					params.put("start_time",calStartDate);
+					params.put("end_time",calEndDate);
 					
 					iSchDao.insertSchinfo(params);  // 해달날짜를 넣는다.
+					calStartDate = doDateAdd(calStartDate);  // 하루하루씩 증가시키면서 입력 필요
 				}
 			} else {
 				iSchDao.insertSchinfo(params);  // 시작일자, 종료일자가 같은 날이면 그냥 insert
 			}
-			
+						
 			this.transactionManager.commit(status);
 		} catch (Exception e){
 			this.transactionManager.rollback(status);
 			e.printStackTrace();
             return result;
 		}
+		result = "SUCCESS";
 		return result;
 	}
 	
@@ -145,7 +166,7 @@ public class ScheduleService implements IScheduleService{
         return diffDays;
 	}
 	
-	private String doDateAdd(String date){
+	private String doDateAdd(String date) throws ParseException{
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date tempDate = formatter.parse(date);
         
