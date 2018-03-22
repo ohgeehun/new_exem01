@@ -380,7 +380,7 @@ function getCusProCheckCallBack(res){
 function getprodbmsmemberinfoCallBack(res){
 	if(res.length > 0){
 		for(var i = 0; i < res.length; i++){	
-			alert(res[i].cususerId);
+			/* alert(res[i].cususerId); */
 			 $("#cusNm_hidden_id").val(res[i].cususerId);
 			 $("#cusPhone_id").val(res[i].cususerPhone);
 			 $("#cusMail_id").val(res[i].cususerMail);			 
