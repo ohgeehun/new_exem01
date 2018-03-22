@@ -61,6 +61,7 @@ $(document).ready(function(){
         	$("#cusNm_hidden_id").val("0");	   
         	$("#dbms_select_id").prop("disabled",true);	
         	ICustomerService.getProinfo(cusNm,cusNmProinfoCallBack);	
+        	
         }
     });
 	
