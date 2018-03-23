@@ -152,11 +152,10 @@
 				</isEqual>
 			</isNotEmpty>
 		) u
-	
 	</select>
 	
+	<!-- 이것을 사용함 -->
 	<select id="getcusinfo3" parameterClass="java.util.HashMap" resultMap="cusInfoMap">
-	 
 	 SELECT u.customer_id, 
        u.customer_name, 
        u.project_id, 
@@ -236,7 +235,6 @@
 		                                       						AND xpd.project_id = u.project_id 
 																	and xpd.dbms_id = u.dbms_id 	
 		                        left outer join xm_customer_member xcm ON u.cususer_id = xcm.cususer_id 
-						
 						WHERE  1 = 1 
 						
 					<isNotEmpty property="selectTextVal">
@@ -247,7 +245,20 @@
 								xc.customer_name like '%' || #selectTextVal# || '%' or
 								xp.project_name like '%' || #selectTextVal# || '%' or
 								xcm.cususer_name like '%' || #selectTextVal# || '%' or
-								xpd.salesman_id in (select user_id from xm_member where user_name like '%' || #selectTextVal# || '%')
+								xpd.salesman_id in (select user_id from xm_member where user_name like '%' || #selectTextVal# || '%') or
+								xpd.dbms_id in ( select dbms_id from xm_dbms where dbms_name like '%' || #selectTextVal# || '%' ) or
+								(
+									( u.customer_id , u.project_id , u.dbms_id ) in
+									( 
+										select  customer_id , project_id , dbms_id  
+										from xm_project_dbms_cusmember 
+	      								where cususer_id IN 
+	      								(
+	      									SELECT cususer_id  FROM   xm_customer_member 
+	                                    	WHERE  cususer_name LIKE '%' || #selectTextVal# || '%'
+	                                    )	 
+	                                 )
+                                 )
 							)
 						</isEqual>
 						<!-- 검색조건이 고객사명 -->
@@ -260,11 +271,20 @@
 						</isEqual>
 						<!-- 검색조건이 제품(업무)명 -->
 						<isEqual property="selectBtnVal" compareValue="3"> 
-							and xp.project_name like '%' || #selectTextVal# || '%'
+							and xpd.dbms_id in ( select dbms_id from xm_dbms where dbms_name like '%' || #selectTextVal# || '%' )
 						</isEqual>
 						<!-- 검색조건이 고객명 -->
 						<isEqual property="selectBtnVal" compareValue="4"> 
-							and xcm.cususer_name like '%' || #selectTextVal# || '%'
+							and ( u.customer_id , u.project_id , u.dbms_id ) in
+								( 
+									select  customer_id , project_id , dbms_id  
+									from xm_project_dbms_cusmember 
+      								where cususer_id IN 
+      								(
+      									SELECT cususer_id  FROM   xm_customer_member 
+                                    	WHERE  cususer_name LIKE '%' || #selectTextVal# || '%'
+                                    )	 
+                                 )
 						</isEqual>
 						 <!-- 검색조건이 영업대표명-->
 						<isEqual property="selectBtnVal" compareValue="5">
@@ -344,7 +364,20 @@
 								xc.customer_name like '%' || #selectTextVal# || '%' or
 								xp.project_name like '%' || #selectTextVal# || '%' or
 								xcm.cususer_name like '%' || #selectTextVal# || '%' or
-								xpd.salesman_id in (select user_id from xm_member where user_name like '%' || #selectTextVal# || '%')
+								xpd.salesman_id in (select user_id from xm_member where user_name like '%' || #selectTextVal# || '%') or
+								xpd.dbms_id in ( select dbms_id from xm_dbms where dbms_name like '%' || #selectTextVal# || '%' ) or
+								(
+									( u.customer_id , u.project_id , u.dbms_id ) in
+									( 
+										select  customer_id , project_id , dbms_id  
+										from xm_project_dbms_cusmember 
+	      								where cususer_id IN 
+	      								(
+	      									SELECT cususer_id  FROM   xm_customer_member 
+	                                    	WHERE  cususer_name LIKE '%' || #selectTextVal# || '%'
+	                                    )	 
+	                                 )
+                                 )
 							)
 						</isEqual>
 						<!-- 검색조건이 고객사명 -->
@@ -355,9 +388,22 @@
 						<isEqual property="selectBtnVal" compareValue="2"> 
 							and xp.project_name like '%' || #selectTextVal# || '%'
 						</isEqual>
-						<!-- 검색조건이 고객명 -->
+						<!-- 검색조건이 제품(업무)명 -->
 						<isEqual property="selectBtnVal" compareValue="3"> 
-							and xcm.cususer_name like '%' || #selectTextVal# || '%'
+							and xpd.dbms_id in ( select dbms_id from xm_dbms where dbms_name like '%' || #selectTextVal# || '%' )
+						</isEqual>
+						<!-- 검색조건이 고객명 -->
+						<isEqual property="selectBtnVal" compareValue="4"> 
+							and ( u.customer_id , u.project_id , u.dbms_id ) in
+								( 
+									select  customer_id , project_id , dbms_id  
+									from xm_project_dbms_cusmember 
+      								where cususer_id IN 
+      								(
+      									SELECT cususer_id  FROM   xm_customer_member 
+                                    	WHERE  cususer_name LIKE '%' || #selectTextVal# || '%'
+                                    )	 
+                                 )
 						</isEqual>
 						 <!-- 검색조건이 영업대표명-->
 						<isEqual property="selectBtnVal" compareValue="4">
