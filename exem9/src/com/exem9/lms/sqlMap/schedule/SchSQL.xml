@@ -32,12 +32,12 @@
 			s.category_id, category_name,        s.start_time, s.end_time, s.contents
 			from
 				(
-				SELECT s.support_history_id as support_id,        s.user_id, m.user_name,       s.team_id, t.team_name,      
+				SELECT s.support_history_id as support_id,        m.user_id, m.user_name,       s.team_id, t.team_name,      
 					s.customer_id, c.customer_name,       s.project_id, p.project_name,       s.dbms_id, d.dbms_name,     
 					s.category_id, ca.category_name,        s.start_time, s.end_time, s.contents,
 					ROW_NUMBER() OVER(order by s.start_time) as row_num    
 					FROM xm_support_history s  
-					left outer join xm_member m on s.user_id = m.user_id 
+					left outer join xm_member m on upper(s.user_id) = upper(m.user_id) 
 					left outer join xm_team t on s.team_id = t.team_id 
 					left outer join xm_customer c on s.customer_id = c.customer_id  
 					left outer join xm_project p on s.project_id = p.project_id  
@@ -71,7 +71,7 @@
 	<select id="getNCount" parameterClass="java.util.HashMap" resultClass="Integer">
 		SELECT count(s.support_history_id)   
 		FROM xm_support_history s  
- 		left outer join xm_member m on s.user_id = m.user_id 
+ 		left outer join xm_member m on upper(s.user_id) = upper(m.user_id) 
 		left outer join xm_team t on s.team_id = t.team_id 
 		left outer join xm_customer c on s.customer_id = c.customer_id  
 		left outer join xm_project p on s.project_id = p.project_id  

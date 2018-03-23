@@ -508,7 +508,7 @@ function deleteSchinfoCallBack(res){
 										</c:if>
 										<c:forEach var="mem" items="${mem_list}">
 													<c:choose>
-														<c:when test="${sch.user_id  == mem.userId}">
+														<c:when test="${fn:toUpperCase(sch.user_id)  == fn:toUpperCase(mem.userId)}">
 															<option value="${mem.userId}" selected>${mem.userNm}</option>
 														</c:when>
 														<c:otherwise>
