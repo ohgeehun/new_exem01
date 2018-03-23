@@ -52,7 +52,9 @@
 					</isNotEmpty>
 					
 					<isNotEmpty property="teamFilter">
-							and s.team_id = #teamFilter#
+						<isNotEqual property="teamFilter" compareValue="-1">
+								and s.team_id = #teamFilter#
+						</isNotEqual>
 					</isNotEmpty>
 					<!-- and s.start_time &gt;= '2018-02-22'  -->
 					<!-- and s.end_time &lt;= '2018-02-24'  -->
@@ -86,7 +88,9 @@
 		</isNotEmpty>
 		
 		<isNotEmpty property="teamFilter">
-				and s.team_id = #teamFilter#
+			<isNotEqual property="teamFilter" compareValue="-1">
+					and s.team_id = #teamFilter#
+			</isNotEqual>
 		</isNotEmpty>
 	</select>
 	

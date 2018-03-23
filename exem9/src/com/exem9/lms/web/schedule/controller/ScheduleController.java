@@ -293,7 +293,7 @@ public class ScheduleController {
 		String strTeamFilter = request.getParameter("teamFilter");
 		if ( strTeamFilter != null && !strTeamFilter.isEmpty() ) {
 			teamFilter = Integer.parseInt(strTeamFilter);
-		}
+		} 
 		String strDeptFilter = request.getParameter("deptFilter");
 		
 		System.out.println( "---------------------------------------------------  my_schedule_next : MM-YY(received) :" + fromMM_YY );
