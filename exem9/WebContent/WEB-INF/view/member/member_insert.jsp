@@ -22,6 +22,7 @@
 <script type="text/javascript" src="dwr/util.js"></script>
 <script type="text/javascript" src="dwr/interface/ICustomerService.js"></script> 
 <script type="text/javascript" src="dwr/interface/IMemberService.js"></script>
+<script type="text/javascript" src="dwr/interface/IMatService.js"></script>
 
 <script>
 var userId = "<%=(String)session.getAttribute("sUserId")%>";
@@ -33,12 +34,18 @@ $(document).ready(function(){
 	/* 사용자관리 좌측 버튼 이벤트  : 사용자 관리 버튼 클릭 시 */
     $("#mem_managed").bind("click", function(){	
 	    	location.href = "member_edit";
-	    });
+	});
 	    
-	    /* 사용자관리 좌측 버튼 이벤트  : 사용자 등록 버튼 클릭 시 */
+	/* 사용자관리 좌측 버튼 이벤트  : 사용자 등록 버튼 클릭 시 */
     $("#mem_insert").bind("click", function(){	
 	    	location.href = "member_insert";
-	    });
+	});
+	    
+	// 부서 선택시 팀 선택박스 조정
+	$('#user_department_id').bind('change', function() {
+		var deptId = $(this).val();
+		IMatService.getdeptteam(deptId, getTeaminfoCallBack);	 
+	});
 	 
 	// 검증에 사용할 함수명들을 배열에 담아준다.
 	var idFuncArray = ["spaceCheck","spaceCheck1"];
@@ -306,6 +313,24 @@ function insertMeminfoCallBack(res){
 		location.href = "member_insert";
 	}
 }
+
+function getTeaminfoCallBack(res){
+	var text = "";			
+	
+	text += "<option value='0' selected>지정하지 않음.</option>";
+
+	if (res.length > 0){
+	
+		$("#user_team_id").prop("disabled",false);	
+		
+		for(var i = 0; i < res.length; i++){	
+			
+			text += "<option value="+res[i].teamId+">"+res[i].teamNm+"</option>";
+		}
+	}
+	
+	$("#user_team_id").html(text);	
+}
 </script>
 
 <style>
@@ -385,7 +410,7 @@ th, td {
 				 	    		</c:forEach>	
 					</select>
 					<!-- input type="text" name="project" class="input_txt input_02 inputTxtFont"-->
-					<select id='user_team_id' class="input_txt input_05 inputTxtFont">
+					<select id='user_team_id' class="input_txt input_05 inputTxtFont" disabled>
 								<option value="0" selected>지정하지않음.</option>
 							    <c:forEach var="team" items="${team_list}">
 				 	    			<option value="${team.teamId}">${team.teamNm}</option>		 	    	

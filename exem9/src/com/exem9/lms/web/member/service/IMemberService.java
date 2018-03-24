@@ -37,4 +37,6 @@ public interface IMemberService {
 	
 	/*사용자 삭제 deleteMemInfo 이벤트*/
 	public String deleteMeminfo(String chkId) throws Throwable ;
+	
+	// 선택한 부서정보 가져오기
 }

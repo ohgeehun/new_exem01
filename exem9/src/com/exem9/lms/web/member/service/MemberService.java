@@ -129,7 +129,7 @@ public class MemberService implements IMemberService{
 		
 		HashMap params = new HashMap();
 
-		params.put("user_id",user_id.toUpperCase());
+		params.put("user_id",user_id);
 		params.put("user_name",user_name);
 		params.put("user_password",hashed);
 		params.put("user_team_id",Integer.parseInt(user_team_id));
