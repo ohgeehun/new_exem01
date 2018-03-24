@@ -19,11 +19,14 @@
 <script type="text/javascript" src="dwr/util.js"></script>
 <script type="text/javascript" src="dwr/interface/ICustomerService.js"></script> 
 <script type="text/javascript" src="dwr/interface/IMemberService.js"></script>
+<script type="text/javascript" src="dwr/interface/IMatService.js"></script>
 
 <script>
 var userId = "<%=(String)session.getAttribute("sUserId")%>";
 var userDept = "<%=(String)session.getAttribute("sUserDept")%>";
 var userDbms = "<%=(String)session.getAttribute("sUserDbms")%>";
+
+var currentTeamId = "";
 
 $(document).ready(function(){  
 		
@@ -173,6 +176,16 @@ $(document).ready(function(){
     	
     	$("#form1").submit();	
     });
+    
+    // 부서선택시 팀리스트목록 자동 변경 처리
+    $('select[name=select_dept]').change(function(){
+    	var deptId = $(this).val();
+    	var currentDeptId = $(this).attr('id'); // userDept_mem.userId, ${mem.userId}는 행을 알아내는데 사용
+    	var temps = currentDeptId.split('_');
+    	currentTeamId = 'userTeam_' + temps[1];
+    	//alert(currentTeamId + '_' + deptId);
+    	IMatService.getdeptteam(deptId, getTeaminfoCallBack);
+    });
 });
 
 
@@ -251,6 +264,21 @@ function deleteMeminfoCallBack(res){
 	}
 }
 
+// 부서에 해당하는 팀목록 정보 callback
+function getTeaminfoCallBack(res){
+	var text = "";			
+	//text += "<option value='0' selected>지정하지 않음.</option>";
+	if (res.length > 0){
+	
+		//$("#user_team_id").prop("disabled",false);	
+		//alert(currentTeamId);
+		for(var i = 0; i < res.length; i++){	
+			text += "<option value="+res[i].teamId+">"+res[i].teamNm+"</option>";
+		}
+	}
+	
+	$('#'+currentTeamId+'').html(text);	
+}
 </script>
 
 <style>
@@ -350,7 +378,7 @@ function deleteMeminfoCallBack(res){
 								<input type="text" class="main_input_box_2 box2_03 nInputFont" value="${mem.userNm}" id="userNm_${mem.userId}">						
 							</td>							
 							<td>
-								<select class="main_input_box_2 box2_04 nInputFont" id="userDept_${mem.userId}">
+								<select class="main_input_box_2 box2_04 nInputFont" id="userDept_${mem.userId}" name='select_dept'>
 									<c:if test="${mem.userDept == ''}">
 										<option value="0" selected>지정필요.</option>
 									</c:if>
