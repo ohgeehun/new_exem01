@@ -602,6 +602,7 @@ A:hover  { color:#000;text-decoration:none;}
 	height:33px;
 	padding:1px;
 	background:#ebe8e8;
+	border-left-color:#fff;
 }
 
 .main_title_box_2 {
@@ -616,12 +617,22 @@ A:hover  { color:#000;text-decoration:none;}
 	border:1px solid #d1cece; 
 	height:33px;
 	padding:1px;
+	border-top-color:#fff;
+	border-left-color:#fff;
+	//border-right-color:#fff;
 }
 
 .main_input_box_2 {
 	border:1px solid #d1cece; 
 	height:33px;
 	padding:1px;
+	border-top-color:#fff;
+	border-left-color:#fff;
+	//border-right-color:#fff;
+}
+
+.enlarged_textarea {
+	height:233px;
 }
 
 .nTitleFont {

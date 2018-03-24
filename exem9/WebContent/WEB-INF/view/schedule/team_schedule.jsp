@@ -41,7 +41,13 @@ console.log(userDept);
 
 var temp = [];
 $(document).ready(function(){
-
+	$('textarea[name=contents]').bind('mouseenter', function() {
+		$(this).addClass('enlarged_textarea');
+	})
+	$('textarea[name=contents]').bind('mouseout', function() {
+		$(this).removeClass('enlarged_textarea');
+	})
+	
 	$("#sch_insert").bind("click", function(){	
 	   	location.href = "schedule_insert";
 	});
@@ -606,7 +612,8 @@ function deleteSchinfoCallBack(res){
 									</select>
 								</td>
 								<td>
-									<input type="text" class="main_input_box_2 box2_10 nInputFont" name="contents" value="${sch.contents}" id="contents_${sch.schId}" >
+									<!-- input type="text" class="main_input_box_2 box2_10 nInputFont" name="contents" value="${sch.contents}" id="contents_${sch.schId}"-->
+									<textarea class="main_input_box_2 box2_10 nInputFont" name="contents" id="contents_${sch.schId}">${sch.contents}</textarea>
 								</td>			
 							</tr>					
 						</c:forEach>										
