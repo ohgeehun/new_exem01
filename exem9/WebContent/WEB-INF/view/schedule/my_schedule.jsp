@@ -479,8 +479,8 @@ function deleteSchinfoCallBack(res){
 								</td>
 								<td>
 									<select class="main_input_box_2 box_08 nInputFont" id="cateId_${sch.schId}">
-										<c:if test="${sch.category_name == ''}">
-											<option value="0" selected>지정필요.</option>
+										<c:if test="${sch.category_id == 0}">
+											<option value="0" selected></option>
 										</c:if>
 										<c:forEach var="cat" items="${cat_list}">
 													<c:choose>

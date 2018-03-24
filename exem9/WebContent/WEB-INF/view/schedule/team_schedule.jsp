@@ -252,6 +252,8 @@ $(document).ready(function(){
 	
 	// 팀버튼 클릭시 이벤트 처리
 	$("input[name$='btnTeam']").click(function (){
+		$("input[name$='btnTeam']").removeClass('Btt_highlight');
+		$(this).addClass('Btt_highlight');
 		//alert('clicked'); 
 		// ID : btnDept_${team.deptId}_Team_${team.teamId}
 		//		btnDept_2_Team_8
@@ -263,6 +265,7 @@ $(document).ready(function(){
 		//alert('index: '+ index + ', len:' + len +  ', teamId: ' + teamId +  ', Id: ' + Id);
 		$("#teamFilter").val(Id); // 폼을 submit하기전에 teamFilter input값을 선택한 ID값으로 설정함
 		$("#form1").submit();
+		
 	});
 	
 });
@@ -460,7 +463,14 @@ function deleteSchinfoCallBack(res){
 												<!-- option value="${team.teamId}">${team.teamNm}</option-->
 												<!-- input type="button" value="${team.teamNm}" class="Btt_search btnSearch" id="btnTeam_${team.teamId}"-->	
 										<!-- /c:if -->
-										<input type="button" name="btnTeam" value="${team.teamNm}" class="Btt_search btnSearch" id="btnDept_${team.deptId}_Team_${team.teamId}">		
+										<c:choose>
+											<c:when test="${team.teamId  == teamFilter}">
+												<input type="button" name="btnTeam" value="${team.teamNm}" class="Btt_search btnSearch Btt_highlight" id="btnDept_${team.deptId}_Team_${team.teamId}">
+											</c:when>
+											<c:otherwise>
+												<input type="button" name="btnTeam" value="${team.teamNm}" class="Btt_search btnSearch" id="btnDept_${team.deptId}_Team_${team.teamId}">
+											</c:otherwise>
+										</c:choose>												
 									</c:forEach>			
 								<!-- /select-->
 									<!-- 선택된 버튼에 따라 form에 선택된 team id를 submit해야한다. -->
@@ -580,8 +590,8 @@ function deleteSchinfoCallBack(res){
 								</td>
 								<td>
 									<select class="main_input_box_2 box2_09 nInputFont" id="cateId_${sch.schId}">
-										<c:if test="${sch.category_name == ''}">
-											<option value="0" selected>지정필요.</option>
+										<c:if test="${sch.category_id == 0}">
+											<option value="0" selected></option>
 										</c:if>
 										<c:forEach var="cat" items="${cat_list}">
 													<c:choose>

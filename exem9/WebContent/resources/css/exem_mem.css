@@ -670,6 +670,10 @@ A:hover  { color:#000;text-decoration:none;}
 	color:#fff;
 }
 
+.Btt_highlight{
+	color:#ff0;
+}
+
 .Btt_search:hover {
 	background:#3d4448;
 }
