@@ -746,6 +746,13 @@ public class CustomerService implements ICustomerService{
 	public List<CustomerBean> getProinfo(String cusNm) throws Throwable {
 		HashMap params = new HashMap();
 		params.put("cusNm",cusNm);
+		List<CustomerBean> pjts = iCustomerDao.getProinfo(params); 
+		return pjts;
+	}
+	// t선택된 고객사 ID의 프로젝트 정보 가져오기
+	public List<CustomerBean> getProinfo2(String cusId) throws Throwable {
+		HashMap params = new HashMap();
+		params.put("cusId", Integer.parseInt(cusId) );
 		
 		return iCustomerDao.getProinfo(params);
 	}

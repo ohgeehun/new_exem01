@@ -25,6 +25,7 @@
 <script type="text/javascript" src="dwr/util.js"></script>
 <script type="text/javascript" src="dwr/interface/IScheduleService.js"></script>
 <script type="text/javascript" src="dwr/interface/IMypageService.js"></script>
+<script type="text/javascript" src="dwr/interface/ICustomerService.js"></script>
 
 <script>
 var userId = "<%=(String)session.getAttribute("sUserId")%>";
@@ -79,6 +80,10 @@ $(document).ready(function(){
 	    });
 	});
 	
+	$('#customer_name_id').bind('change', function() {
+		var customer_id = $(this).val();
+		ICustomerService.getProinfo2(customer_id, getProinfoCallBack);
+	});
 	// DWR로 사용자 정보 가져오기
 	//IMypageService.getUserinfo(userId, userInfoCallBack);
 	
@@ -132,6 +137,25 @@ function insertSchinfoCallBack(res){
 		location.href = "schedule_insert";
 	}
 }
+
+function getProinfoCallBack(arrayList){
+		//alert("성공");
+		$("#customer_project_id").html("");
+		if(arrayList.length > 0) { // arrayList에 프로젝트목록이 들어온다. customer_project_id 셀렉트박스목록을 갱신한다.
+			for(var i=0; i<arrayList.length; i++)
+			{
+			    var testObj = arrayList[i];
+			    //Here, you can do what you want! like...
+			    //alert(testObj.proId);
+			    //alert(testObj.proNm);
+			    $('#customer_project_id').append('<option value='+testObj.proId+'>'+testObj.proNm+'</option>');
+			    //$("#selectBox").append("<option value='1'>Apples</option>");
+			}
+		} else {
+			alert("선택한 고객사에 등록된 프로젝트가 없습니다.");
+		}
+}
+
 /*
 	function userInfoCallBack(res){	//마이페이지 기본 화면		
 		var text = "";		
@@ -213,17 +237,19 @@ th, td {
 
 					<!-- input type="text" name="customer" class="input_txt input_01 inputTxtFont"-->
 					<select id='customer_name_id' class="input_txt input_01 inputTxtFont">
-								<option value="0" selected>지정하지않음.</option>
+								<option value="0" selected>지정필요</option>
 							    <c:forEach var="cusNm" items="${cusNm_list}">
 				 	    			<option value="${cusNm.cusId}">${cusNm.cusNm}</option>		 	    	
 				 	    		</c:forEach>	
 					</select>
 					<!-- input type="text" name="project" class="input_txt input_02 inputTxtFont"-->
 					<select id='customer_project_id' class="input_txt input_02 inputTxtFont">
-								<option value="0" selected>지정하지않음.</option>
+								<option value="0" selected>지정필요</option>
+							    <%--
 							    <c:forEach var="cusPjtNm" items="${cusPjtNm_list}">
 				 	    			<option value="${cusPjtNm.pjtId}">${cusPjtNm.pjtNm}</option>		 	    	
-				 	    		</c:forEach>	
+				 	    		</c:forEach>
+				 	    		 --%>	
 					</select>
 					<!-- input type="text" name="product" class="input_txt input_03 inputTxtFont"-->
 					<select id='dbms_id' class="input_txt input_03 inputTxtFont">

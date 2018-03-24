@@ -645,7 +645,13 @@
 	       xc.customer_location as cusLoca
 	from xm_customer xc inner join xm_project xp
 	on xc.customer_id = xp.customer_id	
-	where xc.customer_name  = #cusNm#
+	where 1=1
+	<isNotEmpty property="cusNm"> 
+		and xc.customer_name  = #cusNm#
+	</isNotEmpty>
+	<isNotEmpty property="cusId">	
+		and xc.customer_id  = #cusId#
+	</isNotEmpty>
 	</select>
 	
 	<select id="getcusNmProinfo" parameterClass="java.util.HashMap" resultClass="customerBean">

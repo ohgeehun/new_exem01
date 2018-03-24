@@ -72,6 +72,7 @@ public interface ICustomerService {
 	public List<CustomerBean> getcusNmProinfo(String cusNm, String cusProNm)throws Throwable ;
 	
 	public List<CustomerBean> getProinfo(String cusNm)throws Throwable ;
+	public List<CustomerBean> getProinfo2(String cusId)throws Throwable ;
 	
 	/*선택된고객사에 등록된 담당자명 가져오기 이벤트*/
 	public List<CustomerBean> getcusNmUserinfo(String cusNm)throws Throwable ;
