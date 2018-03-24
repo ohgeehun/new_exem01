@@ -465,9 +465,9 @@ function editCusUser1Callback(res){
 
 function CusupdateCallBack(res){ //고객사 정보  변경 성공 여부
 	if(res == "FAILED"){
-		alert("실패");
+		//alert("실패");
 	}else if(res == "SUCCESS"){
-		alert("성공");
+		//alert("성공");
 		location.href = "customer_edit";
 	}
 }
@@ -528,10 +528,10 @@ function editcusMemberCallback(res){
 
 function deleteCusinfoCallBack(res){
 	if(res == "FAILED"){
-		alert("실패");
+		//alert("실패");
 		location.href = "customer_edit";
 	}else if(res == "SUCCESS"){
-		alert("성공");
+		//alert("성공");
 		location.href = "customer_edit";
 	}
 }
@@ -599,7 +599,7 @@ function cususerListener(obj){
 				<thead id="cus_list_th">
 					<tr>
 							<td colspan="10" class="left_align">
-									<select  class="main_input_box_2 nInputFont fltBox1" id="cus_select4" name="selectBtnVal">
+									<select  class="search_filter_box nInputFont fltBox1" id="cus_select4" name="selectBtnVal">
 						 					<option value="0" selected>전체</option>
 											<option value="1">고객사명</option>
 											<option value="2">프로젝트명</option>
@@ -607,7 +607,7 @@ function cususerListener(obj){
 											<option value="4">고객명</option>						
 											<option value="5">영업대표</option>
 									</select>
-							 	    <input class="main_input_box_2 nInputFont" type="text" id="select_text" name="selectTextVal" value="검색 조건을 선택하세요."></input>
+							 	    <input class="search_filter_box nInputFont" type="text" id="select_text" name="selectTextVal" value="검색 조건을 선택하세요."></input>
 							 	   
 							 	    <input class="Btt_search btnSearch" type="button" id="select_btn" value="검색"></input>
 					 	    </td>

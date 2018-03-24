@@ -78,24 +78,18 @@ $(document).ready(function(){
 			alert("삭제할 행을 선택하세요.");
 		} else{
 			
-	   	    $('#checkbox_id:checked').each(function() {   	    
-   	    	    var chkId = $(this).val();
-
-	   	    	 if (confirm("정말 삭제하시겠습니까??") == true){    //확인
-	 				
+			if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+		   	    $('#checkbox_id:checked').each(function() {   	    
+	   	    	    var chkId = $(this).val();
 	 		   	    $('#checkbox_id:checked').each(function() {   	    
 	 	   	    	    var chkId = $(this).val();
-	
-		 	   	    		IMemberService.deleteMeminfo( 
-		   	         			chkId, 
-		   	         			deleteMeminfoCallBack );
+	 	   	    		IMemberService.deleteMeminfo(chkId, deleteMeminfoCallBack );
 	 		   	    });
-	 			
-	 			}else{   //취소
-	 			    return;
-	 			}
-   	         	
-	   	    });	
+	   	    	});	
+			}else{   //취소
+ 			    return;
+ 			}
+			
 		}
 	});
 
@@ -191,9 +185,9 @@ $(document).ready(function(){
 
 function CusupdateCallBack(res){ //고객사 정보  변경 성공 여부
 	if(res == "FAILED"){
-		alert("실패");
+		//alert("실패");
 	}else if(res == "SUCCESS"){
-		alert("성공");
+		//alert("성공");
 		location.href = "customer_edit";
 	}
 }
@@ -256,10 +250,10 @@ function updateMeminfoCallBack(res){
 
 function deleteMeminfoCallBack(res){
 	if(res == "FAILED"){
-		alert("실패");
+		//alert("실패");
 		location.href = "member_edit";
 	}else if(res == "SUCCESS"){
-		alert("성공");
+		//alert("성공");
 		location.href = "member_edit";
 	}
 }
@@ -311,7 +305,7 @@ function getTeaminfoCallBack(res){
 				<thead id="mem_list_th">
 					<tr>
 						<td colspan="10"  class="left_align">
-					 			<select id="mem_select4" name="selectBtnVal" class="main_input_box_2 nInputFont fltBox1">
+					 			<select id="mem_select4" name="selectBtnVal" class="search_filter_box nInputFont fltBox1">
 					 					<option value="0" selected>전체</option>
 										<option value="1">로그인ID</option>						
 										<option value="2">이름</option>
@@ -319,7 +313,7 @@ function getTeaminfoCallBack(res){
 										<option value="4">팀</option>
 								</select>
 					 	
-						 	    <input type="text" id="select_text" name="selectTextVal" placeholder="검색조건을 입력하세요." value="" class="main_input_box_2 nInputFont">
+						 	    <input type="text" id="select_text" name="selectTextVal" placeholder="검색조건을 입력하세요." value="" class="search_filter_box nInputFont">
 						 	    <input type="button" id="select_btn" value="검색" class="Btt_search btnSearch"></input>
 						</td>
 					</tr>

@@ -308,20 +308,20 @@ function calWeek(yyyymmdd, isPrev ){
 
 function updateSchinfoCallBack(res){
 	if(res == "FAILED"){
-		alert("실패");
+		//alert("실패");
 		location.href = "my_schedule";
 	}else if(res == "SUCCESS"){
-		alert("성공");
+		//alert("성공");
 		location.href = "my_schedule";
 	}
 }
 
 function deleteSchinfoCallBack(res){
 	if(res == "FAILED"){
-		alert("실패");
+		//alert("실패");
 		location.href = "my_schedule";
 	}else if(res == "SUCCESS"){
-		alert("성공");
+		//alert("성공");
 		location.href = "my_schedule";
 	}
 }

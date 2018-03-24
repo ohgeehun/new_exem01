@@ -358,20 +358,20 @@ function calWeek(yyyymmdd, isPrev ){
 
 function updateSchinfoCallBack(res){
 	if(res == "FAILED"){
-		alert("실패");
+		//alert("실패");
 		location.href = "team_schedule";
 	}else if(res == "SUCCESS"){
-		alert("성공");
+		//alert("성공");
 		location.href = "team_schedule";
 	}
 }
 
 function deleteSchinfoCallBack(res){
 	if(res == "FAILED"){
-		alert("실패");
+		//alert("실패");
 		location.href = "team_schedule";
 	}else if(res == "SUCCESS"){
-		alert("성공");
+		//alert("성공");
 		location.href = "team_schedule";
 	}
 }
@@ -451,7 +451,7 @@ function deleteSchinfoCallBack(res){
 											<option value="4">팀</option>
 									</select-->
 									
-									<select class="main_input_box_2 fltBox1 nInputFont" id="dept_select" name="deptFilter">
+									<select class="search_filter_box fltBox1 nInputFont" id="dept_select" name="deptFilter">
 											<option value="0" selected>부서 선택</option>
 										<c:forEach var="dept" items="${dept_list}">										
 											<option value="${dept.deptId}">${dept.deptNm}</option>	

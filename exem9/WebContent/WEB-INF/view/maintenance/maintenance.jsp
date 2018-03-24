@@ -147,20 +147,20 @@ $(document).ready(function(){
 
 function deleteMatinfoCallBack(res){
 	if(res == "FAILED"){
-		alert("실패");
+		//alert("실패");
 		location.href = "maintenance";
 	}else if(res == "SUCCESS"){
-		alert("성공");
+		//alert("성공");
 		location.href = "maintenance";
 	}
 }
 
 function updateMatinfoCallBack(res){
 	if(res == "FAILED"){
-		alert("실패");
+		//alert("실패");
 		location.href = "maintenance";
 	}else if(res == "SUCCESS"){
-		alert("성공");
+		//alert("성공");
 		location.href = "maintenance";
 	}
 }
@@ -203,7 +203,7 @@ function updateMatinfoCallBack(res){
 				<thead id="mat_list_th">
 					<tr>
 					 	<td colspan="14" class="left_align">
-					 			<select id="mat_select4" name="selectBtnVal" class="main_input_box_2 nInputFont fltBox1">
+					 			<select id="mat_select4" name="selectBtnVal" class="search_filter_box nInputFont fltBox1">
 					 					<option value="0" selected>전체</option>
 										<option value="1">고객사</option>
 										<option value="2">프로젝트명</option>
@@ -212,7 +212,7 @@ function updateMatinfoCallBack(res){
 										<option value="5">영업대표</option>
 										<option value="6">계약상태</option>
 								</select>
-						 	    <input type="text" id="select_text" name="selectTextVal" placeholder="검색조건을 입력하세요." value="" class="main_input_box_2 nInputFont"></input>
+						 	    <input type="text" id="select_text" name="selectTextVal" placeholder="검색조건을 입력하세요." value="" class="search_filter_box nInputFont"></input>
 						 	    <input type="button" id="select_btn" value="검색" class="Btt_search btnSearch"></input>
 					 	</td>	 
 				 	</tr>
