@@ -768,7 +768,7 @@ A:hover  { color:#000;text-decoration:none;}
 	font-weight: 650;
 	font-size:17px;
 	text-align:right;
-	line-height: 35px;
+	//line-height: 35px;
 	width:50px;	
 }
 

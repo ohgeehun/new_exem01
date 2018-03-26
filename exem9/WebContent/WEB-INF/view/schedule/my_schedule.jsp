@@ -359,35 +359,34 @@ function deleteSchinfoCallBack(res){
 			<input type="hidden" id="userId_hidden_id" value="">				
 		 		 	
 		 	<table>
-		 	<tr>
-		 	<td>
-		 		<div>
-		 			<a href="#" class="main_title_box_2 nTitleFont" id="prevWeek">&laquo; 이전주</a>
-					
-		 		</div>
-		 	</td>
-		 	<td>	 		
-		 	    <div class="nTitleFont">
-				  <div style='display:inline;'>&nbsp;&nbsp;&nbsp;</div>
-				  <!-- div id="week-label-year" style='display:inline;'></div-->
-				  <input type="text" id="week-label-year" name="week-label-year" class="titleFont_2">
-				  <div style='display:inline;'>년</div>
-				  <!-- div id="week-label-from-day" style='display:inline;'>01-01</div-->
-				  <input type="text" id="week-label-from-day" name="week-label-from-day" class="titleFont_2">
-				  <div style='display:inline;'>(월) &nbsp; ~ </div>
-				  <!-- div id="week-label-to-day" style='display:inline;'>02-05</div-->
-				  <input type="text" id="week-label-to-day" name="week-label-to-day" class="titleFont_2">
-				  <div style='display:inline;'>(일)</div>
-				  <div style='display:inline;'>&nbsp;&nbsp;&nbsp;</div>
-				</div>
-		 	</td>
-		 	<td>	 		
-			 	<div>			 		
-			 	    <a href="#" class="main_title_box_2 nTitleFont" id="nextWeek">다음주 &raquo;</a>
-				</div>
-		 	</td>	 
-		 	</tr>
-		 	</table>
+			 	<tr>
+				 	<td>
+				 		<div>
+				 			<a href="#" class="main_title_box_2 nTitleFont" id="prevWeek">&laquo; 이전주</a>
+				 		</div>
+				 	</td>
+				 	<td>	 		
+				 	    <div class="nTitleFont">
+						  <div style='display:inline;'>&nbsp;&nbsp;&nbsp;</div>
+						  <!-- div id="week-label-year" style='display:inline;'></div-->
+						  <input type="text" id="week-label-year" name="week-label-year" class="titleFont_2">
+						  <div style='display:inline;'>년</div>
+						  <!-- div id="week-label-from-day" style='display:inline;'>01-01</div-->
+						  <input type="text" id="week-label-from-day" name="week-label-from-day" class="titleFont_2">
+						  <div style='display:inline;'>(월) &nbsp; ~ </div>
+						  <!-- div id="week-label-to-day" style='display:inline;'>02-05</div-->
+						  <input type="text" id="week-label-to-day" name="week-label-to-day" class="titleFont_2">
+						  <div style='display:inline;'>(일)</div>
+						  <div style='display:inline;'>&nbsp;&nbsp;&nbsp;</div>
+						</div>
+				 	</td>
+					 <td>	 		
+					 	<div>			 		
+					 	    <a href="#" class="main_title_box_2 nTitleFont" id="nextWeek">다음주 &raquo;</a>
+						</div>
+				 	</td>
+				 </tr>
+			</table>
 		
 			<div id="schedule_list">		
 		 		<table id="sch_list">	
