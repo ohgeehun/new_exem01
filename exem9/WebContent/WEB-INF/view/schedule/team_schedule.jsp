@@ -436,7 +436,6 @@ function deleteSchinfoCallBack(res){
 		 	</tr>
 		 	</table>
 		 		
-		
 			<div id="schedule_list">		
 		 		<table id="sch_list">	
 					<thead id="sch_list_th">

@@ -120,7 +120,7 @@ public class ScheduleController {
 			String strtoYYYYMMDD = YYYYMMDDYYYYMMDD.substring(10, 20);
 			System.out.println( "---------------------------------------------------  strfromYYYYMMDD :" + strfromYYYYMMDD );
 			System.out.println( "---------------------------------------------------  strtoYYYYMMDD :" + strtoYYYYMMDD );
-			
+			String currentUserId = (String) session.getAttribute("sUserId");
 			modelAndView.addObject("year", strfromYYYYMMDD.substring(0,4) );
 			modelAndView.addObject("from_day", strfromYYYYMMDD.substring(5) );
 			modelAndView.addObject("to_day", strtoYYYYMMDD.substring(5) );
@@ -128,13 +128,14 @@ public class ScheduleController {
 //			System.out.println( "---------------------------------------------------  from_day :" + strfromYYYYMMDD.substring(5) );
 //			System.out.println( "---------------------------------------------------  to_day :" + strtoYYYYMMDD.substring(5) );
 			
-			List<SchBean> sch_list = iScheduleService.getsch(strfromYYYYMMDD,strtoYYYYMMDD,1);
+			//List<SchBean> sch_list = iScheduleService.getsch(strfromYYYYMMDD,strtoYYYYMMDD,1);
+			List<SchBean> sch_list = iScheduleService.getmysch(strfromYYYYMMDD,strtoYYYYMMDD,currentUserId,1);
 			List<CateBean> cat_list = iCateService.getcate();
 			List<DbmsBean> dbms_list = iDbmsService.getdbms();
 			List<CustomerNmBean> cus_list = iCustomerService.getcusNminfo2();
 			List<CustomerPjtNmBean> pjt_list = iCustomerService.getcusPjtNminfo();
 			
-			LineBoardBean lbb = iScheduleService.getNCount(strfromYYYYMMDD,strtoYYYYMMDD,1);
+			LineBoardBean lbb = iScheduleService.getmyNCount(strfromYYYYMMDD,strtoYYYYMMDD,currentUserId,1);
 			
 			modelAndView.addObject("startPage", lbb.getStartPage());
 			modelAndView.addObject("endPage", lbb.getEndPage());
@@ -179,14 +180,16 @@ public class ScheduleController {
 		} else {
 			
 			//List<SchBean> sch_list = iScheduleService.getsch(selectBtnVal,cusNm,pageNo);
-			List<SchBean> sch_list = iScheduleService.getsch(strfromYYYYMMDD, strtoYYYYMMDD, pageNo);
+			String currentUserId = (String) session.getAttribute("sUserId");
+			
+			List<SchBean> sch_list = iScheduleService.getmysch(strfromYYYYMMDD, strtoYYYYMMDD,currentUserId, pageNo);
 			List<CateBean> cat_list = iCateService.getcate();
 			List<DbmsBean> dbms_list = iDbmsService.getdbms();
 			List<CustomerNmBean> cus_list = iCustomerService.getcusNminfo2();
 			List<CustomerPjtNmBean> pjt_list = iCustomerService.getcusPjtNminfo();
 			
 			//LineBoardBean lbb = iScheduleService.getNCount(selectBtnVal,cusNm,pageNo);
-			LineBoardBean lbb = iScheduleService.getNCount(strfromYYYYMMDD, strtoYYYYMMDD, pageNo);
+			LineBoardBean lbb = iScheduleService.getmyNCount(strfromYYYYMMDD, strtoYYYYMMDD,currentUserId, pageNo);
 			
 			modelAndView.addObject("startPage", lbb.getStartPage());
 			modelAndView.addObject("endPage", lbb.getEndPage());

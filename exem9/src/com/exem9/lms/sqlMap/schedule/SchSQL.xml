@@ -50,6 +50,9 @@
 					<isNotEmpty property="toYYYYMMDD">
 							and s.start_time &lt;= #toYYYYMMDD#
 					</isNotEmpty>
+					<isNotEmpty property="userId">
+							and m.user_id = #userId# 
+					</isNotEmpty>
 					
 					<isNotEmpty property="teamFilter">
 						<isNotEqual property="teamFilter" compareValue="-1">
@@ -67,7 +70,6 @@
 		<isEmpty property="pageNo">
 		and s.row_num BETWEEN 1 AND #viewCount#
 		</isEmpty>
-		
 	</select>  	
 	
 	<select id="getNCount" parameterClass="java.util.HashMap" resultClass="Integer">
@@ -81,10 +83,13 @@
 		left outer join xm_category_code ca on s.category_id = ca.category_id 
 		where 1 = 1
 		<isNotEmpty property="fromYYYYMMDD">
-				and s.start_time &gt;= #fromYYYYMMDD#
+			and s.start_time &gt;= #fromYYYYMMDD#
 		</isNotEmpty>
 		<isNotEmpty property="toYYYYMMDD">
-				and s.start_time &lt;= #toYYYYMMDD#
+			and s.start_time &lt;= #toYYYYMMDD#
+		</isNotEmpty>
+		<isNotEmpty property="userId">
+			and m.user_id = #userId# 
 		</isNotEmpty>
 		
 		<isNotEmpty property="teamFilter">

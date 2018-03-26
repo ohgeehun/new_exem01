@@ -81,6 +81,53 @@ public class ScheduleService implements IScheduleService{
 		return iSchDao.getsch(params);
 	}
 
+	// 내일정 정보 조회
+	public List<SchBean> getmysch(String strfromYYYYMMDD, String strtoYYYYMMDD, String userId, int pageNo) throws Throwable {
+		
+		HashMap params = new HashMap();
+		
+		java.sql.Timestamp fromYYYYMMDD=null;
+		java.sql.Timestamp toYYYYMMDD=null;
+		
+		System.out.println( "---------------------------------------------------   : strFromYYYYMMDD : " +  strfromYYYYMMDD);
+		System.out.println( "---------------------------------------------------   : strtoYYYYMMDD : " +  strtoYYYYMMDD);
+		
+		try {
+			  // String 타입을 java.util.Date 로 변환한다.
+			  java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy-MM-dd");
+			  java.util.Date datefromYYYYMMDD = formatter.parse(strfromYYYYMMDD);
+			  java.util.Date datetoYYYYMMDD = formatter.parse(strtoYYYYMMDD);
+
+			  // java.util.Date 를 java.sql.Timestamp 로 변환한다.
+			  fromYYYYMMDD = new java.sql.Timestamp( datefromYYYYMMDD.getTime() ) ;
+			  toYYYYMMDD = new java.sql.Timestamp( datetoYYYYMMDD.getTime() ) ;
+
+			} catch (Exception ex) {
+			  // Exception 에 대한 오류처리를 한다.
+				System.out.println( "---------------------------------------------------   : datetime convert Error" );
+			}
+		
+		params.put("fromYYYYMMDD", fromYYYYMMDD);
+		params.put("toYYYYMMDD",toYYYYMMDD);
+		params.put("userId",userId);
+		
+		params.put("viewCount", CommonProperties.VIEWCOUNT);
+		
+		int startNo = 1+(CommonProperties.VIEWCOUNT * (pageNo-1));
+		int endNo = CommonProperties.VIEWCOUNT * pageNo;
+		
+		if(pageNo == 1){
+			params.put("pageNo", ""); 
+		}else{
+			params.put("pageNo", pageNo);
+		}
+		
+		params.put("startNo", startNo);
+		params.put("endNo", endNo);
+		
+		return iSchDao.getsch(params);
+	}
+
 	public String insertSchinfo(String user_id, String customer_id, String project_id, String dbms_id,
 			String category_id, String start_time, String end_time, String contents) throws Throwable {
 		
@@ -244,6 +291,65 @@ public class ScheduleService implements IScheduleService{
 		return lbb;
 	}
 	
+	public LineBoardBean getmyNCount(String strfromYYYYMMDD, String strtoYYYYMMDD, String userId, int nowPage) throws Throwable {
+		
+		HashMap params = new HashMap();
+		
+		java.sql.Timestamp fromYYYYMMDD=null;
+		java.sql.Timestamp toYYYYMMDD=null;
+		
+		try {
+			  // String 타입을 java.util.Date 로 변환한다.
+			  java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy-MM-dd");
+			  java.util.Date datefromYYYYMMDD = formatter.parse(strfromYYYYMMDD);
+			  java.util.Date datetoYYYYMMDD = formatter.parse(strtoYYYYMMDD);
+
+			  // java.util.Date 를 java.sql.Timestamp 로 변환한다.
+			  fromYYYYMMDD = new java.sql.Timestamp( datefromYYYYMMDD.getTime() ) ;
+			  toYYYYMMDD = new java.sql.Timestamp( datetoYYYYMMDD.getTime() ) ;
+
+			} catch (Exception ex) {
+			  // Exception 에 대한 오류처리를 한다.
+				System.out.println( "---------------------------------------------------   : datetime convert Error" );
+			}
+		
+		params.put("fromYYYYMMDD", fromYYYYMMDD);
+		params.put("toYYYYMMDD", toYYYYMMDD);
+		params.put("userId", userId);
+		
+		int nCount = iSchDao.getNCount(params);
+		int maxPage=0;
+		int startPage=0;
+		int endPage=0;
+		int nowpage=0;
+		
+		if(nowPage == 0){
+			nowpage = 1;
+		}else if(nowPage != 0){
+			nowpage = nowPage;
+		}		
+		
+		if(nCount % CommonProperties.VIEWCOUNT == 0){
+			maxPage = nCount / CommonProperties.VIEWCOUNT;
+		}else{
+			maxPage = (nCount / CommonProperties.VIEWCOUNT) + 1;
+		}
+		
+		startPage = nowpage / CommonProperties.PAGECOUNT + 1;
+		endPage = startPage + CommonProperties.PAGECOUNT -1;
+		
+		if(endPage > maxPage){
+			endPage = maxPage;
+		}		
+		
+		LineBoardBean lbb = new LineBoardBean();
+		lbb.setStartPage(startPage);
+		lbb.setEndPage(endPage);
+		lbb.setMaxPage(maxPage);
+		lbb.setNowPage(nowpage);
+		return lbb;
+	}
+
 	public String updateSchinfo(String user_id, String customer_id, String project_id, String dbms_id,
 			String category_id, String start_time, String end_time, String contents, String chkId) throws Throwable {
 		
