@@ -42,6 +42,9 @@ $(document).ready(function(){
             $("input[name=chk]").prop("checked",false);
         }
     });
+	
+	// 이전에 선택된 검색조건의 필터항목을 유지하기 위한 처리
+	$("#mem_select4").val("${selectBtnVal}");
 
 	$("#edit_update_btn").bind("click", function(){	
 		if ( $('#form1 input[type=checkbox]:checked').length == 0  ) {
@@ -313,14 +316,14 @@ function getTeaminfoCallBack(res){
 					<tr>
 						<td colspan="10"  class="left_align">
 					 			<select id="mem_select4" name="selectBtnVal" class="search_filter_box nInputFont fltBox1">
-					 					<option value="0" selected>전체</option>
-										<option value="1">로그인ID</option>						
-										<option value="2">이름</option>
-										<option value="3">부서</option>
-										<option value="4">팀</option>
+				 					<option value="0" selected>전체</option>
+									<option value="1">로그인ID</option>						
+									<option value="2">이름</option>
+									<option value="3">부서</option>
+									<option value="4">팀</option>
 								</select>
 					 	
-						 	    <input type="text" id="select_text" name="selectTextVal" placeholder="검색조건을 입력하세요." value="" class="search_filter_box nInputFont">
+						 	    <input type="text" id="select_text" name="selectTextVal" placeholder="검색조건을 입력하세요." value="${selectTextVal}" class="search_filter_box nInputFont">
 						 	    <input type="button" id="select_btn" value="검색" class="Btt_search btnSearch"></input>
 						</td>
 					</tr>

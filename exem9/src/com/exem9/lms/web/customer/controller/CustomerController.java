@@ -125,6 +125,10 @@ public class CustomerController {
 			modelAndView.addObject("edit_salseman_list", edit_salseman_list);
 			modelAndView.addObject("cus_member_list_info", cus_member_list_info);
 			modelAndView.addObject("dbms_list", dbms_list);
+			
+			modelAndView.addObject("selectTextVal", selectTextVal);
+			modelAndView.addObject("selectBtnVal", selectBtnVal);
+			modelAndView.addObject("pageNo", pageNo);
 		
 			modelAndView.setViewName("customer/customer_edit");
 		}

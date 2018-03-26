@@ -133,6 +133,7 @@ public class MemberController {
 		request.setCharacterEncoding("UTF-8");
 		
 		String cusNm = request.getParameter("selectTextVal");
+		String selectTextVal = request.getParameter("selectTextVal");
 		String selectBtnVal = request.getParameter("selectBtnVal");
 		int pageNo = Integer.parseInt(request.getParameter("pageNo"));
 
@@ -161,6 +162,10 @@ public class MemberController {
 			modelAndView.addObject("team_list", team_list);
 			modelAndView.addObject("posi_list", posi_list);
 			modelAndView.addObject("dbms_list", dbms_list);
+			
+			modelAndView.addObject("selectTextVal", selectTextVal);
+			modelAndView.addObject("selectBtnVal", selectBtnVal);
+			modelAndView.addObject("pageNo", pageNo);
 		
 			modelAndView.setViewName("member/member_edit");
 		}

@@ -139,6 +139,7 @@ public class  MatController {
 		request.setCharacterEncoding("UTF-8");
 		
 		String cusNm = request.getParameter("selectTextVal");
+		String selectTextVal = request.getParameter("selectTextVal");
 		String selectBtnVal = request.getParameter("selectBtnVal");
 		int pageNo = Integer.parseInt(request.getParameter("pageNo"));
 		
@@ -179,6 +180,10 @@ public class  MatController {
 			modelAndView.addObject("salesman_list", salesman_list);
 			modelAndView.addObject("supo_level_list", supo_level_list);
 			modelAndView.addObject("supo_visit_list", supo_visit_list);
+			
+			modelAndView.addObject("selectTextVal", selectTextVal);
+			modelAndView.addObject("selectBtnVal", selectBtnVal);
+			modelAndView.addObject("pageNo", pageNo);
 			
 			System.out.println( "+++++++++++++++++++++++++++++++++++++++++++++: salesman : "  + salesman_list.get(0).getUserId()  );
 			

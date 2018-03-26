@@ -44,6 +44,9 @@ $(document).ready(function(){
             $("input[name=chk]").prop("checked",false);
         }
     });
+	
+	// 이전에 선택된 검색조건의 필터항목을 유지하기 위한 처리
+	$("#cus_select4").val("${selectBtnVal}");
 
 	// 고객명 추가 입력하는 input box를 안보이게 처리
     $("input[name=input_cususer]").hide();
@@ -614,7 +617,7 @@ function cususerListener(obj){
 											<option value="4">고객명</option>						
 											<option value="5">영업대표</option>
 									</select>
-							 	    <input class="search_filter_box nInputFont" type="text" id="select_text" name="selectTextVal" value="검색 조건을 선택하세요."></input>
+							 	    <input class="search_filter_box nInputFont" type="text" id="select_text" name="selectTextVal" placeholder="검색 조건을 선택하세요." value="${selectTextVal}"></input>
 							 	   
 							 	    <input class="Btt_search btnSearch" type="button" id="select_btn" value="검색"></input>
 					 	    </td>

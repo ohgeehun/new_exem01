@@ -46,6 +46,9 @@ $(document).ready(function(){
         }
     });
 	
+	// 이전에 선택된 검색조건의 필터항목을 유지하기 위한 처리
+	$("#mat_select4").val("${selectBtnVal}");
+	
 	// 등록내용 수정
 	$("#edit_update_btn").bind("click", function(){	
 		if ( $('#form1 input[type=checkbox]:checked').length == 0  ) {
@@ -219,7 +222,7 @@ function updateMatinfoCallBack(res){
 										<option value="5">영업대표</option>
 										<option value="6">계약상태</option>
 								</select>
-						 	    <input type="text" id="select_text" name="selectTextVal" placeholder="검색조건을 입력하세요." value="" class="search_filter_box nInputFont"></input>
+						 	    <input type="text" id="select_text" name="selectTextVal" placeholder="검색조건을 입력하세요." value="${selectTextVal}" class="search_filter_box nInputFont"></input>
 						 	    <input type="button" id="select_btn" value="검색" class="Btt_search btnSearch"></input>
 					 	</td>	 
 				 	</tr>
