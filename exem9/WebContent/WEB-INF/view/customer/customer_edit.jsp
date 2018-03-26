@@ -242,7 +242,7 @@ $(document).ready(function(){
 		}
 	});
 	
-	// 프로젝트 삭제 처리
+	// 고객사 삭제 처리
 	$("#edit_delete_customer_btn").bind("click", function(){	
 		if ( $('#form1 input[type=checkbox]:checked').length == 0  ) {
 			alert("삭제할 행을 선택하세요.");
@@ -300,6 +300,13 @@ $(document).ready(function(){
     		//alert($("#select_text").val());
     		$("#form1").submit();	
     	}  	
+    });
+    
+ 	// 검색어 입력 후 엔터처리
+    $("#select_text").keypress(function (e) {
+    	if (e.which == 13){
+    		$("#select_btn").click();  // 실행할 이벤트
+ 		}
     });
     
     /*페이지 처리(이전 버튼 이벤트 )*/

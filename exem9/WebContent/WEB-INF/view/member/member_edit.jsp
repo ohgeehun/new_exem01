@@ -114,11 +114,18 @@ $(document).ready(function(){
     	if ($("#select_text").val() == ''){    		
     		alert("점색어를 입력하세요.");
     	}else{
-    		alert($("#select_text").val());
+    		//alert($("#select_text").val());
     		$("#form1").submit();	
     	}
     });
     
+ 	// 검색어 입력 후 엔터처리
+ 	$("#select_text").keypress(function (e) {
+    	if (e.which == 13){
+    		$("#select_btn").click();  // 실행할 이벤트
+ 		}
+    });
+ 
     /*페이지 처리(이전 버튼 이벤트 )*/
     $("#backVal").live("click", function(){
     	if($("#select_text").val() == "검색 조건을 선택하세요."){
