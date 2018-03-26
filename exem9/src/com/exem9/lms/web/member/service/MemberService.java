@@ -98,7 +98,7 @@ public class MemberService implements IMemberService{
 			maxPage = (nCount / CommonProperties.VIEWCOUNT) + 1;
 		}
 		
-		startPage = nowpage / CommonProperties.PAGECOUNT + 1;
+		startPage = ( (nowpage - 1) / CommonProperties.PAGECOUNT ) * CommonProperties.PAGECOUNT + 1;
 		endPage = startPage + CommonProperties.PAGECOUNT -1;
 		
 		if(endPage > maxPage){
@@ -110,6 +110,12 @@ public class MemberService implements IMemberService{
 		lbb.setEndPage(endPage);
 		lbb.setMaxPage(maxPage);
 		lbb.setNowPage(nowpage);
+		
+		System.out.println("------------------------------------------------------lbb:startPage " + startPage);
+		System.out.println("------------------------------------------------------lbb: endPage " + endPage);
+		System.out.println("------------------------------------------------------lbb: maxPage " + maxPage);
+		System.out.println("------------------------------------------------------lbb: nowpage " + nowpage);
+		
 		return lbb;
 	}
 	

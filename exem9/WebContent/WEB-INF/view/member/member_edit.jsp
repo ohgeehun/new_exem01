@@ -29,7 +29,8 @@ var userDbms = "<%=(String)session.getAttribute("sUserDbms")%>";
 var currentTeamId = "";
 
 $(document).ready(function(){  
-		
+	//alert( "${endPage}" );
+	
 	/* 체크박스 이벤트 */
 	$("#checkall").click(function(){
         //클릭되었으면
@@ -469,8 +470,8 @@ function getTeaminfoCallBack(res){
 						
 							<div>
 								<c:if test="${nowPage > 1}">
-										<a href="#" id="backVal" class="nTitleFont">이전</a>
-									</c:if>
+									<a href="#" id="backVal" class="nTitleFont">이전</a>
+								</c:if>
 									<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
 										<c:choose>
 											<c:when test="${nowPage==i}">
@@ -481,9 +482,9 @@ function getTeaminfoCallBack(res){
 											</c:otherwise>
 										</c:choose>
 									</c:forEach>
-									<c:if test="${maxPage > nowPage}">
-										<a href="#" id="nextVal" class="nTitleFont">다음</a>
-									</c:if>
+								<c:if test="${maxPage > nowPage}">
+									<a href="#" id="nextVal" class="nTitleFont">다음</a>
+								</c:if>
 							</div>
 						</td>
 					</tr>

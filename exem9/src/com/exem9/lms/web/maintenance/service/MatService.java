@@ -222,7 +222,8 @@ public class MatService implements IMatService{
 			maxPage = (nCount / CommonProperties.VIEWCOUNT) + 1;
 		}
 		
-		startPage = nowpage / CommonProperties.PAGECOUNT + 1;
+		//startPage = nowpage / CommonProperties.PAGECOUNT + 1;
+		startPage = ( (nowpage - 1) / CommonProperties.PAGECOUNT ) * CommonProperties.PAGECOUNT + 1;
 		endPage = startPage + CommonProperties.PAGECOUNT -1;
 		
 		if(endPage > maxPage){
