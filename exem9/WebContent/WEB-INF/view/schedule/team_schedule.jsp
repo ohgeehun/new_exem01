@@ -204,26 +204,19 @@ $(document).ready(function(){
 	
 	/*페이지 처리(이전 버튼 이벤트 )*/
     $("#backVal").live("click", function(){
-    	
     	$("#nowPage").val($("#nowPage").val() - 1);    	
-    	
     	$("#form1").submit();	
-    	
     });
     
     /*페이지 처리(다음 버튼 이벤트 )*/
     $("#nextVal").live("click", function(){
-    	
     	$("#nowPage").val($("#nowPage").val()*1 + 1);
-    	
     	$("#form1").submit();	
     });
 
     /*페이지 처리(페이지 숫자 버튼 이벤트 )*/
     $("a[name='moreArea']").live("click", function(){
-    	
     	$("#nowPage").val($(this).attr("id"));
-    	
     	$("#form1").submit();	
     });
     
@@ -232,7 +225,6 @@ $(document).ready(function(){
     
     // 부서버튼 선택 시 이벤트 처리
 	$("#dept_select").change(function (){
-		
 		var deptId = $("#dept_select option:selected").val();
 		//alert("deptId : " + deptId);
 		//$("#btnDept_5_Team_${team.teamId}").hide();	
@@ -271,9 +263,7 @@ $(document).ready(function(){
 		//alert('index: '+ index + ', len:' + len +  ', teamId: ' + teamId +  ', Id: ' + Id);
 		$("#teamFilter").val(Id); // 폼을 submit하기전에 teamFilter input값을 선택한 ID값으로 설정함
 		$("#form1").submit();
-		
 	});
-	
 });
 
 </script>
@@ -470,10 +460,10 @@ function deleteSchinfoCallBack(res){
 										<!-- /c:if -->
 										<c:choose>
 											<c:when test="${team.teamId  == teamFilter}">
-												<input type="button" name="btnTeam" value="${team.teamNm}" class="Btt_search btnSearch Btt_highlight" id="btnDept_${team.deptId}_Team_${team.teamId}">
+												<input type="button" name="btnTeam" value="${team.teamNm}" class="Btt_search btnSearch Btt_highlight" id="btnDept_${team.deptId}_Team_${team.teamId}" hidden>
 											</c:when>
 											<c:otherwise>
-												<input type="button" name="btnTeam" value="${team.teamNm}" class="Btt_search btnSearch" id="btnDept_${team.deptId}_Team_${team.teamId}">
+												<input type="button" name="btnTeam" value="${team.teamNm}" class="Btt_search btnSearch" id="btnDept_${team.deptId}_Team_${team.teamId}" hidden>
 											</c:otherwise>
 										</c:choose>												
 									</c:forEach>			
@@ -536,8 +526,8 @@ function deleteSchinfoCallBack(res){
 								<td>
 									<!-- input type="text" class="main_input_box_2 box2_03 nInputFont" value="${sch.schCusNm}" id="cusNm_${sch.schId}"-->
 									<select class="main_input_box_2 box2_04 nInputFont" id="cusNm_${sch.schId}">
-										<c:if test="${sch.schCusId == ''}">
-											<option value="0" selected>지정필요.</option>
+										<c:if test="${sch.schCusNm == '' || sch.schCusNm eq null}">
+											<option value="0" selected></option>
 										</c:if>
 										<c:forEach var="cus" items="${cus_list}">
 													<c:choose>
@@ -554,8 +544,8 @@ function deleteSchinfoCallBack(res){
 								<td>
 									<!-- input type="text" class="main_input_box_2 box2_04 nInputFont" value="${sch.schPjtNm}" id="pjtNm_${sch.schId}"-->
 									<select class="main_input_box_2 box2_05 nInputFont" id="pjtNm_${sch.schId}">
-										<c:if test="${sch.schPjtId == ''}">
-											<option value="0" selected>지정필요.</option>
+										<c:if test="${sch.schPjtNm == '' || sch.schPjtNm eq null}">
+											<option value="0" selected></option>
 										</c:if>
 										<c:forEach var="pjt" items="${pjt_list}">
 													<c:choose>

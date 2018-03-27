@@ -425,36 +425,36 @@ function deleteSchinfoCallBack(res){
 								<td>
 									<!-- input type="text" class="main_input_box_2 box_03 nInputFont" value="${sch.schCusNm}" id="cusNm_${sch.schId}"-->
 									<select class="main_input_box_2 box_03 nInputFont" id="cusNm_${sch.schId}">
-										<c:if test="${sch.schCusId == ''}">
-											<option value="0" selected>지정필요.</option>
+										<c:if test="${sch.schCusNm == '' || sch.schCusNm eq null}">
+											<option value="0" selected></option>
 										</c:if>
 										<c:forEach var="cus" items="${cus_list}">
-													<c:choose>
-														<c:when test="${cus.cusId  == sch.schCusId}">
-															<option value="${cus.cusId}" selected>${cus.cusNm}</option>
-														</c:when>
-														<c:otherwise>
-															<option value="${cus.cusId}">${cus.cusNm}</option>	
-														</c:otherwise>
-													</c:choose>
+											<c:choose>
+												<c:when test="${cus.cusId  == sch.schCusId}">
+													<option value="${cus.cusId}" selected>${cus.cusNm}</option>
+												</c:when>
+												<c:otherwise>
+													<option value="${cus.cusId}">${cus.cusNm}</option>	
+												</c:otherwise>
+											</c:choose>
 										</c:forEach>			
 									</select>	
 								</td>
 								<td>
 									<!-- input type="text" class="main_input_box_2 box_04 nInputFont" value="${sch.schPjtNm}" id="pjtNm_${sch.schId}"-->
 									<select class="main_input_box_2 box_04 nInputFont" id="pjtNm_${sch.schId}">
-										<c:if test="${sch.schPjtId == ''}">
-											<option value="0" selected>지정필요.</option>
+										<c:if test="${sch.schPjtNm == '' || sch.schPjtNm eq null}">
+											<option value="0" selected></option>
 										</c:if>
 										<c:forEach var="pjt" items="${pjt_list}">
-													<c:choose>
-														<c:when test="${pjt.pjtId  == sch.schPjtId}">
-															<option value="${pjt.pjtId}" selected>${pjt.pjtNm}</option>
-														</c:when>
-														<c:otherwise>
-															<option value="${pjt.pjtId}">${pjt.pjtNm}</option>	
-														</c:otherwise>
-													</c:choose>
+											<c:choose>
+												<c:when test="${pjt.pjtId  == sch.schPjtId}">
+													<option value="${pjt.pjtId}" selected>${pjt.pjtNm}</option>
+												</c:when>
+												<c:otherwise>
+													<option value="${pjt.pjtId}">${pjt.pjtNm}</option>	
+												</c:otherwise>
+											</c:choose>
 										</c:forEach>			
 									</select>
 								</td>							
