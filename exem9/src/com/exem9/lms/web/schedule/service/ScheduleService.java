@@ -36,6 +36,7 @@ public class ScheduleService implements IScheduleService{
 	@Autowired
 	private PlatformTransactionManager transactionManager;
 	
+	// 사용하지 않음
 	public List<SchBean> getsch(String strfromYYYYMMDD, String strtoYYYYMMDD, int pageNo) throws Throwable {
 		
 		HashMap params = new HashMap();
@@ -43,14 +44,14 @@ public class ScheduleService implements IScheduleService{
 		java.sql.Timestamp fromYYYYMMDD=null;
 		java.sql.Timestamp toYYYYMMDD=null;
 		
-		System.out.println( "---------------------------------------------------   : strFromYYYYMMDD : " +  strfromYYYYMMDD);
-		System.out.println( "---------------------------------------------------   : strtoYYYYMMDD : " +  strtoYYYYMMDD);
+		//System.out.println( "---------------------------------------------------   : strFromYYYYMMDD : " +  strfromYYYYMMDD);
+		//System.out.println( "---------------------------------------------------   : strtoYYYYMMDD : " +  strtoYYYYMMDD);
 		
 		try {
 			  // String 타입을 java.util.Date 로 변환한다.
-			  java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy-MM-dd");
-			  java.util.Date datefromYYYYMMDD = formatter.parse(strfromYYYYMMDD);
-			  java.util.Date datetoYYYYMMDD = formatter.parse(strtoYYYYMMDD);
+			  java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			  java.util.Date datefromYYYYMMDD = formatter.parse(strfromYYYYMMDD + " 00:00:00");
+			  java.util.Date datetoYYYYMMDD = formatter.parse(strtoYYYYMMDD + " 23:59:59");
 
 			  // java.util.Date 를 java.sql.Timestamp 로 변환한다.
 			  fromYYYYMMDD = new java.sql.Timestamp( datefromYYYYMMDD.getTime() ) ;
@@ -89,14 +90,14 @@ public class ScheduleService implements IScheduleService{
 		java.sql.Timestamp fromYYYYMMDD=null;
 		java.sql.Timestamp toYYYYMMDD=null;
 		
-		System.out.println( "---------------------------------------------------   : strFromYYYYMMDD : " +  strfromYYYYMMDD);
+		//System.out.println( "---------------------------------------------------   : strFromYYYYMMDD : " +  strfromYYYYMMDD);
 		System.out.println( "---------------------------------------------------   : strtoYYYYMMDD : " +  strtoYYYYMMDD);
 		
 		try {
 			  // String 타입을 java.util.Date 로 변환한다.
-			  java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy-MM-dd");
-			  java.util.Date datefromYYYYMMDD = formatter.parse(strfromYYYYMMDD);
-			  java.util.Date datetoYYYYMMDD = formatter.parse(strtoYYYYMMDD);
+			  java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			  java.util.Date datefromYYYYMMDD = formatter.parse(strfromYYYYMMDD + " 00:00:00");
+			  java.util.Date datetoYYYYMMDD = formatter.parse(strtoYYYYMMDD + " 23:59:59");
 
 			  // java.util.Date 를 java.sql.Timestamp 로 변환한다.
 			  fromYYYYMMDD = new java.sql.Timestamp( datefromYYYYMMDD.getTime() ) ;
@@ -233,6 +234,7 @@ public class ScheduleService implements IScheduleService{
         return convertedDate;
 	}
 	
+	// 사용하지 않음
 	public LineBoardBean getNCount(String strfromYYYYMMDD, String strtoYYYYMMDD, int nowPage) throws Throwable {
 		
 		HashMap params = new HashMap();
@@ -242,9 +244,9 @@ public class ScheduleService implements IScheduleService{
 		
 		try {
 			  // String 타입을 java.util.Date 로 변환한다.
-			  java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy-MM-dd");
-			  java.util.Date datefromYYYYMMDD = formatter.parse(strfromYYYYMMDD);
-			  java.util.Date datetoYYYYMMDD = formatter.parse(strtoYYYYMMDD);
+			  java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			  java.util.Date datefromYYYYMMDD = formatter.parse(strfromYYYYMMDD + " 00:00:00");
+			  java.util.Date datetoYYYYMMDD = formatter.parse(strtoYYYYMMDD + " 23:59:59");
 
 			  // java.util.Date 를 java.sql.Timestamp 로 변환한다.
 			  fromYYYYMMDD = new java.sql.Timestamp( datefromYYYYMMDD.getTime() ) ;
@@ -291,6 +293,8 @@ public class ScheduleService implements IScheduleService{
 		return lbb;
 	}
 	
+	
+	// 내일정정보 갯수
 	public LineBoardBean getmyNCount(String strfromYYYYMMDD, String strtoYYYYMMDD, String userId, int nowPage) throws Throwable {
 		
 		HashMap params = new HashMap();
@@ -300,9 +304,9 @@ public class ScheduleService implements IScheduleService{
 		
 		try {
 			  // String 타입을 java.util.Date 로 변환한다.
-			  java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy-MM-dd");
-			  java.util.Date datefromYYYYMMDD = formatter.parse(strfromYYYYMMDD);
-			  java.util.Date datetoYYYYMMDD = formatter.parse(strtoYYYYMMDD);
+			  java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			  java.util.Date datefromYYYYMMDD = formatter.parse(strfromYYYYMMDD + " 00:00:00");
+			  java.util.Date datetoYYYYMMDD = formatter.parse(strtoYYYYMMDD + " 23:59:59");
 
 			  // java.util.Date 를 java.sql.Timestamp 로 변환한다.
 			  fromYYYYMMDD = new java.sql.Timestamp( datefromYYYYMMDD.getTime() ) ;
@@ -401,8 +405,8 @@ public class ScheduleService implements IScheduleService{
 						if( tempStarttime > 18 ) calEndDate = calEndDate.replace(" 18:00:00", " "+replaceStarttime+":00")  ;  // 시작일시작시간이 18:00시보다크면, end_time을 시작일시작시간으로 수정
 					}
 					
-					System.out.println("------------------------------------------------------ start_time: " + calStartDate);
-					System.out.println("------------------------------------------------------ end_time: " + calEndDate);
+					//System.out.println("------------------------------------------------------ start_time: " + calStartDate);
+					//System.out.println("------------------------------------------------------ end_time: " + calEndDate);
 					
 					params.put("start_time",calStartDate);
 					params.put("end_time",calEndDate);
@@ -444,6 +448,8 @@ public class ScheduleService implements IScheduleService{
 		return strFromYYYYMMDD + strToYYYYMMDD;  // "yyyy-MM-ddyyyy-MM-dd"
 	}
 	
+	
+	// 팀일정정보
 	public List<SchBean> getTeamsch(String strfromYYYYMMDD, String strtoYYYYMMDD, int pageNo, int teamFilter) throws Throwable {
 		
 		HashMap params = new HashMap();
@@ -456,9 +462,9 @@ public class ScheduleService implements IScheduleService{
 		
 		try {
 			  // String 타입을 java.util.Date 로 변환한다.
-			  java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy-MM-dd");
-			  java.util.Date datefromYYYYMMDD = formatter.parse(strfromYYYYMMDD);
-			  java.util.Date datetoYYYYMMDD = formatter.parse(strtoYYYYMMDD);
+			  java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			  java.util.Date datefromYYYYMMDD = formatter.parse(strfromYYYYMMDD + " 00:00:00");
+			  java.util.Date datetoYYYYMMDD = formatter.parse(strtoYYYYMMDD + " 23:59:59");
 
 			  // java.util.Date 를 java.sql.Timestamp 로 변환한다.
 			  fromYYYYMMDD = new java.sql.Timestamp( datefromYYYYMMDD.getTime() ) ;
@@ -490,6 +496,7 @@ public class ScheduleService implements IScheduleService{
 		return iSchDao.getsch(params);
 	}
 	
+	// 팀일정정보 갯수
 	public LineBoardBean getTeamNCount(String strfromYYYYMMDD, String strtoYYYYMMDD, int nowPage, int teamFilter) throws Throwable {
 		
 		HashMap params = new HashMap();
@@ -499,9 +506,9 @@ public class ScheduleService implements IScheduleService{
 		
 		try {
 			  // String 타입을 java.util.Date 로 변환한다.
-			  java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy-MM-dd");
-			  java.util.Date datefromYYYYMMDD = formatter.parse(strfromYYYYMMDD);
-			  java.util.Date datetoYYYYMMDD = formatter.parse(strtoYYYYMMDD);
+			  java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			  java.util.Date datefromYYYYMMDD = formatter.parse(strfromYYYYMMDD + " 00:00:00");
+			  java.util.Date datetoYYYYMMDD = formatter.parse(strtoYYYYMMDD + " 23:59:59");
 
 			  // java.util.Date 를 java.sql.Timestamp 로 변환한다.
 			  fromYYYYMMDD = new java.sql.Timestamp( datefromYYYYMMDD.getTime() ) ;

@@ -52,6 +52,7 @@ public class ScheduleController {
 	@Autowired
 	public IMemberService iMemberService;
 	
+	// 사용하지 않음
 	@RequestMapping(value = "/schedule")
 	public ModelAndView mypage(HttpServletRequest request, 
 							   HttpServletResponse response,
@@ -106,29 +107,19 @@ public class ScheduleController {
 			throw new UserNotFoundException("자동 로그아웃 됐습니다.");
 		} else {
 			
-//			String year = request.getParameter("week-label-year"); // 2018
-//			String fromMM_YY = request.getParameter("week-label-from-day"); // 01-01
-//			String toMM_YY = request.getParameter("week-label-to-day");   //  01-08
-//			if ( fromMM_YY == null || fromMM_YY.isEmpty() ) fromMM_YY = "02-23";
-//			if ( toMM_YY == null || toMM_YY.isEmpty() ) toMM_YY = "02-24";
-//			
-//			System.out.println( "---------------------------------------------------  my_schedule : MM-YY(received) :" + fromMM_YY );
-//			String strfromYYYYMMDD = year + "-"+ fromMM_YY.substring(0, 2) + "-" + fromMM_YY.substring(3, 5);
-//			String strtoYYYYMMDD = year + "-"+ toMM_YY.substring(0, 2) + "-" +  toMM_YY.substring(3, 5);
 			String YYYYMMDDYYYYMMDD = iScheduleService.getThisWeek();
 			String strfromYYYYMMDD = YYYYMMDDYYYYMMDD.substring(0, 10);
 			String strtoYYYYMMDD = YYYYMMDDYYYYMMDD.substring(10, 20);
-			System.out.println( "---------------------------------------------------  strfromYYYYMMDD :" + strfromYYYYMMDD );
-			System.out.println( "---------------------------------------------------  strtoYYYYMMDD :" + strtoYYYYMMDD );
+			//System.out.println( "---------------------------------------------------  strfromYYYYMMDD :" + strfromYYYYMMDD );
+			//System.out.println( "---------------------------------------------------  strtoYYYYMMDD :" + strtoYYYYMMDD );
 			String currentUserId = (String) session.getAttribute("sUserId");
 			modelAndView.addObject("year", strfromYYYYMMDD.substring(0,4) );
 			modelAndView.addObject("from_day", strfromYYYYMMDD.substring(5) );
-			modelAndView.addObject("to_day", strtoYYYYMMDD.substring(5) );
-//			System.out.println( "---------------------------------------------------  year :" + strfromYYYYMMDD.substring(0,4) );
-//			System.out.println( "---------------------------------------------------  from_day :" + strfromYYYYMMDD.substring(5) );
-//			System.out.println( "---------------------------------------------------  to_day :" + strtoYYYYMMDD.substring(5) );
+			modelAndView.addObject("to_day", strtoYYYYMMDD.substring(5) );  
 			
 			//List<SchBean> sch_list = iScheduleService.getsch(strfromYYYYMMDD,strtoYYYYMMDD,1);
+			// getmysch호출 전에 strtoYYYYMMDD를 2018-04-01 23:59:59 로 변환 필요
+			//String strtoYYYYMMDD = strtoYYYYMMDD + " 23:59:59";
 			List<SchBean> sch_list = iScheduleService.getmysch(strfromYYYYMMDD,strtoYYYYMMDD,currentUserId,1);
 			List<CateBean> cat_list = iCateService.getcate();
 			List<DbmsBean> dbms_list = iDbmsService.getdbms();
@@ -167,8 +158,8 @@ public class ScheduleController {
 		String toMM_YY = request.getParameter("week-label-to-day");   //  01-08
 		int pageNo = Integer.parseInt(request.getParameter("pageNo"));
 		
-		System.out.println( "---------------------------------------------------  my_schedule_next : MM-YY(received) :" + fromMM_YY );
-		System.out.println( "---------------------------------------------------  my_schedule_next : pageNo :" + pageNo );
+		//System.out.println( "---------------------------------------------------  my_schedule_next : MM-YY(received) :" + fromMM_YY );
+		//System.out.println( "---------------------------------------------------  my_schedule_next : pageNo :" + pageNo );
 		
 		String strfromYYYYMMDD = year + "-"+ fromMM_YY.substring(0, 2) + "-" + fromMM_YY.substring(3, 5);
 		String strtoYYYYMMDD = year + "-"+ toMM_YY.substring(0, 2) + "-" +  toMM_YY.substring(3, 5);
@@ -182,6 +173,8 @@ public class ScheduleController {
 			//List<SchBean> sch_list = iScheduleService.getsch(selectBtnVal,cusNm,pageNo);
 			String currentUserId = (String) session.getAttribute("sUserId");
 			
+			// getmysch호출 전에 strtoYYYYMMDD를 2018-04-01 23:59:59 로 변환 필요
+			//String strtoYYYYMMDD = strtoYYYYMMDD + " 23:59:59";
 			List<SchBean> sch_list = iScheduleService.getmysch(strfromYYYYMMDD, strtoYYYYMMDD,currentUserId, pageNo);
 			List<CateBean> cat_list = iCateService.getcate();
 			List<DbmsBean> dbms_list = iDbmsService.getdbms();
@@ -224,15 +217,6 @@ public class ScheduleController {
 			throw new UserNotFoundException("자동 로그아웃 됐습니다.");
 		} else {
 			
-//			String year = request.getParameter("week-label-year"); // 2018
-//			String fromMM_YY = request.getParameter("week-label-from-day"); // 01-01
-//			String toMM_YY = request.getParameter("week-label-to-day");   //  01-08
-//			if ( fromMM_YY == null || fromMM_YY.isEmpty() ) fromMM_YY = "02-23";
-//			if ( toMM_YY == null || toMM_YY.isEmpty() ) toMM_YY = "02-24";
-//			
-//			System.out.println( "---------------------------------------------------  my_schedule : MM-YY(received) :" + fromMM_YY );
-//			String strfromYYYYMMDD = year + "-"+ fromMM_YY.substring(0, 2) + "-" + fromMM_YY.substring(3, 5);
-//			String strtoYYYYMMDD = year + "-"+ toMM_YY.substring(0, 2) + "-" +  toMM_YY.substring(3, 5);
 			
 			String YYYYMMDDYYYYMMDD = iScheduleService.getThisWeek();
 			String strfromYYYYMMDD = YYYYMMDDYYYYMMDD.substring(0, 10);
@@ -242,11 +226,10 @@ public class ScheduleController {
 			modelAndView.addObject("year", strfromYYYYMMDD.substring(0,4) );
 			modelAndView.addObject("from_day", strfromYYYYMMDD.substring(5) );
 			modelAndView.addObject("to_day", strtoYYYYMMDD.substring(5) );
-//			System.out.println( "---------------------------------------------------  year :" + strfromYYYYMMDD.substring(0,4) );
-//			System.out.println( "---------------------------------------------------  from_day :" + strfromYYYYMMDD.substring(5) );
-//			System.out.println( "---------------------------------------------------  to_day :" + strtoYYYYMMDD.substring(5) );
 			
-			List<SchBean> sch_list = iScheduleService.getsch(strfromYYYYMMDD,strtoYYYYMMDD,1);
+			// getsch호출 전에 strtoYYYYMMDD를 2018-04-01 23:59:59 로 변환 필요
+			//String strtoYYYYMMDD = strtoYYYYMMDD + " 23:59:59";
+			List<SchBean> sch_list = iScheduleService.getsch(strfromYYYYMMDD, strtoYYYYMMDD,1);
 			List<CateBean> cat_list = iCateService.getcate();
 			List<DbmsBean> dbms_list = iDbmsService.getdbms();
 			List<CustomerNmBean> cus_list = iCustomerService.getcusNminfo2();
@@ -299,8 +282,8 @@ public class ScheduleController {
 		} 
 		String strDeptFilter = request.getParameter("deptFilter");
 		
-		System.out.println( "---------------------------------------------------  my_schedule_next : MM-YY(received) :" + fromMM_YY );
-		System.out.println( "---------------------------------------------------  my_schedule_next : pageNo :" + pageNo );
+		//System.out.println( "---------------------------------------------------  my_schedule_next : MM-YY(received) :" + fromMM_YY );
+		//System.out.println( "---------------------------------------------------  my_schedule_next : pageNo :" + pageNo );
 		
 		String strfromYYYYMMDD = year + "-"+ fromMM_YY.substring(0, 2) + "-" + fromMM_YY.substring(3, 5);
 		String strtoYYYYMMDD = year + "-"+ toMM_YY.substring(0, 2) + "-" +  toMM_YY.substring(3, 5);
@@ -313,6 +296,9 @@ public class ScheduleController {
 			
 			//List<SchBean> sch_list = iScheduleService.getsch(selectBtnVal,cusNm,pageNo);
 			//List<SchBean> sch_list = iScheduleService.getsch(strfromYYYYMMDD, strtoYYYYMMDD, pageNo);
+			
+			// getTeamsch호출 전에 strtoYYYYMMDD를 2018-04-01 23:59:59 로 변환 필요
+			////String strtoYYYYMMDD = strtoYYYYMMDD + " 23:59:59";
 			List<SchBean> sch_list = iScheduleService.getTeamsch(strfromYYYYMMDD, strtoYYYYMMDD, pageNo, teamFilter);
 			List<CateBean> cat_list = iCateService.getcate();
 			List<DbmsBean> dbms_list = iDbmsService.getdbms();
