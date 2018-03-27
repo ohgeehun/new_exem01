@@ -100,11 +100,6 @@
 	
 	</select> 
 
-<!--  	<select id="getsupoinfo" resultClass="SupoBean">
-	select support_level_id as supoId,
-       	   support_level_name as supoNm 
-	from xm_support_level  	
-	</select>  -->
 	<!-- 사용하지 않음 -->
 	<select id="getNCount" parameterClass="java.util.HashMap" resultClass="Integer">
 		select count(customer_id) from    
@@ -415,6 +410,7 @@
 				) u 
 	</select>
 	
+	<!-- 이것도 사용하지 않는 듯 -->
 	<select id="getcusinfo2" parameterClass="java.util.HashMap" resultMap="cusInfoMap">
 	  select u.customer_id, u.customer_name,          
 			u.project_id, u.project_name, u.customer_location, u.etc, 
@@ -504,12 +500,8 @@
 	
 	</select> 
 
-<!--  	<select id="getsupoinfo" resultClass="SupoBean">
-	select support_level_id as supoId,
-       	   support_level_name as supoNm 
-	from xm_support_level  	
-	</select>  -->
-	
+
+	<!-- 이것도 사용하지 않는 듯 -->	
 	<select id="getNCount2" parameterClass="java.util.HashMap" resultClass="Integer">
 		select count(u.customer_id)          
 	  from    
@@ -580,26 +572,15 @@
 						salesman_id,													
 						create_user, create_date, last_update_user, last_update_date	
 		) u
-	
 	</select>
 	
-	
+	<!-- 고객사명 Update -->
 	<update id="updateCusInfo" parameterClass="java.util.HashMap">
 	UPDATE XM_CUSTOMER 
 		SET customer_name = #cusNm#,
 			LAST_UPDATE_USER = #userId#,
 	    	LAST_UPDATE_DATE = current_date::date
 	WHERE CUSTOMER_ID = #cusId#
-	<!-- 
-	UPDATE XM_CUSTOMER 
-	SET customer1_name = (select cususer_name from xm_customer_member where cususer_id = #cususer#),
-	    customer_location = #cuslocation#,
-	    salesman_id =  #salseman#,	 
-	    ETC = #etc#, 
-	    LAST_UPDATE_USER = #userId#,
-	    LAST_UPDATE_DATE = current_date::date
-	WHERE PROJECT_ID = #cusproId#
-	 -->
 	</update>
 	
 	<!-- 프로젝트, 고객사위치, 비고 Update -->
@@ -725,14 +706,8 @@
 		on a.project_id = xpdm.project_id ) a join xm_customer_member xcm 
 	on a.cususer_id = xcm.cususer_id	
 	group by a.cususer_id, xcm.cususer_name, xcm.cususer_phone, xcm.cususer_mail  
-<!-- 	select distinct xcm.cususer_id as cususerId,
-		   xcm.cususer_name as cususerNm	       
-	from xm_customer_member xcm, xm_customer xc
-	where xcm.customer_id = xc.customer_id
-	and xc.customer_name =  #cusNm# -->
 	</select>
 		
-
 
 	<resultMap class="customerNmBean" id="cusInfoMap2">
 		<result property="cusId" column="customer_id"/>
@@ -767,23 +742,23 @@
 	               			    #userId#, current_date::date, null,null)      			                 
 	</update>
 	
-	
+	<!-- 이것도 사용하지 않는 듯 -->
 	<update id="insertCusinfo0100" parameterClass="java.util.HashMap">
 	 INSERT INTO XM_PROJECT VALUES(NEXTVAL('xm_project_next_val'), 
 	 										#cusproNm#,
 	 										(SELECT CUSTOMER_ID FROM XM_CUSTOMER WHERE CUSTOMER_NAME = #cusNm#))		
 	</update> 
-	
+	<!-- 이것도 사용하지 않는 듯 -->
 	<update id="insertCusinfo0010" parameterClass="java.util.HashMap">
 	INSERT INTO XM_PROJECT_DBMS_MANAGED VALUES(NEXTVAL('xm_project_dbms_next_val'),	 
 											   (select project_id from xm_project where project_name = #cusproNm# and customer_id = (select customer_id from xm_customer where customer_name = #cusNm#)), 
 											   #dbmsId#)				                 
 	</update> 
-	
+	<!-- 이것도 사용하지 않는 듯 -->	
 	<update id="insertCusinfo0001" parameterClass="java.util.HashMap">
 	INSERT INTO XM_CUSTOMER_MEMBER VALUES(NEXTVAL('xm_customer_member_next_val'),#cususerNm#, #cususerPhone#, #cususerMail#)
 	</update> 
-	
+	<!-- 이것도 사용하지 않는 듯 -->
 	<update id="insertCusinfo0001-1" parameterClass="java.util.HashMap">
 	INSERT INTO xm_project_dbms_member_managed VALUES(NEXTVAL('xm_project_dbms_member_next_val'), 
 													  (select project_id from xm_project where project_name = #cusproNm# and customer_id = (select customer_id from xm_customer where customer_name = #cusNm#)),
@@ -814,25 +789,6 @@
 	</select>
 	
 	<select id="getprodbmsmemberinfo" parameterClass="java.util.HashMap" resultClass="customermemberBean">
-<!-- 	select a.customer_id as cusId,
-		   a.project_id as proId,
-	       a.dbms_id as dbmsId,
-		   a.cususer_id as cususerId,
-	       xcm.cususer_name as cususerNm,
-	       xcm.cususer_phone as cususerPhone,
-	       xcm.cususer_mail as  cususerMail
-	from (select a.customer_id,
-		       a.project_id,
-		       xpdm.dbms_id,
-		       xpdm.cususer_id	        
-		from (select xp.project_id,
-			     xp.customer_id
-		from xm_customer xc join xm_project xp
-		on xc.customer_id = xp.customer_id
-		where xc.customer_name = #cusNm#) a join xm_project_dbms_member_managed xpdm
-		on a.project_id = xpdm.project_id ) a join xm_customer_member xcm 
-	on a.cususer_id = xcm.cususer_id	
-	where xcm.cususer_name = #cususerNm# -->
 	select xpdc.customer_id as cusId,
 	       xpdc.project_id as proId,
 	       xpdc.dbms_id as dbmsId,
