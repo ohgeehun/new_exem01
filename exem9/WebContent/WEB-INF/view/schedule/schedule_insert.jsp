@@ -82,7 +82,7 @@ $(document).ready(function(){
 		ICustomerService.getProinfo2(customer_id, getProinfoCallBack);
 	});
 	
-	/* 내일정 등록 버튼 이벤트 */ //////////////////////////////////////////////////////////////
+	/* 내일정 등록 버튼 이벤트 */ 
     $("#edit_update_btn").bind("click", function(){   	
     	
     	var user_id = userId;    // 세션에서 가져와야 함

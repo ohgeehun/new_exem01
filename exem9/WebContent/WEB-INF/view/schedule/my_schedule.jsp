@@ -97,6 +97,7 @@ $(document).ready(function(){
         }
     });
 	
+	// 수정버튼 클릭 시
 	$("#edit_update_btn").bind("click", function(){	
 		if ( $('#form1 input[type=checkbox]:checked').length == 0  ) {
 			alert("수정할 행을 선택하세요.");

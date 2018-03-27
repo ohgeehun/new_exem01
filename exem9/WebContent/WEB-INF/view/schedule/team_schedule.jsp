@@ -155,36 +155,15 @@ $(document).ready(function(){
 		}
 	});
 	
-	//alert('1st|'+year+'|');
-	// 이번주 날짜 셋팅하기
-	//$('#week-label-year').text(yyyy);
-	//if ( year == null || year == '' || year == 'null') { 
-		//$('#week-label-year').val(yyyy);
-	//} else {
-		$('#week-label-year').val(year);	
-	//}
-	//if ( from_day == null || from_day == '' || from_day == 'null') {
-	//	$('#week-label-from-day').val(mm + '-' + dd);
-	//} else {
-		$('#week-label-from-day').val(from_day);	
-	//}
-	//if ( to_day == null || to_day == '' || to_day == 'null') {
-		//$('#week-label-to-day').val(mm2 + '-' + dd2 );
-	//} else {
-		$('#week-label-to-day').val(to_day);	
-	//}
-	
-	//alert($('#week-label-year').val() + '|' + $('#week-label-from-day').val() + '|' + $('#week-label-to-day').val());
+	$('#week-label-year').val(year);	
+	$('#week-label-from-day').val(from_day);	
+	$('#week-label-to-day').val(to_day);	
 	
 	// 이전주, 다음주 클릭시 이벤트 처리
 	$("#prevWeek").bind("click", function(){	
 		// 현재 셋팅된 날짜를 가지고 와서, 이값을 입력하면 이전주의 시작일과 종료일을 리턴한다.
-		
-		//var yyyy = $('#week-label-year').text();
 		var yyyy = $('#week-label-year').val();
 		var mmdd = $('#week-label-from-day').val();
-		//var mm = mm-dd.substring(0,2);
-		//var dd = mm-dd.substring(3,5);
 		var selectedDay = yyyy + '-' + mmdd;  // yyyy-mm-dd로 입력
 	
 		var cal_yyyymmdd_yyyymmdd = calWeek(selectedDay,'prev'); // yyyy-mm-ddyyyy-mm-dd 이렇게 계산한다.
@@ -204,11 +183,8 @@ $(document).ready(function(){
 	$("#nextWeek").bind("click", function(){	
 		// 현재 셋팅된 날짜를 가지고 와서, 이값을 입력하면 다음주의 시작일과 종료일을 리턴한다.
 		
-		//var yyyy = $('#week-label-year').text();
 		var yyyy = $('#week-label-year').val();
 		var mmdd = $('#week-label-from-day').val();
-		//var mm = mm-dd.substring(0,2);
-		//var dd = mm-dd.substring(3,5);
 		var selectedDay = yyyy + '-' + mmdd;  // yyyy-mm-dd로 입력
 	
 		var cal_yyyymmdd_yyyymmdd = calWeek(selectedDay,'next'); // yyyy-mm-ddyyyy-mm-dd 이렇게 계산한다.
@@ -260,11 +236,7 @@ $(document).ready(function(){
 		}
 	});
     
-    
     // 현재 사용자 부서(사업본부)로 설정, 선택한 사업본부가 있으면, 선택이 유지되어야 함
-    //
-	//
-	
 	if ( "${deptFilter}" == null || "${deptFilter}" == '' || "${deptFilter}" == 'null') {
 	    $("#dept_select").val(userDept).change();
 	} else {
