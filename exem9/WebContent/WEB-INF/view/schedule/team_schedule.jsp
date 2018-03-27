@@ -462,10 +462,10 @@ function getProinfoCallBack(arrayList){
 										<!-- /c:if -->
 										<c:choose>
 											<c:when test="${team.teamId  == teamFilter}">
-												<input type="button" name="btnTeam" value="${team.teamNm}" class="Btt_search btnSearch Btt_highlight" id="btnDept_${team.deptId}_Team_${team.teamId}" hidden>
+												<input type="button" name="btnTeam" value="${team.teamNm}" class="Btt_search2 btnSearch Btt_highlight" id="btnDept_${team.deptId}_Team_${team.teamId}" hidden>
 											</c:when>
 											<c:otherwise>
-												<input type="button" name="btnTeam" value="${team.teamNm}" class="Btt_search btnSearch" id="btnDept_${team.deptId}_Team_${team.teamId}" hidden>
+												<input type="button" name="btnTeam" value="${team.teamNm}" class="Btt_search2 btnSearch" id="btnDept_${team.deptId}_Team_${team.teamId}" hidden>
 											</c:otherwise>
 										</c:choose>												
 									</c:forEach>			

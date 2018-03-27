@@ -48,4 +48,14 @@ select.box2_01 {
 	width: 275px;
 }
 
+.Btt_search2 {
+	width:87px;
+	height:33px; 
+    padding:1px;
+	background:#1d0703;
+	border:0px;
+	font-family: 'Archivo Narrow', sans-serif;
+    font-size:12px;
+	color:#fff;
+}
 

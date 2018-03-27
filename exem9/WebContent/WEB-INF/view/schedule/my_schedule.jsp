@@ -116,7 +116,7 @@ $(document).ready(function(){
    	         	var cateId = $("#cateId_"+chkId+" option:selected").val();
    	         	var contents = $("#contents_"+chkId).val();
    	         	
-   	         	console.debug( " | " + cusId + " | " + pjtId + " | " +startTime + " | " + endTime + " | " + dbmsId + " | " + cateId + " | " +contents + " | " + chkId );
+   	         	//console.debug( " | " + cusId + " | " + pjtId + " | " +startTime + " | " + endTime + " | " + dbmsId + " | " + cateId + " | " +contents + " | " + chkId );
    	         	
    	         	IScheduleService.updateSchinfo(
   					user_id, 
@@ -336,6 +336,7 @@ function getProinfoCallBack(arrayList){
 		alert("선택한 고객사에 등록된 프로젝트가 없습니다.");
 	}
 }
+
 </script>
 
 </head>
@@ -467,9 +468,11 @@ function getProinfoCallBack(arrayList){
 								</td>							
 								<td>
 									<input type="text" class="main_input_box_2 box_05 nInputFont datetimepicker" value="${fn:substring(sch.start_time,0,16)}" id="startTime_${sch.schId}">
+									<!-- input type="hidden" value="${fn:substring(sch.start_time,0,16)}" id="h_startTime_${sch.schId}"-->
 								</td>
 								<td>
 									<input type="text" class="main_input_box_2 box_06 nInputFont datetimepicker" value="${fn:substring(sch.end_time,0,16)}" id="endTime_${sch.schId}">
+									<!-- input type="hidden" value="${fn:substring(sch.end_time,0,16)}" id="h_endTime_${sch.schId}"-->
 								</td>
 								<td>
 									<!-- input type="text" class="main_input_box_2 box_07 nInputFont" value="${sch.dbms_id}" id="dbms_${sch.schId}"-->
