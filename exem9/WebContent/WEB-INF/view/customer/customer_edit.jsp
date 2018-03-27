@@ -481,15 +481,7 @@ function CusupdateCallBack(res){ //고객사 정보  변경 성공 여부
 		location.href = "customer_edit";
 	}
 }
-/*
-function CusupdateCallBack(res){ //고객담당자 정보  조회 성공 여부
-	if(res == "FAILED"){
-		alert("담당자 정보 가져오기 실패");
-	}else if(res == "SUCCESS"){
-		// 
-	}
-}
-*/
+
 /*검색 텍스트 처리 이벤트*/
 $(function() {
     var input = $('input[id=select_text]');

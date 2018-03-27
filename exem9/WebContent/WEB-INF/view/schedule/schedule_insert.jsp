@@ -34,7 +34,6 @@ var userDbms = "<%=(String)session.getAttribute("sUserDbms")%>";
 
 var temp = [];
 
-//////////////////
 $(document).ready(function(){
 
 	$("#sch_insert").bind("click", function(){	
@@ -84,8 +83,6 @@ $(document).ready(function(){
 		var customer_id = $(this).val();
 		ICustomerService.getProinfo2(customer_id, getProinfoCallBack);
 	});
-	// DWR로 사용자 정보 가져오기
-	//IMypageService.getUserinfo(userId, userInfoCallBack);
 	
 	/* 내일정 등록 버튼 이벤트 */ //////////////////////////////////////////////////////////////
     $("#edit_update_btn").bind("click", function(){   	
@@ -126,8 +123,6 @@ $(document).ready(function(){
 
 });
 
-//////////////////
-
 function insertSchinfoCallBack(res){
 	if(res == "FAILED"){
 		alert("실패");
@@ -139,44 +134,17 @@ function insertSchinfoCallBack(res){
 }
 
 function getProinfoCallBack(arrayList){
-		//alert("성공");
-		$("#customer_project_id").html("");
-		if(arrayList.length > 0) { // arrayList에 프로젝트목록이 들어온다. customer_project_id 셀렉트박스목록을 갱신한다.
-			for(var i=0; i<arrayList.length; i++)
-			{
-			    var testObj = arrayList[i];
-			    //Here, you can do what you want! like...
-			    //alert(testObj.proId);
-			    //alert(testObj.proNm);
-			    $('#customer_project_id').append('<option value='+testObj.proId+'>'+testObj.proNm+'</option>');
-			    //$("#selectBox").append("<option value='1'>Apples</option>");
-			}
-		} else {
-			alert("선택한 고객사에 등록된 프로젝트가 없습니다.");
+	$("#customer_project_id").html("");
+	if(arrayList.length > 0) { // arrayList에 프로젝트목록이 들어온다. customer_project_id 셀렉트박스목록을 갱신한다.
+		for(var i=0; i<arrayList.length; i++)
+		{
+		    var testObj = arrayList[i];
+		    $('#customer_project_id').append('<option value='+testObj.proId+'>'+testObj.proNm+'</option>');
 		}
-}
-
-/*
-	function userInfoCallBack(res){	//마이페이지 기본 화면		
-		var text = "";		
-		
-		userId
-		res[0].userNm+"</td></tr>";					
-		res[0].userDept+"</td></tr>";					
-		res[0].userTeam+"</td></tr>";					
-
-		res[0].userPhone	
-		
-		res[0].userMail
-		res[0].userPoint
-		
-		userDbms = res[0].userDbms;
-		userPosi = res[0].userPosi;
-		
-		IMypageService.getdbms(dbmsCallBack);		
-		IMypageService.getposi(posiCallBack);
+	} else {
+		alert("선택한 고객사에 등록된 프로젝트가 없습니다.");
 	}
-*/
+}
 
 </script>
 

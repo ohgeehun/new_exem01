@@ -23,9 +23,9 @@
 <script type="text/javascript" src="dwr/engine.js"></script>
 <script type="text/javascript" src="dwr/util.js"></script>
 <script type="text/javascript" src="dwr/interface/IScheduleService.js"></script>
+<script type="text/javascript" src="dwr/interface/ICustomerService.js"></script>
 
 <script>
-
 var userId = "<%=(String)session.getAttribute("sUserId")%>";
 var userDept = "<%=(String)session.getAttribute("sUserDept")%>";
 var userDbms = "<%=(String)session.getAttribute("sUserDbms")%>";
@@ -34,10 +34,11 @@ var year = "${year}";
 var from_day = "${from_day}";
 var to_day = "${to_day}";
 
+var currentPjtId;
 //console.log(year);
 //console.log(from_day);
 //console.log(to_day);
-console.log(userDept);
+//console.log(userDept);
 
 var temp = [];
 $(document).ready(function(){
@@ -264,44 +265,38 @@ $(document).ready(function(){
 		$("#teamFilter").val(Id); // 폼을 submit하기전에 teamFilter input값을 선택한 ID값으로 설정함
 		$("#form1").submit();
 	});
+	
+    // 고객사 선택시 프로젝트목록 자동 변경 처리
+    $('select[name=select_cust]').change(function(){
+    	var cusId = $(this).val();
+    	console.log("cusId: " + cusId)
+    	// 현재 Id로 부터 선택된 행을 알아내어, 프로젝트 선택박스ID 찾는데 사용
+    	var currentCusId = $(this).attr('id'); 
+    	var temps = currentCusId.split('_');
+    	currentPjtId = 'pjtNm_' + temps[1];
+    	console.log("currentPjtId: " + currentPjtId)
+    	
+    	// cusId를 입력하여 해당 프로젝트 목록 정보를 가져오는 서비스 호출
+    	ICustomerService.getProinfo2(cusId, getProinfoCallBack);
+    });
+    
+    // 프로젝트명 선택박스 선택시 프로젝트목록 자동 변경 처리
+    $('select[name=select_pjt]').click(function(){
+    	//$(this).html('');
+    	var pjtId = $(this).val();
+    	//console.log("pjtId: " + pjtId)
+    	// 현재 Id로 부터 선택된 행을 알아내어, 프로젝트 선택박스ID 찾는데 사용
+    	currentPjtId = $(this).attr('id'); 
+    	var temps = currentPjtId.split('_');
+    	var currentCusId = 'cusNm_' + temps[1];
+    	//console.log("currentCusId: " + currentPjtId)
+    	var cusId = $('#'+currentCusId).val();
+    	
+    	// cusId를 입력하여 해당 프로젝트 목록 정보를 가져오는 서비스 호출
+    	ICustomerService.getProinfo2(cusId, getProinfoCallBack);
+    });
+    
 });
-
-</script>
-
-<script>
-/*
-// 이번주 월요일 날짜 구하기
-var currentDay = new Date();  
-var theYear = currentDay.getFullYear();
-var theMonth = currentDay.getMonth();
-var theDate  = currentDay.getDate();
-var theDayOfWeek = currentDay.getDay(); //요일
- 
-var thisMonday;
-var thistoSunday;
- 
-var resultDay = new Date(theYear, theMonth, theDate - theDayOfWeek +1 ); //이번주 월요일 날짜
-var yyyy = resultDay.getFullYear();
-var mm = Number(resultDay.getMonth()) + 1;
-var dd = resultDay.getDate();
-
-mm = String(mm).length === 1 ? '0' + mm : mm;
-dd = String(dd).length === 1 ? '0' + dd : dd;
-
-thisMonday = yyyy + '-' + mm + '-' + dd;
-//////// 이번주 주일 날짜 구하기
-var resultDay2 = new Date(theYear, theMonth, theDate - theDayOfWeek +7 ); //이번주 주일 날짜
-var mm2 = Number(resultDay2.getMonth()) + 1;
-var dd2 = resultDay2.getDate();
-
-var yyyy2 = resultDay2.getFullYear();
-mm2 = String(mm2).length === 1 ? '0' + mm2 : mm2;
-dd2 = String(dd2).length === 1 ? '0' + dd2 : dd2;
-
-thistoSunday = yyyy2 + '-' + mm2 + '-' + dd2;
-
-//console.log(thisMonday);
-*/
 
 // 이전주와 다음주 계산하는 함수
 function calWeek(yyyymmdd, isPrev ){
@@ -365,8 +360,21 @@ function deleteSchinfoCallBack(res){
 		location.href = "team_schedule";
 	}
 }
-</script>
 
+function getProinfoCallBack(arrayList){
+	$("#"+currentPjtId).html("");  // 프로젝트 리스트 초기화
+	if(arrayList.length > 0) { // arrayList에 프로젝트목록이 들어온다. customer_project_id 셀렉트박스목록을 갱신한다.
+		for(var i=0; i<arrayList.length; i++)
+		{
+		    var testObj = arrayList[i];
+		    console.log("testObj.proNm: " + testObj.proNm);
+		    $('#'+currentPjtId).append('<option value='+testObj.proId+'>'+testObj.proNm+'</option>');
+		}
+	} else {
+		alert("선택한 고객사에 등록된 프로젝트가 없습니다.");
+	}
+}
+</script>
 
 </head>
 
@@ -525,7 +533,7 @@ function deleteSchinfoCallBack(res){
 								</td>						
 								<td>
 									<!-- input type="text" class="main_input_box_2 box2_03 nInputFont" value="${sch.schCusNm}" id="cusNm_${sch.schId}"-->
-									<select class="main_input_box_2 box2_04 nInputFont" id="cusNm_${sch.schId}">
+									<select class="main_input_box_2 box2_04 nInputFont" id="cusNm_${sch.schId}" name="select_cust">
 										<c:if test="${sch.schCusNm == '' || sch.schCusNm eq null}">
 											<option value="0" selected></option>
 										</c:if>
@@ -543,7 +551,7 @@ function deleteSchinfoCallBack(res){
 								</td>
 								<td>
 									<!-- input type="text" class="main_input_box_2 box2_04 nInputFont" value="${sch.schPjtNm}" id="pjtNm_${sch.schId}"-->
-									<select class="main_input_box_2 box2_05 nInputFont" id="pjtNm_${sch.schId}">
+									<select class="main_input_box_2 box2_05 nInputFont" id="pjtNm_${sch.schId}" name="select_pjt">
 										<c:if test="${sch.schPjtNm == '' || sch.schPjtNm eq null}">
 											<option value="0" selected></option>
 										</c:if>
@@ -552,9 +560,9 @@ function deleteSchinfoCallBack(res){
 														<c:when test="${pjt.pjtId  == sch.schPjtId}">
 															<option value="${pjt.pjtId}" selected>${pjt.pjtNm}</option>
 														</c:when>
-														<c:otherwise>
+														<%-- c:otherwise>
 															<option value="${pjt.pjtId}">${pjt.pjtNm}</option>	
-														</c:otherwise>
+														</c:otherwise--%>
 													</c:choose>
 										</c:forEach>			
 									</select>
