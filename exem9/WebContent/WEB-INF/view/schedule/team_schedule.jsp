@@ -10,13 +10,13 @@
 <link rel="stylesheet" type="text/css" href="./resources/css/fullcalendar.min.css" media="all" ></link> 
 <link rel="stylesheet" type="text/css" href="./resources/css/fullcalendar.css" media="all" ></link> 
 <link rel="stylesheet" type="text/css" href="./resources/css/schedule/team_schedule.css" media="all" ></link>
-
+<link rel="stylesheet" type="text/css" href="./resources/css/jquery/jquery.datetimepicker.min.css">
 
 <!-- jQuery Script -->
 <script type="text/javascript" src="resources/script/jquery/jquery-1.8.2.min.js"></script>
 <script type="text/javascript" src="resources/script/jquery/jquery-ui-1.8.min.js"></script>
 <script type="text/javascript" src="resources/script/jquery/jquery.form.js"></script>
-
+<script type="text/javascript" src="resources/script/jquery/jquery.datetimepicker.full.min.js"></script>
 <script type="text/javascript" src="resources/script/jquery/moment.min.js"></script>
 <script type="text/javascript" src="resources/script/jquery/fullcalendar.min.js"></script>
 <!-- DWR setting -->
@@ -42,6 +42,28 @@ var currentPjtId;
 
 var temp = [];
 $(document).ready(function(){
+	// dateTimePicker 한글화
+	$.datetimepicker.setLocale('ko');
+	
+	// dateTimePicker moment.js와 연동. 시간 단위로 선택하도록 설정하는 작업
+	$.datetimepicker.setDateFormatter({
+	    parseDate: function (date, format) {
+	        var d = moment(date, format);
+	        return d.isValid() ? d.toDate() : false;
+	    },
+	 
+	    formatDate: function (date, format) {
+	        return moment(date).format(format);
+	    }
+	})
+	
+    // datetimepicker 선택시 팝업창 표시
+    $('.datetimepicker').datetimepicker({
+          format:'YYYY-MM-DD HH:mm',
+          formatTime:'HH:mm',
+          formatDate:'YYYY-MM-DD'
+    });
+	
 	$('textarea[name=contents]').bind('mouseenter', function() {
 		$(this).addClass('enlarged_textarea');
 	})
@@ -568,10 +590,10 @@ function getProinfoCallBack(arrayList){
 									</select>
 								</td>							
 								<td>
-									<input type="text" class="main_input_box_2 box2_06 nInputFont" value="${sch.start_time}" id="startTime_${sch.schId}">
+									<input type="text" class="main_input_box_2 box2_06 nInputFont datetimepicker" value="${fn:substring(sch.start_time,0,16)}" id="startTime_${sch.schId}">
 								</td>
 								<td>
-									<input type="text" class="main_input_box_2 box2_07 nInputFont" value="${sch.end_time}" id="endTime_${sch.schId}">
+									<input type="text" class="main_input_box_2 box2_07 nInputFont datetimepicker" value="${fn:substring(sch.end_time,0,16)}" id="endTime_${sch.schId}">
 								</td>
 								<td>
 									<!-- input type="text" class="main_input_box_2 box2_07 nInputFont" value="${sch.dbms_id}" id="dbms_${sch.schId}"-->

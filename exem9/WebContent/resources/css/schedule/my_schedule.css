@@ -20,12 +20,15 @@
 }
 
 .box_05 {
-	width:130px;
+	//width:130px;
 	//left:462px;
+	width:108px;
+	//white-space: nowrap; 
+	//overflow: hidden;
 }
 
 .box_06 {
-	width:130px;
+	width:108px;
 	//left:606px;
 }
 

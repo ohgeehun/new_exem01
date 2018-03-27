@@ -70,14 +70,12 @@ $(document).ready(function(){
 	    }
 	});
 	 
-	$(function(){
-	    // datetimepicker init
-	    $('.datetimepicker').datetimepicker({
-	          format:'YYYY-MM-DD HH:mm',
-	          formatTime:'HH:mm',
-	          formatDate:'YYYY-MM-DD'
-	    });
-	});
+    // datetimepicker init
+    $('.datetimepicker').datetimepicker({
+          format:'YYYY-MM-DD HH:mm',
+          formatTime:'HH:mm',
+          formatDate:'YYYY-MM-DD'
+    });
 	
 	$('#customer_name_id').bind('change', function() {
 		var customer_id = $(this).val();
