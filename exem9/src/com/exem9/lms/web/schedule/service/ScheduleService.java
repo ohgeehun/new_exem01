@@ -417,6 +417,8 @@ public class ScheduleService implements IScheduleService{
 					calStartDate = doDateAdd(calStartDate);  // 하루하루씩 증가시키면서 입력 필요
 				}
 			} else {
+				params.put("start_time",start_time);
+				params.put("end_time",end_time);
 				iSchDao.updateSchinfo(params);  // 시작일자, 종료일자가 같은 날이면 그냥 insert
 			}
 						

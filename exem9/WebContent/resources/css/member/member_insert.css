@@ -1,0 +1,35 @@
+.miBtt_submit_top {
+	position:absolute; 
+	top: 546px;
+	margin-left: 70px;
+}
+.miBtt_submit_top:hover {
+	background:#3d4448;
+	color:#EAEAEA;
+}
+.reg_pass {
+	position:absolute; 
+	border:1px solid #d1cece; 
+	height:38px;
+	padding:1px;
+	left:238px;
+}
+
+/*
+table, td, th {    
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+table {
+    border-collapse: collapse;
+    width: 50%;
+}
+
+th, td {
+    padding: 10px;
+}
+
+.redText{display: block;color: red;margin-left:10px;}
+.greenText{display: block;color: green;margin-left:10px;}
+*/

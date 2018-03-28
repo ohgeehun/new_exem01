@@ -1,0 +1,18 @@
+.miBtt_submit_top {
+	position:absolute; 
+	top: 560px;
+	margin-left: 70px;
+}
+.miBtt_submit_top:hover {
+	background:#3d4448;
+	color:#EAEAEA;
+}
+.reg_pass {
+	position:absolute; 
+	border:1px solid #d1cece; 
+	height:38px;
+	padding:1px;
+	width:290px;
+	left:238px;
+	top: 560px;
+}
