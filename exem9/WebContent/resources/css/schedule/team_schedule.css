@@ -61,16 +61,15 @@ select.box2_01 {
 */
 .Btt_search2 {
     width:110px;
-    height:36px; 
-    padding:7px;
-    background:#6b707b;
+    height:32px; 
+    padding:5px;
+    background:#464a53;
     border:0px;
     border-radius:5px;
     font-family: 'Archivo Narrow', sans-serif;
     font-size:15px;
     color:#fff;
 }
-
 .Btt_search2:hover {
-    background:#464a53;
+    background:#6b707b;
 }
