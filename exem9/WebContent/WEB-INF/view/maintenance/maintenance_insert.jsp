@@ -9,6 +9,7 @@
 <link rel="stylesheet" type="text/css" href="./resources/css/main.css" media="all" />
 <link rel="stylesheet" type="text/css" href="./resources/css/jquery/jquery-ui-1.8.custom.css"/>
 <link id="themecss" rel="stylesheet" type="text/css" href="./resources/css/common/all.min.css"/>
+<link rel="stylesheet" type="text/css" href="./resources/css/maintenance/maintenance_insert.css" media="all" />
 <!-- <link id="themecss" rel="stylesheet" type="text/css" href="//www.shieldui.com/shared/components/latest/css/light/all.min.css" /> -->
 <!-- jQuery Script -->
 <script type="text/javascript" src="resources/script/jquery/jquery-1.8.2.min.js"></script>
@@ -519,49 +520,6 @@ function removeChar(event) {
 		event.target.value = event.target.value.replace(/[^0-9]/g, "");
 }
 </script>
-
-<style>
-/*
- table, td, th {    
-    border: 1px solid #ddd;
-    text-align: left;
-}
-
-table {
-    border-collapse: collapse;
-    width: 50%;
-}
-
-th, td {
-    padding: 10px;
-}
-
-.redText{display: block;color: red;margin-left:10px;}
-.greenText{display: block;color: green;margin-left:10px;}
-
-    .sui-combobox
-    {
-        font-family: Arial, sans-serif;
-        font-size: 14px;
-    }
-*/
-
-.reg_pass {
-	position:absolute; 
-	border:1px solid #d1cece; 
-	height:38px;
-	padding:1px;
-	width:290px;
-	left:238px;
-	top: 910px;
-}
-
-.miBtt_submit_top {
-	position:absolute; 
-	top: 910px;
-	margin-left: 70px;
-}
-</style>
 
 </head>
 <body>

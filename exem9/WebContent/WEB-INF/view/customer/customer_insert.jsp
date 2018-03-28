@@ -9,6 +9,7 @@
 <link rel="stylesheet" type="text/css" href="./resources/css/main.css" media="all" />
 <link rel="stylesheet" type="text/css" href="./resources/css/jquery/jquery-ui-1.8.custom.css"/>  
 <link id="themecss" rel="stylesheet" type="text/css" href="./resources/css/common/all.min.css"/>
+<link rel="stylesheet" type="text/css" href="./resources/css/customer/customer_insert.css" media="all" />
 
 <!-- jQuery Script -->
 <script type="text/javascript" src="resources/script/jquery/jquery-1.8.2.min.js"></script>
@@ -516,25 +517,6 @@ function getprodbmsManagedinfoCallBack(res){
 	}
 }
 </script>
-
-<style>
-
-.miBtt_submit_top {
-	position:absolute; 
-	top: 560px;
-	margin-left: 70px;
-}
-
-.reg_pass {
-	position:absolute; 
-	border:1px solid #d1cece; 
-	height:38px;
-	padding:1px;
-	width:290px;
-	left:238px;
-	top: 560px;
-}
-</style>
 
 </head>
 <body>

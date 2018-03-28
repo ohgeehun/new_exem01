@@ -557,19 +557,6 @@ function cususerListener(obj){
 */
 </script>
 
-<style>
-.inBtt_OK_CUS {
-	width:137px;
-	height:36px; 
-    padding:7px;
-	background:#262d31;
-	border:0px;
-	font-family: 'Archivo Narrow', sans-serif;
-    font-size:15px;
-	color:#fff;
-}
-</style>
-
 </head>
 <body>
 <c:import url="/main_upview"></c:import>

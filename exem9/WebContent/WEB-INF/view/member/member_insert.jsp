@@ -8,6 +8,7 @@
 <!-- <link rel="stylesheet" type="text/css" href="./resources/css/prettydropdowns.css" media="all" />  -->
 <link rel="stylesheet" type="text/css" href="./resources/css/main.css" media="all" />
 <link rel="stylesheet" type="text/css" href="./resources/css/jquery/jquery-ui-1.8.custom.css"/>  
+<link rel="stylesheet" type="text/css" href="./resources/css/member/member_insert.css" media="all" />
 
 <!-- jQuery Script -->
 <script type="text/javascript" src="resources/script/jquery/jquery-1.8.2.min.js"></script>
@@ -332,40 +333,6 @@ function getTeaminfoCallBack(res){
 	$("#user_team_id").html(text);	
 }
 </script>
-
-<style>
-/*
-table, td, th {    
-    border: 1px solid #ddd;
-    text-align: left;
-}
-
-table {
-    border-collapse: collapse;
-    width: 50%;
-}
-
-th, td {
-    padding: 10px;
-}
-
-.redText{display: block;color: red;margin-left:10px;}
-.greenText{display: block;color: green;margin-left:10px;}
-*/
-.miBtt_submit_top {
-	position:absolute; 
-	top: 546px;
-	margin-left: 70px;
-}
-
-.reg_pass {
-	position:absolute; 
-	border:1px solid #d1cece; 
-	height:38px;
-	padding:1px;
-	left:238px;
-}
-</style>
 
 </head>
 <body>

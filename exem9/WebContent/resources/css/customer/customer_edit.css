@@ -45,3 +45,18 @@
 	width:175px;
 }
 
+.inBtt_OK_CUS {
+	width:137px;
+	height:36px; 
+    padding:7px;
+	background:#262d31;
+	border:0px;
+	font-family: 'Archivo Narrow', sans-serif;
+    font-size:15px;
+	color:#fff;
+}
+.inBtt_OK_CUS:hover {
+	background:#3d4448;
+	color:#EAEAEA;
+}
+

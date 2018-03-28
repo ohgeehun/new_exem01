@@ -96,7 +96,6 @@ A:hover  { color:#000;text-decoration:none;}
 	left:132px;
 	top:320px;
 }
-
 .inBtt_OK:hover {
 	background:#3d4448;
 	color:#EAEAEA;
@@ -674,6 +673,9 @@ A:hover  { color:#000;text-decoration:none;}
 	font-family: 'Archivo Narrow', sans-serif;
     font-size:15px;
 	color:#fff;
+}
+.inBtt_OK_2:hover {
+    background:#464a53;
 }
 
 .Btt_search {
