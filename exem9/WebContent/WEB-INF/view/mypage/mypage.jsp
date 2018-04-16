@@ -62,11 +62,7 @@ th, td {
                 $("#user_mail").val(),
                 $("#user_point").val(), UIupdateCallBack);
 		
-		});
-		
-		
-		
-		
+		});		
 		
 		//IMypageService.getUserinfo(userId, userInfoCallBack);		
 		
@@ -240,7 +236,7 @@ th, td {
 					<li class="input_title input_07 inputTxtFont">직급</li>
 					<li class="input_title input_08 inputTxtFont">연락처</li>
 					<li class="input_title input_09 inputTxtFont">메일</li>
-					<li class="input_title input_10 inputTxtFont">포인트</li>
+					<li class="input_title input_10 inputTxtFont">포인트</li> 
 				  </ul>	
 				  
 					<input id="user_id" type="text" class="input_txt input_01 inputTxtFont" value="${mypage_info.userId}" disabled>
@@ -315,11 +311,9 @@ th, td {
 					
 					<input id="user_phone" type="text" class="input_txt input_08 inputTxtFont" value="${mypage_info.userPhone}">
 					<input id="user_mail" type="text" class="input_txt input_09 inputTxtFont" value="${mypage_info.userMail}">
-					<input id="user_point" type="text" class="input_txt input_10 inputTxtFont" value="${mypage_info.userPoint}">
-					<!-- input type="submit" name="OK" class="input_submit inBtt_OK" value="일정등록하기"-->
-					<!-- input type="button" id="edit_update_btn" name="OK" class="miBtt_submit" value="등록"></input-->
-							
-					<input type="password" placeholder="등록 비밀번호 입력." required class="reg_pass input_11 inputTxtFont"> &nbsp;&nbsp;
+					<input id="user_point" type="text" class="input_txt input_10 inputTxtFont" value="${mypage_info.userPoint}"> 
+		
+					<input type="password" id="user_pw_id" placeholder="수정 비밀번호 입력." required class="reg_pass input_11 inputTxtFont"> &nbsp;&nbsp;
 					<input type="button" id="edit_update_btn" name="OK" class="miBtt_submit_top miBtt_submit" value="수정">
 				</div>
 			</div>

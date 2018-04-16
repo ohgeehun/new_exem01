@@ -18,8 +18,6 @@
 <script type="text/javascript" src="resources/script/jquery/jquery.form.js"></script>
 <script type="text/javascript" src="resources/script/common/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="resources/script/common/shieldui-all.min.js"></script>
-<!-- <script src="resources/script/jquery/jquery-latest.min.js"></script> 
-<script src="resources/script/jquery/jquery.prettydropdowns.js"></script> 
 
 <!-- DWR setting -->
 <script type="text/javascript" src="dwr/engine.js"></script>
@@ -492,7 +490,7 @@ function getprodbmsManagedinfoCallBack(res){
 		        }
 		}); 
 		 
-	}else{
+	}else{		
 		$("#cusNm_hidden_id").val("0");
 		
 		$("#cusNm_id").swidget().destroy();
@@ -503,7 +501,7 @@ function getprodbmsManagedinfoCallBack(res){
             },        	        
             enabled: true,
             events: {
-            	select : function(e){
+            	change : function(e){
             		var cusId = $("#cusName_hidden_id").val();
 	    			var proId = $("#cusPro_hidden_id").val();		
 	    			var dbmsId = $("#dbms_select_id").val();
@@ -555,6 +553,7 @@ function getprodbmsManagedinfoCallBack(res){
 					<input type="hidden" id="cusPro_hidden_id"> 
 					<input class="input_txt_03 input_02_01 inputTxtFont sui-input"  id='cusproName_id' >	
 				</div>	
+				
 				<div class="input_title_01 input_02 inputTxtFont">
 					<input id="chk_id" type="checkbox" disabled="disabled"/> 고객사명과 동일
 				</div>

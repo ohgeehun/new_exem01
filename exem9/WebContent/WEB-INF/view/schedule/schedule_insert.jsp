@@ -7,18 +7,27 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" type="text/css" href="./resources/css/fullcalendar.min.css" media="all" />
-<link rel="stylesheet" type="text/css" href="./resources/css/fullcalendar.css" media="all" /> 
-<!--  link rel="stylesheet" type="text/css" href="./resources/css/jquery/jquery-ui-1.8.custom.css"  -->
-<link rel="stylesheet" type="text/css" href="./resources/css/jquery/jquery.datetimepicker.min.css">
+<link rel="stylesheet" type="text/css" href="./resources/css/fullcalendar.css" media="all" />  
+<link rel="stylesheet" type="text/css" href="./resources/css/jquery/jquery-ui-1.8.custom.css"> 
+<link rel="stylesheet" type="text/css" href="./resources/css/jquery/jquery.datetimepicker.min.css"> 
+
+<link rel="stylesheet" type="text/css" href="./resources/css/main.css" media="all" />
+<link id="themecss" rel="stylesheet" type="text/css" href="./resources/css/common/all.min.css"/>
+
 
 <title>Insert title here</title>
 
 <!-- jQuery Script -->
 <script type="text/javascript" src="resources/script/jquery/jquery-1.8.2.min.js"></script>
-<script type="text/javascript" src="resources/script/jquery/jquery-ui-1.8.min.js"></script>
+<!--  <script type="text/javascript" src="resources/script/jquery/jquery-ui-1.8.min.js"></script> -->
+ <script type="text/javascript" src="resources/script/jquery/jquery-ui-1.8.custom.js"></script>  
+ <script type="text/javascript" src="resources/script/common/jquery-1.11.1.min.js"></script>  
 <script type="text/javascript" src="resources/script/jquery/jquery.form.js"></script>
 <script type="text/javascript" src="resources/script/jquery/jquery.datetimepicker.full.min.js"></script>
-<script type="text/javascript" src="resources/script/jquery/moment.min.js"></script>
+<script type="text/javascript" src="resources/script/jquery/moment.min.js"></script> 
+<!---->
+<script type="text/javascript" src="resources/script/common/shieldui-all.min.js"></script>
+
 
 <!-- DWR setting -->
 <script type="text/javascript" src="dwr/engine.js"></script>
@@ -86,13 +95,16 @@ $(document).ready(function(){
     $("#edit_update_btn").bind("click", function(){   	
     	
     	var user_id = userId;    // 세션에서 가져와야 함
-    	var customer_id = $("#customer_name_id").val();
-    	var project_id = $("#customer_project_id").val();
+    	var customer_id = $("#cusName_hidden_id").val();
+    	var project_id = $("#cusPro_hidden_id").val();
     	var dbms_id = $("#dbms_id").val();
     	var category_id = $("#category_id").val();
     	var start_time = $("#startDate").val();
     	var end_time = $("#endDate").val();
     	var contents = $("#etc_id").val();
+    	
+    	alert(customer_id);
+    	alert(project_id);
     	
      	if(user_id == ""){     		
      		alert("세션에 사용자ID값이 없습니다.");	   		
@@ -118,8 +130,131 @@ $(document).ready(function(){
      		}     	
      	}    	
     });
+	
+	$("#customer_name_id").shieldComboBox({
+    	dataSource: {
+            data: ""
+        },        	        
+        enabled: false
+	}); 
+	
+ 	$("#customer_project_id").shieldComboBox({
+    	dataSource: {
+            data: ""
+        },        	        
+        enabled: false
+	});  
+ 	
+	 /* 고객사 등록 시 기존 고객사명 리스트를 가져오는 이벤트 */
+	ICustomerService.getcusNminfo(cusNminfoCallBack);
+	
 
 });
+
+function cusNminfoCallBack(res){
+	var availableTags = [];
+	
+	for(var i = 0; i < res.length; i++){	
+		availableTags.push(res[i].cusNm);			
+	}	
+
+	 $("#customer_name_id").swidget().destroy();
+	 
+	 $("#customer_name_id").shieldComboBox({
+	    	dataSource: {
+	            data: availableTags
+	        },	        
+	        autoComplete: {
+	            enabled: true
+	        },events: {
+	        	select : function(e){   	        		
+	        		
+     				var cusNmtemp =  $("#customer_name_id").swidget().value();
+     				var cusNm = cusNmtemp.toUpperCase();
+     				//alert(cusNm);
+     				$("#customer_name_id").val(cusNm);
+     						
+     				$("#cusPro_hidden_id").val("0");
+     				$("#customer_project_id").val("");     	 
+     		       
+    			    ICustomerService.getProinfo(cusNm, cusNmProinfoCallBack);	           			   
+     	   		}
+	        }
+ 	}); 	
+}
+
+function cusNmProinfoCallBack(res){
+	var availableTags = [];	 
+	
+	$("#chk_id").prop("disabled",false);
+	
+	if(res.length > 0){		
+		
+		for(var i = 0; i < res.length; i++){			
+			availableTags.push(res[i].proNm);			
+		
+	        $("#cusName_hidden_id").val(res[i].cusId);	         
+		}
+		
+		 $("#customer_project_id").swidget().destroy();
+			
+		 $("#customer_project_id").shieldComboBox({			 	
+		    	dataSource: {
+		            data: availableTags
+		        },	        
+		        autoComplete: {
+		            enabled: true
+		        },events: {
+		        	select : function(e){   
+		        	var cusNm = $("#customer_name_id").val();
+		        	var proNmtemp =  $("#customer_project_id").swidget().value();
+     				var proNm = proNmtemp.toUpperCase();     				
+     		     				
+     				$("#customer_project_id").val(proNm);     		   			  
+	  		               
+     				ICustomerService.getCusProCheck(cusNm,proNm, getCusProCheckCallBack);	        
+	  	   			}
+		        }
+		}); 
+
+	}else{
+	
+		$("#cusName_hidden_id").val("0");		
+		
+		$("#cusPro_hidden_id").val("0");
+		$("#customer_project_id").val("");
+		 			 	  
+		$("#customer_project_id").swidget().destroy();
+		 
+    	$("#customer_project_id").shieldComboBox({
+        	dataSource: {
+                data: ""
+            },        	        
+            enabled: true,
+            events: {
+            	select : function(e){   
+            		var cusNm = $("#customer_name_id").val();
+            		var proNmtemp =  $("#customer_project_id").swidget().value();
+     				var proNm = proNmtemp.toUpperCase();
+     				
+     				$("#customer_project_id").val(proNm);	  				
+	  			 
+	        	}
+            }
+    	}); 
+	}	
+}
+
+function getCusProCheckCallBack(res){
+	if(res.length > 0){
+		for(var i = 0; i < res.length; i++){	
+			 $("#cusPro_hidden_id").val(res[i].pjtId); 
+		}
+	}else{
+		  $("#cusPro_hidden_id").val("0");	        
+	}
+
+}
 
 function insertSchinfoCallBack(res){
 	if(res == "FAILED"){
@@ -202,21 +337,34 @@ th, td {
 					<li class="input_title input_07 inputTxtFont">요청내역 및 지원목적</li>
 
 					<!-- input type="text" name="customer" class="input_txt input_01 inputTxtFont"-->
-					<select id='customer_name_id' class="input_txt input_01 inputTxtFont">
+					<div class="input_txt_01 input_01 inputTxtFont">	
+						<input type="hidden" id="cusName_hidden_id"> 
+						<!-- <input class="sui-input" id='cusName_id' value=""  style='text-transform: uppercase' onblur="onblur_event();"></input> -->
+						<input id='customer_name_id'></input>
+						<!-- <span id="idSpan" class="redText"></span> -->			
+					</div>
+							
+					<div class="input_txt_01 input_02 inputTxtFont">	
+						<input type="hidden" id="cusPro_hidden_id"> 
+						<input class="input_txt_03 input_02_01 inputTxtFont sui-input"  id='customer_project_id' >	
+					</div>	
+				
+				
+					<%-- <select id='customer_name_id' class="input_txt input_01 inputTxtFont">
 								<option value="0" selected>지정필요</option>
 							    <c:forEach var="cusNm" items="${cusNm_list}">
 				 	    			<option value="${cusNm.cusId}">${cusNm.cusNm}</option>		 	    	
 				 	    		</c:forEach>	
-					</select>
+					</select> --%>
 					<!-- input type="text" name="project" class="input_txt input_02 inputTxtFont"-->
-					<select id='customer_project_id' class="input_txt input_02 inputTxtFont">
+					<%-- <select id='customer_project_id' class="input_txt input_02 inputTxtFont">
 								<option value="0" selected>지정필요</option>
-							    <%--
+							    
 							    <c:forEach var="cusPjtNm" items="${cusPjtNm_list}">
 				 	    			<option value="${cusPjtNm.pjtId}">${cusPjtNm.pjtNm}</option>		 	    	
 				 	    		</c:forEach>
-				 	    		 --%>	
-					</select>
+				 	    		
+					</select> --%>
 					<!-- input type="text" name="product" class="input_txt input_03 inputTxtFont"-->
 					<select id='dbms_id' class="input_txt input_03 inputTxtFont">
 								<option value="0" selected>지정하지않음.</option>

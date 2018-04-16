@@ -11,6 +11,7 @@
 <link id="themecss" rel="stylesheet" type="text/css" href="./resources/css/common/all.min.css"/>
 <link rel="stylesheet" type="text/css" href="./resources/css/maintenance/maintenance_insert.css" media="all" />
 <!-- <link id="themecss" rel="stylesheet" type="text/css" href="//www.shieldui.com/shared/components/latest/css/light/all.min.css" /> -->
+
 <!-- jQuery Script -->
 <script type="text/javascript" src="resources/script/jquery/jquery-1.8.2.min.js"></script>
 <!-- <script type="text/javascript" src="resources/script/jquery/jquery-ui-1.8.min.js"></script> -->
@@ -18,15 +19,10 @@
 <script type="text/javascript" src="resources/script/jquery/jquery.form.js"></script>
 <script type="text/javascript" src="resources/script/common/jquery-1.11.1.min.js"></script>  
 <script type="text/javascript" src="resources/script/common/shieldui-all.min.js"></script>
-<!-- <script type="text/javascript" src="//www.shieldui.com/shared/components/latest/js/jquery-1.11.1.min.js"></script>
-<script type="text/javascript" src="//www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script> -->
 
 <!--popup event -->
 <link type="text/css" rel="stylesheet" href="resources/css/member/cusmemberinfo_popup.css" />
 <script type="text/javascript" src="resources/script/member/cusmemberinfo_popup.js"></script>
-
-<!-- <script src="resources/script/jquery/jquery-latest.min.js"></script> 
-<script src="resources/script/jquery/jquery.prettydropdowns.js"></script> 
 
 <!-- DWR setting -->
 <script type="text/javascript" src="dwr/engine.js"></script>
@@ -307,7 +303,7 @@ function cusNmProinfoCallBack(res){
 		});  	
 		
 	}else{
-		alert("해당 고객사는 존재하지 않습니다.");
+		//alert("해당 고객사는 존재하지 않습니다.");
 		
 		$("#cusName_hidden_id").val("");
 		$("#cusproName_hidden_id").val("");
@@ -362,7 +358,7 @@ function cusNmProcheckCallBack(res){
 		$("#dbms_select_id").attr("disabled",false);
 
 	}else{
-		alert("해당 프로젝트는 존재하지 않습니다.");		
+		//alert("해당 프로젝트는 존재하지 않습니다.");		
 		
 		$("#cusName_hidden_id").val("");
 		$("#cusproName_hidden_id").val("");
