@@ -103,8 +103,8 @@ $(document).ready(function(){
     	var end_time = $("#endDate").val();
     	var contents = $("#etc_id").val();
     	
-    	alert(customer_id);
-    	alert(project_id);
+    	//alert(customer_id);
+    	//alert(project_id);
     	
      	if(user_id == ""){     		
      		alert("세션에 사용자ID값이 없습니다.");	   		
@@ -374,10 +374,17 @@ th, td {
 					</select>
 					<!-- input type="text" name="support" class="input_txt input_04 inputTxtFont"-->
 					<select id='category_id' class="input_txt input_04 inputTxtFont">
-								<option value="0" selected>지정하지않음.</option>
-							    <c:forEach var="cate" items="${cate_list}">
-				 	    			<option value="${cate.catId}">${cate.catNm}</option>		 	    	
-				 	    		</c:forEach>	
+						<option value="0" selected>지정하지않음.</option>
+					    <c:forEach var="cate" items="${cate_list}">
+					    	<c:choose>
+					    		<c:when test="${cate.small_group eq '0' }">
+					    			<optgroup label="${cate.catNm}"></optgroup>
+					    		</c:when>
+					    		<c:otherwise>
+		 	    					<option value="${cate.catId}">${cate.catNm}</option>
+		 	    				</c:otherwise>
+		 	    			</c:choose>		 	    	
+		 	    		</c:forEach>	
 					</select>
 					<!-- input type="text" name="start" class="input_txt input_05 inputTxtFont"-->
 					<input id="startDate" type="text" class="input_txt input_05 inputTxtFont datetimepicker">

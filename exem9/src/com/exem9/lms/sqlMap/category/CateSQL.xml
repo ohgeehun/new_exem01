@@ -9,11 +9,14 @@
 	<resultMap class="CateBean" id="CateMap">
 		<result property="catId" column="category_id"/>
 		<result property="catNm" column="category_name"/>
+		<result property="big_group" column="big_group"/>
+		<result property="small_group" column="small_group"/>
+		<result property="dept_group" column="dept_group"/>
 	</resultMap>
 	
 	<select id="getcate" resultMap="CateMap">
-	select category_id, category_name from xm_category_code
-		where dept_group=1
-		order by category_name
+	select category_id, category_name, big_group, small_group, dept_group from xm_category_code
+		where dept_group=1 or dept_group=3 
+		order by dept_group, big_group, orderby
 	</select>  	
 </sqlMap>

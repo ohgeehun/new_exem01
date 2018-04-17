@@ -498,14 +498,21 @@ function getProinfoCallBack(arrayList){
 											<option value="0" selected></option>
 										</c:if>
 										<c:forEach var="cat" items="${cat_list}">
-													<c:choose>
-														<c:when test="${cat.catId  == sch.category_id}">
-															<option value="${cat.catId}" selected>${cat.catNm}</option>
-														</c:when>
-														<c:otherwise>
-															<option value="${cat.catId}">${cat.catNm}</option>	
-														</c:otherwise>
-													</c:choose>
+												<c:choose>
+													<c:when test="${cat.catId  == sch.category_id}">
+														<option value="${cat.catId}" selected>${cat.catNm}</option>
+													</c:when>
+													<c:otherwise>
+														<c:choose>
+												    		<c:when test="${cat.small_group eq '0' }">
+												    			<optgroup label="${cat.catNm}"></optgroup>
+												    		</c:when>
+												    		<c:otherwise>
+									 	    					<option value="${cat.catId}">${cat.catNm}</option>
+									 	    				</c:otherwise>
+									 	    			</c:choose>
+													</c:otherwise>
+												</c:choose>
 										</c:forEach>			
 									</select>
 								</td>
