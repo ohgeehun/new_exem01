@@ -65,7 +65,7 @@ public class  MatController {
 			List<DeptBean> dept_list = iDeptService.getdept();
 			List<TeamBean> team_list = iTeamService.getteam();
 			List<MemberBean> mem_list = iMemberService.getallmem();
-			List<CustomerMemberBean> cususer_list = iCustomerService.getprodbmsManagedinfo("BGF리테일");
+			List<CustomerMemberBean> cususer_list = iCustomerService.getprodbmsManagedinfo("건강보험공단");
 			List<MemberBean2> salesman_list = iCustomerService.getSalsemember();
 			List<SupoBean> supo_level_list = iMatService.getSupolevel();
 			List<SupoBean> supo_visit_list = iMatService.getSupovisit("");

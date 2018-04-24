@@ -87,7 +87,7 @@ $(document).ready(function(){
     	alert(supoendDatae);
     	alert(etc);
     	 */
-
+    
      	if(proNm == ""){     		
      		alert("프로젝트명을 선택하세요.");	   		
      	}else{
