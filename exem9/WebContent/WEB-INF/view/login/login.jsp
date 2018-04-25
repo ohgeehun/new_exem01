@@ -61,11 +61,149 @@ function clearText(thefield){
 @-o-viewport{width:device-width,initial-scale=1.0, user-scalable=no;}
 @viewport{width:device-width,initial-scale=1.0, user-scalable=no;} 
 
+@media all and (max-width: 600px) {
+  .inPutBox_id_m {
+	position:absolute; 
+	width:233px;
+	height:31px; 
+    padding:1px;
+	border:1px solid #B7B7B7;
+	font-family: 'Archivo Narrow', sans-serif;
+    font-size:16px;
+	color:#777;
+	background-color : #f7f7bd;
+
+	left:132px;
+	top:187px;
+  }
+    .inPutBox_pw_m {
+	position:absolute; 
+	width:233px;
+	height:31px; 
+    padding:1px;
+	border:1px solid #B7B7B7;
+	font-family: 'Archivo Narrow', sans-serif;
+    font-size:16px;
+	color:#777;
+	background-color : #f7f7bd;
+
+	left:132px;
+	top:227px;
+  }
+  
+  .inBtt_OK_m {
+	position:absolute; 
+	width:237px;
+	height:36px; 
+    padding:7px;
+	background:#262d31;
+	border:0px;
+	font-family: 'Archivo Narrow', sans-serif;
+    font-size:15px;
+	color:#fff;
+
+	left:132px;
+	top:320px;
+}
+.inBtt_OK_m:hover {
+	background:#3d4448;
+	color:#EAEAEA;
+}
+
+.inBtt_PassSearch_m {
+	position:absolute; 
+	width:237px;
+	height:36px; 
+    padding:7px;
+	background:#262d31;
+	border:0px;
+	font-family: 'Archivo Narrow', sans-serif;
+    font-size:15px;
+	color:#fff;
+
+	left:132px;
+	top:360px;
+}
+
+.inBtt_PassSearch_m:hover {
+	background:#3d4448;
+	position:absolute; 
+}
+}
+
+@media not all and (max-width: 600px) {
+  .inPutBox_id_m {
+	position:absolute; 
+	width:233px;
+	height:31px; 
+    padding:1px;
+	border:1px solid #B7B7B7;
+	font-family: 'Archivo Narrow', sans-serif;
+    font-size:16px;
+	color:#777;
+	background-color : #f7f7bd;
+
+	left:132px;
+	top:227px;
+  }
+  .inPutBox_pw_m {
+	position:absolute; 
+	width:233px;
+	height:31px; 
+    padding:1px;
+	border:1px solid #B7B7B7;
+	font-family: 'Archivo Narrow', sans-serif;
+    font-size:16px;
+	color:#777;
+	background-color : #f7f7bd;
+
+	left:371px;
+	top:227px;
+  }
+  
+  .inBtt_OK_m {
+	position:absolute; 
+	width:237px;
+	height:36px; 
+    padding:7px;
+	background:#262d31;
+	border:0px;
+	font-family: 'Archivo Narrow', sans-serif;
+    font-size:15px;
+	color:#fff;
+
+	left:132px;
+	top:320px;
+}
+.inBtt_OK_m:hover {
+	background:#3d4448;
+	color:#EAEAEA;
+}
+
+.inBtt_PassSearch_m {
+	position:absolute; 
+	width:237px;
+	height:36px; 
+    padding:7px;
+	background:#262d31;
+	border:0px;
+	font-family: 'Archivo Narrow', sans-serif;
+    font-size:15px;
+	color:#fff;
+
+	left:374px;
+	top:320px;
+}
+
+.inBtt_PassSearch_m:hover {
+	background:#3d4448;
+	position:absolute; 
+}
+}
+
 </style>
 
 <body>
-
-
 
 <div class="outer">
 	<div class="wrap">
@@ -73,20 +211,17 @@ function clearText(thefield){
 			<li class="inPut_guideTitle">EXEM 일정관리시스템</li>
 			<li class="inPut_guideMessage">EXEM 일정관리시스템은 사내 직원용으로 부여된 <br>아이디와 패스워드 인증을 거친 후 사용 가능합니다.
 </li>
-
-			<input type="text" id="userId" name="user_id" class="inPutBox_id" value="user id" onFocus="clearText(this);">
-			<input type="password" id="userPw" name="user_pw" class="inPutBox_pw" value="passwd" onFocus="clearText(this);">
-
-			<input type="checkbox" class="inPut_chkbx">
-			<li class="inPut_IdSave">User Id 저장</li>
+				<input type="text" id="userId" name="user_id" class="inPutBox_id_m" value="user id" onFocus="clearText(this);">
+				<input type="password" id="userPw" name="user_pw" class="inPutBox_pw_m" value="passwd" onFocus="clearText(this);">
+				
+				<input type="checkbox" class="inPut_chkbx">
+				<li class="inPut_IdSave">User Id 저장</li>
  
-			<input type="submit"  id="loginBtn" name="OK" class="inBtt_OK" value="Log In">
-			<input type="submit" name="search_pass" class="inBtt_PassSearch" value="Password Search">
+				<input type="submit"  id="loginBtn" name="OK" class="inBtt_OK_m" value="Log In">
+				<input type="submit" name="search_pass" class="inBtt_PassSearch_m" value="Password Search">
 		</div>
 	</div>
 </div>
-
-
 
 </body>
 </html>
