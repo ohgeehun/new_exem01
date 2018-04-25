@@ -20,23 +20,6 @@
 <script type="text/javascript" src="dwr/util.js"></script>
 <script type="text/javascript" src="dwr/interface/IMypageService.js"></script>
 
-<style type="text/css">
-/*
- table, td, th {    
-    border: 1px solid #ddd;
-    text-align: left;    
-}
-
-table {
-    border-collapse: collapse;
-    width: 100%;
-}
-
-th, td {
-    padding: 15px;
-}
-*/
-</style>
 
 <script type="text/javascript">	
 	var userId = "<%=(String)session.getAttribute("sUserId")%>";
@@ -214,12 +197,6 @@ th, td {
 
 <c:import url="/main_upview"></c:import>
 
-		<!-- >div class="top_SubMenuPart">
-			<div class="top_MenuBase">
-				
-			</div>
-		</div-->
-		
 	<div class="row">
 			<div class="top_mainDisplayPart">
 			
@@ -243,7 +220,6 @@ th, td {
 					<input id="user_name" type="text" class="input_txt input_02 inputTxtFont" value="${mypage_info.userNm}">
 					<input id="user_password" type="text" class="input_txt input_03 inputTxtFont" value="" placeholder="********">
 					
-					<!-- input type="text" name="customer" class="input_txt input_01 inputTxtFont"-->
 					<select id='user_department_id' class="input_txt input_04 inputTxtFont">
 		 	    			<c:if test="${mypage_info.userDeptId == ''}">
 								<option value="0" selected>지정필요.</option>
@@ -259,7 +235,6 @@ th, td {
 										</c:choose>		
 							</c:forEach>	
 					</select>
-					<!-- input type="text" name="project" class="input_txt input_02 inputTxtFont"-->
 					<select id='user_team_id' class="input_txt input_05 inputTxtFont">
 							<c:if test="${mypage_info.userTeamId == ''}">
 								<option value="0" selected>지정필요.</option>

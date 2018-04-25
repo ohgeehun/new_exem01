@@ -27,13 +27,14 @@ import com.exem9.lms.web.department.service.IDeptService;
 import com.exem9.lms.web.member.bean.MemberBean;
 import com.exem9.lms.web.member.bean.MemberNextBean;
 import com.exem9.lms.web.member.service.IMemberService;
+import com.exem9.lms.web.mypage.bean.MypageBean;
 import com.exem9.lms.web.position.bean.PosiBean;
 import com.exem9.lms.web.schedule.bean.SchBean;
 import com.exem9.lms.web.schedule.bean.SchNextBean;
 import com.exem9.lms.web.schedule.service.IScheduleService;
 import com.exem9.lms.web.team.bean.TeamBean;
 import com.exem9.lms.web.team.service.ITeamService;
-
+import com.exem9.lms.web.mypage.service.IMypageService;
 
 @Controller
 public class ScheduleController {
@@ -51,6 +52,8 @@ public class ScheduleController {
 	public ITeamService iTeamService;
 	@Autowired
 	public IMemberService iMemberService;
+	@Autowired
+	public IMypageService iMypageService;
 	
 	// 사용하지 않음
 	@RequestMapping(value = "/schedule")
@@ -216,7 +219,10 @@ public class ScheduleController {
 		if(session.getAttribute("sUserId")==null) {
 			throw new UserNotFoundException("자동 로그아웃 됐습니다.");
 		} else {
-			
+			// 로그인한 유저의 본부를 확인 후 해당본부로 선택하여 조회되도록 한다.
+			String myId = (String) session.getAttribute("sUserId");
+			List<MypageBean> mypage_info = iMypageService.getUserinfo(myId);
+			int deptId = Integer.parseInt( mypage_info.get(0).getUserDeptId() ) ;
 			
 			String YYYYMMDDYYYYMMDD = iScheduleService.getThisWeek();
 			String strfromYYYYMMDD = YYYYMMDDYYYYMMDD.substring(0, 10);
@@ -229,7 +235,7 @@ public class ScheduleController {
 			
 			// getsch호출 전에 strtoYYYYMMDD를 2018-04-01 23:59:59 로 변환 필요
 			//String strtoYYYYMMDD = strtoYYYYMMDD + " 23:59:59";
-			List<SchBean> sch_list = iScheduleService.getsch(strfromYYYYMMDD, strtoYYYYMMDD,1);
+			List<SchBean> sch_list = iScheduleService.getTeamsch(strfromYYYYMMDD, strtoYYYYMMDD,1, 0, deptId);
 			List<CateBean> cat_list = iCateService.getcate();
 			List<DbmsBean> dbms_list = iDbmsService.getdbms();
 			List<CustomerNmBean> cus_list = iCustomerService.getcusNminfo2();
@@ -238,7 +244,7 @@ public class ScheduleController {
 			List<TeamBean> team_list = iTeamService.getteam();
 			List<MemberBean> mem_list = iMemberService.getallmem();
 			
-			LineBoardBean lbb = iScheduleService.getNCount(strfromYYYYMMDD,strtoYYYYMMDD,1);
+			LineBoardBean lbb = iScheduleService.getTeamNCount(strfromYYYYMMDD,strtoYYYYMMDD,1, 0, deptId);
 			
 			modelAndView.addObject("startPage", lbb.getStartPage());
 			modelAndView.addObject("endPage", lbb.getEndPage());
@@ -253,6 +259,7 @@ public class ScheduleController {
 			modelAndView.addObject("dept_list", dept_list);
 			modelAndView.addObject("team_list", team_list);
 			modelAndView.addObject("mem_list", mem_list);
+			modelAndView.addObject("deptFilter", deptId);
 			
 			modelAndView.setViewName("schedule/team_schedule");
 		}
@@ -274,13 +281,16 @@ public class ScheduleController {
 		String toMM_YY = request.getParameter("week-label-to-day");   //  01-08
 		int pageNo = Integer.parseInt(request.getParameter("pageNo"));
 		int teamFilter = -1; // 팀이 선택되지 않았을 때
-		//int deptFilter = -1; // 본부(부서)가 선택되지 않았을 때
+		int deptFilter = -1; // 본부(부서)가 선택되지 않았을 때
 		
 		String strTeamFilter = request.getParameter("teamFilter");
 		if ( strTeamFilter != null && !strTeamFilter.isEmpty() ) {
 			teamFilter = Integer.parseInt(strTeamFilter);
 		} 
 		String strDeptFilter = request.getParameter("deptFilter");
+		if ( strDeptFilter != null && !strDeptFilter.isEmpty() ) {
+			deptFilter = Integer.parseInt(strDeptFilter);
+		}
 		
 		//System.out.println( "---------------------------------------------------  my_schedule_next : MM-YY(received) :" + fromMM_YY );
 		//System.out.println( "---------------------------------------------------  my_schedule_next : pageNo :" + pageNo );
@@ -299,7 +309,13 @@ public class ScheduleController {
 			
 			// getTeamsch호출 전에 strtoYYYYMMDD를 2018-04-01 23:59:59 로 변환 필요
 			////String strtoYYYYMMDD = strtoYYYYMMDD + " 23:59:59";
-			List<SchBean> sch_list = iScheduleService.getTeamsch(strfromYYYYMMDD, strtoYYYYMMDD, pageNo, teamFilter);
+			List<SchBean> sch_list;
+			if(teamFilter != -1) { // team이 선택된 경우
+				sch_list = iScheduleService.getTeamsch(strfromYYYYMMDD, strtoYYYYMMDD, pageNo, teamFilter, 0);
+			} else { //본부만 선택한 경우
+				sch_list = iScheduleService.getTeamsch(strfromYYYYMMDD, strtoYYYYMMDD, pageNo, 0, deptFilter);
+			}
+				
 			List<CateBean> cat_list = iCateService.getcate();
 			List<DbmsBean> dbms_list = iDbmsService.getdbms();
 			List<CustomerNmBean> cus_list = iCustomerService.getcusNminfo2();
@@ -310,7 +326,12 @@ public class ScheduleController {
 			
 			//LineBoardBean lbb = iScheduleService.getNCount(selectBtnVal,cusNm,pageNo);
 			//LineBoardBean lbb = iScheduleService.getNCount(strfromYYYYMMDD, strtoYYYYMMDD, pageNo);
-			LineBoardBean lbb = iScheduleService.getTeamNCount(strfromYYYYMMDD, strtoYYYYMMDD, pageNo, teamFilter);
+			LineBoardBean lbb;
+			if(teamFilter != -1) { // team이 선택된 경우
+				lbb = iScheduleService.getTeamNCount(strfromYYYYMMDD, strtoYYYYMMDD, pageNo, teamFilter, 0);
+			} else { //본부만 선택한 경우
+				lbb = iScheduleService.getTeamNCount(strfromYYYYMMDD, strtoYYYYMMDD, pageNo, 0, deptFilter);
+			}
 			
 			modelAndView.addObject("startPage", lbb.getStartPage());
 			modelAndView.addObject("endPage", lbb.getEndPage());

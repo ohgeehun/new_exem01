@@ -103,32 +103,36 @@ $(document).ready(function(){
 			
 	   	    $('#checkbox_id:checked').each(function() {   	    
    	    	    var chkId = $(this).val();
-
    	    	 	//var user_id = userId;    // 세션에서 가져와야 함
    	    	 	var user_id = $("#userNm_"+chkId+" option:selected").val();
-   	    	 	//var startDay = $("#startDay_"+chkId).val();
-   	    	    var cusId = $("#cusNm_"+chkId+" option:selected").val();
-   	         	var pjtId = $("#pjtNm_"+chkId+" option:selected").val();
-   	         	var startTime = $("#startTime_"+chkId).val();
-   	         	var endTime = $("#endTime_"+chkId).val();
-   	         	var dbmsId = $("#dbmsId_"+chkId+" option:selected").val();
-   	         	var cateId = $("#cateId_"+chkId+" option:selected").val();
-   	         	var contents = $("#contents_"+chkId).val();
-   	         	
-   	         	console.debug( " | " + cusId + " | " + pjtId + " | " +startTime + " | " + endTime + " | " + dbmsId + " | " + cateId + " | " +contents + " | " + chkId );
-   	         	
-   	         	IScheduleService.updateSchinfo(
-  					user_id, 
-  					cusId,
-  					pjtId,
-					dbmsId, 
-					cateId, 
-					startTime,
-					endTime,
-					contents,
-					chkId,
-					updateSchinfoCallBack
-				)
+   	    	 	
+   	    	    if( userId != user_id) {
+   	    	    	alert("자신의 일정만 수정/삭제가 가능합니다.")
+   	    	    } else { 
+	   	    	 	//var startDay = $("#startDay_"+chkId).val();
+	   	    	    var cusId = $("#cusNm_"+chkId+" option:selected").val();
+	   	         	var pjtId = $("#pjtNm_"+chkId+" option:selected").val();
+	   	         	var startTime = $("#startTime_"+chkId).val();
+	   	         	var endTime = $("#endTime_"+chkId).val();
+	   	         	var dbmsId = $("#dbmsId_"+chkId+" option:selected").val();
+	   	         	var cateId = $("#cateId_"+chkId+" option:selected").val();
+	   	         	var contents = $("#contents_"+chkId).val();
+	   	         	
+	   	         	console.debug( " | " + cusId + " | " + pjtId + " | " +startTime + " | " + endTime + " | " + dbmsId + " | " + cateId + " | " +contents + " | " + chkId );
+	   	         	
+	   	         	IScheduleService.updateSchinfo(
+	  					user_id, 
+	  					cusId,
+	  					pjtId,
+						dbmsId, 
+						cateId, 
+						startTime,
+						endTime,
+						contents,
+						chkId,
+						updateSchinfoCallBack
+					)
+   	    	    }
 	   	    });	
 		}
 	});
@@ -141,11 +145,17 @@ $(document).ready(function(){
 				
 		   	    $('#checkbox_id:checked').each(function() {   	    
 	   	    	    var chkId = $(this).val();
-
-	   	         	IScheduleService.deleteSchinfo(
-	  					chkId,
-						deleteSchinfoCallBack
-					)
+	   	    	    // 세션 UserId(userId)와 엔지니어 선택박스의 값이 다르면 메시지 띄우고 처리 안함
+	   	    	    var user_id = $("#userNm_"+chkId+" option:selected").val();
+	   	    	    //alert(user_id + ":" + userId );
+	   	    	    if( userId != user_id) {
+	   	    	    	alert("자신의 일정만 수정/삭제가 가능합니다.")
+	   	    	    } else { 
+		   	         	IScheduleService.deleteSchinfo(
+		  					chkId,
+							deleteSchinfoCallBack
+						)
+	   	    	    }
 		   	    });
 			
 			}else{   //취소
@@ -224,23 +234,32 @@ $(document).ready(function(){
     
     // 부서버튼 선택 시 이벤트 처리
 	$("#dept_select").change(function (){
-		var deptId = $("#dept_select option:selected").val();
+		//var deptId = $("#dept_select option:selected").val();
 		//alert("deptId : " + deptId);
 		//$("#btnDept_5_Team_${team.teamId}").hide();	
 		//$("#btnDept_5_Team_23").hide();
 		//alert("team no : " + $("input[name$='btnTeam']").length);
-		$("input[name$='btnTeam']").hide();
-		for( var i =0 ; i <= $("input[name$='btnTeam']").length ; i ++ ){
+		
+		//$("input[name$='btnTeam']").hide();
+		//for( var i =0 ; i <= $("input[name$='btnTeam']").length ; i ++ ){
 			//alert('#btnDept_' + deptId + '_Team_' + i);
-			$('#btnDept_' + deptId + '_Team_' + i ).show();
-		}
+			//$('#btnDept_' + deptId + '_Team_' + i ).show();
+		//}
+		$("#teamFilter").val("-1");
+		$("#form1").submit();
 	});
     
     // 현재 사용자 부서(사업본부)로 설정, 선택한 사업본부가 있으면, 선택이 유지되어야 함
-	if ( "${deptFilter}" == null || "${deptFilter}" == '' || "${deptFilter}" == 'null') {
-	    $("#dept_select").val(userDept).change();
-	} else {
-		$("#dept_select").val("${deptFilter}").change();
+	//if ( "${deptFilter}" == null || "${deptFilter}" == '' || "${deptFilter}" == 'null') {
+	//    $("#dept_select").val(userDept);
+	//} else {
+		var deptId = ${deptFilter}; 
+		$("#dept_select").val("${deptFilter}");
+		//$("input[name$='btnTeam']").hide();
+		for( var i =0 ; i <= $("input[name$='btnTeam']").length ; i ++ ){
+			//alert('#btnDept_' + deptId + '_Team_' + i);
+			$('#btnDept_' + deptId + '_Team_' + i ).show();
+	//	}
 	}
 	
 	// 팀버튼 클릭시 이벤트 처리
@@ -408,13 +427,10 @@ function getProinfoCallBack(arrayList){
 		 	<td>	 		
 		 	    <div class="nTitleFont">
 				  <div style='display:inline;'>&nbsp;&nbsp;&nbsp;</div>
-				  <!-- div id="week-label-year" style='display:inline;'></div-->
 				  <input type="text" id="week-label-year" name="week-label-year" class="titleFont_2">
 				  <div style='display:inline;'>년</div>
-				  <!-- div id="week-label-from-day" style='display:inline;'>01-01</div-->
 				  <input type="text" id="week-label-from-day" name="week-label-from-day" class="titleFont_2">
 				  <div style='display:inline;'>(월) &nbsp; ~ </div>
-				  <!-- div id="week-label-to-day" style='display:inline;'>02-05</div-->
 				  <input type="text" id="week-label-to-day" name="week-label-to-day" class="titleFont_2">
 				  <div style='display:inline;'>(일)</div>
 				  <div style='display:inline;'>&nbsp;&nbsp;&nbsp;</div>
@@ -434,13 +450,6 @@ function getProinfoCallBack(arrayList){
 					
 						<tr>
 							<td colspan="10"  class="left_align">
-						 			<!-- select id="dept_select" name="selectDeptId" class="main_input_box_2 nInputFont fltBox1">
-						 					<option value="0" selected>전체</option>
-											<option value="1">로그인ID</option>						
-											<option value="2">이름</option>
-											<option value="3">부서</option>
-											<option value="4">팀</option>
-									</select-->
 									
 									<select class="search_filter_box fltBox1 nInputFont" id="dept_select" name="deptFilter">
 											<option value="0" selected>부서 선택</option>
@@ -449,27 +458,17 @@ function getProinfoCallBack(arrayList){
 										</c:forEach>			
 									</select>
 						 	
-							 	    <!-- input type="button" id="select_btn" value="검색" class="Btt_search btnSearch"-->
-							 	    
-							 	    <!-- select class="main_input_box_2 fltBox1 nInputFont" id="team_buttons"-->
-									<!-- c:if test="${mem.userTeam == ''}">
-										<option value="0" selected>지정필요.</option-->
-									<!--/c:if-->
-									<c:forEach var="team" items="${team_list}">
-										<!-- c:if test="${team.deptId  == 2 }" -->										
-												<!-- option value="${team.teamId}">${team.teamNm}</option-->
-												<!-- input type="button" value="${team.teamNm}" class="Btt_search btnSearch" id="btnTeam_${team.teamId}"-->	
-										<!-- /c:if -->
-										<c:choose>
-											<c:when test="${team.teamId  == teamFilter}">
-												<input type="button" name="btnTeam" value="${team.teamNm}" class="Btt_search2 btnSearch Btt_highlight" id="btnDept_${team.deptId}_Team_${team.teamId}" hidden>
-											</c:when>
-											<c:otherwise>
-												<input type="button" name="btnTeam" value="${team.teamNm}" class="Btt_search2 btnSearch" id="btnDept_${team.deptId}_Team_${team.teamId}" hidden>
-											</c:otherwise>
-										</c:choose>												
-									</c:forEach>			
-								<!-- /select-->
+									<c:forEach var="team" items="${team_list}" varStatus="status">
+											<c:choose>
+												<c:when test="${team.teamId  == teamFilter}">
+													<input type="button" name="btnTeam" value="${team.teamNm}" class="Btt_search2 btnSearch Btt_highlight" id="btnDept_${team.deptId}_Team_${team.teamId}" hidden>
+												</c:when>
+												<c:otherwise>
+													<input type="button" name="btnTeam" value="${team.teamNm}" class="Btt_search2 btnSearch" id="btnDept_${team.deptId}_Team_${team.teamId}" hidden>
+												</c:otherwise>
+											</c:choose>
+									</c:forEach>
+												
 									<!-- 선택된 버튼에 따라 form에 선택된 team id를 submit해야한다. -->
 									<input type="hidden" value="${teamFilter}" name="teamFilter" id="teamFilter">
 							</td>
@@ -508,56 +507,50 @@ function getProinfoCallBack(arrayList){
 									<input type="text" class="main_input_box_2 box2_02 nInputFont" value="${sch.start_day}" id="startDay_${sch.schId}">	
 								</td>
 								<td>
-									<!-- input type="text" class="main_input_box_2 box2_03 nInputFont" value="${sch.user_name}" id="userNm_${sch.schId}"-->
 									<select class="main_input_box_2 box2_03 nInputFont" id="userNm_${sch.schId}">
 										<c:if test="${sch.user_id == ''}">
 											<option value="0" selected>지정필요.</option>
 										</c:if>
 										<c:forEach var="mem" items="${mem_list}">
-													<c:choose>
-														<c:when test="${fn:toUpperCase(sch.user_id)  == fn:toUpperCase(mem.userId)}">
-															<option value="${mem.userId}" selected>${mem.userNm}</option>
-														</c:when>
-														<c:otherwise>
-															<option value="${mem.userId}">${mem.userNm}</option>	
-														</c:otherwise>
-													</c:choose>
+											<c:choose>
+												<c:when test="${fn:toUpperCase(sch.user_id)  == fn:toUpperCase(mem.userId)}">
+													<option value="${mem.userId}" selected>${mem.userNm}</option>
+												</c:when>
+												<c:otherwise>
+													<option value="${mem.userId}">${mem.userNm}</option>	
+												</c:otherwise>
+											</c:choose>
 										</c:forEach>			
 									</select>	
 								</td>						
 								<td>
-									<!-- input type="text" class="main_input_box_2 box2_03 nInputFont" value="${sch.schCusNm}" id="cusNm_${sch.schId}"-->
 									<select class="main_input_box_2 box2_04 nInputFont" id="cusNm_${sch.schId}" name="select_cust">
 										<c:if test="${sch.schCusNm == '' || sch.schCusNm eq null}">
 											<option value="0" selected></option>
 										</c:if>
 										<c:forEach var="cus" items="${cus_list}">
-													<c:choose>
-														<c:when test="${cus.cusId  == sch.schCusId}">
-															<option value="${cus.cusId}" selected>${cus.cusNm}</option>
-														</c:when>
-														<c:otherwise>
-															<option value="${cus.cusId}">${cus.cusNm}</option>	
-														</c:otherwise>
-													</c:choose>
+											<c:choose>
+												<c:when test="${cus.cusId  == sch.schCusId}">
+													<option value="${cus.cusId}" selected>${cus.cusNm}</option>
+												</c:when>
+												<c:otherwise>
+													<option value="${cus.cusId}">${cus.cusNm}</option>	
+												</c:otherwise>
+											</c:choose>
 										</c:forEach>			
 									</select>	
 								</td>
 								<td>
-									<!-- input type="text" class="main_input_box_2 box2_04 nInputFont" value="${sch.schPjtNm}" id="pjtNm_${sch.schId}"-->
 									<select class="main_input_box_2 box2_05 nInputFont" id="pjtNm_${sch.schId}" name="select_pjt">
 										<c:if test="${sch.schPjtNm == '' || sch.schPjtNm eq null}">
 											<option value="0" selected></option>
 										</c:if>
 										<c:forEach var="pjt" items="${pjt_list}">
-													<c:choose>
-														<c:when test="${pjt.pjtId  == sch.schPjtId}">
-															<option value="${pjt.pjtId}" selected>${pjt.pjtNm}</option>
-														</c:when>
-														<%-- c:otherwise>
-															<option value="${pjt.pjtId}">${pjt.pjtNm}</option>	
-														</c:otherwise--%>
-													</c:choose>
+											<c:choose>
+												<c:when test="${pjt.pjtId  == sch.schPjtId}">
+													<option value="${pjt.pjtId}" selected>${pjt.pjtNm}</option>
+												</c:when>
+											</c:choose>
 										</c:forEach>			
 									</select>
 								</td>							
@@ -568,7 +561,6 @@ function getProinfoCallBack(arrayList){
 									<input type="text" class="main_input_box_2 box2_07 nInputFont datetimepicker" value="${fn:substring(sch.end_time,0,16)}" id="endTime_${sch.schId}">
 								</td>
 								<td>
-									<!-- input type="text" class="main_input_box_2 box2_07 nInputFont" value="${sch.dbms_id}" id="dbms_${sch.schId}"-->
 									<select class="main_input_box_2 box2_08 nInputFont" id="dbmsId_${sch.schId}">
 										<c:if test="${sch.dbms_id == ''}">
 											<option value="0" selected>지정필요.</option>
@@ -610,7 +602,6 @@ function getProinfoCallBack(arrayList){
 									</select>
 								</td>
 								<td>
-									<!-- input type="text" class="main_input_box_2 box2_10 nInputFont" name="contents" value="${sch.contents}" id="contents_${sch.schId}"-->
 									<textarea class="main_input_box_2 box2_10 nInputFont" name="contents" id="contents_${sch.schId}">${sch.contents}</textarea>
 								</td>			
 							</tr>					

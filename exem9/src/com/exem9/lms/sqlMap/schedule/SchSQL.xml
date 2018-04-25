@@ -59,6 +59,10 @@
 								and s.team_id = #teamFilter#
 						</isNotEqual>
 					</isNotEmpty>
+					
+					<isNotEmpty property="deptFilter">
+						and t.department_id = #deptFilter#
+					</isNotEmpty>
 					<!-- and s.start_time &gt;= '2018-02-22'  -->
 					<!-- and s.end_time &lt;= '2018-02-24'  -->
 					order by s.start_time 
@@ -96,6 +100,10 @@
 			<isNotEqual property="teamFilter" compareValue="-1">
 					and s.team_id = #teamFilter#
 			</isNotEqual>
+		</isNotEmpty>
+		
+		<isNotEmpty property="deptFilter">
+			and t.department_id = #deptFilter#
 		</isNotEmpty>
 	</select>
 	

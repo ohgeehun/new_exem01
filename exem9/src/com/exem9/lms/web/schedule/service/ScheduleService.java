@@ -452,7 +452,7 @@ public class ScheduleService implements IScheduleService{
 	
 	
 	// 팀일정정보
-	public List<SchBean> getTeamsch(String strfromYYYYMMDD, String strtoYYYYMMDD, int pageNo, int teamFilter) throws Throwable {
+	public List<SchBean> getTeamsch(String strfromYYYYMMDD, String strtoYYYYMMDD, int pageNo, int teamFilter, int deptFilter) throws Throwable {
 		
 		HashMap params = new HashMap();
 		
@@ -493,13 +493,14 @@ public class ScheduleService implements IScheduleService{
 		
 		params.put("startNo", startNo);
 		params.put("endNo", endNo);
-		params.put("teamFilter", teamFilter);
+		if(teamFilter != 0 ) params.put("teamFilter", teamFilter);
+		if(deptFilter != 0 ) params.put("deptFilter", deptFilter);
 		
 		return iSchDao.getsch(params);
 	}
 	
 	// 팀일정정보 갯수
-	public LineBoardBean getTeamNCount(String strfromYYYYMMDD, String strtoYYYYMMDD, int nowPage, int teamFilter) throws Throwable {
+	public LineBoardBean getTeamNCount(String strfromYYYYMMDD, String strtoYYYYMMDD, int nowPage, int teamFilter, int deptFilter) throws Throwable {
 		
 		HashMap params = new HashMap();
 		
@@ -523,7 +524,8 @@ public class ScheduleService implements IScheduleService{
 		
 		params.put("fromYYYYMMDD", fromYYYYMMDD);
 		params.put("toYYYYMMDD", toYYYYMMDD);
-		params.put("teamFilter", teamFilter);
+		if(teamFilter != 0 ) params.put("teamFilter", teamFilter);
+		if(deptFilter != 0 ) params.put("deptFilter", deptFilter);
 		
 		int nCount = iSchDao.getNCount(params);
 		int maxPage=0;
