@@ -107,7 +107,7 @@ $(document).ready(function(){
    	    	 	var user_id = $("#userNm_"+chkId+" option:selected").val();
    	    	 	
    	    	    if( userId != user_id) {
-   	    	    	alert("자신의 일정만 수정/삭제가 가능합니다.")
+   	    	    	alert("자신의 일정만 수정/삭제가 가능합니다.");
    	    	    } else { 
 	   	    	 	//var startDay = $("#startDay_"+chkId).val();
 	   	    	    var cusId = $("#cusNm_"+chkId+" option:selected").val();
@@ -149,7 +149,7 @@ $(document).ready(function(){
 	   	    	    var user_id = $("#userNm_"+chkId+" option:selected").val();
 	   	    	    //alert(user_id + ":" + userId );
 	   	    	    if( userId != user_id) {
-	   	    	    	alert("자신의 일정만 수정/삭제가 가능합니다.")
+	   	    	    	alert("자신의 일정만 수정/삭제가 가능합니다.");
 	   	    	    } else { 
 		   	         	IScheduleService.deleteSchinfo(
 		  					chkId,

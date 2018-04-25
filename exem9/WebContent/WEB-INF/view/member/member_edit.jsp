@@ -29,7 +29,6 @@ var userDbms = "<%=(String)session.getAttribute("sUserDbms")%>";
 var currentTeamId = "";
 
 $(document).ready(function(){  
-	//alert( "${endPage}" );
 	
 	/* 체크박스 이벤트 */
 	$("#checkall").click(function(){
@@ -55,24 +54,31 @@ $(document).ready(function(){
 	   	    $('#checkbox_id:checked').each(function() {   	    
    	    	    var chkId = $(this).val();
 
-   	         	var userId = $("#userId_"+chkId).val();
-   	         	var userNm = $("#userNm_"+chkId).val();
-   	         	var DeptId = $("#userDept_"+chkId+" option:selected").val();
-   	         	var TeamId = $("#userTeam_"+chkId+" option:selected").val();
-   	         	var DbmsId = $("#userDbms_"+chkId+" option:selected").val();
-   	         	var PosiId = $("#userPosi_"+chkId+" option:selected").val();
-   	         	var userPhone = $("#userPhone_"+chkId).val();
-   	         	var userMail = $("#userMail_"+chkId).val();
-   	         	var userPoint = $("#userPoint_"+chkId).val();
-   	         	
-   	         	console.debug(" | " + userId + " | " + userNm + " | " +DeptId + " | " +TeamId + " | " + DbmsId + " | " + 
-   	         			PosiId + " | " + userPhone + " | " +userMail + " | " + userPoint + " | " + chkId);
-   	         	
-   	         	IMemberService.updateMeminfo( userId, userNm, "1",
-    	         		TeamId, DbmsId,
- 	   	         	DeptId, userPhone, 
- 	   	        	userMail, PosiId, 
- 	   	      		userPoint, chkId, updateMeminfoCallBack );
+   	    	    var user_id = $("#userId_"+chkId).val();
+   	    	 	//alert(userId);
+   	    	    	    	    
+   	    	    if( userId != user_id) {
+	    	    	alert("자신의 정보만 수정/삭제가 가능합니다.");
+	    	    } else {
+	   	         	var userId2 = $("#userId_"+chkId).val();
+	   	         	var userNm = $("#userNm_"+chkId).val();
+	   	         	var DeptId = $("#userDept_"+chkId+" option:selected").val();
+	   	         	var TeamId = $("#userTeam_"+chkId+" option:selected").val();
+	   	         	var DbmsId = $("#userDbms_"+chkId+" option:selected").val();
+	   	         	var PosiId = $("#userPosi_"+chkId+" option:selected").val();
+	   	         	var userPhone = $("#userPhone_"+chkId).val();
+	   	         	var userMail = $("#userMail_"+chkId).val();
+	   	         	var userPoint = $("#userPoint_"+chkId).val();
+	   	         	
+	   	         	console.debug(" | " + userId2 + " | " + userNm + " | " +DeptId + " | " +TeamId + " | " + DbmsId + " | " + 
+	   	         			PosiId + " | " + userPhone + " | " +userMail + " | " + userPoint + " | " + chkId);
+	   	         	
+	   	         	IMemberService.updateMeminfo( userId2, userNm, "1",
+	    	         		TeamId, DbmsId,
+	 	   	         	DeptId, userPhone, 
+	 	   	        	userMail, PosiId, 
+	 	   	      		userPoint, chkId, updateMeminfoCallBack );
+	    	    }
 	   	    });	
 		}
 	});
@@ -85,10 +91,16 @@ $(document).ready(function(){
 			if (confirm("정말 삭제하시겠습니까??") == true){    //확인
 		   	    $('#checkbox_id:checked').each(function() {   	    
 	   	    	    var chkId = $(this).val();
-	 		   	    $('#checkbox_id:checked').each(function() {   	    
-	 	   	    	    var chkId = $(this).val();
-	 	   	    		IMemberService.deleteMeminfo(chkId, deleteMeminfoCallBack );
-	 		   	    });
+	   	    	 	
+	   	    	    var user_id = $("#userId_"+chkId).val();
+		    	    if( userId != user_id) {
+		    	    	alert("자신의 정보만 수정/삭제가 가능합니다.");
+		    	    } else {
+		 		   	    $('#checkbox_id:checked').each(function() {   	    
+		 	   	    	    var chkId = $(this).val();
+		 	   	    		IMemberService.deleteMeminfo(chkId, deleteMeminfoCallBack );
+		 		   	    });
+		    	    }
 	   	    	});	
 			}else{   //취소
  			    return;
