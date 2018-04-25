@@ -404,7 +404,7 @@ function getTeaminfoCallBack(res){
 					<!-- input type="submit" name="OK" class="input_submit inBtt_OK" value="일정등록하기"-->
 					<!-- input type="button" id="edit_update_btn" name="OK" class="miBtt_submit" value="등록"></input-->
 							
-					<input type="password" placeholder="등록 비밀번호 입력." required class="reg_pass input_11 inputTxtFont"> &nbsp;&nbsp;
+					<!-- input type="password" placeholder="등록 비밀번호 입력." required class="reg_pass input_11 inputTxtFont"> &nbsp;&nbsp;-->
 					<input type="button" id="edit_update_btn" name="OK" class="miBtt_submit_top miBtt_submit" value="등록">
 				</div>
 			</div>

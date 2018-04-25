@@ -1,7 +1,7 @@
 .miBtt_submit_top {
 	position:absolute; 
 	top: 560px;
-	margin-left: 70px;
+	//margin-left: 70px;
 }
 .miBtt_submit_top:hover {
 	background:#3d4448;

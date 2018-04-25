@@ -14,30 +14,5 @@
 .miBtt_submit_top {
 	position:absolute; 
 	top: 910px;
-	margin-left: 70px;
+	//margin-left: 70px;
 }
-
-/*
- table, td, th {    
-    border: 1px solid #ddd;
-    text-align: left;
-}
-
-table {
-    border-collapse: collapse;
-    width: 50%;
-}
-
-th, td {
-    padding: 10px;
-}
-
-.redText{display: block;color: red;margin-left:10px;}
-.greenText{display: block;color: green;margin-left:10px;}
-
-    .sui-combobox
-    {
-        font-family: Arial, sans-serif;
-        font-size: 14px;
-    }
-*/

@@ -6,6 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="./resources/css/main.css" media="all" />
+<link rel="stylesheet" type="text/css" href="./resources/css/mypage/mypage.css" media="all" />
 <!-- link rel="stylesheet" type="text/css" href="./resources/css/jquery/jquery-ui-1.8.custom.css"/-->
 <title>MyPage</title>
 
@@ -176,22 +177,6 @@
 
 </script>
 
-<style>
-.miBtt_submit_top {
-	position:absolute; 
-	top: 546px;
-	margin-left: 70px;
-}
-
-.reg_pass {
-	position:absolute; 
-	border:1px solid #d1cece; 
-	height:38px;
-	padding:1px;
-	left:238px;
-}
-</style>
-
 </head>
 <body>
 
@@ -288,7 +273,7 @@
 					<input id="user_mail" type="text" class="input_txt input_09 inputTxtFont" value="${mypage_info.userMail}">
 					<input id="user_point" type="text" class="input_txt input_10 inputTxtFont" value="${mypage_info.userPoint}"> 
 		
-					<input type="password" id="user_pw_id" placeholder="수정 비밀번호 입력." required class="reg_pass input_11 inputTxtFont"> &nbsp;&nbsp;
+					<!--  input type="password" id="user_pw_id" placeholder="수정 비밀번호 입력." required class="reg_pass input_11 inputTxtFont"> &nbsp;&nbsp;--> 
 					<input type="button" id="edit_update_btn" name="OK" class="miBtt_submit_top miBtt_submit" value="수정">
 				</div>
 			</div>

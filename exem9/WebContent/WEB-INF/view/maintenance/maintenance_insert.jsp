@@ -636,7 +636,7 @@ function removeChar(event) {
 							<textarea id="etc_id" name="contents" class="input_txt_02 input_16 inputTxtFont"></textarea>													
 					
 					
-						  <input type="password" placeholder="등록 비밀번호 입력." id="editPw" required class="reg_pass inputTxtFont"> &nbsp;&nbsp;
+						  <!-- input type="password" placeholder="등록 비밀번호 입력." id="editPw" required class="reg_pass inputTxtFont"> &nbsp;&nbsp;-->
 						  <input type="button" id="edit_update_btn" name="OK" class="miBtt_submit_top miBtt_submit " value="등록">
 					
 		</div>

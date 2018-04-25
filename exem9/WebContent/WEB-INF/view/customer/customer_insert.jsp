@@ -592,7 +592,7 @@ function getprodbmsManagedinfoCallBack(res){
 				</select>
 				<textarea  class="input_txt_02 input_09 inputTxtFont" id="etc_id" name="contents"></textarea>
 				
-					<input type="password" placeholder="등록 비밀번호 입력." required class="reg_pass inputTxtFont"> &nbsp;&nbsp;
+					<!-- input type="password" placeholder="등록 비밀번호 입력." required class="reg_pass inputTxtFont"> &nbsp;&nbsp; -->
 					<input type="button" id="edit_update_btn" name="OK" class="miBtt_submit_top miBtt_submit" value="등록">				
 				
 		</div>
