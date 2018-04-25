@@ -702,7 +702,7 @@
 			     xp.customer_id
 		from xm_customer xc join xm_project xp
 		on xc.customer_id = xp.customer_id
-		where xc.customer_name = #cusNm#) a join xm_project_dbms_member_managed xpdm
+		where xc.customer_name = #cusNm#) a join xm_project_dbms_cusmember xpdm
 		on a.project_id = xpdm.project_id ) a join xm_customer_member xcm 
 	on a.cususer_id = xcm.cususer_id	
 	group by a.cususer_id, xcm.cususer_name, xcm.cususer_phone, xcm.cususer_mail  
