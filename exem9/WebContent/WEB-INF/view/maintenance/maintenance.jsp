@@ -5,9 +5,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- <link rel="stylesheet" type="text/css" href="./resources/css/prettydropdowns.css" media="all" />  -->
 <link rel="stylesheet" type="text/css" href="./resources/css/main.css" media="all" /> 
 <link rel="stylesheet" type="text/css" href="./resources/css/maintenance/maintenance.css" media="all" ></link>
+<link rel="stylesheet" type="text/css" href="./resources/css/fullcalendar.min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="./resources/css/fullcalendar.css" media="all" />
+<link rel="stylesheet" type="text/css" href="./resources/css/jquery/jquery.datetimepicker.min.css">
+
 
 <!-- jQuery Script -->
 <script type="text/javascript" src="resources/script/jquery/jquery-1.8.2.min.js"></script>
@@ -15,6 +18,9 @@
 <script type="text/javascript" src="resources/script/jquery/jquery.form.js"></script>
 <!-- <script src="resources/script/jquery/jquery-latest.min.js"></script> 
 <script src="resources/script/jquery/jquery.prettydropdowns.js"></script>  -->
+<script type="text/javascript" src="resources/script/jquery/jquery.datetimepicker.full.min.js"></script>
+<script type="text/javascript" src="resources/script/jquery/moment.min.js"></script>
+<script type="text/javascript" src="resources/script/jquery/fullcalendar.min.js"></script>
 
 <!-- DWR setting -->
 <script type="text/javascript" src="dwr/engine.js"></script>
@@ -28,6 +34,30 @@ var userDept = "<%=(String)session.getAttribute("sUserDept")%>";
 var userDbms = "<%=(String)session.getAttribute("sUserDbms")%>";
 
 $(document).ready(function(){  
+	
+	// dateTimePicker 한글화
+	$.datetimepicker.setLocale('ko');
+	
+	// dateTimePicker moment.js와 연동. 시간 단위로 선택하도록 설정하는 작업
+ 	$.datetimepicker.setDateFormatter({	
+		
+	    parseDate: function (date, format) {
+	        var d = moment(date, format);
+	        return d.isValid() ? d.toDate() : false;
+	    },
+	 
+	    formatDate: function (date, format) {
+	        return moment(date).format(format);
+	    }
+	       
+	});
+	
+    // datetimepicker 선택시 팝업창 표시
+    $('.datetimepicker').datetimepicker({
+          format:'YYYY-MM-DD',
+          formatTime:'HH:mm',
+          formatDate:'YYYY-MM-DD'
+    });
 	
     $("#mat_insert").bind("click", function(){	
     	location.href = "maintenance_insert";
@@ -174,6 +204,7 @@ function updateMatinfoCallBack(res){
 		location.href = "maintenance";
 	}
 }
+
 </script>
 
 <style>
@@ -444,10 +475,10 @@ function updateMatinfoCallBack(res){
 							<%-- <td>${cli.supoStartDate}</td>
 							<td>${cli.supoEndDate}</td> --%>
 							<td>
-								<input id="supoStartDate_id_${mat.matId}" type="date" value="${mat.startDay}" class="main_input_box_2 box2_12 nInputFont">
+								<input type="text" id="supoStartDate_id_${mat.matId}" value="${mat.startDay}" class="main_input_box_2 box2_12 nInputFont datetimepicker">
 							</td>
 							<td>
-								<input id="supoEndDate_id_${mat.matId}" type="date" value="${mat.endDay}" class="main_input_box_2 box2_13 nInputFont">
+								<input type="text" id="supoEndDate_id_${mat.matId}" value="${mat.endDay}" class="main_input_box_2 box2_13 nInputFont datetimepicker">
 							</td>							
 							<td>
 								<textarea id="etc_id_${mat.matId}" name="contents" class="main_input_box_2 box2_14 nInputFont">${mat.etc}</textarea>

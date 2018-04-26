@@ -10,6 +10,10 @@
 <link rel="stylesheet" type="text/css" href="./resources/css/jquery/jquery-ui-1.8.custom.css"/>
 <link id="themecss" rel="stylesheet" type="text/css" href="./resources/css/common/all.min.css"/>
 <link rel="stylesheet" type="text/css" href="./resources/css/maintenance/maintenance_insert.css" media="all" />
+
+<link rel="stylesheet" type="text/css" href="./resources/css/fullcalendar.min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="./resources/css/fullcalendar.css" media="all" />  
+<link rel="stylesheet" type="text/css" href="./resources/css/jquery/jquery.datetimepicker.min.css"> 
 <!-- <link id="themecss" rel="stylesheet" type="text/css" href="//www.shieldui.com/shared/components/latest/css/light/all.min.css" /> -->
 
 <!-- jQuery Script -->
@@ -19,6 +23,8 @@
 <script type="text/javascript" src="resources/script/jquery/jquery.form.js"></script>
 <script type="text/javascript" src="resources/script/common/jquery-1.11.1.min.js"></script>  
 <script type="text/javascript" src="resources/script/common/shieldui-all.min.js"></script>
+<script type="text/javascript" src="resources/script/jquery/jquery.datetimepicker.full.min.js"></script>
+<script type="text/javascript" src="resources/script/jquery/moment.min.js"></script> 
 
 <!--popup event -->
 <link type="text/css" rel="stylesheet" href="resources/css/member/cusmemberinfo_popup.css" />
@@ -40,7 +46,27 @@ var rowNum_add = 0;
 
 var temp = [];
 $(document).ready(function(){
-
+	// dateTimePicker 한글화
+	$.datetimepicker.setLocale('ko');
+	// dateTimePicker moment.js와 연동
+	$.datetimepicker.setDateFormatter({
+	    parseDate: function (date, format) {
+	        var d = moment(date, format);
+	        return d.isValid() ? d.toDate() : false;
+	    },
+	 
+	    formatDate: function (date, format) {
+	        return moment(date).format(format);
+	    }
+	});
+	 
+    // datetimepicker init
+    $('.datetimepicker').datetimepicker({
+          format:'YYYY-MM-DD',
+          formatTime:'HH:mm',
+          formatDate:'YYYY-MM-DD'
+    });
+    
 	$("#mat_insert").bind("click", function(){	
 	    location.href = "maintenance_insert";
 	});
@@ -629,9 +655,9 @@ function removeChar(event) {
 				 	    		</c:forEach>
 							</select>
 																							
-							<input type='date' id='supo_start_date_id' class="input_txt input_14 inputTxtFont sui-input">														
+							<input type='text' id='supo_start_date_id' class="input_txt input_14 inputTxtFont sui-input datetimepicker">														
 					
-							<input type='date' id='supo_end_date_id' class="input_txt input_15 inputTxtFont sui-input">															
+							<input type='text' id='supo_end_date_id' class="input_txt input_15 inputTxtFont sui-input datetimepicker">															
 					
 							<textarea id="etc_id" name="contents" class="input_txt_02 input_16 inputTxtFont"></textarea>													
 					

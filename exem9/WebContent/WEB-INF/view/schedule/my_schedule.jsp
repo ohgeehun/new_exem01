@@ -7,7 +7,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" type="text/css" href="./resources/css/fullcalendar.min.css" media="all" />
 <link rel="stylesheet" type="text/css" href="./resources/css/fullcalendar.css" media="all" /> 
-<link rel="stylesheet" type="text/css" href="./resources/css/fullcalendar.css" media="all" />
 <link rel="stylesheet" type="text/css" href="./resources/css/schedule/my_schedule.css" media="all" ></link>
 <link rel="stylesheet" type="text/css" href="./resources/css/jquery/jquery.datetimepicker.min.css">
 
