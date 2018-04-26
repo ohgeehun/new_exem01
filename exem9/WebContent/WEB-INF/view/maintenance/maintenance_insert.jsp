@@ -639,7 +639,7 @@ function removeChar(event) {
 								</c:forEach>	 --%>						  	
 							</select>
 												
-							<input type='date' id='install_date_id' class="input_txt input_11 inputTxtFont sui-input">														
+							<input type='text' id='install_date_id' class="input_txt input_11 inputTxtFont sui-input datetimepicker">														
 					
 							<select id='supo_level_select_id' class="input_txt input_12 inputTxtFont sui-input">
 								<option value="0" selected>지정하지 않음.</option>

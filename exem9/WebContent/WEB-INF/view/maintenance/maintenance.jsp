@@ -430,7 +430,7 @@ function updateMatinfoCallBack(res){
 								</select>
 							</td>
 							<td>
-								<input id="supoInsDate_id_${mat.matId}" type="date" value="${mat.installDay}" class="main_input_box_2 box2_09 nInputFont">
+								<input id="supoInsDate_id_${mat.matId}" type="text" value="${mat.installDay}" class="main_input_box_2 box2_09 nInputFont datetimepicker">
 							</td>
 							<%-- <td>${cli.supoInsDate}</td> --%>
 							<%-- <td>${cli.supoState}</td>  --%>
