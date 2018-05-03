@@ -17,10 +17,14 @@ public interface IMatDao {
 
 	public String deleteMatinfo(HashMap params) throws Throwable;
 
+	public String deleteMatCusinfo(HashMap params) throws Throwable;
+	
 	public String updateMatinfo(HashMap params) throws Throwable;
 
 	public Integer getInsertedMatId(HashMap params)throws Throwable;
 
 	public void insertMatCusinfo(HashMap params) throws Throwable;
+
+	public List<CustomerMemberBean> getMatCusMemberinfo(HashMap params)throws Throwable;
 
 }

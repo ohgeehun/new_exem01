@@ -187,10 +187,10 @@ $(document).ready(function(){
 
 function deleteMatinfoCallBack(res){
 	if(res == "FAILED"){
-		//alert("실패");
+		alert("실패");
 		location.href = "maintenance";
 	}else if(res == "SUCCESS"){
-		//alert("성공");
+		alert("성공");
 		location.href = "maintenance";
 	}
 }
@@ -342,17 +342,17 @@ function updateMatinfoCallBack(res){
 								
 								<select id="edit_cususer_list_select_${mat.matId}" name="cususer" 
 									class="main_input_box_2 box2_04 nInputFont" >
-									<c:if test="${mat.cususerId == '0'}">
+								<%-- 	<c:if test="${mat.cususerId == '0'}">
 											<option value="0" selected>지정필요.</option>
-									</c:if>
+									</c:if> --%>
 									<c:forEach var="cususer" items="${cususer_list}">
 										<c:choose>
-											<c:when test="${cususer.cususerId == mat.cususerId}">
+											<c:when test="${cususer.matId == mat.matId}">
 												<option value="${cususer.cususerId}" selected>${cususer.cususerNm}</option>
 											</c:when>
-											<c:otherwise>
-												<option value="${cususer.cususerId}">${cususer.cususerNm}</option>	
-											</c:otherwise>
+											<%-- <c:otherwise>
+												<option value="0" selected>지정필요.</option>
+											</c:otherwise> --%>
 										</c:choose>		
 																		
 									</c:forEach>	
@@ -377,7 +377,7 @@ function updateMatinfoCallBack(res){
 							<%-- <td>${cli.user1Nm}</td> --%>							
 							<td>
 								<select id="edit_user1_list_select_${mat.matId}" name="select_event" class="main_input_box_2 box2_06 nInputFont">
-									<c:if test="${mat.mem1Id == '0'}">
+									<c:if test="${mat.mem1Id =='0'}">
 										<option value="0" selected>지정필요.</option>
 									</c:if>
 									<c:forEach var="mem" items="${mem_list}">
@@ -414,9 +414,9 @@ function updateMatinfoCallBack(res){
 							<td>
 								<select id="edit_salseman_list_select_${mat.matId}" class="main_input_box_2 box2_08 nInputFont">
 									<!-- option value="0" selected>${mat.salesmanId}</option-->
-									<c:if test="${mat.salesmanId eq null}">
+								<%-- 	<c:if test="${mat.salesmanId == null}">
 										<option value="0" selected>지정필요.</option>
-									</c:if>
+									</c:if> --%>
 									<c:forEach var="salman" items="${salesman_list}">
 										<c:choose>
 											<c:when test="${salman.userId == mat.salesmanId}">
@@ -461,7 +461,7 @@ function updateMatinfoCallBack(res){
 									<c:forEach var="spvl" items="${supo_visit_list}">
 										
 											<c:choose>
-												<c:when test="${spvl.supoVisitNm == mat.visitId}">
+												<c:when test="${spvl.supoVisitId == mat.visitId}">
 													<option value="${spvl.supoVisitId}" selected>${spvl.supoVisitNm}</option>
 												</c:when>
 												<c:otherwise>

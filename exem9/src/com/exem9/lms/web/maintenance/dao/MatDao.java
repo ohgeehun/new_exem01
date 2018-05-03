@@ -58,6 +58,16 @@ public class MatDao implements IMatDao{
 	}
 	
 	/*유지보수 정보 삭제 처리*/
+	public String deleteMatCusinfo(HashMap params) throws Throwable {
+		String result = "FAILED";
+		
+		if(sqlMapClient.update("maintenance.deleteMatCusMemberinfo", params) > 0){
+			result = "SUCCESS";
+		}
+		return result;
+	}
+	
+	/*유지보수 정보 삭제 처리*/
 	public String updateMatinfo(HashMap params) throws Throwable {
 		String result = "FAILED";
 		
@@ -70,6 +80,12 @@ public class MatDao implements IMatDao{
 	public Integer getInsertedMatId(HashMap params) throws Throwable {
 		// TODO Auto-generated method stub
 		return (Integer) sqlMapClient.queryForObject("maintenance.getmatIdinfo", params);
+	}
+
+	public List<CustomerMemberBean> getMatCusMemberinfo(HashMap params)
+			throws Throwable {
+		// TODO Auto-generated method stub
+		return sqlMapClient.queryForList("maintenance.getMatCusMemberinfo", params);
 	}
 
 }

@@ -53,6 +53,8 @@ public interface IMatService {
 	
 	public List<CustomerMemberBean> getcusmemberinfo(int cusId)throws Throwable ;
 	
-	public List<CustomerMemberBean> getprodbmsmemberinfo(int cusId, int proId,int dbmsId)throws Throwable ; 
+	public List<CustomerMemberBean> getprodbmsmemberinfo(int cusId, int proId,int dbmsId)throws Throwable ;
+
+	public List<CustomerMemberBean> getMatCusMemberinfo(String matId) throws Throwable; 
 	
 }

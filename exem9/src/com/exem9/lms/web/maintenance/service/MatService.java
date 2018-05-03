@@ -135,9 +135,9 @@ public class MatService implements IMatService{
 		params.put("cusUserId",Integer.parseInt(cusUserId));
 		params.put("salesmanId",salesmanId);
 		params.put("user1Id",user1Id);
-		if(user2Id.equals("0")){
+	/*	if(user2Id.equals("0")){
 			user2Id = null;
-		}
+		}*/
 		params.put("user2Id",user2Id);
 		params.put("supoLeverId",Integer.parseInt(supoLeverId));
 		params.put("supoVisitId",Integer.parseInt(supoVisitId));
@@ -246,7 +246,32 @@ public class MatService implements IMatService{
 		
 		System.out.println("============================================================== mat delete call : ");
 		
-		return iMatDao.deleteMatinfo(params);
+		String result = "FAILED";
+		
+		TransactionStatus status = this.transactionManager.getTransaction(new DefaultTransactionDefinition() );
+		
+		try{			
+			String MatDeleteResult = iMatDao.deleteMatCusinfo(params);		
+   
+			System.out.println(MatDeleteResult);
+			 
+			if(MatDeleteResult.equals("SUCCESS")){
+				iMatDao.deleteMatinfo(params);
+			}					
+			
+			this.transactionManager.commit(status);
+			
+		} catch(Exception e) {
+			
+			this.transactionManager.rollback(status);
+			e.printStackTrace();
+			 //throw new Exception("Transaction2: ");
+             //TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+             return result;
+		}
+		
+		result = "SUCCESS";
+		return 	result;	
 	}
 	
 	public String updateMatinfo(String custId, String pjtId, String cususerId, String dbmsId, 
@@ -306,6 +331,16 @@ public class MatService implements IMatService{
 
 		// TODO Auto-generated method stub
 		return iCustomerDao.getprodbmsmemberinfo(params);
+	}
+
+	public List<CustomerMemberBean> getMatCusMemberinfo(String matId)
+			throws Throwable {
+
+		HashMap params = new HashMap();
+		
+		params.put("matId",matId);
+		
+		return iMatDao.getMatCusMemberinfo(params);
 	}
 	
 }

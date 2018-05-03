@@ -5,7 +5,10 @@
 <sqlMap namespace="maintenance">
 	<typeAlias alias="MatBean" 
 			   type="com.exem9.lms.web.maintenance.bean.MatBean"/> 
-			 		 	   
+			  
+	<typeAlias alias="MatCusMemberBean" 
+			   type="com.exem9.lms.web.maintenance.bean.MatCusMemberBean"/> 		 
+			   		 	   
 	<resultMap class="MatBean" id="MatMap">
 		<result property="matId" column="maintenance_id"/>
 		<result property="custId" column="customer_id"/>
@@ -206,13 +209,33 @@
 	 WHERE maintenance_id = #chkId#  
 	 </update>
 
+	<!-- 유지보수맴버삭제 -->
+	<update id="deleteMatCusMemberinfo" parameterClass="java.util.HashMap">
+	 DELETE from XM_MAINTENANCE_CUSMEMBER
+	 WHERE maintenance_id = #chkId#  
+	 </update>
+
+
+     <!-- 유지보수 담당고객 정보 가져오기 -->
+	<select id="getMatCusMemberinfo" parameterClass="java.util.HashMap" resultClass="MatCusMemberBean">
+	    select xmc.maintenance_id as matId,
+	           xmc.cususer_id as cususerId,
+		       xcm.cususer_name as cususerNm
+	    from xm_maintenance_cusmember xmc inner join xm_customer_member xcm
+		on xmc.cususer_id = xcm.cususer_id		  
+		WHERE 1=1
+		<isNotEmpty property="matId"> 
+			and xmc.maintenance_id = #matId# 
+		</isNotEmpty>
+	 </select>
+	 
 	<!-- 유지보수 수정 -->
 	<update id="updateMatinfo" parameterClass="java.util.HashMap">
 	 Update XM_MAINTENANCE SET 
 	 		customer_id=#custId#,
 	 		project_id=#pjtId#, 
             dbms_id=#dbmsId#, 
-            cususer_id=#cususerId#, 
+            <!-- cususer_id=#cususerId#, --> 
             salesman_id=#salesmanId#, 
             user1_id=#user1Id#, 
             user2_id=#user2Id#, 

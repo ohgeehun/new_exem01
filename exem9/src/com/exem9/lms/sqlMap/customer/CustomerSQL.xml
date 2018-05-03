@@ -702,7 +702,10 @@
 			     xp.customer_id
 		from xm_customer xc join xm_project xp
 		on xc.customer_id = xp.customer_id
-		where xc.customer_name = #cusNm#) a join xm_project_dbms_cusmember xpdm
+		<isNotEmpty property="cusNm">
+		where xc.customer_name = #cusNm#
+		</isNotEmpty>
+		) a join xm_project_dbms_cusmember xpdm
 		on a.project_id = xpdm.project_id ) a join xm_customer_member xcm 
 	on a.cususer_id = xcm.cususer_id	
 	group by a.cususer_id, xcm.cususer_name, xcm.cususer_phone, xcm.cususer_mail  
@@ -881,7 +884,7 @@
 	 </update>
 	 
 	<!-- 고객사/프로젝트 업무 삭제 -->
-	<update id="deleteCusPjtDbmsinfo" parameterClass="java.util.HashMap">
+	<update id="deleteCusPjtDbmsinfo" parameterClass="String">
 		 DELETE from XM_project_dbms 
 		 WHERE customer_id = #cusId#
 		 <isNotEmpty property="pjtId"> 

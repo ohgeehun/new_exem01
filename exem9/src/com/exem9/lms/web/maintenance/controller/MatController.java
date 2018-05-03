@@ -54,18 +54,19 @@ public class  MatController {
 							   ModelAndView modelAndView) throws Throwable{
 		
 		HttpSession session=request.getSession();
+		String sUserId = (String) session.getAttribute("sUserId");
 		
 		if(session.getAttribute("sUserId")==null) {
 			throw new UserNotFoundException("자동 로그아웃 됐습니다.");
-		} else {
-			List<MatBean> mat_list = iMatService.getmatinfo("0","",1);
+		} else {			
+			List<MatBean> mat_list = iMatService.getmatinfo("0",sUserId,1); //접속한 유저가 관리하는 고객사 리스트정보 보기
 			List<DbmsBean> dbms_list = iDbmsService.getdbms();
 			List<CustomerNmBean> cus_list = iCustomerService.getcusNminfo2();
 			List<CustomerPjtNmBean> pjt_list = iCustomerService.getcusPjtNminfo();
 			List<DeptBean> dept_list = iDeptService.getdept();
 			List<TeamBean> team_list = iTeamService.getteam();
 			List<MemberBean> mem_list = iMemberService.getallmem();
-			List<CustomerMemberBean> cususer_list = iCustomerService.getprodbmsManagedinfo("건강보험공단");
+			List<CustomerMemberBean> cususer_list = iMatService.getMatCusMemberinfo("");
 			List<MemberBean2> salesman_list = iCustomerService.getSalsemember();
 			List<SupoBean> supo_level_list = iMatService.getSupolevel();
 			List<SupoBean> supo_visit_list = iMatService.getSupovisit("");
@@ -89,7 +90,7 @@ public class  MatController {
 			modelAndView.addObject("supo_level_list", supo_level_list);
 			modelAndView.addObject("supo_visit_list", supo_visit_list);
 			
-			System.out.println( "+++++++++++++++++++++++++++++++++++++++++++++: salesman : "  + salesman_list.get(0).getUserId()  );
+			//System.out.println( "+++++++++++++++++++++++++++++++++++++++++++++: salesman : "  + salesman_list.get(0).getUserId()  );
 			
 			modelAndView.setViewName("maintenance/maintenance");
 		}
@@ -106,8 +107,8 @@ public class  MatController {
 		HttpSession session=request.getSession();
 		
 		List<MemberBean2> salseman_list = iCustomerService.getSalsemember(); 
-		System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++ : salesman : " + salseman_list.size() );
-		System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++ : salesman : " + salseman_list.get(0).getUserNm() );
+		//System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++ : salesman : " + salseman_list.size() );
+		//System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++ : salesman : " + salseman_list.get(0).getUserNm() );
 		
 		List<SupoBean> supo_level_list = iMatService.getSupolevel();
 		List<SupoBean> supo_visit_list = iMatService.getSupovisit("");
