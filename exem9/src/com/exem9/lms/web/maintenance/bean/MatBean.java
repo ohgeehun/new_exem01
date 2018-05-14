@@ -6,6 +6,7 @@ import org.directwebremoting.annotations.DataTransferObject;
 public class MatBean {
 	private String matId;
 	private String custId;
+	private String custNm;
 	private String projId;
 	private String dbmsId;
 	private String dbmsVersion;
@@ -20,6 +21,12 @@ public class MatBean {
 	private String endDay;
 	private String etc;
 	
+	public String getCustNm() {
+		return custNm;
+	}
+	public void setCustNm(String custNm) {
+		this.custNm = custNm;
+	}
 	public String getCustId() {
 		return custId;
 	}

@@ -12,6 +12,8 @@ public interface IMatDao {
 	public void insertMatinfo(HashMap params) throws Throwable;
 
 	public List<MatBean> getmatinfo(HashMap params) throws Throwable;
+	
+	public List<MatBean> getmatinfo1(HashMap params) throws Throwable;
 
 	public int getNCount(HashMap params) throws Throwable;
 

@@ -56,6 +56,8 @@ $(document).ready(function(){
 	    }
 	})
 	
+	$('#weekilter').val(from_day);
+
     // datetimepicker 선택시 팝업창 표시
     $('.datetimepicker').datetimepicker({
           format:'YYYY-MM-DD HH:mm',
@@ -81,6 +83,10 @@ $(document).ready(function(){
 	
 	$("#team_sch").bind("click", function(){	
 	   	location.href = "team_schedule";
+	});
+	
+	$("#thisWeek").bind("click", function(){	
+	   	location.href = "my_schedule";
 	});
 	
 	/* 체크박스 이벤트 */
@@ -181,6 +187,8 @@ $(document).ready(function(){
 		$('#week-label-from-day').val(mmdd);
 		$('#week-label-to-day').val(mmdd2);
 		
+		$('#weekilter').val(mmdd);
+		
 		$("#form1").submit();
 	});
 	
@@ -204,6 +212,8 @@ $(document).ready(function(){
 		$('#week-label-year').val(yyyy);
 		$('#week-label-from-day').val(mmdd);
 		$('#week-label-to-day').val(mmdd2);
+		
+		$('#weekilter').val(mmdd);
 		
 		$("#form1").submit();
 	});
@@ -366,6 +376,22 @@ function getProinfoCallBack(arrayList){
 		 		 	
 		 	<table>
 			 	<tr>
+			 		<td>	 
+				 	    <div>	
+				 	    	<%-- <c:choose>
+								<c:when test="${from_day  == weekFilter}">									
+									<a href="#" id="thisWeek" class="main_title_box_2 nTitleFont" style='background-color: yellow;'>이번주 일정보기 </a>
+								</c:when>
+								<c:otherwise>					 --%>			
+									<a href="#" id="thisWeek" class="main_title_box_2 nTitleFont">이번주 일정보기 </a>
+								<%-- </c:otherwise>
+							</c:choose>				 --%>
+							
+							<input type="hidden" value="${weekFilter}" name="weekFilter" id="weekilter">
+							
+						</div>
+				 	</td>	
+				 	<td></td><td></td>		 	
 				 	<td>
 				 		<div>
 				 			<a href="#" class="main_title_box_2 nTitleFont" id="prevWeek">&laquo; 이전주</a>
@@ -374,7 +400,7 @@ function getProinfoCallBack(arrayList){
 				 	<td>	 		
 				 	    <div class="nTitleFont">
 						  <div style='display:inline;'>&nbsp;&nbsp;&nbsp;</div>
-						  <!-- div id="week-label-year" style='display:inline;'></div-->
+						  <!-- div id="week-label-year" style='display:inline;'></div-->						  
 						  <input type="text" id="week-label-year" name="week-label-year" class="titleFont_2">
 						  <div style='display:inline;'>년</div>
 						  <!-- div id="week-label-from-day" style='display:inline;'>01-01</div-->
@@ -389,8 +415,8 @@ function getProinfoCallBack(arrayList){
 					 <td>	 		
 					 	<div>			 		
 					 	    <a href="#" class="main_title_box_2 nTitleFont" id="nextWeek">다음주 &raquo;</a>
-						</div>
-				 	</td>
+						</div>						
+				 	</td>		
 				 </tr>
 			</table>
 		

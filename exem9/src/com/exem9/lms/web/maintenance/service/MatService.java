@@ -80,13 +80,22 @@ public class MatService implements IMatService{
 		return iDbmsDao.getdbms();
 	}*/
 
-	public List<MemberBean> getTeammember(String teamId, String user1Id)
+	public List<MemberBean> getTeammember(int deptId, int teamId, String user1Id)
 			throws Throwable {
-
-		System.out.println(user1Id);
 		
 		HashMap params = new HashMap();
-		params.put("teamId",Integer.parseInt(teamId));
+		if(deptId == 0){
+			params.put("deptId","");
+		}else{
+			params.put("deptId",deptId);
+		}
+		
+		if(teamId == 0){
+			params.put("teamId","");
+		}else{
+			params.put("teamId",teamId);
+		}
+		
 		params.put("user1Id",user1Id);
 		
 		return iMemberDao.getTeammember(params);
@@ -175,7 +184,7 @@ public class MatService implements IMatService{
 		return 	result;
 	}
 
-		public List<MatBean> getmatinfo(String selectBtnVal, String selectTextVal, int pageNo) throws Throwable {
+	public List<MatBean> getmatinfo(String selectBtnVal, String selectTextVal, int pageNo) throws Throwable {
 		
 		HashMap params = new HashMap();
 		
@@ -198,6 +207,29 @@ public class MatService implements IMatService{
 		return iMatDao.getmatinfo(params);
 	}
 
+	public List<MatBean> getmatinfo1(String selectBtnVal, String selectTextVal, int pageNo) throws Throwable {
+		
+		HashMap params = new HashMap();
+		
+		params.put("selectBtnVal", Integer.parseInt(selectBtnVal));
+		params.put("selectTextVal",selectTextVal);
+		params.put("viewCount", CommonProperties.VIEWCOUNT);
+		
+		int startNo = 1+(CommonProperties.VIEWCOUNT * (pageNo-1));
+		int endNo = CommonProperties.VIEWCOUNT * pageNo;
+		
+		if(pageNo == 1){
+			params.put("pageNo", ""); 
+		}else{
+			params.put("pageNo", pageNo);
+		}
+		
+		params.put("startNo", startNo);
+		params.put("endNo", endNo);
+		
+		return iMatDao.getmatinfo(params);
+	}
+		
 	public LineBoardBean getNCount(String selectBtnVal, String selectTextVal, int nowPage) throws Throwable {
 		HashMap params = new HashMap();
 		

@@ -40,6 +40,12 @@ public class MatDao implements IMatDao{
 		return sqlMapClient.queryForList("maintenance.getmatinfo", params);
 	}
 	
+
+	public List<MatBean> getmatinfo1(HashMap params) throws Throwable {
+		// TODO Auto-generated method stub
+		return sqlMapClient.queryForList("maintenance.getmatinfo1", params);
+	}
+	
 	public int getNCount(HashMap params) throws Throwable {
 		
 		int count = (Integer) sqlMapClient.queryForObject("maintenance.getNCount", params);
@@ -71,7 +77,7 @@ public class MatDao implements IMatDao{
 	public String updateMatinfo(HashMap params) throws Throwable {
 		String result = "FAILED";
 		
-		if(sqlMapClient.update("maintenance.updateMatinfo", params) > 0){
+		if(sqlMapClient.update("maintenance.getTeammember", params) > 0){
 			result = "SUCCESS";
 		}
 		return result;

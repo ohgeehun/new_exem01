@@ -35,6 +35,17 @@ var userDbms = "<%=(String)session.getAttribute("sUserDbms")%>";
 var ratid_state = "${radio_state}";
 
 $(document).ready(function(){  
+	if( ratid_state == 0){
+		$("#myMat_id").prop('checked', false);
+		$("#allMat_id").prop('checked', false);
+	}else if( ratid_state == 1){
+		$("#myMat_id").prop('checked', true);
+		$("#allMat_id").prop('checked', false);		
+	}else if (ratid_state == 2){
+		$("#myMat_id").prop('checked', false);
+		$("#allMat_id").prop('checked', true);
+	}
+	
 	
 	// dateTimePicker 한글화
 	$.datetimepicker.setLocale('ko');
@@ -64,17 +75,6 @@ $(document).ready(function(){
         	location.href = "maintenance_all";          	
         }
     });
-	
-    if( ratid_state == 0){
-		$("#myMat_id").prop('checked', false);
-		$("#allMat_id").prop('checked', false);
-	}else if( ratid_state == 1){
-		$("#myMat_id").prop('checked', true);
-		$("#allMat_id").prop('checked', false);		
-	}else if (ratid_state == 2){
-		$("#myMat_id").prop('checked', false);
-		$("#allMat_id").prop('checked', true);
-	}
  			    
     // datetimepicker 선택시 팝업창 표시
     $('.datetimepicker').datetimepicker({
@@ -207,8 +207,6 @@ $(document).ready(function(){
     	$("#form1").submit();	
     });
 	
-   // IMatService.getmatinfo("0",userId,1, getMatinfoCallback); //접속한 유저가 관리하는 고객사 리스트정보 보기
-    
 });
 
 function deleteMatinfoCallBack(res){
@@ -230,7 +228,6 @@ function updateMatinfoCallBack(res){
 		location.href = "maintenance";
 	}
 }
-
 </script>
 
 <style>
@@ -319,9 +316,9 @@ function updateMatinfoCallBack(res){
 									<input type="checkbox" name="chk" id="checkbox_id" value="${mat.matId}"/>
 								</li>
 							</ul>
-							</td>											
+							</td>						
 							<td>
-								<%-- <input type="text" id="edit_cust_list_${mat.matId}" class="main_input_box_2 box2_02 nInputFont"> --%>
+								<!-- input type="text" class="main_input_box_2 box2_02 nInputFont" value="${mat.custId}"-->
 								
 								<select id="edit_cust_list_select_${mat.matId}" name="custId" 
 									class="main_input_box_2 box2_02 nInputFont">
@@ -339,8 +336,9 @@ function updateMatinfoCallBack(res){
 										</c:choose>		
 																		
 									</c:forEach>	
-								</select> 								
-							</td>						
+								</select>
+								
+							</td>
 							<td>
 								<!-- input type="text" class="main_input_box_2 box2_03 nInputFont" value="${mat.projId}"-->
 								
@@ -357,7 +355,8 @@ function updateMatinfoCallBack(res){
 											<c:otherwise>
 												<option value="${pjt.pjtId}">${pjt.pjtNm}</option>	
 											</c:otherwise>
-										</c:choose>																			
+										</c:choose>		
+																		
 									</c:forEach>	
 								</select>
 								
@@ -368,19 +367,20 @@ function updateMatinfoCallBack(res){
 								
 								<select id="edit_cususer_list_select_${mat.matId}" name="cususer" 
 									class="main_input_box_2 box2_04 nInputFont" >
-								 	<%-- <c:if test="${mat.cususerId == '0'}">
+								<%-- 	<c:if test="${mat.cususerId == '0'}">
 											<option value="0" selected>지정필요.</option>
-									</c:if>  --%>
+									</c:if> --%>
 									<c:forEach var="cususer" items="${cususer_list}">
 										<c:choose>
 											<c:when test="${cususer.matId == mat.matId}">
 												<option value="${cususer.cususerId}" selected>${cususer.cususerNm}</option>
 											</c:when>
-										<%-- 	 <c:otherwise>
+											<%-- <c:otherwise>
 												<option value="0" selected>지정필요.</option>
 											</c:otherwise> --%>
-										</c:choose>																			
-									</c:forEach>	 
+										</c:choose>		
+																		
+									</c:forEach>	
 								</select>
 								
 							</td>

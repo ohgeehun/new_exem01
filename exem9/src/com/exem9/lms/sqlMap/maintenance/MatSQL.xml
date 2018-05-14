@@ -12,6 +12,7 @@
 	<resultMap class="MatBean" id="MatMap">
 		<result property="matId" column="maintenance_id"/>
 		<result property="custId" column="customer_id"/>
+		<result property="custNm" column="customer_name"/>
 		<result property="projId" column="project_id"/>
 		<result property="dbmsId" column="dbms_id"/>
 		<result property="dbmsVersion" column="dbms_version"/>
@@ -97,21 +98,109 @@
 	insert into xm_maintenance_cusmember values(#matId#,#cusUserId#)      
 	</update>
 	
-	<select id="getmatinfo" parameterClass="java.util.HashMap" resultMap="MatMap">
+	<!-- <select id="getmatinfo" parameterClass="java.util.HashMap" resultMap="MatMap">
  		select 
 			 maintenance_id, customer_id, project_id, dbms_id, dbms_version, 
-			<!--  cususer_id, --> salesman_id, user1_id, user2_id, support_install_date, support_level_id, 
+			 cususer_id, salesman_id, user1_id, user2_id, support_install_date, support_level_id, 
 			 support_visit_id, support_start_date, support_end_date, etc, 
 			 create_user, create_date, last_update_user, last_update_date 
 		from
 			 (
 				 select 
 					 maintenance_id, customer_id, project_id, dbms_id, dbms_version, 
-					 <!-- cususer_id, --> salesman_id, user1_id, user2_id, support_install_date, support_level_id, 
+					 cususer_id, salesman_id, user1_id, user2_id, support_install_date, support_level_id, 
 					 support_visit_id, support_start_date, support_end_date, etc, 
 					 create_user, create_date, last_update_user, last_update_date,
 					 ROW_NUMBER() OVER(order by m.maintenance_id desc) as row_num 
 				 from xm_maintenance m
+					where 1=1     
+		
+				<isNotEmpty property="selectTextVal">
+					검색조건이 전체
+					<isEqual property="selectBtnVal" compareValue="0"> 
+						and
+						( 
+							 m.customer_id in (select customer_id from xm_customer where customer_name like '%' || #selectTextVal# || '%')
+							or 
+							 m.project_id in (select project_id from xm_project where project_name like '%' || #selectTextVal# || '%') 
+							or 
+							 m.dbms_id in (select dbms_id from xm_dbms where dbms_name like '%' || #selectTextVal# || '%')
+							or 
+							 (
+							 	m.user1_id in (select user_id from xm_member where user_name like '%' || #selectTextVal# || '%')
+							 	or
+							 	m.user2_id in (select user_id from xm_member where user_name like '%' || #selectTextVal# || '%')
+							 )
+							or 
+							 m.salesman_id in (select user_id from xm_member where user_team_id = 14 and user_name like '%' || #selectTextVal# || '%')
+							or 
+							 m.support_level_id in (select support_level_id from xm_support_level where support_level_name like '%' || #selectTextVal# || '%')
+						 )   
+					</isEqual>
+					검색조건이 고객사
+					<isEqual property="selectBtnVal" compareValue="1">
+						and 
+						 m.customer_id in (select customer_id from xm_customer where customer_name like '%' || #selectTextVal# || '%')
+					</isEqual>
+					검색조건이 프로젝트
+					<isEqual property="selectBtnVal" compareValue="2">
+						and 
+						 m.project_id in (select project_id from xm_project where project_name like '%' || #selectTextVal# || '%')
+					</isEqual>
+					검색조건이 업무(제품명)
+					<isEqual property="selectBtnVal" compareValue="3">
+						and 
+						 m.dbms_id in (select dbms_id from xm_dbms where dbms_name like '%' || #selectTextVal# || '%')
+					</isEqual>
+					담당 엔지니어
+					<isEqual property="selectBtnVal" compareValue="4">
+						and 
+						 (
+						 	m.user1_id in (select user_id from xm_member where user_name like '%' || #selectTextVal# || '%')
+						 	or
+						 	m.user2_id in (select user_id from xm_member where user_name like '%' || #selectTextVal# || '%')
+						 )
+					</isEqual>
+					영업대표 
+					<isEqual property="selectBtnVal" compareValue="5">
+						and 
+						 m.salesman_id in (select user_id from xm_member where user_team_id = 14 and user_name like '%' || #selectTextVal# || '%')
+					</isEqual>
+					계약상태
+					<isEqual property="selectBtnVal" compareValue="6"> 
+						and 
+						 m.support_level_id in (select support_level_id from xm_support_level where support_level_name like '%' || #selectTextVal# || '%')
+					</isEqual>
+				</isNotEmpty>
+			
+			order by maintenance_id desc
+			) u
+		where 1=1
+		
+		<isNotEmpty property="pageNo">
+		and u.row_num BETWEEN #startNo# AND #endNo# 
+		</isNotEmpty>
+		<isEmpty property="pageNo">
+		and u.row_num BETWEEN 1 AND #viewCount#
+		</isEmpty>
+		
+	</select> -->
+	
+	<select id="getmatinfo" parameterClass="java.util.HashMap" resultMap="MatMap">
+ 		select 
+			 u.maintenance_id, u.customer_id, xc.customer_name, u.project_id, u.dbms_id, u.dbms_version, 
+			 u.salesman_id, u.user1_id, u.user2_id, u.support_install_date, u.support_level_id, 
+			 u.support_visit_id, u.support_start_date, u.support_end_date, u.etc, 
+			 u.create_user, u.create_date, u.last_update_user, u.last_update_date			  
+		from
+			 (
+				 select 
+					 maintenance_id, customer_id, project_id, dbms_id, dbms_version, 
+					 salesman_id, user1_id, user2_id, support_install_date, support_level_id, 
+					 support_visit_id, support_start_date, support_end_date, etc, 
+					 create_user, create_date, last_update_user, last_update_date,
+					 ROW_NUMBER() OVER(order by m.maintenance_id desc) as row_num 
+				    from xm_maintenance m
 					where 1=1     
 		
 				<isNotEmpty property="selectTextVal">
@@ -173,7 +262,8 @@
 				</isNotEmpty>
 			
 			order by maintenance_id desc
-			) u
+			) u inner join xm_customer xc
+	    on u.customer_id = xc.customer_id
 		where 1=1
 		
 		<isNotEmpty property="pageNo">

@@ -40,7 +40,7 @@
 var userId = "<%=(String)session.getAttribute("sUserId")%>";
 var userDept = "<%=(String)session.getAttribute("sUserDept")%>";
 var userDbms = "<%=(String)session.getAttribute("sUserDbms")%>";
-var rowNum = 1;
+var rowNum = 0;
 var rowNum_end = 0;
 var rowNum_add = 0;
 
@@ -75,10 +75,10 @@ $(document).ready(function(){
 	   	location.href = "maintenance";
 	});
 	
-	$("#test_Btn").bind("click", function(){
+	$("#cus_insert_btn").bind("click", function(){
 		 var cusId = $("#cusName_hidden_id").val();
 		 
-		cusmemberinfo_popup("고객담당자 관리 페이지", cusId);
+		cusmemberinfo_popup("유지보수 담당자 관리 페이지");
 	});
 	
 	/* 유지보스 등록 버튼 이벤트 */
@@ -211,7 +211,7 @@ $(document).ready(function(){
 		var teamId = $("#team_select_id").val();	
 
 		if(teamId > 0){	
-			IMatService.getTeammember(teamId, "", getUserinfo1CallBack);	 
+			IMatService.getTeammember("0", teamId, "", getUserinfo1CallBack);	 
 		}else{			
 			$("#user1_select_id").val("0");
 			$("#user1_select_id").val("0").prop("selected", true);
@@ -225,10 +225,11 @@ $(document).ready(function(){
 	$("#user1_select_id").change(function (){
 		
 		var user1Nm = $("#user1_select_id").val();	
+		var deptId = $("#dept_select_id").val();
 		var teamId = $("#team_select_id").val();	
 		
 		if( user1Nm != "0"){	
-			IMatService.getTeammember(teamId, user1Nm, getUserinfo1CallBack1);			
+			IMatService.getTeammember(deptId,"0", user1Nm, getUserinfo1CallBack1); //부 엔지니어 검색 조건			
 		}else{		
 			$("#user2_select_id").val("0");
 			$("#user2_select_id").val("0").prop("selected", true);
@@ -236,7 +237,7 @@ $(document).ready(function(){
 		}	
 	});
 	
-	
+		
 	$("#supo_level_select_id").change(function (){
 		var supoLevel = $("#supo_level_select_id").val();	
 		
@@ -599,13 +600,17 @@ function removeChar(event) {
 									
 						<input type="text" id='dbmsVer_id' value="" class="input_txt input_04 inputTxtFont sui-input">												
 							
-					<!-- 	<div class="input_txt input_05 inputTxtFont sui-input"> -->
-							<select id='cusUser_select_id' class="input_txt input_05 inputTxtFont sui-input" >
-								<option value="0" selected>지정하지 않음.</option>							    	
-							</select>
-							<!-- <button id="test_Btn">test</button> -->
-						<!-- </div>						 -->
-					<!-- 	<input type="text" id='cusUser_id' value="" readonly="readonly" class="input_txt input_05 inputTxtFont sui-input">	 -->												
+						<!-- <div class="input_txt input_05 inputTxtFont sui-input">   -->
+						 <select id='cusUser_select_id' class="input_txt input_05 inputTxtFont sui-input" >
+							<option value="0" selected>지정하지 않음.</option>							    	
+						</select>
+						
+					 	<div class="input_title_01 input_05 inputTxtFont">
+							<input id="cus_insert_btn" type="button" value="담당자 추가등록"/>
+						</div>  
+							<!-- <button id="test_Btn">test</button>  -->
+					<!-- 	</div>  -->					
+						<!-- <input type="text" id='cusUser_id' value="" readonly="readonly" class="input_txt input_05 inputTxtFont sui-input"> -->	 												
 					
 							<select id='salesman_select_id' class="input_txt input_06 inputTxtFont sui-input">
 								<option value="0" selected>지정하지 않음.</option>

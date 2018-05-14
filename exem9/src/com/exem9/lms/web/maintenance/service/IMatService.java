@@ -20,7 +20,7 @@ public interface IMatService {
 	public List<SupoBean> getSupovisit(String supoId)throws Throwable;
 
 	/*  */
-	public List<MemberBean> getTeammember(String teamId, String user1Id) throws Throwable ;
+	public List<MemberBean> getTeammember(int deptId, int teamId, String user1Id) throws Throwable ;
 	
 	/*고객사 수정 이벤트 담당부서(팀) 리스트 데이터 가져오기 (TeamDao 연계) */
 /*	public List<TeamBean> getuserteam(String userDept)throws Throwable;*/
@@ -39,6 +39,8 @@ public interface IMatService {
 								String supoendDatae, String etc) throws Throwable ;
 
 	public List<MatBean> getmatinfo(String selectBtnVal, String selectTextVal, int nowPage) throws Throwable; 
+	
+	public List<MatBean> getmatinfo1(String selectBtnVal, String selectTextVal, int nowPage) throws Throwable;
 
 	public LineBoardBean getNCount(String selectBtnVal, String selectTextVal, int nowPage) throws Throwable;
 	

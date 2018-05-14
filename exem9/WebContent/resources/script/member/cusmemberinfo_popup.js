@@ -1,5 +1,8 @@
-function cusmemberinfo_popup(title,cusId) {
-	var rowNum_end = rowNum+1;
+/*function cusmemberinfo_popup(title,cusId) {*/
+function cusmemberinfo_popup(title) {
+	var rowNum_end = rowNum +1;
+	alert(rowNum);
+	alert(rowNum_end);
 	var str="<div class=\"bg_div\" id=\"bg_div\"></div>";
 	str += "<div class=\"popup_div\" id=\"popup_div\">";
 	str += "<div class=\"popup_title\">&nbsp;"+title+"</div>";
@@ -15,15 +18,15 @@ function cusmemberinfo_popup(title,cusId) {
 /*	str += "<input type=\"text\" class=\"memNo\" id=\"memNo\"  onkeydown='if (event.keyCode == 13) fncCheck();' />";*/
 	str += "<br/>"; // 간격조정을 위해
 	str += "<br/>"; // 간격조정을 위해
-	str += "<div  id=\"popup_content_data_input_id\">";
-	str += "</div>";
-	str += "<div  id=\"popup_content_input_id\">";/*
+/*	str += "<div  id=\"popup_content_data_input_id\">";
+	str += "</div>";*/
+	str += "<div  id=\"popup_content_input_id\">";
 	str += "<input class=\"popup_input_txt popup_input_txt_01_1 popup_inputTxtFont\" type=\"text\" id=\"cusNm_id"+rowNum+"\" >";
 	str += "<input class=\"popup_input_txt popup_input_txt_01_2 popup_inputTxtFont\" type=\"text\" id=\"cusPhone_id_"+rowNum+"\" onkeydown=\"return onlyNumber(event)\" onkeyup=\"removeChar(event)\" style=\"ime-mode:disabled\">";
 	str += "<input class=\"popup_input_txt popup_input_txt_01_3 popup_inputTxtFont\" type=\"text\" id=\"cusMail_id_"+rowNum+"\" >";
 	str += "<input class=\"popup_input_txt popup_input_txt_01_4 popup_inputTxtFont\" type=\"button\" id=\"save_Btn_id_"+rowNum+"\" value=\"저장\">";
 	str += "<input class=\"popup_input_txt popup_input_txt_01_5 popup_inputTxtFont\" type=\"button\" id=\"remove_Btn_id\" value=\"삭제\">";
-	str += "<input class=\"popup_input_txt popup_input_txt_02_4 popup_inputTxtFont\" type=\"button\" id=\"add_Btn_id\" value=\"추가\">";	*/
+	str += "<input class=\"popup_input_txt popup_input_txt_02_4 popup_inputTxtFont\" type=\"button\" id=\"add_Btn_id\" value=\"추가\">";	
 	str += "</div>";
 	str += "</div>";
 	str += "<input type=\"button\" id=\"ok_btn\" class=\"popup_inBtt_OK\" value=\"확인\" />";
@@ -38,7 +41,7 @@ function cusmemberinfo_popup(title,cusId) {
 	$("#popup_div").fadeIn();
 	$("#popup_div").css("display","block");
 	
-	IMatService.getcusmemberinfo(cusId, getcusmemberinfoCallBack);
+	/*IMatService.getcusmemberinfo(cusId, getcusmemberinfoCallBack);*/
 	
 	/*ICustomerService.getUsermember(list, testCallBack);*/
 	
@@ -47,7 +50,8 @@ function cusmemberinfo_popup(title,cusId) {
 		//fpNo=$("#memNo").val();  // 사원 로그인 데이터
 		$("#popup_div").remove();
 		$("#bg_div").remove();
-		rowNum = 1;		
+		rowNum = 0;
+		rowNum_end = 0;
 		rowNum_add = 0;
 	/*	IMainService.getName(fpNo,mainCallBack);*/
 	});
@@ -100,7 +104,7 @@ function cusmemberinfo_popup(title,cusId) {
 	
 	$(".memNo").focus();
 }
-
+/*
 function getcusmemberinfoCallBack(res){
 	var str ="";	
 	
@@ -120,7 +124,7 @@ function getcusmemberinfoCallBack(res){
 	}
 	
 	$("#popup_content_data_input_id").html(str);
-}
+}*/
 
 
 /*function getcusmemberCallBack(res){
