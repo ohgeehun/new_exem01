@@ -31,21 +31,42 @@ A:hover  { color:#000;text-decoration:none;}
 	margin: 0 auto; 
 }
 
-/*********  �α��� ���� �Է�  *********/
+/*********  login.jsp  *********/
 
-.nLoginBase { 
-	position:relative; 
-	width:740px; 
-	height:450px; 
-	top:25%;
-	background: #fff; 
-	opacity:0.8; 
-	border:1px solid #b3a8a1; 
-	border-radius:7px;
-	box-shadow:0 0 2px 2px rgba(0,0,0,0.15); 
-}
-
-.inPutBox_id {
+	.nLoginBase { 
+		position:relative; 
+		width:100%; 
+		height:450px; 
+		top:15%;
+		background: #fff; 
+		opacity:0.8; 
+		border:1px solid #b3a8a1; 
+		border-radius:7px;
+		box-shadow:0 0 2px 2px rgba(0,0,0,0.15); 
+	}
+  .inPut_guideTitle{
+		position:absolute; 
+		font-family: 'NanumGothic', sans-serif;
+		font-weight: 700;
+	    font-size:24px;
+		line-height:19px;
+		color:#262d31;
+	
+		left:32px;
+		top:87px;
+	}
+  .inPut_guideMessage {
+		position:absolute; 
+		font-family: 'NanumGothic', sans-serif;
+	    font-size:15px;
+		line-height:19px;
+		color:#666;
+	
+		left:32px;
+		top:117px;
+	}
+	
+  .inPutBox_id {
 	position:absolute; 
 	width:233px;
 	height:31px; 
@@ -56,11 +77,10 @@ A:hover  { color:#000;text-decoration:none;}
 	color:#777;
 	background-color : #f7f7bd;
 
-	left:132px;
-	top:227px;
-}
-
-.inPutBox_pw {
+	left:72px;
+	top:187px;
+  }
+    .inPutBox_pw{
 	position:absolute; 
 	width:233px;
 	height:31px; 
@@ -71,18 +91,11 @@ A:hover  { color:#000;text-decoration:none;}
 	color:#777;
 	background-color : #f7f7bd;
 
-	left:371px;
+	left:72px;
 	top:227px;
-}
-
-.inPut_chkbx {
-	position:absolute; 
-
-	left:132px;
-	top:275px;
-}
-
-.inBtt_OK {
+  }
+  
+  .inBtt_OK {
 	position:absolute; 
 	width:237px;
 	height:36px; 
@@ -93,10 +106,10 @@ A:hover  { color:#000;text-decoration:none;}
     font-size:15px;
 	color:#fff;
 
-	left:132px;
+	left:72px;
 	top:320px;
 }
-.inBtt_OK:hover {
+.inBtt_OK_m:hover {
 	background:#3d4448;
 	color:#EAEAEA;
 }
@@ -112,13 +125,8 @@ A:hover  { color:#000;text-decoration:none;}
     font-size:15px;
 	color:#fff;
 
-	left:374px;
-	top:320px;
-}
-
-.inBtt_PassSearch:hover {
-	background:#3d4448;
-	position:absolute; 
+	left:72px;
+	top:360px;
 }
 
 .inPut_IdSave {
@@ -127,47 +135,35 @@ A:hover  { color:#000;text-decoration:none;}
 	letter-spacing:-1px;
 	color:#777;
 
-	left:148px;
+	left:90px;
 	top:271px;
 }
 
-.inPut_guideMessage {
+.inPut_chkbx {
 	position:absolute; 
-	font-family: 'NanumGothic', sans-serif;
-    font-size:15px;
-	line-height:19px;
-	color:#666;
 
-	left:132px;
-	top:147px;
+	left:75px;
+	top:275px;
 }
 
-.inPut_guideTitle{
+.inBtt_PassSearch_m:hover {
+	background:#3d4448;
 	position:absolute; 
-	font-family: 'NanumGothic', sans-serif;
-	font-weight: 700;
-    font-size:24px;
-	line-height:19px;
-	color:#262d31;
-
-	left:132px;
-	top:107px;
 }
 
-
-/********* ������� �Է�   *********/
-
+/*********  upmain.jsp  *********/
 .top_LogoPart {
 	position:relative; 
 	width:100%;
-	height:67px;
+	height:100px;
 	background:url(../images/exem/topBg.png); 
 	background-size: cover; 
 }
 
+
 .top_logoBase {
 	position:relative; 
-	width: 1180px;
+	width: 100%;
 	height: 67px;
 	margin: 0 auto; 
 }
@@ -186,8 +182,8 @@ A:hover  { color:#000;text-decoration:none;}
 	font-family: 'NanumGothic', sans-serif;
 	font-weight: 700;
     font-size:14px;
-	top:10px;
-	left:1105px;
+	top:60px;
+	left:335px;
 	color:#555;
 }
 
@@ -196,22 +192,23 @@ A:hover  { color:#000;text-decoration:none;}
 	font-family: 'NanumGothic', sans-serif;
 	font-weight: 700;
     font-size:14px;
-	top:10px;
-	left:1005px;
+	top:60px;
+	left:255px;
 	color:#555;
 }
+
 
 .top_MenuPart {
 	position:relative; 
 	width:100%;
-	height:42px;
+	height:180px;
 	background:#1d0703;
 }
 
 .top_MenuBase {
 	position:relative; 
-	width: 1180px;
-	height: 42px;
+	width: 100%;
+	height: 1800px;
 	margin: 0 auto; 
 }
 
@@ -220,8 +217,8 @@ A:hover  { color:#000;text-decoration:none;}
 	font-family: 'NanumGothic', sans-serif;
 	font-weight: 600;
     font-size:18px;
-	top:10px;
-	left:310px;
+	top:15px;
+	left:25px;
 	color:#b9a5a2;
 }
 
@@ -232,8 +229,8 @@ A:hover  { color:#000;text-decoration:none;}
 	font-family: 'NanumGothic', sans-serif;
 	font-weight: 600;
     font-size:18px;
-	top:10px;
-	left:450px;
+	top:55px;
+	left:25px;
 	color:#b9a5a2;
 }
 
@@ -244,8 +241,8 @@ A:hover  { color:#000;text-decoration:none;}
 	font-family: 'NanumGothic', sans-serif;
 	font-weight: 600;
     font-size:18px;
-	top:10px;
-	left:600px;
+	top:95px;
+	left:25px;
 	color:#b9a5a2;
 }
 
@@ -256,8 +253,8 @@ A:hover  { color:#000;text-decoration:none;}
 	font-family: 'NanumGothic', sans-serif;
 	font-weight: 600;
     font-size:18px;
-	top:10px;
-	left:770px;
+	top:135px;
+	left:25px;
 	color:#b9a5a2;
 }
 
@@ -273,7 +270,7 @@ A:hover  { color:#000;text-decoration:none;}
 
 .top_SubMenuBase {
 	position:relative; 
-	width: 1180px;
+	width: 100%;
 	height: 31px;
 	margin: 0 auto; 
 }
@@ -284,7 +281,7 @@ A:hover  { color:#000;text-decoration:none;}
 	font-weight: 600;
     font-size:16px;
 	top:6px;
-	left:310px;
+	left:20px;
 	color:#1d0703;
 }
 
@@ -296,7 +293,7 @@ A:hover  { color:#000;text-decoration:none;}
 	font-weight: 600;
     font-size:16px;
 	top:6px;
-	left:410px;
+	left:110px;
 	color:#1d0703;
 }
 
@@ -308,7 +305,7 @@ A:hover  { color:#000;text-decoration:none;}
 	font-weight: 600;
     font-size:16px;
 	top:6px;
-	left:530px;
+	left:220px;
 	color:#1d0703;
 }
 
@@ -320,7 +317,7 @@ A:hover  { color:#000;text-decoration:none;}
 	font-weight: 600;
     font-size:16px;
 	top:6px;
-	left:650px;
+	left:20px;
 	color:#1d0703;
 }
 
@@ -332,7 +329,7 @@ A:hover  { color:#000;text-decoration:none;}
 	font-weight: 600;
     font-size:16px;
 	top:6px;
-	left:770px;
+	left:140px;
 	color:#1d0703;
 }
 
@@ -344,7 +341,7 @@ A:hover  { color:#000;text-decoration:none;}
 	font-weight: 600;
     font-size:16px;
 	top:6px;
-	left:390px;
+	left:20px;
 	color:#1d0703;
 }
 
@@ -356,7 +353,7 @@ A:hover  { color:#000;text-decoration:none;}
 	font-weight: 600;
     font-size:16px;
 	top:6px;
-	left:520px;
+	left:140px;
 	color:#1d0703;
 }
 
@@ -368,7 +365,7 @@ A:hover  { color:#000;text-decoration:none;}
 	font-weight: 600;
     font-size:16px;
 	top:6px;
-	left:520px;
+	left:20px;
 	color:#1d0703;
 }
 
@@ -380,13 +377,13 @@ A:hover  { color:#000;text-decoration:none;}
 	font-weight: 600;
     font-size:16px;
 	top:6px;
-	left:660px;
+	left:140px;
 	color:#1d0703;
 }
 
 .top_SubMenu02_ma:hover {	color:#fff;  }
 
-/*******  Main Display **********/
+/*********  mainpage.jsp  *********/
 
 .top_mainDisplayPart {
 	position:relative; 
@@ -395,16 +392,9 @@ A:hover  { color:#000;text-decoration:none;}
 	top:55px;
 }
 
-.top_mainDisplayPart_2 {
-	position:relative; 
-	width:100%;
-	min-height:800px;
-	top:91px;
-}
-
 .top_mainDisplayBase {
 	position:relative; 
-	width: 1180px;
+	width: 100%;
 	min-height:700px;
 	margin: 0 auto; 
 }
@@ -414,19 +404,17 @@ A:hover  { color:#000;text-decoration:none;}
 	border:0px; 
 	height:36px;
 	padding:1px;
-	left:150px;
+	left:10px;
 	text-align:right;
 	color:#777;
 }
 
-.input_title_01 {
-	position:absolute; 
-	border:0px; 
-	height:36px;
-	padding:1px;
-	left:770px;
-	text-align:left;
-	color:#777;
+.inputTxtFont {
+	font-family: 'NanumGothic', sans-serif;
+	font-weight: 150;
+    font-size:14px;
+	line-height: 37px;
+	text-indent: 7px;
 }
 
 .input_txt {
@@ -434,305 +422,146 @@ A:hover  { color:#000;text-decoration:none;}
 	border:1px solid #d1cece; 
 	height:38px;
 	padding:1px;
-	left:478px;
-}
-
-.input_txt_01 {
-	position:absolute; 
-	/* border:1px solid #d1cece; */ 
-	height:38px;
-	padding:1px;
-	left:470px;
-}
-
-
-.input_txt_03 {
-	position:absolute; 
-	/* border:1px solid #d1cece; */ 
-	/* height:38px; */
-	padding:1px;
-	left:8px;
-}
-
-
-/* input_txt_01_1{
-	position:absolute; 
-	border:1px solid #d1cece; 
-	height:38px;
-	padding:1px;
-	left:970px;
-} */
-
-.input_txt_02 {
-	position:absolute; 
-	border:1px solid #d1cece; 
-	height:100px;
-	padding:1px;
-	left:478px;
-}
-
-.text_area {
-	position:absolute; 
-	border:1px solid #d1cece;
-	width:400px;
-	height:120px;
-	left:470px;
-	top:346px;
-	font-family: 'NanumGothic', sans-serif;
-	font-weight: 600;
-    font-size:14px;
-	padding:7px;
-}
-
-.inputTxtFont {
-	font-family: 'NanumGothic', sans-serif;
-	font-weight: 600;
-    font-size:14px;
-	line-height: 37px;
-	text-indent: 7px;
+	left:138px;
 }
 
 .input_01 {
-	width:290px;
+	width:100px;
 	top:46px;
 }
 .input_02 {
-	width:290px;
+	width:100px;
 	top:96px;
 }
-.input_02_01 {
-	width:290px;
-	top:0px;
-}
+
 .input_03 {
-	width:290px;
+	width:100px;
 	top:146px;
 }
 .input_04 {
-	width:290px;
+	width:100px;
 	top:196px;
 }
 .input_05 {
-	width:290px;
+	width:100px;
 	top:246px;
 }
 .input_06 {
-	width:290px;
+	width:100px;
 	top:296px;
 }
 .input_07 {
-	width:290px;
+	width:100px;
 	top:346px;
 }
 .input_08 {
-	width:290px;
+	width:100px;
 	top:396px;
 }
 .input_09 {
-	width:290px;
+	width:100px;
 	top:446px;
 }
 .input_10 {
-	width:290px;
+	width:100px;
 	top:496px;
 }
 .input_11 {
-	width:290px;
+	width:100px;
 	top:546px;
 }
 .input_12 {
-	width:290px;
+	width:100px;
 	top:596px;
 }
 .input_13 {
-	width:290px;
+	width:100px;
 	top:646px;
 }
 .input_14 {
-	width:290px;
+	width:100px;
 	top:696px;
 }
 .input_15 {
-	width:290px;
+	width:100px;
 	top:746px;
 }
 .input_16 {
-	width:290px;
+	width:100px;
 	top:796px;
 }
 
-.input_submit {
-	width:290px;
-	height:36px; 
-    padding:7px;
-	background:#262d31;
-	border:0px;
-	font-family: 'Archivo Narrow', sans-serif;
-    font-size:15px;
-	color:#fff;
-	width:290px;
+.input1_01 {
+	width:180px;
+	top:46px;
+}
+.input1_02 {
+	width:180px;
+	top:96px;
+}
+
+.input1_03 {
+	width:180px;
+	top:146px;
+}
+.input1_04 {
+	width:180px;
+	top:196px;
+}
+.input1_05 {
+	width:180px;
+	top:246px;
+}
+.input1_06 {
+	width:180px;
+	top:296px;
+}
+.input1_07 {
+	width:180px;
+	top:346px;
+}
+.input1_08 {
+	width:180px;
+	top:396px;
+}
+.input1_09 {
+	width:150px;
+	top:446px;
+}
+.input1_10 {
+	width:180px;
 	top:496px;
-	left:470px;
 }
-
-.cal_start {
+.input1_11 {
+	width:180px;
+	top:546px;
+}
+.input1_12 {
+	width:180px;
+	top:596px;
+}
+.input1_13 {
+	width:180px;
+	top:646px;
+}
+.input1_14 {
+	width:180px;
+	top:696px;
+}
+.input1_15 {
+	width:180px;
+	top:746px;
+}
+.input1_16 {
+	width:180px;
+	top:796px;
+}
+.miBtt_submit_top {
 	position:absolute; 
-	width:22px;
-	height:22px;
-	background:url(../images/exem/cal.png); 
-
-	left:727px;
-	top:255px;
+	top: 566px;
+	margin-left: 70px;
 }
 
-.cal_end {
-	position:absolute; 
-	width:22px;
-	height:22px;
-	background:url(../images/exem/cal.png); 
-
-	left:727px;
-	top:304px;
-}
-
-.main_title_box {
-	position:absolute; 
-	border:1px solid #d1cece; 
-	height:33px;
-	padding:1px;
-	background:#ebe8e8;
-	border-left-color:#fff;
-}
-
-.main_title_box_2 {
-	border:1px solid #d1cece; 
-	height:33px;
-	padding:1px;
-	background:#ebe8e8;
-}
-
-.main_input_box {
-	position:absolute; 
-	border:1px solid #d1cece; 
-	height:33px;
-	padding:1px;
-	border-top-color:#fff;
-	border-left-color:#fff;
-	border-right-color:#fff;
-}
-
-.main_input_box_2 {
-	border:1px solid #d1cece; 
-	height:33px;
-	padding:1px;
-	border-top-color:#fff;
-	border-left-color:#fff;
-	border-right-color:#fff;
-}
-
-.enlarged_textarea {
-	height:233px;
-}
-
-.search_filter_box {
-	border:1px solid #d1cece; 
-	height:33px;
-	padding:1px;
-}
-
-.nTitleFont {
-	font-family: 'NanumGothic', sans-serif;
-	font-weight: 600;
-    font-size:14px;
-	text-align:center;
-	line-height: 35px;	
-}
-
-.nInputFont {
-	font-family: 'NanumGothic', sans-serif;
-	font-weight: 600;
-    font-size:13px;
-	text-align:left;
-	line-height: 35px;
-	letter-spacing: -1px;
-	text-indent: 7px;
-	color:#555;		
-}
-
-.nCheckBox {
-	text-align:center;
-	line-height: 36px;	
-}
-
-.inBtt_OK_2 {
-	width:237px;
-	height:36px; 
-    padding:7px;
-	background:#262d31;
-	border:0px;
-	font-family: 'Archivo Narrow', sans-serif;
-    font-size:15px;
-	color:#fff;
-}
-.inBtt_OK_2:hover {
-    background:#464a53;
-}
-
-.Btt_search {
-	width:87px;
-	height:33px; 
-    padding:1px;
-	background:#1d0703;
-	border:0px;
-	font-family: 'Archivo Narrow', sans-serif;
-    font-size:15px;
-	color:#fff;
-}
-
-.Btt_highlight{
-	color:#ff0;
-}
-
-.Btt_search:hover {
-	background:#3d4448;
-}
-
-.input_search {
-	font-family: 'NanumGothic', sans-serif;
-	font-weight: 600;
-    font-size:13px;
-	text-align:left;
-	line-height: 35px;
-	letter-spacing: -1px;
-	text-indent: 7px;
-	width:100px;
-}
-
-.center_align {
-  	 text-align: center;
-}
-.left_align {
-  	 text-align: left;
-}
-
-.pageFont {
-	font-family: 'NanumGothic', sans-serif;
-	font-weight: 600;
-    font-size:18px;
-	text-align:center;
-	line-height: 45px;
-}
-
-.pageFont:link, .pageFont:visited {
-	color: blue;
-	text-decoration: underline;
-}
-
-.pageFont:hover {
-	color: blue;
-	font-weight: 650;
-	font-size:22px;
-}
 
 .miBtt_submit {
 	position:absolute; 
@@ -745,51 +574,6 @@ A:hover  { color:#000;text-decoration:none;}
     font-size:15px;
 	color:#fff;
 
-	left:470px;
+	left:0px;
 	/* top:570px; */
-}
-
-.btnSearch {
-	margin-left : 5px;
-}
-
-.tb_search{
-    text-align: left;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-right: 5px;
-    padding-left: 5px;
-    font-size: 10px;
-    width:100%;
-}
-
-.titleFont_2 {
-	font-family: 'NanumGothic', sans-serif;
-	color: #8000ff;
-	border: 0px solid;
-	font-weight: 650;
-	font-size:17px;
-	text-align:right;
-	//line-height: 35px;
-	width:50px;	
-}
-
-.previous {
-    background-color: #4CAF50;
-    color: white;
-}
-
-.next {
-    background-color: #4CAF50;
-    color: white;
-}
-/*    */
-.week-label {
-    padding: 8px;
-}
-
-.week-label > div {
-    /* text-align: center; */
-    color: #4CAF50;
-    font-size: 20px;
 }

@@ -8,7 +8,8 @@
 <meta charset="UTF-8">
 
 <title>EXEM</title> 
-<link rel="stylesheet" type="text/css" media="screen" href="./resources/css/exem_mem.css"/>
+<link rel="stylesheet" type="text/css" media="not all and (max-width:600px)" href="./resources/css/exem_mem.css"/>
+<link rel="stylesheet" type="text/css" media="only all and (max-width:600px)" href="./resources/css/exem_mem_m.css"/>
 
 <!-- jQuery Script -->
 <script type="text/javascript" src="resources/script/jquery/jquery-1.8.2.min.js"></script>
@@ -60,8 +61,32 @@ function clearText(thefield){
 @-ms-viewport{width:device-width,initial-scale=1.0, user-scalable=no;}
 @-o-viewport{width:device-width,initial-scale=1.0, user-scalable=no;}
 @viewport{width:device-width,initial-scale=1.0, user-scalable=no;} 
+/* 
+
 
 @media all and (max-width: 600px) {
+	.inPut_guideTitle{
+		position:absolute; 
+		font-family: 'NanumGothic', sans-serif;
+		font-weight: 700;
+	    font-size:24px;
+		line-height:19px;
+		color:#262d31;
+	
+		left:32px;
+		top:87px;
+	}
+	.inPut_guideMessage {
+		position:absolute; 
+		font-family: 'NanumGothic', sans-serif;
+	    font-size:15px;
+		line-height:19px;
+		color:#666;
+	
+		left:32px;
+		top:117px;
+	}
+	
   .inPutBox_id_m {
 	position:absolute; 
 	width:233px;
@@ -73,7 +98,7 @@ function clearText(thefield){
 	color:#777;
 	background-color : #f7f7bd;
 
-	left:132px;
+	left:72px;
 	top:187px;
   }
     .inPutBox_pw_m {
@@ -87,7 +112,7 @@ function clearText(thefield){
 	color:#777;
 	background-color : #f7f7bd;
 
-	left:132px;
+	left:72px;
 	top:227px;
   }
   
@@ -102,7 +127,7 @@ function clearText(thefield){
     font-size:15px;
 	color:#fff;
 
-	left:132px;
+	left:72px;
 	top:320px;
 }
 .inBtt_OK_m:hover {
@@ -121,7 +146,7 @@ function clearText(thefield){
     font-size:15px;
 	color:#fff;
 
-	left:132px;
+	left:72px;
 	top:360px;
 }
 
@@ -129,9 +154,31 @@ function clearText(thefield){
 	background:#3d4448;
 	position:absolute; 
 }
-}
-
+} */
+/* 
 @media not all and (max-width: 600px) {
+	.inPut_guideMessage {
+	position:absolute; 
+	font-family: 'NanumGothic', sans-serif;
+    font-size:15px;
+	line-height:19px;
+	color:#666;
+
+	left:132px;
+	top:147px;
+	}
+	
+	.inPut_guideTitle{
+		position:absolute; 
+		font-family: 'NanumGothic', sans-serif;
+		font-weight: 700;
+	    font-size:24px;
+		line-height:19px;
+		color:#262d31;
+	
+		left:132px;
+		top:107px;
+	}
   .inPutBox_id_m {
 	position:absolute; 
 	width:233px;
@@ -199,7 +246,7 @@ function clearText(thefield){
 	background:#3d4448;
 	position:absolute; 
 }
-}
+} */
 
 </style>
 
@@ -211,14 +258,14 @@ function clearText(thefield){
 			<li class="inPut_guideTitle">EXEM 일정관리시스템</li>
 			<li class="inPut_guideMessage">EXEM 일정관리시스템은 사내 직원용으로 부여된 <br>아이디와 패스워드 인증을 거친 후 사용 가능합니다.
 </li>
-				<input type="text" id="userId" name="user_id" class="inPutBox_id_m" value="user id" onFocus="clearText(this);">
-				<input type="password" id="userPw" name="user_pw" class="inPutBox_pw_m" value="passwd" onFocus="clearText(this);">
+				<input type="text" id="userId" name="user_id" class="inPutBox_id" value="user id" onFocus="clearText(this);">
+				<input type="password" id="userPw" name="user_pw" class="inPutBox_pw" value="passwd" onFocus="clearText(this);">
 				
 				<input type="checkbox" class="inPut_chkbx">
 				<li class="inPut_IdSave">User Id 저장</li>
  
-				<input type="submit"  id="loginBtn" name="OK" class="inBtt_OK_m" value="Log In">
-				<input type="submit" name="search_pass" class="inBtt_PassSearch_m" value="Password Search">
+				<input type="submit"  id="loginBtn" name="OK" class="inBtt_OK" value="Log In">
+				<input type="submit" name="search_pass" class="inBtt_PassSearch" value="Password Search">
 		</div>
 	</div>
 </div>

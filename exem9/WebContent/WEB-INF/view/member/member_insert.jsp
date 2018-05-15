@@ -10,6 +10,9 @@
 <link rel="stylesheet" type="text/css" href="./resources/css/jquery/jquery-ui-1.8.custom.css"/>  
 <link rel="stylesheet" type="text/css" href="./resources/css/member/member_insert.css" media="all" />
 
+<link rel="stylesheet" type="text/css" media="not all and (max-width:600px)" href="./resources/css/exem_mem.css"/>
+<link rel="stylesheet" type="text/css" media="only all and (max-width:600px)" href="./resources/css/exem_mem_m.css"/>
+
 <!-- jQuery Script -->
 <script type="text/javascript" src="resources/script/jquery/jquery-1.8.2.min.js"></script>
 <!-- <script type="text/javascript" src="resources/script/jquery/jquery-ui-1.8.min.js"></script> -->
@@ -24,6 +27,14 @@
 <script type="text/javascript" src="dwr/interface/ICustomerService.js"></script> 
 <script type="text/javascript" src="dwr/interface/IMemberService.js"></script>
 <script type="text/javascript" src="dwr/interface/IMatService.js"></script>
+
+<meta name="viewport" content="width=device-width,initial-scale=1.0, user-scalable=no"> 
+<style>
+
+@-ms-viewport{width:device-width,initial-scale=1.0, user-scalable=no;}
+@-o-viewport{width:device-width,initial-scale=1.0, user-scalable=no;}
+@viewport{width:device-width,initial-scale=1.0, user-scalable=no;} 
+</style>
 
 <script>
 var userId = "<%=(String)session.getAttribute("sUserId")%>";

@@ -22,6 +22,14 @@
 <script type="text/javascript" src="dwr/util.js"></script>
 <script type="text/javascript" src="dwr/interface/ICustomerService.js"></script> 
 
+<meta name="viewport" content="width=device-width,initial-scale=1.0, user-scalable=no"> 
+<style>
+
+@-ms-viewport{width:device-width,initial-scale=1.0, user-scalable=no;}
+@-o-viewport{width:device-width,initial-scale=1.0, user-scalable=no;}
+@viewport{width:device-width,initial-scale=1.0, user-scalable=no;} 
+</style>
+
 <script>
 var userId = "<%=(String)session.getAttribute("sUserId")%>";
 var userDept = "<%=(String)session.getAttribute("sUserDept")%>";

@@ -73,11 +73,11 @@ public class MatDao implements IMatDao{
 		return result;
 	}
 	
-	/*유지보수 정보 삭제 처리*/
+	/*유지보수 정보 수정 처리*/
 	public String updateMatinfo(HashMap params) throws Throwable {
 		String result = "FAILED";
 		
-		if(sqlMapClient.update("maintenance.getTeammember", params) > 0){
+		if(sqlMapClient.update("maintenance.updateMatinfo", params) > 0){
 			result = "SUCCESS";
 		}
 		return result;
