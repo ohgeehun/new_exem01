@@ -257,6 +257,7 @@ $(document).ready(function(){
  		   	 		// 제품(업무)가 없는 행을 선택하였으면, 삭제할 업무가 없습니다 표시
  	   				var chkId = $(this).val();  // chkId구조는 고객사ID_프로젝트ID_제품ID_고객담당자ID, 값이 없으면 10_5__ 이렇게 들어온다.
  	   				var strArray = chkId.split('_');
+ 	   				
  	   				//alert(strArray[0] + "_" + strArray[1] + "_" + strArray[2] + "_" + strArray[3] );
  					/*
  	   				var dbmsId = $('#select_dbms_'+chkId+' option:selected').val();
@@ -531,10 +532,10 @@ function editcusMemberCallback(res){
 
 function deleteCusinfoCallBack(res){
 	if(res == "FAILED"){
-		//alert("실패");
+		alert("실패");
 		location.href = "customer_edit";
 	}else if(res == "SUCCESS"){
-		//alert("성공");
+		alert("성공");
 		location.href = "customer_edit";
 	}
 }

@@ -884,7 +884,7 @@
 	 </update>
 	 
 	<!-- 고객사/프로젝트 업무 삭제 -->
-	<update id="deleteCusPjtDbmsinfo" parameterClass="String">
+	<update id="deleteCusPjtDbmsinfo" parameterClass="java.util.HashMap">
 		 DELETE from XM_project_dbms 
 		 WHERE customer_id = #cusId#
 		 <isNotEmpty property="pjtId"> 

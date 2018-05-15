@@ -627,9 +627,22 @@ public class CustomerService implements ICustomerService{
 		
 		HashMap params = new HashMap();
 		params.put("cusId", Integer.parseInt(chkIds[0]) );
-//		params.put("pjtId", Integer.parseInt(chkIds[1]) );
+//		int no_chkId_value = chkIds.length;
+//		switch(no_chkId_value){
+//		case 1: break;
+//		case 2: 
+//			params.put("pjtId", Integer.parseInt(chkIds[1]) );
+//			break;
+//		case 3:
+//			params.put("pjtId", Integer.parseInt(chkIds[1]) );
 //			params.put("dbmsId", Integer.parseInt(chkIds[2]) );
-		//params.put("cusmemberId", Integer.parseInt(chkIds[3]) );
+//			break;
+//		case 4:
+//			params.put("pjtId", Integer.parseInt(chkIds[1]) );
+//			params.put("dbmsId", Integer.parseInt(chkIds[2]) );
+//			params.put("cusmemberId", Integer.parseInt(chkIds[3]) );
+//			break;
+//		}
 		
 		TransactionStatus status = this.transactionManager.getTransaction(new DefaultTransactionDefinition() );
 		
@@ -638,7 +651,7 @@ public class CustomerService implements ICustomerService{
 		try{
 			// 프로젝트업무고객담당자 테이블(xm_project_dbms_cusmember) 여러명 삭제
 			iCustomerDao.deletePjtDbmsCusmemberinfo(params);
-			// xm_customer_member 테이블 여러건 삭제
+			// xm_customer_member 테이블 여러건 삭제.(xm_customer_member)
 			iCustomerDao.deleteCusmembersinfo(params);
 			// xm_project_dbms 테이블 삭제
 			iCustomerDao.deleteCusPjtDbmsinfo(params);
