@@ -1,8 +1,13 @@
 /*function cusmemberinfo_popup(title,cusId) {*/
 function cusmemberinfo_popup(title) {
 	var rowNum_end = rowNum +1;
-	alert(rowNum);
-	alert(rowNum_end);
+	var cusId = $("#cusName_hidden_id").val();
+	var proId = $("#cusproName_hidden_id").val();
+	var dbmsId = $("#dbms_select_id").val();
+	 
+	/*alert($("#cusName_hidden_id").val());
+	alert($("#cusproName_hidden_id").val());
+	alert($("#dbms_select_id").val());*/
 	var str="<div class=\"bg_div\" id=\"bg_div\"></div>";
 	str += "<div class=\"popup_div\" id=\"popup_div\">";
 	str += "<div class=\"popup_title\">&nbsp;"+title+"</div>";
@@ -21,12 +26,12 @@ function cusmemberinfo_popup(title) {
 /*	str += "<div  id=\"popup_content_data_input_id\">";
 	str += "</div>";*/
 	str += "<div  id=\"popup_content_input_id\">";
-	str += "<input class=\"popup_input_txt popup_input_txt_01_1 popup_inputTxtFont\" type=\"text\" id=\"cusNm_id"+rowNum+"\" >";
-	str += "<input class=\"popup_input_txt popup_input_txt_01_2 popup_inputTxtFont\" type=\"text\" id=\"cusPhone_id_"+rowNum+"\" onkeydown=\"return onlyNumber(event)\" onkeyup=\"removeChar(event)\" style=\"ime-mode:disabled\">";
-	str += "<input class=\"popup_input_txt popup_input_txt_01_3 popup_inputTxtFont\" type=\"text\" id=\"cusMail_id_"+rowNum+"\" >";
-	str += "<input class=\"popup_input_txt popup_input_txt_01_4 popup_inputTxtFont\" type=\"button\" id=\"save_Btn_id_"+rowNum+"\" value=\"저장\">";
-	str += "<input class=\"popup_input_txt popup_input_txt_01_5 popup_inputTxtFont\" type=\"button\" id=\"remove_Btn_id\" value=\"삭제\">";
-	str += "<input class=\"popup_input_txt popup_input_txt_02_4 popup_inputTxtFont\" type=\"button\" id=\"add_Btn_id\" value=\"추가\">";	
+	str += "<input class=\"popup_input_txt popup_input_txt_01_1 popup_inputTxtFont\" type=\"text\" id=\"cusNm_id_"+rowNum_end+"\" >";
+	str += "<input class=\"popup_input_txt popup_input_txt_01_2 popup_inputTxtFont\" type=\"text\" id=\"cusPhone_id_"+rowNum_end+"\" onkeydown=\"return onlyNumber(event)\" onkeyup=\"removeChar(event)\" style=\"ime-mode:disabled\">";
+	str += "<input class=\"popup_input_txt popup_input_txt_01_3 popup_inputTxtFont\" type=\"text\" id=\"cusMail_id_"+rowNum_end+"\" >";
+	str += "<input class=\"popup_input_txt popup_input_txt_01_4 popup_inputTxtFont\" type=\"button\" id=\"save_Btn_id_"+rowNum_end+"\" value=\"저장\">";
+/*	str += "<input class=\"popup_input_txt popup_input_txt_01_5 popup_inputTxtFont\" type=\"button\" id=\"remove_Btn_id\" value=\"삭제\">";*/
+/*	str += "<input class=\"popup_input_txt popup_input_txt_02_4 popup_inputTxtFont\" type=\"button\" id=\"add_Btn_id\" value=\"추가\">";*/	
 	str += "</div>";
 	str += "</div>";
 	str += "<input type=\"button\" id=\"ok_btn\" class=\"popup_inBtt_OK\" value=\"확인\" />";
@@ -48,15 +53,30 @@ function cusmemberinfo_popup(title) {
 	$("#ok_btn").unbind(); // 기존 바인드를 푼다. 그래야 시스템이 느려지는걸 방지한다.
 	$("#ok_btn").bind("click",function(){
 		//fpNo=$("#memNo").val();  // 사원 로그인 데이터
+		
+	   IMatService.getprodbmsmemberinfo(cusId, proId, dbmsId, getcusmemberCallBack);
+			 
 		$("#popup_div").remove();
 		$("#bg_div").remove();
 		rowNum = 0;
 		rowNum_end = 0;
 		rowNum_add = 0;
+		
+		
 	/*	IMainService.getName(fpNo,mainCallBack);*/
 	});
 	
-	$("#add_Btn_id").unbind(); // 기존 바인드를 푼다. 그래야 시스템이 느려지는걸 방지한다.
+	//$("#save_Btn_id_1").unbind(); // 기존 바인드를 푼다. 그래야 시스템이 느려지는걸 방지한다.
+/*	$(document).on("click","#save_Btn_id_1",function(){	
+		alert($("#cusName_hidden_id").val());
+		alert($("#cusproName_hidden_id").val());
+		alert($("#dbms_select_id").val());
+		alert($("#cusNm_id_1").val());
+		alert($("#cusPhone_id_1").val());
+		alert($("#cusMail_id_1").val());
+	});*/
+	
+	/*$("#add_Btn_id").unbind(); // 기존 바인드를 푼다. 그래야 시스템이 느려지는걸 방지한다.
 	$(document).on("click","#add_Btn_id",function(){	
 		
 		rowNum_end = rowNum_end + 1;	
@@ -102,7 +122,7 @@ function cusmemberinfo_popup(title) {
 		$("#popup_content_input_id").html(str);	
 	});
 	
-	$(".memNo").focus();
+	$(".memNo").focus();*/
 }
 /*
 function getcusmemberinfoCallBack(res){

@@ -16,7 +16,7 @@ body {
 .popup_div {
 	position:absolute;
 	width:830px;
-	height:600px;
+	height:270px;
 	left:50%;
 	top:50%;
 	margin-left:-400px;
@@ -40,7 +40,7 @@ body {
 }
 .popup_content {
 	width:830px;
-	height:550px;
+	height:220px;
 	color:#000000;
 	font-family:나눔고딕,고딕,돋움,굴림,궁서;
 	font-size:12pt;
@@ -96,7 +96,7 @@ body {
 	color:#fff;
 
 	left:270px;
-	top:490px;
+	top:190px;
 }
 
 .inBtt_OK:hover {

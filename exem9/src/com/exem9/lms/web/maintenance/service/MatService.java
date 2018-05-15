@@ -374,5 +374,46 @@ public class MatService implements IMatService{
 		
 		return iMatDao.getMatCusMemberinfo(params);
 	}
-	
+
+	public String insertMatcusmemberinfo(int cusId, int proId, int dbmsId,
+			String cusUserId, String cusUserPhone, String cusUserMail)
+			throws Throwable {
+		
+		HashMap params = new HashMap();
+		
+		params.put("cusId", cusId);
+		params.put("pjtId", proId);
+		params.put("dbmsId", dbmsId);
+		
+		String result = "FAILED";
+		
+		TransactionStatus status = this.transactionManager.getTransaction(new DefaultTransactionDefinition() );
+		
+		try{
+			if(cusUserId != null)
+			{				
+				params.put("cususerNm", cusUserId);
+				params.put("cususerPhone", cusUserPhone);
+				params.put("cususerMail", cusUserMail);
+				
+				iCustomerDao.insertCusmember(params);  
+				
+				Integer cusmemberId = iCustomerDao.getInsertedCusmemberId(params); // 해당고객사의 기 등록된 담당자 ID값 반환
+				params.put("cusmemberId", cusmemberId);
+				iCustomerDao.insertPjtDbmsCusmember(params);
+				
+				this.transactionManager.commit(status);
+			}
+		}catch(Exception e) {
+				
+				this.transactionManager.rollback(status);
+				e.printStackTrace();
+				 //throw new Exception("Transaction2: ");
+	             //TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+	             return result;
+			}
+			
+			result = "SUCCESS";
+			return 	result;
+	}
 }

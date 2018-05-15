@@ -276,7 +276,7 @@ public class CustomerService implements ICustomerService{
 		result = "SUCCESS";
 		return 	result;
 	}
-
+	
 	public List<DbmsBean> getdeptdbms(String deptId) throws Throwable {
 		
 		HashMap params = new HashMap();

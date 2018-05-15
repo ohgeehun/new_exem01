@@ -162,6 +162,7 @@ $(document).ready(function(){
  						alert( $('#input_cus_'+chkId).val() + " / " + $('#input_pjt_'+chkId).val() + " / " + 
  								 dbmsId + "에 삭제할 고객담당자가 없습니다.");
  					} else {
+ 						alert(chkId);
 	 	   	    		ICustomerService.deleteCusmemberinfo( 
 	   	         			chkId, 
 	   	         			deleteCusinfoCallBack );
@@ -728,7 +729,7 @@ function cususerListener(obj){
 								<select class="main_input_box_2 box2_09 nInputFont" id="select_salesman_${cli.cusId}_${cli.proId}_${cli.dbmsId}_${cli.cususerId}">
 									<c:if test="${cli.salseId eq null}">
 											<option value="0" selected></option>
-									</c:if>
+									</c:if>								
 									
 									<c:forEach var="esl" items="${edit_salseman_list}">
 										<c:choose>

@@ -38,6 +38,10 @@ public interface IMatService {
 								String supoVisitId, String supoinstallData, String supostateDate,
 								String supoendDatae, String etc) throws Throwable ;
 
+	/*유지보수 등록  시 고객담당자 추가 이벤트*/
+	public String insertMatcusmemberinfo(int cusId, int proId, int dbmsId,
+								String cusUserId, String cusUserPhone, String cusUserMail) throws Throwable ;
+	
 	public List<MatBean> getmatinfo(String selectBtnVal, String selectTextVal, int nowPage) throws Throwable; 
 	
 	public List<MatBean> getmatinfo1(String selectBtnVal, String selectTextVal, int nowPage) throws Throwable;

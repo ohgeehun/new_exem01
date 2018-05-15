@@ -75,12 +75,26 @@ $(document).ready(function(){
 	   	location.href = "maintenance";
 	});
 	
-	$("#cus_insert_btn").bind("click", function(){
-		 var cusId = $("#cusName_hidden_id").val();
-		 
-		cusmemberinfo_popup("유지보수 담당자 관리 페이지");
+	$(document).on("click","#cus_insert_btn",function(){ 
+		/*  var cusId = $("#cusName_hidden_id").val(); */		 
+		cusmemberinfo_popup("고객사 담당자 관리 페이지");
 	});
 	
+	$(document).on("click","#save_Btn_id_1",function(){	
+		var cusId = $("#cusName_hidden_id").val();
+		var proId = $("#cusproName_hidden_id").val();
+		var dbmsId = $("#dbms_select_id").val();
+		var cusUserId = $("#cusNm_id_1").val();
+		var cusUserPhone = $("#cusPhone_id_1").val();
+		var cusUserMail = $("#cusMail_id_1").val();
+
+		
+		IMatService.insertMatcusmemberinfo(cusId, proId, dbmsId,
+										   cusUserId, cusUserPhone, cusUserMail,
+						                   MatcusmemberInfoCallback);
+								
+	});
+
 	/* 유지보스 등록 버튼 이벤트 */
     $("#edit_update_btn").bind("click", function(){   	
     	var cusNm = $("#cusName_id").val();
@@ -365,6 +379,9 @@ function cusNmProinfoCallBack(res){
 	text += "<option value='0' selected>지정하지 않음.</option>";
 	
 	$("#cusUser_select_id").html(text);
+	
+	var text1 = "";
+	$("#cus_insert_btn_div").html(text1);
 }	
 
 function cusNmProcheckCallBack(res){
@@ -420,6 +437,9 @@ function cusNmProcheckCallBack(res){
 	text += "<option value='0' selected>지정하지 않음.</option>";
 	
 	$("#cusUser_select_id").html(text);
+	
+	var text1 = "";
+	$("#cus_insert_btn_div").html(text1);
 }
 
 function getcusmemberCallBack(res){
@@ -440,6 +460,9 @@ function getcusmemberCallBack(res){
 		
 	
 	$("#cusUser_select_id").html(text);
+	
+	var text1 = "<a href='#' id='cus_insert_btn' class='main_title_box_2 nTitleFont'>담당자 추가등록 </a>";
+	$("#cus_insert_btn_div").html(text1);
 }
 
 function getTeaminfoCallBack(res){
@@ -524,6 +547,17 @@ function insertMatinfoCallBack(res){
 	}
 }
 
+function MatcusmemberInfoCallback(res)
+{ 
+	 if(res == "FAILED"){
+		alert("실패");		
+	}else if(res == "SUCCESS"){
+		alert("성공");		
+	}	 
+	$("#cusNm_id_1").val("");
+	$("#cusPhone_id_1").val("");
+	$("#cusMail_id_1").val("");
+}
 //숫자만 입력받도록 처리 
 function onlyNumber(event){
 	event = event || window.event;
@@ -605,8 +639,9 @@ function removeChar(event) {
 							<option value="0" selected>지정하지 않음.</option>							    	
 						</select>
 						
-					 	<div class="input_title_01 input_05 inputTxtFont">
-							<input id="cus_insert_btn" type="button" value="담당자 추가등록"/>
+					 	<div id="cus_insert_btn_div" class="input_title_01 input_05 inputTxtFont_inBtt_OK_CUS">
+					 		<!--  <a href="#" id="cus_insert_btn" class="main_title_box_2 nTitleFont">담당자 추가등록 </a> --> 
+							<!-- <input id="cus_insert_btn" type="button" value="담당자 추가등록"/> -->
 						</div>  
 							<!-- <button id="test_Btn">test</button>  -->
 					<!-- 	</div>  -->					
