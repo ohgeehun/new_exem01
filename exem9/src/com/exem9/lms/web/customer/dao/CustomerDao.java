@@ -512,6 +512,12 @@ public class CustomerDao implements ICustomerDao{
 		// TODO Auto-generated method stub
 		return sqlMapClient.queryForList("customer.getProinfo", params);
 	}
+	
+	// 고객사에 등록된 프로젝트 갯수 카운팅
+	public Integer getPjtCount(HashMap params) throws Throwable {
+			Integer pjtCount = (Integer) sqlMapClient.queryForObject("customer.getPjtCount", params);
+			return  pjtCount;
+	}
 }
 	
 

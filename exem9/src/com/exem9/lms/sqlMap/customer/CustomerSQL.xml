@@ -860,6 +860,9 @@
 		 <isNotEmpty property="dbmsId">
 		 	and dbms_id = #dbmsId# 
 		 </isNotEmpty> 
+		 <isNotEmpty property="cusmemberId">
+		 	and cususer_id = #cusmemberId# 
+		 </isNotEmpty>
 	 </update>
 	 
 	 <!-- 고객사담당자 삭제 -->
@@ -948,7 +951,7 @@
 		 	, salesman_id
 	 	</isNotEmpty>
 	 ) 	 
-	    VALUES( #cusId#, #pjtId#, #dbmsId#
+	    VALUES( #cusId#, #pjtId#, #newDbmsId#
 	    <isNotEmpty property="salesmanId">
 	     	,#salesmanId# )
 	     </isNotEmpty>        			                 
@@ -991,5 +994,12 @@
 		SELECT salesman_id	  
 		from xm_project_dbms	
 		where customer_id = #cusId# and project_id = #pjtId# and dbms_id = #dbmsId#
+	</select>
+	
+	<!-- 등록되어 있는 프로젝트 갯수 조회 -->
+	<select id="getPjtCount" parameterClass="java.util.HashMap" resultClass="Integer">
+		SELECT count(project_id)	  
+		from xm_project	
+		where customer_id = #cusId#
 	</select>
 </sqlMap>

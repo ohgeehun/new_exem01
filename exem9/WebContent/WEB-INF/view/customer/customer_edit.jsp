@@ -170,9 +170,15 @@ $(document).ready(function(){
  						alert( $('#input_cus_'+chkId).val() + " / " + $('#input_pjt_'+chkId).val() + " / " + 
  								 dbmsId + "에 삭제할 고객담당자가 없습니다.");
  					} else {
- 						alert(chkId);
+ 						//alert(chkId);
+ 						//고객사담당자id는 바껴 있을수 있으므로, select_cususer_id_id_id_id 선택박스의 현재값을 넘겨주어야 함
+ 						var cususerId = $('#select_cususer_'+chkId).val();
+ 						//alert(cususerId);
+ 						//chkId의 마지막값을 바꿔서 cususerId로 치환 후 넘겨준다.
+ 						var tempChkId = chkId.substring(0, chkId.length-strArray[3].length)+cususerId;
+ 						//alert(tempChkId);
 	 	   	    		ICustomerService.deleteCusmemberinfo( 
-	   	         			chkId, 
+	 	   	    			tempChkId, 
 	   	         			deleteCusinfoCallBack );
  					}
 						
@@ -541,10 +547,16 @@ function editcusMemberCallback(res){
 function deleteCusinfoCallBack(res){
 	if(res == "FAILED"){
 		alert("실패");
-		location.href = "customer_edit";
+		//location.href = "customer_edit";
+		$("#form1").submit();
 	}else if(res == "SUCCESS"){
 		alert("성공");
-		location.href = "customer_edit";
+		//location.href = "customer_edit";
+		$("#form1").submit();
+	}else if(res == "ONEPROJECT"){
+		alert("고객사에 프로젝트가 1개가 등록되어 있어서 프로젝트를 삭제할 수 없습니다. 삭제를 원하는 경우, 고객사를 삭제하세요");
+		//location.href = "customer_edit";
+		$("#form1").submit();
 	}
 }
 /*

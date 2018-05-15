@@ -74,6 +74,8 @@ public interface ICustomerDao {
 	public void insertPjtDbmsCusmember(HashMap params)  throws Throwable;
 
 	public String getSalesmanId(HashMap params) throws Throwable;
+	// 고객사에 등록된 프로젝트 갯수 카운팅
+	public Integer getPjtCount(HashMap params) throws Throwable;
 
 	// 고객사담당자 삭제
 	public String deleteCusmemberinfo(HashMap params) throws Throwable;

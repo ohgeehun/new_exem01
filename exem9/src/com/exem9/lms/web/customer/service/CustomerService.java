@@ -202,10 +202,10 @@ public class CustomerService implements ICustomerService{
 		
 		params.put("cusId", Integer.parseInt(chkIds[0]) );
 		params.put("pjtId", Integer.parseInt(chkIds[1]) );
-//		System.out.println("----------------------------------------------------" + chkIds.length);
-//		System.out.println("----------------------------------------------------" + chkIds[2]);
+		System.out.println("----------------------------------------------------" + chkIds.length);
 		
 		if( chkIds.length >= 3 ) {
+			System.out.println("----------------------------------------------------" + chkIds[2]);
 			params.put("dbmsId", Integer.parseInt(chkIds[2]) );
 			
 			if ( chkIds.length == 4 ) {
@@ -232,8 +232,9 @@ public class CustomerService implements ICustomerService{
 			// 제품이 등록이 안되어 있으면, 제품부터 등록한다.
 			if ( chkIds.length == 2 ){		// 제품등록이 안되어 있는 상태
 				iCustomerDao.insertSalesman(params); // 제품등록하고, 담당영업도 등록한다.
-			} 
-			iCustomerDao.updateDbmsInfo(params); // 제품명, 영업대표 update
+			} else if (chkIds.length > 2 ) {
+				iCustomerDao.updateDbmsInfo(params); // 제품명, 영업대표 update
+			}
 			
 			if(cususerId != null && cususerId.equals("-1")) { // 고객담당자 신규 등록
 				
@@ -596,6 +597,12 @@ public class CustomerService implements ICustomerService{
 		TransactionStatus status = this.transactionManager.getTransaction(new DefaultTransactionDefinition() );
 		
 		String result = "FAILED";
+		// 해당 고객사에 한개만 남은 프로젝트인 경우, 고객사를 삭제하도록 유도하여야 함
+		int pjtCount = iCustomerDao.getPjtCount(params);
+		if(pjtCount == 1) {
+			result = "ONEPROJECT";
+			return result;
+		}
 		
 		try{
 			// 프로젝트업무고객담당자 테이블(xm_project_dbms_cusmember) 여러명 삭제
@@ -722,16 +729,20 @@ public class CustomerService implements ICustomerService{
 				// 프로젝트 신규등록
 				iCustomerDao.insertProj(params);
 				pjtId = (Integer) iCustomerDao.getInsertedPjtId(params); // 신규 등록후 프로젝트ID 값 반환
-				result = "SUCCESS";
+				//result = "SUCCESS";
 			}
-//			System.out.println("----------------------------------pjtId: "+pjtId);
+			System.out.println("----------------------------------pjtId: "+pjtId);
 			params.put("pjtId", pjtId);
 			
 			// 담당영업등록 (고객사/프로젝트/업무) 1명. 담당영업이 기 등록되어 있지 않을 때만 등록
-			String registeredSalesmanId = iCustomerDao.getSalesmanId(params); // 담당영업사원 등록여부 확인
-			if( registeredSalesmanId == null) 	{
-				iCustomerDao.insertSalesman(params);
-				result = "SUCCESS";
+			// 고객담당자 정보가 등록되어 있을때만 추가할 것
+			System.out.println("salesmanId : "+ salesmanId);
+			if( salesmanId != null && !salesmanId.equals("0") ) {
+				String registeredSalesmanId = iCustomerDao.getSalesmanId(params); // 담당영업사원 등록여부 확인
+				if( registeredSalesmanId == null) 	{
+					iCustomerDao.insertSalesman(params);
+					//result = "SUCCESS";
+				}
 			}
 			
 			// 고객담당자 등록 (고객사/프로젝트/업무) 여러명, 무조건 같은 사람이 있어도 추가 등록
@@ -741,9 +752,10 @@ public class CustomerService implements ICustomerService{
 				Integer cusmemberId = iCustomerDao.getInsertedCusmemberId(params); // 해당고객사의 기 등록된 담당자 ID값 반환
 				params.put("cusmemberId", cusmemberId);
 				iCustomerDao.insertPjtDbmsCusmember(params);
-				result = "SUCCESS";
+				//result = "SUCCESS";
 			}
 			this.transactionManager.commit(status);
+			result = "SUCCESS";
 			
 		} catch(Exception e) {
 			

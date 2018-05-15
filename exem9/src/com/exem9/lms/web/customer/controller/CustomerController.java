@@ -99,8 +99,11 @@ public class CustomerController {
 		
 		String selectTextVal = request.getParameter("selectTextVal");
 		String selectBtnVal = request.getParameter("selectBtnVal");
-		int pageNo = Integer.parseInt(request.getParameter("pageNo"));
-
+		String strPageNo = request.getParameter("pageNo");
+		int pageNo = 1;
+		if(strPageNo != null && strPageNo.equals("")){
+			pageNo = Integer.parseInt(strPageNo);
+		}
 		HttpSession session=request.getSession();		
 		
 		if(session.getAttribute("sUserId")==null) {
