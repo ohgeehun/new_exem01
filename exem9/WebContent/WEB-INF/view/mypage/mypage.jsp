@@ -8,6 +8,10 @@
 <link rel="stylesheet" type="text/css" href="./resources/css/main.css" media="all" />
 <link rel="stylesheet" type="text/css" href="./resources/css/mypage/mypage.css" media="all" />
 <!-- link rel="stylesheet" type="text/css" href="./resources/css/jquery/jquery-ui-1.8.custom.css"/-->
+
+<link rel="stylesheet" type="text/css" media="not all and (max-width:600px)" href="./resources/css/exem_mem.css"/>
+<link rel="stylesheet" type="text/css" media="only all and (max-width:600px)" href="./resources/css/exem_mem_m.css"/>
+
 <title>MyPage</title>
 
 <!-- jQuery Script -->
@@ -21,6 +25,13 @@
 <script type="text/javascript" src="dwr/util.js"></script>
 <script type="text/javascript" src="dwr/interface/IMypageService.js"></script>
 
+<meta name="viewport" content="width=device-width,initial-scale=1.0, user-scalable=no"> 
+<style>
+
+@-ms-viewport{width:device-width,initial-scale=1.0, user-scalable=no;}
+@-o-viewport{width:device-width,initial-scale=1.0, user-scalable=no;}
+@viewport{width:device-width,initial-scale=1.0, user-scalable=no;} 
+</style>
 
 <script type="text/javascript">	
 	var userId = "<%=(String)session.getAttribute("sUserId")%>";
@@ -201,11 +212,11 @@
 					<li class="input_title input_10 inputTxtFont">포인트</li> 
 				  </ul>	
 				  
-					<input id="user_id" type="text" class="input_txt input_01 inputTxtFont" value="${mypage_info.userId}" disabled>
-					<input id="user_name" type="text" class="input_txt input_02 inputTxtFont" value="${mypage_info.userNm}">
-					<input id="user_password" type="text" class="input_txt input_03 inputTxtFont" value="" placeholder="********">
+					<input id="user_id" type="text" class="input_txt input1_01 inputTxtFont" value="${mypage_info.userId}" disabled>
+					<input id="user_name" type="text" class="input_txt input1_02 inputTxtFont" value="${mypage_info.userNm}">
+					<input id="user_password" type="text" class="input_txt input1_03 inputTxtFont" value="" placeholder="********">
 					
-					<select id='user_department_id' class="input_txt input_04 inputTxtFont">
+					<select id='user_department_id' class="input_txt input1_04 inputTxtFont">
 		 	    			<c:if test="${mypage_info.userDeptId == ''}">
 								<option value="0" selected>지정필요.</option>
 							</c:if>
@@ -220,7 +231,7 @@
 										</c:choose>		
 							</c:forEach>	
 					</select>
-					<select id='user_team_id' class="input_txt input_05 inputTxtFont">
+					<select id='user_team_id' class="input_txt input1_05 inputTxtFont">
 							<c:if test="${mypage_info.userTeamId == ''}">
 								<option value="0" selected>지정필요.</option>
 							</c:if>
@@ -236,7 +247,7 @@
 				 	    		</c:forEach>	
 					</select>
 					<!-- input type="text" name="product" class="input_txt input_03 inputTxtFont"-->
-					<select id='user_dbms_id' class="input_txt input_06 inputTxtFont">
+					<select id='user_dbms_id' class="input_txt input1_06 inputTxtFont">
 		
 				 	    	<c:if test="${mypage_info.userDbmsId == ''}">
 								<option value="0" selected>지정필요.</option>
@@ -253,7 +264,7 @@
 				 	    		</c:forEach>	
 					</select>
 					<!-- input type="text" name="support" class="input_txt input_04 inputTxtFont"-->
-					<select id='user_position_id' class="input_txt input_07 inputTxtFont">
+					<select id='user_position_id' class="input_txt input1_07 inputTxtFont">
 				 	    	<c:if test="${mypage_info.userPosiId == ''}">
 								<option value="0" selected>지정필요.</option>
 							</c:if>
@@ -269,9 +280,9 @@
 				 	    		</c:forEach>	
 					</select>
 					
-					<input id="user_phone" type="text" class="input_txt input_08 inputTxtFont" value="${mypage_info.userPhone}">
-					<input id="user_mail" type="text" class="input_txt input_09 inputTxtFont" value="${mypage_info.userMail}">
-					<input id="user_point" type="text" class="input_txt input_10 inputTxtFont" value="${mypage_info.userPoint}"> 
+					<input id="user_phone" type="text" class="input_txt input1_08 inputTxtFont" value="${mypage_info.userPhone}">
+					<input id="user_mail" type="text" class="input_txt input1_09 inputTxtFont" value="${mypage_info.userMail}">
+					<input id="user_point" type="text" class="input_txt input1_10 inputTxtFont" value="${mypage_info.userPoint}"> 
 		
 					<!--  input type="password" id="user_pw_id" placeholder="수정 비밀번호 입력." required class="reg_pass input_11 inputTxtFont"> &nbsp;&nbsp;--> 
 					<input type="button" id="edit_update_btn" name="OK" class="miBtt_submit_top miBtt_submit" value="수정">
