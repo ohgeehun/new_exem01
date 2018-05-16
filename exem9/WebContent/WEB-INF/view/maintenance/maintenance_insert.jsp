@@ -16,8 +16,8 @@
 <link rel="stylesheet" type="text/css" href="./resources/css/jquery/jquery.datetimepicker.min.css"> 
 <!-- <link id="themecss" rel="stylesheet" type="text/css" href="//www.shieldui.com/shared/components/latest/css/light/all.min.css" /> -->
 
-<link rel="stylesheet" type="text/css" media="not all and (max-width:600px)" href="./resources/css/exem_mem.css"/>
-<link rel="stylesheet" type="text/css" media="only all and (max-width:600px)" href="./resources/css/exem_mem_m.css"/>
+<link rel="stylesheet" type="text/css" media="not all and (max-width:430px)" href="./resources/css/exem_mem.css"/>
+<link rel="stylesheet" type="text/css" media="only all and (max-width:430px)" href="./resources/css/exem_mem_m.css"/>
 
 <!-- jQuery Script -->
 <script type="text/javascript" src="resources/script/jquery/jquery-1.8.2.min.js"></script>
@@ -626,27 +626,27 @@ function removeChar(event) {
 					<li class="input_title input_15 inputTxtFont">MA 종료일</li>
 					<li class="input_title input_16 inputTxtFont">비고</li>
 			</ul>	 			
-						<div class="input_txt_01 input_01 inputTxtFont">
+						<div class="input_txt_01 input1_01 inputTxtFont">
 							<input type="hidden" id="cusName_hidden_id">
 						    <input id="cusName_id"/>		
 						</div>
-						<div class="input_txt_01 input_02 inputTxtFont">
+						<div class="input_txt_01 input1_02 inputTxtFont">
 							<input type="hidden" id="cusproName_hidden_id">
 							<input id="cusproName_id"/>										
 						</div>
 						
 						
-							<select id="dbms_select_id" class="input_txt input_03 inputTxtFont sui-input" disabled="disabled">
+							<select id="dbms_select_id" class="input_txt input1_03 inputTxtFont sui-input" disabled="disabled">
 								<option value="0" selected>지정하지 않음.</option>
 							    <c:forEach var="dl" items="${dbms_list}">
 				 	    			<option value="${dl.dbmsId}">${dl.dbmsNm}</option>		 	    	
 				 	    		</c:forEach>	
 							</select>
 									
-						<input type="text" id='dbmsVer_id' value="" class="input_txt input_04 inputTxtFont sui-input">												
+						<input type="text" id='dbmsVer_id' value="" class="input_txt input1_04 inputTxtFont sui-input">												
 							
 						<!-- <div class="input_txt input_05 inputTxtFont sui-input">   -->
-						 <select id='cusUser_select_id' class="input_txt input_05 inputTxtFont sui-input" >
+						 <select id='cusUser_select_id' class="input_txt input1_05 inputTxtFont sui-input" >
 							<option value="0" selected>지정하지 않음.</option>							    	
 						</select>
 						
@@ -658,63 +658,66 @@ function removeChar(event) {
 					<!-- 	</div>  -->					
 						<!-- <input type="text" id='cusUser_id' value="" readonly="readonly" class="input_txt input_05 inputTxtFont sui-input"> -->	 												
 					
-							<select id='salesman_select_id' class="input_txt input_06 inputTxtFont sui-input">
+							<select id='salesman_select_id' class="input_txt input1_06 inputTxtFont sui-input">
 								<option value="0" selected>지정하지 않음.</option>
 							    <c:forEach var="sl" items="${salseman_list}">
 				 	    			<option value="${sl.userId}">${sl.userNm}</option>		 	    	
 				 	    		</c:forEach>	
 							</select>						
 							
-							<select id='dept_select_id' class="input_txt input_07 inputTxtFont sui-input">
+							<select id='dept_select_id' class="input_txt input1_07 inputTxtFont sui-input">
 									<option value="0" selected>지정하지 않음.</option>
 								<c:forEach var="dept" items="${dept_list}">										
 									<option value="${dept.deptId}">${dept.deptNm}</option>	
 								</c:forEach>							  	
 							</select>
 							
-							<select id='team_select_id' class="input_txt input_08 inputTxtFont sui-input" disabled="disabled">
+							<select id='team_select_id' class="input_txt input1_08 inputTxtFont sui-input" disabled="disabled">
 								<option value="0" selected>지정하지 않음.</option>							  	
 							</select>
 						
-							<select id='user1_select_id' class="input_txt input_09 inputTxtFont sui-input" disabled="disabled">
+							<select id='user1_select_id' class="input_txt input1_09 inputTxtFont sui-input" disabled="disabled">
 								<option value="0" selected>지정하지 않음.</option>
 							<%-- 	<c:forEach var="mem" items="${mem_list}">										
 									<option value="${mem.userId}">${mem.userNm}</option>	
 								</c:forEach>	 --%>						  	
 							</select>
 						
-							<select id='user2_select_id' class="input_txt input_10 inputTxtFont sui-input" disabled="disabled">
+							<select id='user2_select_id' class="input_txt input1_10 inputTxtFont sui-input" disabled="disabled">
 								<option value="0" selected>지정하지 않음.</option>
 							<%-- 	<c:forEach var="mem" items="${mem_list}">										
 									<option value="${mem.userId}">${mem.userNm}</option>	
 								</c:forEach>	 --%>						  	
 							</select>
 												
-							<input type='text' id='install_date_id' class="input_txt input_11 inputTxtFont sui-input datetimepicker">														
+							<input type='text' id='install_date_id' class="input_txt input1_11 inputTxtFont sui-input datetimepicker" readonly="readonly">														
 					
-							<select id='supo_level_select_id' class="input_txt input_12 inputTxtFont sui-input">
+							<select id='supo_level_select_id' class="input_txt input1_12 inputTxtFont sui-input">
 								<option value="0" selected>지정하지 않음.</option>
 							    <c:forEach var="sll" items="${supo_level_list}">
 				 	    			<option value="${sll.supoId}">${sll.supoNm}</option>		 	    	
 				 	    		</c:forEach>	
 							</select>
 						
-						    <select id='supo_state_select_id' class="input_txt input_13 inputTxtFont sui-input" disabled="disabled">
+						    <select id='supo_state_select_id' class="input_txt input1_13 inputTxtFont sui-input" disabled="disabled">
 								<option value="0" selected>지정하지 않음.</option>
 							    <c:forEach var="svl" items="${supo_visit_list}">
 				 	    			<option value="${svl.supoVisitId}">${svl.supoVisitNm}</option>		 	    	
 				 	    		</c:forEach>
 							</select>
 																							
-							<input type='text' id='supo_start_date_id' class="input_txt input_14 inputTxtFont sui-input datetimepicker">														
+							<input type='text' id='supo_start_date_id' class="input_txt input1_14 inputTxtFont sui-input datetimepicker" readonly="readonly">														
 					
-							<input type='text' id='supo_end_date_id' class="input_txt input_15 inputTxtFont sui-input datetimepicker">															
+							<input type='text' id='supo_end_date_id' class="input_txt input1_15 inputTxtFont sui-input datetimepicker" readonly="readonly">															
 					
-							<textarea id="etc_id" name="contents" class="input_txt_02 input_16 inputTxtFont"></textarea>													
-					
+							<textarea id="etc_id" name="contents" class="input_txt_02 input1_16 inputTxtFont"></textarea>
+								
+							<div class="cal_start_0"></div>					
+							<div class="cal_start_1"></div>
+							<div class="cal_end_1"></div>					
 					
 						  <!-- input type="password" placeholder="등록 비밀번호 입력." id="editPw" required class="reg_pass inputTxtFont"> &nbsp;&nbsp;-->
-						  <input type="button" id="edit_update_btn" name="OK" class="miBtt_submit_top miBtt_submit " value="등록">
+						  <input type="button" id="edit_update_btn" name="OK" class="miBtt_submit1_top miBtt_submit " value="등록">
 					
 		</div>
 	</div>

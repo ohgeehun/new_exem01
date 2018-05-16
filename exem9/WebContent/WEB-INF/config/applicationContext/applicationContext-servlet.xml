@@ -15,7 +15,9 @@
 						http://www.directwebremoting.org/schema/spring-dwr
 						http://www.directwebremoting.org/schema/spring-dwr-3.0.xsd
 						http://www.springframework.org/schema/task
-						http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+						http://www.springframework.org/schema/task/spring-task-3.0.xsd
+						http://www.springframework.org/mobile/divece
+						http://www.springframework.org/mobile/divece/spring-mobile-device-1.0.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing 
 		infrastructure -->
@@ -23,13 +25,13 @@
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<mvc:annotation-driven />
 		
-	<!-- Enables the All request Urls 
-	<mvc:interceptors>
+	<!-- Enables the All request Urls  -->
+<!-- 	<mvc:interceptors>
 		<mvc:interceptor>
-			<beans:bean class="com.talkon.dbkn.framework.LoginCheckInterceptor" />
+			<beans:bean class="org.springframework.mobile.device.DeviceResolverHandlerInterceptor" />
 		</mvc:interceptor>	
-	</mvc:interceptors>
-	 -->
+	</mvc:interceptors> -->
+	
 	<!-- Enables the exceptional Urls -->
 	<!-- <mvc:mapping path="/characters/*/url1" /> -->
 	<!-- 세션이 추가될 경우 아래에  진입 URL 을 추가함  -->
@@ -117,6 +119,9 @@
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<beans:property name="maxUploadSize" value="50000000"></beans:property>
 	</beans:bean>
+
+	<!-- Spring Mobile Device Module -->
+	<beans:bean class="org.springframework.mobile.device.DeviceResolverHandlerInterceptor" />
 
 	<!-- Daily Batch
 	

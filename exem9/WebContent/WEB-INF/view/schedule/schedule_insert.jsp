@@ -13,8 +13,8 @@
 
 <link rel="stylesheet" type="text/css" href="./resources/css/main.css" media="all" />
 <link id="themecss" rel="stylesheet" type="text/css" href="./resources/css/common/all.min.css"/>
-<link rel="stylesheet" type="text/css" media="not all and (max-width:600px)" href="./resources/css/exem_mem.css"/>
-<link rel="stylesheet" type="text/css" media="only all and (max-width:600px)" href="./resources/css/exem_mem_m.css"/>
+<link rel="stylesheet" type="text/css" media="not all and (max-width:430px)" href="./resources/css/exem_mem.css"/>
+<link rel="stylesheet" type="text/css" media="only all and (max-width:430px)" href="./resources/css/exem_mem_m.css"/>
 
 <title>Insert title here</title>
 
@@ -346,14 +346,14 @@ th, td {
 					<li class="input_title input_07 inputTxtFont">요청내역 및 지원목적</li>
 
 					<!-- input type="text" name="customer" class="input_txt input_01 inputTxtFont"-->
-					<div class="input_txt_01 input_01 inputTxtFont">	
+					<div class="input_txt_01 input1_01 inputTxtFont">	
 						<input type="hidden" id="cusName_hidden_id"> 
 						<!-- <input class="sui-input" id='cusName_id' value=""  style='text-transform: uppercase' onblur="onblur_event();"></input> -->
 						<input id='customer_name_id'></input>
 						<!-- <span id="idSpan" class="redText"></span> -->			
 					</div>
 							
-					<div class="input_txt_01 input_02 inputTxtFont">	
+					<div class="input_txt_01 input1_02 inputTxtFont">	
 						<input type="hidden" id="cusPro_hidden_id"> 
 						<input class="input_txt_03 input_02_01 inputTxtFont sui-input"  id='customer_project_id' >	
 					</div>	
@@ -375,14 +375,14 @@ th, td {
 				 	    		
 					</select> --%>
 					<!-- input type="text" name="product" class="input_txt input_03 inputTxtFont"-->
-					<select id='dbms_id' class="input_txt input_03 inputTxtFont">
+					<select id='dbms_id' class="input_txt input1_03 inputTxtFont">
 								<option value="0" selected>지정하지않음.</option>
 							    <c:forEach var="dbms" items="${dbms_list}">
 				 	    			<option value="${dbms.dbmsId}">${dbms.dbmsNm}</option>		 	    	
 				 	    		</c:forEach>	
 					</select>
 					<!-- input type="text" name="support" class="input_txt input_04 inputTxtFont"-->
-					<select id='category_id' class="input_txt input_04 inputTxtFont">
+					<select id='category_id' class="input_txt input1_04 inputTxtFont">
 						<option value="0" selected>지정하지않음.</option>
 					    <c:forEach var="cate" items="${cate_list}">
 					    	<c:choose>
@@ -396,9 +396,9 @@ th, td {
 		 	    		</c:forEach>	
 					</select>
 					<!-- input type="text" name="start" class="input_txt input_05 inputTxtFont"-->
-					<input id="startDate" type="text" class="input_txt input_05 inputTxtFont datetimepicker">
+					<input id="startDate" type="text" class="input_txt input1_05 inputTxtFont datetimepicker" readonly="readonly">
 					<!-- input type="text" name="end" class="input_txt input_06 inputTxtFont"-->
-					<input id="endDate" type="text" class="input_txt input_06 inputTxtFont datetimepicker">
+					<input id="endDate" type="text" class="input_txt input1_06 inputTxtFont datetimepicker" readonly="readonly">
 					<!-- textarea name="content" class="text_area"></textarea-->
 					<textarea id="etc_id" name="contents" class="text_area"></textarea>
 

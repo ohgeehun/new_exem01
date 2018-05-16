@@ -10,8 +10,8 @@
 <link rel="stylesheet" type="text/css" href="./resources/css/jquery/jquery-ui-1.8.custom.css"/>  
 <link rel="stylesheet" type="text/css" href="./resources/css/member/member_insert.css" media="all" />
 
-<link rel="stylesheet" type="text/css" media="not all and (max-width:600px)" href="./resources/css/exem_mem.css"/>
-<link rel="stylesheet" type="text/css" media="only all and (max-width:600px)" href="./resources/css/exem_mem_m.css"/>
+<link rel="stylesheet" type="text/css" media="not all and (max-width:430px)" href="./resources/css/exem_mem.css"/>
+<link rel="stylesheet" type="text/css" media="only all and (max-width:430px)" href="./resources/css/exem_mem_m.css"/>
 
 <!-- jQuery Script -->
 <script type="text/javascript" src="resources/script/jquery/jquery-1.8.2.min.js"></script>
@@ -376,42 +376,42 @@ function getTeaminfoCallBack(res){
 				  </ul>	
 				  
 				  
-					<input id="user_id" type="text" class="input_txt input_01 inputTxtFont">
-					<input id="user_name" type="text" class="input_txt input_02 inputTxtFont">
-					<input id="user_password" type="text" class="input_txt input_03 inputTxtFont">
+					<input id="user_id" type="text" class="input_txt input1_01 inputTxtFont">
+					<input id="user_name" type="text" class="input_txt input1_02 inputTxtFont">
+					<input id="user_password" type="text" class="input_txt input1_03 inputTxtFont">
 					
 					<!-- input type="text" name="customer" class="input_txt input_01 inputTxtFont"-->
-					<select id='user_department_id' class="input_txt input_04 inputTxtFont">
+					<select id='user_department_id' class="input_txt input1_04 inputTxtFont">
 								<option value="0" selected>지정하지않음.</option>
 							    <c:forEach var="dept" items="${dept_list}">
 				 	    			<option value="${dept.deptId}">${dept.deptNm}</option>		 	    	
 				 	    		</c:forEach>	
 					</select>
 					<!-- input type="text" name="project" class="input_txt input_02 inputTxtFont"-->
-					<select id='user_team_id' class="input_txt input_05 inputTxtFont" disabled>
+					<select id='user_team_id' class="input_txt input1_05 inputTxtFont" disabled>
 								<option value="0" selected>지정하지않음.</option>
 							    <c:forEach var="team" items="${team_list}">
 				 	    			<option value="${team.teamId}">${team.teamNm}</option>		 	    	
 				 	    		</c:forEach>	
 					</select>
 					<!-- input type="text" name="product" class="input_txt input_03 inputTxtFont"-->
-					<select id='user_dbms_id' class="input_txt input_06 inputTxtFont">
+					<select id='user_dbms_id' class="input_txt input1_06 inputTxtFont">
 								<option value="0" selected>지정하지않음.</option>
 							    <c:forEach var="dbms" items="${dbms_list}">
 				 	    			<option value="${dbms.dbmsId}">${dbms.dbmsNm}</option>		 	    	
 				 	    		</c:forEach>	
 					</select>
 					<!-- input type="text" name="support" class="input_txt input_04 inputTxtFont"-->
-					<select id='user_position_id' class="input_txt input_07 inputTxtFont">
+					<select id='user_position_id' class="input_txt input1_07 inputTxtFont">
 								<option value="0" selected>지정하지않음.</option>
 							    <c:forEach var="posi" items="${posi_list}">
 				 	    			<option value="${posi.posiId}">${posi.posiNm}</option>		 	    	
 				 	    		</c:forEach>	
 					</select>
 					
-					<input id="user_phone" type="text" class="input_txt input_08 inputTxtFont">
-					<input id="user_mail" type="text" class="input_txt input_09 inputTxtFont">
-					<input id="user_point" type="text" class="input_txt input_10 inputTxtFont">
+					<input id="user_phone" type="text" class="input_txt input1_08 inputTxtFont">
+					<input id="user_mail" type="text" class="input_txt input1_09 inputTxtFont">
+					<input id="user_point" type="text" class="input_txt input1_10 inputTxtFont">
 					<!-- input type="submit" name="OK" class="input_submit inBtt_OK" value="일정등록하기"-->
 					<!-- input type="button" id="edit_update_btn" name="OK" class="miBtt_submit" value="등록"></input-->
 							

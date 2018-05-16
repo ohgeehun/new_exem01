@@ -11,8 +11,8 @@
 <link id="themecss" rel="stylesheet" type="text/css" href="./resources/css/common/all.min.css"/>
 <link rel="stylesheet" type="text/css" href="./resources/css/customer/customer_insert.css" media="all" />
 
-<link rel="stylesheet" type="text/css" media="not all and (max-width:600px)" href="./resources/css/exem_mem.css"/>
-<link rel="stylesheet" type="text/css" media="only all and (max-width:600px)" href="./resources/css/exem_mem_m.css"/>
+<link rel="stylesheet" type="text/css" media="not all and (max-width:430px)" href="./resources/css/exem_mem.css"/>
+<link rel="stylesheet" type="text/css" media="only all and (max-width:430px)" href="./resources/css/exem_mem_m.css"/>
 
 <!-- jQuery Script -->
 <script type="text/javascript" src="resources/script/jquery/jquery-1.8.2.min.js"></script>
@@ -542,34 +542,34 @@ function getprodbmsManagedinfoCallBack(res){
 	  	<div align="center"><h3>고객사 등록 페이지</h3></div>
 		<div class="top_mainDisplayBase" >
 			<ul>
-		 		<li class="input_title input_01 inputTxtFont">고객사명*</li>
-				<li class="input_title input_02 inputTxtFont">프로젝트명*</li>
-				<li class="input_title input_03 inputTxtFont">제품구분</li>
-				<li class="input_title input_04 inputTxtFont">고객명</li>
-				<li class="input_title input_05 inputTxtFont">고객 연락처</li>
-				<li class="input_title input_06 inputTxtFont">고객 이메일</li>
-				<li class="input_title input_07 inputTxtFont">고객사 위치</li>
-				<li class="input_title input_08 inputTxtFont">담당영업</li>
-				<li class="input_title input_09 inputTxtFont">비고</li>				
+		 		<li class="input_title input02_01 inputTxtFont">고객사명*</li>
+				<li class="input_title input02_02 inputTxtFont">프로젝트명*</li>
+				<li class="input_title input02_03 inputTxtFont">제품구분</li>
+				<li class="input_title input02_04 inputTxtFont">고객명</li>
+				<li class="input_title input02_05 inputTxtFont">고객 연락처</li>
+				<li class="input_title input02_06 inputTxtFont">고객 이메일</li>
+				<li class="input_title input02_07 inputTxtFont">고객사 위치</li>
+				<li class="input_title input02_08 inputTxtFont">담당영업</li>
+				<li class="input_title input02_09 inputTxtFont">비고</li>				
 			</ul>
 						
-				<div class="input_txt_01 input_01 inputTxtFont">	
+				<div class="input_txt_01 input2_01 inputTxtFont">	
 					<input type="hidden" id="cusName_hidden_id"> 
 					<!-- <input class="sui-input" id='cusName_id' value=""  style='text-transform: uppercase' onblur="onblur_event();"></input> -->
 					<input id='cusName_id'></input>
 					<!-- <span id="idSpan" class="redText"></span> -->			
 				</div>
 						
-				<div class="input_txt_01 input_02 inputTxtFont">	
+				<div class="input_txt_01 input2_02 inputTxtFont">	
 					<input type="hidden" id="cusPro_hidden_id"> 
 					<input class="input_txt_03 input_02_01 inputTxtFont sui-input"  id='cusproName_id' >	
 				</div>	
 				
-				<div class="input_title_01 input_02 inputTxtFont">
+				<div class="input_title_01 input2_02_1 inputTxtFont">
 					<input id="chk_id" type="checkbox" disabled="disabled"/> 고객사명과 동일
 				</div>
 				<!-- <input type="hidden" id="dbmsNm_hidden_id"> -->
-				<select class="input_txt input_03 inputTxtFont" id='dbms_select_id'>
+				<select class="input_txt input2_03 inputTxtFont" id='dbms_select_id'>
 					<!-- <option value="0" selected>지정하지않음.</option> -->
 				    <c:forEach var="dl" items="${dbms_list}">					    	   
 		    	    	<c:choose>
@@ -583,25 +583,25 @@ function getprodbmsManagedinfoCallBack(res){
 	 	    		</c:forEach>	
 				</select>				
 				
-				<div  class="input_txt_01 input_04 inputTxtFont">	
+				<div  class="input_txt_01 input2_04 inputTxtFont">	
 					<!-- <input type="hidden" id="cusNm_hidden_id"> -->
 					<input id='cusNm_id'  disabled="true">
 				</div>
 				
 				<!-- input class="input_txt input_05 inputTxtFont" type='text' id='cusPhone_id' onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' style='ime-mode:disabled;'-->
-				<input class="input_txt input_05 inputTxtFont" type='text' id='cusPhone_id'>
+				<input class="input_txt input2_05 inputTxtFont" type='text' id='cusPhone_id'>
 				
-				<input class="input_txt input_06 inputTxtFont" type='text' id='cusMail_id'>
+				<input class="input_txt input2_06 inputTxtFont" type='text' id='cusMail_id'>
 				
-				<input class="input_txt input_07 inputTxtFont" type='text' id='cuslocation_id'>				
+				<input class="input_txt input2_07 inputTxtFont" type='text' id='cuslocation_id'>				
 				
-				<select class="input_txt input_08 inputTxtFont" id='salesman_select_id'>
+				<select class="input_txt input2_08 inputTxtFont" id='salesman_select_id'>
 					<option value="0" selected>지정하지않음.</option>
 					 <c:forEach var="sl" items="${salseman_list}">
 					    	<option value="${sl.userId}">${sl.userNm}</option>		 	    			 	    	
 	 	    		</c:forEach> 
 				</select>
-				<textarea  class="input_txt_02 input_09 inputTxtFont" id="etc_id" name="contents"></textarea>
+				<textarea  class="input_txt_02 input2_09 inputTxtFont" id="etc_id" name="contents"></textarea>
 				
 					<!-- input type="password" placeholder="등록 비밀번호 입력." required class="reg_pass inputTxtFont"> &nbsp;&nbsp; -->
 					<input type="button" id="edit_update_btn" name="OK" class="miBtt_submit_top miBtt_submit" value="등록">				
@@ -609,7 +609,7 @@ function getprodbmsManagedinfoCallBack(res){
 		</div>
 	</div>
 </div>
-<c:import url="/main_botview"></c:import>
+<%-- <c:import url="/main_botview"></c:import> --%>
 </body>
 </html>
 

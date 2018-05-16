@@ -36,6 +36,9 @@ import com.exem9.lms.web.team.bean.TeamBean;
 import com.exem9.lms.web.team.service.ITeamService;
 import com.exem9.lms.web.mypage.service.IMypageService;
 
+import org.springframework.mobile.device.Device;
+import org.springframework.mobile.device.DeviceUtils;
+
 @Controller
 public class ScheduleController {
 	@Autowired
@@ -104,7 +107,7 @@ public class ScheduleController {
 							   HttpServletResponse response,
 							   ModelAndView modelAndView) throws Throwable{
 		
-		HttpSession session=request.getSession();
+		HttpSession session=request.getSession();		
 		
 		if(session.getAttribute("sUserId")==null) {
 			throw new UserNotFoundException("자동 로그아웃 됐습니다.");
@@ -142,7 +145,25 @@ public class ScheduleController {
 			modelAndView.addObject("cus_list", cus_list);
 			modelAndView.addObject("pjt_list", pjt_list);
 			
-			modelAndView.setViewName("schedule/my_schedule");
+			Device device = DeviceUtils.getCurrentDevice(request);    
+			
+			String deviceType = "unknown";
+			
+	        if (device.isNormal()) {
+	            deviceType = "nomal";
+	        } else if (device.isMobile()) {
+	            deviceType = "mobile";
+	        } else if (device.isTablet()) {
+	            deviceType = "tablet";
+	        }
+		    
+	        /*System.out.println(deviceType);
+	        */
+	        if(deviceType.equals("mobile")){
+	        	modelAndView.setViewName("schedule/my_schedule_m");
+	        }else{
+	        	modelAndView.setViewName("schedule/my_schedule");
+	        }			
 		}
 				
 		return modelAndView;
@@ -203,7 +224,25 @@ public class ScheduleController {
 			modelAndView.addObject("from_day", fromMM_YY);
 			modelAndView.addObject("to_day", toMM_YY);
 			
-			modelAndView.setViewName("schedule/my_schedule");
+			Device device = DeviceUtils.getCurrentDevice(request);    
+			
+		    String deviceType = "unknown";
+		    
+	        if (device.isNormal()) {
+	            deviceType = "nomal";
+	        } else if (device.isMobile()) {
+	            deviceType = "mobile";
+	        } else if (device.isTablet()) {
+	            deviceType = "tablet";
+	        }
+		    
+	        /*System.out.println(deviceType);
+	        */
+	        if(deviceType.equals("mobile")){
+	        	modelAndView.setViewName("schedule/my_schedule_m");
+	        }else{
+	        	modelAndView.setViewName("schedule/my_schedule");
+	        }					
 		}
 				
 		return modelAndView;

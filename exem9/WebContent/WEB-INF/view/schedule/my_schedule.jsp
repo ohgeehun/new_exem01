@@ -9,8 +9,8 @@
 <link rel="stylesheet" type="text/css" href="./resources/css/fullcalendar.css" media="all" /> 
 <link rel="stylesheet" type="text/css" href="./resources/css/schedule/my_schedule.css" media="all" ></link>
 <link rel="stylesheet" type="text/css" href="./resources/css/jquery/jquery.datetimepicker.min.css">
-<link rel="stylesheet" type="text/css" media="not all and (max-width:600px)" href="./resources/css/exem_mem.css"/>
-<link rel="stylesheet" type="text/css" media="only all and (max-width:600px)" href="./resources/css/exem_mem_m.css"/>
+<link rel="stylesheet" type="text/css" media="not all and (max-width:430px)" href="./resources/css/exem_mem.css"/>
+<link rel="stylesheet" type="text/css" media="only all and (max-width:430px)" href="./resources/css/exem_mem_m.css"/>
 
 <!-- jQuery Script -->
 <script type="text/javascript" src="resources/script/jquery/jquery-1.8.2.min.js"></script>
@@ -411,13 +411,13 @@ function getProinfoCallBack(arrayList){
 				 	    <div class="nTitleFont">
 						  <div style='display:inline;'>&nbsp;&nbsp;&nbsp;</div>
 						  <!-- div id="week-label-year" style='display:inline;'></div-->						  
-						  <input type="text" id="week-label-year" name="week-label-year" class="titleFont_2">
+						  <input type="text" id="week-label-year" name="week-label-year" class="titleFont_2" readonly="readonly">
 						  <div style='display:inline;'>년</div>
 						  <!-- div id="week-label-from-day" style='display:inline;'>01-01</div-->
-						  <input type="text" id="week-label-from-day" name="week-label-from-day" class="titleFont_2">
+						  <input type="text" id="week-label-from-day" name="week-label-from-day" class="titleFont_2" readonly="readonly">
 						  <div style='display:inline;'>(월) &nbsp; ~ </div>
 						  <!-- div id="week-label-to-day" style='display:inline;'>02-05</div-->
-						  <input type="text" id="week-label-to-day" name="week-label-to-day" class="titleFont_2">
+						  <input type="text" id="week-label-to-day" name="week-label-to-day" class="titleFont_2" readonly="readonly">
 						  <div style='display:inline;'>(일)</div>
 						  <div style='display:inline;'>&nbsp;&nbsp;&nbsp;</div>
 						</div>
@@ -462,7 +462,7 @@ function getProinfoCallBack(arrayList){
 									</ul>
 								</td>
 								<td>
-									<input type="text" class="main_input_box_2 box_02 nInputFont" value="${sch.start_day}" id="startDay_${sch.schId}">	
+									<input type="text" class="main_input_box_2 box_02 nInputFont" value="${sch.start_day}" id="startDay_${sch.schId}" readonly="readonly">	
 								</td>						
 								<td>
 									<!-- input type="text" class="main_input_box_2 box_03 nInputFont" value="${sch.schCusNm}" id="cusNm_${sch.schId}"-->
@@ -502,11 +502,11 @@ function getProinfoCallBack(arrayList){
 									</select>
 								</td>							
 								<td>
-									<input type="text" class="main_input_box_2 box_05 nInputFont datetimepicker" value="${fn:substring(sch.start_time,0,16)}" id="startTime_${sch.schId}">
+									<input type="text" class="main_input_box_2 box_05 nInputFont datetimepicker" value="${fn:substring(sch.start_time,0,16)}" id="startTime_${sch.schId}" readonly="readonly">
 									<!-- input type="hidden" value="${fn:substring(sch.start_time,0,16)}" id="h_startTime_${sch.schId}"-->
 								</td>
 								<td>
-									<input type="text" class="main_input_box_2 box_06 nInputFont datetimepicker" value="${fn:substring(sch.end_time,0,16)}" id="endTime_${sch.schId}">
+									<input type="text" class="main_input_box_2 box_06 nInputFont datetimepicker" value="${fn:substring(sch.end_time,0,16)}" id="endTime_${sch.schId}" readonly="readonly">
 									<!-- input type="hidden" value="${fn:substring(sch.end_time,0,16)}" id="h_endTime_${sch.schId}"-->
 								</td>
 								<td>

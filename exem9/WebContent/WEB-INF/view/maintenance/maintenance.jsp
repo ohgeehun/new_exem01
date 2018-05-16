@@ -11,8 +11,8 @@
 <link rel="stylesheet" type="text/css" href="./resources/css/fullcalendar.css" media="all" />
 <link rel="stylesheet" type="text/css" href="./resources/css/jquery/jquery.datetimepicker.min.css">
 
-<link rel="stylesheet" type="text/css" media="not all and (max-width:600px)" href="./resources/css/exem_mem.css"/>
-<link rel="stylesheet" type="text/css" media="only all and (max-width:600px)" href="./resources/css/exem_mem_m.css"/>
+<link rel="stylesheet" type="text/css" media="not all and (max-width:430px)" href="./resources/css/exem_mem.css"/>
+<link rel="stylesheet" type="text/css" media="only all and (max-width:430px)" href="./resources/css/exem_mem_m.css"/>
 
 <!-- jQuery Script -->
 <script type="text/javascript" src="resources/script/jquery/jquery-1.8.2.min.js"></script>
@@ -465,7 +465,7 @@ function updateMatinfoCallBack(res){
 								</select>
 							</td>
 							<td>
-								<input id="supoInsDate_id_${mat.matId}" type="text" value="${mat.installDay}" class="main_input_box_2 box2_09 nInputFont datetimepicker">
+								<input id="supoInsDate_id_${mat.matId}" type="text" value="${mat.installDay}" class="main_input_box_2 box2_09 nInputFont datetimepicker" readonly="readonly">
 							</td>
 							<%-- <td>${cli.supoInsDate}</td> --%>
 							<%-- <td>${cli.supoState}</td>  --%>
@@ -510,10 +510,10 @@ function updateMatinfoCallBack(res){
 							<%-- <td>${cli.supoStartDate}</td>
 							<td>${cli.supoEndDate}</td> --%>
 							<td>
-								<input type="text" id="supoStartDate_id_${mat.matId}" value="${mat.startDay}" class="main_input_box_2 box2_12 nInputFont datetimepicker">
+								<input type="text" id="supoStartDate_id_${mat.matId}" value="${mat.startDay}" class="main_input_box_2 box2_12 nInputFont datetimepicker" readonly="readonly">
 							</td>
 							<td>
-								<input type="text" id="supoEndDate_id_${mat.matId}" value="${mat.endDay}" class="main_input_box_2 box2_13 nInputFont datetimepicker">
+								<input type="text" id="supoEndDate_id_${mat.matId}" value="${mat.endDay}" class="main_input_box_2 box2_13 nInputFont datetimepicker" readonly="readonly">
 							</td>							
 							<td>
 								<textarea id="etc_id_${mat.matId}" name="contents" class="main_input_box_2 box2_14 nInputFont">${mat.etc}</textarea>
