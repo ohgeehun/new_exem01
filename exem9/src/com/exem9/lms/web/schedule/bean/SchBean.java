@@ -21,7 +21,15 @@ public class SchBean {
 	private String start_time; 
 	private String end_time; 
 	private String contents;
+	/*private String supo_day;*/
 	
+/*	
+	public String getSupoday() {
+		return supo_day;
+	}
+	public void setSupoday(String supoday) {
+		this.supo_day = supoday;
+	}*/
 	public String getSchCusId() {
 		return schCusId;
 	}

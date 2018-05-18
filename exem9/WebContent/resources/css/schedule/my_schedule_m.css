@@ -1,0 +1,48 @@
+
+.box_01 {
+	width:39px;
+	//left:20px;
+}
+
+.box_02 {
+	width:75px;
+	//left:66px;
+}
+
+.box_03 {
+	width:120px;
+	//left:186px;
+}
+
+.box_04 {
+	width:127px;
+	//left:328px;
+}
+
+.box_05 {
+	//width:130px;
+	//left:462px;
+	width:108px;
+	//white-space: nowrap; 
+	//overflow: hidden;
+}
+
+.box_06 {
+	width:108px;
+	//left:606px;
+}
+
+.box_07 {
+	width:80px;
+	//left:759px;
+}
+
+.box_08 {
+	width:103px;
+	//left:893px;
+}
+
+.box_09 {
+	width:275px;
+	//left:893px;
+}

@@ -17,4 +17,6 @@ public interface ISchDao {
 	public String updateSchinfo(HashMap params) throws Throwable;
 	
 	public String deleteSchinfo(HashMap params) throws Throwable;
+
+	public List<SchBean> getsch_m(HashMap params) throws Throwable;
 }

@@ -129,6 +129,38 @@ public class ScheduleService implements IScheduleService{
 		return iSchDao.getsch(params);
 	}
 
+public List<SchBean> getmysch_m(String strfromYYYYMMDD, String strtoYYYYMMDD, String userId) throws Throwable {
+		
+		HashMap params = new HashMap();
+		
+		java.sql.Timestamp fromYYYYMMDD=null;
+		java.sql.Timestamp toYYYYMMDD=null;
+		
+		//System.out.println( "---------------------------------------------------   : strFromYYYYMMDD : " +  strfromYYYYMMDD);
+		System.out.println( "---------------------------------------------------   : strtoYYYYMMDD : " +  strtoYYYYMMDD);
+		
+		try {
+			  // String 타입을 java.util.Date 로 변환한다.
+			  java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			  java.util.Date datefromYYYYMMDD = formatter.parse(strfromYYYYMMDD + " 00:00:00");
+			  java.util.Date datetoYYYYMMDD = formatter.parse(strtoYYYYMMDD + " 23:59:59");
+
+			  // java.util.Date 를 java.sql.Timestamp 로 변환한다.
+			  fromYYYYMMDD = new java.sql.Timestamp( datefromYYYYMMDD.getTime() ) ;
+			  toYYYYMMDD = new java.sql.Timestamp( datetoYYYYMMDD.getTime() ) ;
+
+			} catch (Exception ex) {
+			  // Exception 에 대한 오류처리를 한다.
+				System.out.println( "---------------------------------------------------   : datetime convert Error" );
+			}
+		
+		params.put("fromYYYYMMDD", fromYYYYMMDD);
+		params.put("toYYYYMMDD",toYYYYMMDD);
+		params.put("userId",userId);
+		
+		return iSchDao.getsch_m(params);
+	}
+
 	public String insertSchinfo(String user_id, String customer_id, String project_id, String dbms_id,
 			String category_id, String start_time, String end_time, String contents) throws Throwable {
 		
@@ -450,6 +482,59 @@ public class ScheduleService implements IScheduleService{
 		return strFromYYYYMMDD + strToYYYYMMDD;  // "yyyy-MM-ddyyyy-MM-dd"
 	}
 	
+	public String[] weekCalendar(String yyyymmdd){
+
+		  Calendar cal = Calendar.getInstance();
+		  int toYear = 0;
+		  int toMonth = 0;
+		  int toDay = 0;
+		  if(yyyymmdd == null || yyyymmdd.equals("")){   //파라메타값이 없을경우 오늘날짜
+		   toYear = cal.get(cal.YEAR);  
+		   toMonth = cal.get(cal.MONTH)+1;
+		   toDay = cal.get(cal.DAY_OF_MONTH);
+		   
+		   int yoil = cal.get(cal.DAY_OF_WEEK); //요일나오게하기(숫자로)
+
+		   if(yoil != 1){   //해당요일이 일요일이 아닌경우
+		    yoil = yoil-2;
+		   }else{           //해당요일이 일요일인경우
+		    yoil = 7;
+		   }
+		   cal.set(toYear, toMonth-1, toDay-yoil);  //해당주월요일로 세팅
+		  }else{
+		   int yy =Integer.parseInt(yyyymmdd.substring(0, 4));
+		   int mm =Integer.parseInt(yyyymmdd.substring(4, 6))-1;
+		   int dd =Integer.parseInt(yyyymmdd.substring(6, 8));
+		   cal.set(yy, mm,dd);
+		  }
+		  String[] arrYMD = new String[7];
+		  
+		  int inYear = cal.get(cal.YEAR);  
+		  int inMonth = cal.get(cal.MONTH);
+		  int inDay = cal.get(cal.DAY_OF_MONTH);
+		  int yoil = cal.get(cal.DAY_OF_WEEK); //요일나오게하기(숫자로)
+		  if(yoil != 1){   //해당요일이 일요일이 아닌경우
+		      yoil = yoil-2;
+		   }else{           //해당요일이 일요일인경우
+		      yoil = 7;
+		   }
+		  inDay = inDay-yoil;
+		  for(int i = 0; i < 7;i++){
+		   cal.set(inYear, inMonth, inDay+i);  //
+		  // String y = Integer.toString(cal.get(cal.YEAR));  
+		   String m = Integer.toString(cal.get(cal.MONTH)+1);
+		   String d = Integer.toString(cal.get(cal.DAY_OF_MONTH));
+		 //  String w = Integer.toString(cal.get(cal.WEEK_OF_YEAR));
+		   if(m.length() == 1) m = "0" + m; 
+		   if(d.length() == 1) d = "0" + d; 
+		   
+		   arrYMD[i] =m+"-"+d;
+		//   System.out.println("ymd ="+ y+m+d);
+		   
+		  }
+		  
+		  return arrYMD;
+	}
 	
 	// 팀일정정보
 	public List<SchBean> getTeamsch(String strfromYYYYMMDD, String strtoYYYYMMDD, int pageNo, int teamFilter, int deptFilter) throws Throwable {
@@ -499,6 +584,41 @@ public class ScheduleService implements IScheduleService{
 		return iSchDao.getsch(params);
 	}
 	
+	// 팀일정정보
+		public List<SchBean> getTeamsch_m(String strfromYYYYMMDD, String strtoYYYYMMDD, int teamFilter, int deptFilter) throws Throwable {
+			
+			HashMap params = new HashMap();
+			
+			java.sql.Timestamp fromYYYYMMDD=null;
+			java.sql.Timestamp toYYYYMMDD=null;
+			
+			System.out.println( "---------------------------------------------------   : strFromYYYYMMDD : " +  strfromYYYYMMDD);
+			System.out.println( "---------------------------------------------------   : strtoYYYYMMDD : " +  strtoYYYYMMDD);
+			
+			try {
+				  // String 타입을 java.util.Date 로 변환한다.
+				  java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				  java.util.Date datefromYYYYMMDD = formatter.parse(strfromYYYYMMDD + " 00:00:00");
+				  java.util.Date datetoYYYYMMDD = formatter.parse(strtoYYYYMMDD + " 23:59:59");
+
+				  // java.util.Date 를 java.sql.Timestamp 로 변환한다.
+				  fromYYYYMMDD = new java.sql.Timestamp( datefromYYYYMMDD.getTime() ) ;
+				  toYYYYMMDD = new java.sql.Timestamp( datetoYYYYMMDD.getTime() ) ;
+
+				} catch (Exception ex) {
+				  // Exception 에 대한 오류처리를 한다.
+					System.out.println( "---------------------------------------------------   : datetime convert Error" );
+				}
+			
+			params.put("fromYYYYMMDD", fromYYYYMMDD);
+			params.put("toYYYYMMDD",toYYYYMMDD);
+			
+			if(teamFilter != 0 ) params.put("teamFilter", teamFilter);
+			if(deptFilter != 0 ) params.put("deptFilter", deptFilter);
+			
+			return iSchDao.getsch_m(params);
+		}
+		
 	// 팀일정정보 갯수
 	public LineBoardBean getTeamNCount(String strfromYYYYMMDD, String strtoYYYYMMDD, int nowPage, int teamFilter, int deptFilter) throws Throwable {
 		
@@ -571,6 +691,12 @@ public class ScheduleService implements IScheduleService{
 		//System.out.println("start_time : " + start_time);
 		
 		return iSchDao.deleteSchinfo(params);
+	}
+
+	public List<SchBean> getmysch_m_edit(String supoId) throws Throwable {
+		HashMap params = new HashMap();
+		params.put("supoId", Integer.parseInt(supoId));
+		return iSchDao.getsch_m(params);
 	}
 	
 }

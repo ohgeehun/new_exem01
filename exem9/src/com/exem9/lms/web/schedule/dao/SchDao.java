@@ -52,5 +52,10 @@ public class SchDao implements ISchDao{
 		}
 		return result;
 	}
+
+	public List<SchBean> getsch_m(HashMap params) throws Throwable {
+		// TODO Auto-generated method stub
+		return sqlMapClient.queryForList("sch.getsch_m",params);
+	}
 	
 }

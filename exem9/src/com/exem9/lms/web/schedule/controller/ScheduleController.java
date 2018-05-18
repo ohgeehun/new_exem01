@@ -35,9 +35,9 @@ import com.exem9.lms.web.schedule.service.IScheduleService;
 import com.exem9.lms.web.team.bean.TeamBean;
 import com.exem9.lms.web.team.service.ITeamService;
 import com.exem9.lms.web.mypage.service.IMypageService;
+import com.mysql.jdbc.jdbc2.optional.SuspendableXAConnection;
 
-import org.springframework.mobile.device.Device;
-import org.springframework.mobile.device.DeviceUtils;
+
 
 @Controller
 public class ScheduleController {
@@ -83,6 +83,8 @@ public class ScheduleController {
 		
 		HttpSession session=request.getSession();
 		
+		String supo_day  = (String) request.getParameter("");
+		
 		if(session.getAttribute("sUserId")==null) {
 			throw new UserNotFoundException("자동 로그아웃 됐습니다.");
 		} else {
@@ -102,31 +104,83 @@ public class ScheduleController {
 		return modelAndView;
 	}
 	
+	@RequestMapping(value = "/schedule_edit_m")
+	public ModelAndView schedule_edit_m(HttpServletRequest request, 
+							   HttpServletResponse response,
+							   ModelAndView modelAndView) throws Throwable{
+		
+		HttpSession session=request.getSession();
+		
+		String supoId  = (String) request.getParameter("supoId");
+		
+	    System.out.println("-----------------------------------------------"+supoId);
+		
+		if(session.getAttribute("sUserId")==null) {
+			throw new UserNotFoundException("자동 로그아웃 됐습니다.");
+		} else {
+			if (supoId == null){
+				List<DbmsBean> dbms_list = iDbmsService.getdbms();
+				List<CustomerNmBean> cusNm_list = iCustomerService.getcusNminfo2();
+				List<CustomerPjtNmBean> cusPjtNm_list = iCustomerService.getcusPjtNminfo();
+				List<CateBean> cate_list = iCateService.getcate();
+				
+				modelAndView.addObject("dbms_list", dbms_list);
+				modelAndView.addObject("cusNm_list", cusNm_list);
+				modelAndView.addObject("cusPjtNm_list", cusPjtNm_list);
+				modelAndView.addObject("cate_list", cate_list);
+			}else{
+				List<SchBean> sch_list = iScheduleService.getmysch_m_edit(supoId);
+				 
+			     modelAndView.addObject("sch_list", sch_list);
+			}		
+			
+			modelAndView.setViewName("schedule/schedule_edit_m");
+		}
+				
+		return modelAndView;
+	}
+	
 	@RequestMapping(value = "/my_schedule")
 	public ModelAndView my_schedule(HttpServletRequest request, 
 							   HttpServletResponse response,
 							   ModelAndView modelAndView) throws Throwable{
 		
 		HttpSession session=request.getSession();		
-		
+        
 		if(session.getAttribute("sUserId")==null) {
 			throw new UserNotFoundException("자동 로그아웃 됐습니다.");
 		} else {
 			
 			String YYYYMMDDYYYYMMDD = iScheduleService.getThisWeek();
+			String[] weeks = iScheduleService.weekCalendar("");
 			String strfromYYYYMMDD = YYYYMMDDYYYYMMDD.substring(0, 10);
 			String strtoYYYYMMDD = YYYYMMDDYYYYMMDD.substring(10, 20);
+			
 			//System.out.println( "---------------------------------------------------  strfromYYYYMMDD :" + strfromYYYYMMDD );
 			//System.out.println( "---------------------------------------------------  strtoYYYYMMDD :" + strtoYYYYMMDD );
 			String currentUserId = (String) session.getAttribute("sUserId");
+			String deviceType = (String) session.getAttribute("sUserDevice");	
+			
 			modelAndView.addObject("year", strfromYYYYMMDD.substring(0,4) );
 			modelAndView.addObject("from_day", strfromYYYYMMDD.substring(5) );
 			modelAndView.addObject("to_day", strtoYYYYMMDD.substring(5) );  
-			
+			modelAndView.addObject("weeks1", weeks[0]);
+			modelAndView.addObject("weeks2", weeks[1]);
+			modelAndView.addObject("weeks3", weeks[2]);
+			modelAndView.addObject("weeks4", weeks[3]);
+			modelAndView.addObject("weeks5", weeks[4]);
+			modelAndView.addObject("weeks6", weeks[5]);
+			modelAndView.addObject("weeks7", weeks[6]);
 			//List<SchBean> sch_list = iScheduleService.getsch(strfromYYYYMMDD,strtoYYYYMMDD,1);
 			// getmysch호출 전에 strtoYYYYMMDD를 2018-04-01 23:59:59 로 변환 필요
 			//String strtoYYYYMMDD = strtoYYYYMMDD + " 23:59:59";
-			List<SchBean> sch_list = iScheduleService.getmysch(strfromYYYYMMDD,strtoYYYYMMDD,currentUserId,1);
+			List<SchBean> sch_list = null;		
+			
+			if(deviceType.equals("mobile")){
+				 sch_list = iScheduleService.getmysch_m(strfromYYYYMMDD,strtoYYYYMMDD,currentUserId);
+			}else{
+				 sch_list = iScheduleService.getmysch(strfromYYYYMMDD,strtoYYYYMMDD,currentUserId,1);
+			}			
 			List<CateBean> cat_list = iCateService.getcate();
 			List<DbmsBean> dbms_list = iDbmsService.getdbms();
 			List<CustomerNmBean> cus_list = iCustomerService.getcusNminfo2();
@@ -143,19 +197,7 @@ public class ScheduleController {
 			modelAndView.addObject("cat_list", cat_list);
 			modelAndView.addObject("dbms_list", dbms_list);
 			modelAndView.addObject("cus_list", cus_list);
-			modelAndView.addObject("pjt_list", pjt_list);
-			
-			Device device = DeviceUtils.getCurrentDevice(request);    
-			
-			String deviceType = "unknown";
-			
-	        if (device.isNormal()) {
-	            deviceType = "nomal";
-	        } else if (device.isMobile()) {
-	            deviceType = "mobile";
-	        } else if (device.isTablet()) {
-	            deviceType = "tablet";
-	        }
+			modelAndView.addObject("pjt_list", pjt_list);			
 		    
 	        /*System.out.println(deviceType);
 	        */
@@ -177,10 +219,11 @@ public class ScheduleController {
 		
 		request.setCharacterEncoding("UTF-8");
 		
-		String year = request.getParameter("week-label-year"); // 2018
+		String year = request.getParameter("week-label-year"); // 2018		
 		String fromMM_YY = request.getParameter("week-label-from-day"); // 01-01
 		String toMM_YY = request.getParameter("week-label-to-day");   //  01-08
 		int pageNo = Integer.parseInt(request.getParameter("pageNo"));
+		
 		
 		//System.out.println( "---------------------------------------------------  my_schedule_next : MM-YY(received) :" + fromMM_YY );
 		//System.out.println( "---------------------------------------------------  my_schedule_next : pageNo :" + pageNo );
@@ -188,7 +231,11 @@ public class ScheduleController {
 		String strfromYYYYMMDD = year + "-"+ fromMM_YY.substring(0, 2) + "-" + fromMM_YY.substring(3, 5);
 		String strtoYYYYMMDD = year + "-"+ toMM_YY.substring(0, 2) + "-" +  toMM_YY.substring(3, 5);
 
-		HttpSession session=request.getSession();
+		String YYYYMMDD =  year+fromMM_YY.substring(0, 2)+fromMM_YY.substring(3, 5);
+		
+		String[] weeks = iScheduleService.weekCalendar(YYYYMMDD);
+        
+		HttpSession session=request.getSession();		
 		
 		if(session.getAttribute("sUserId")==null) {
 			throw new UserNotFoundException("자동 로그아웃 됐습니다.");
@@ -196,10 +243,19 @@ public class ScheduleController {
 			
 			//List<SchBean> sch_list = iScheduleService.getsch(selectBtnVal,cusNm,pageNo);
 			String currentUserId = (String) session.getAttribute("sUserId");
+			String deviceType = (String) session.getAttribute("sUserDevice");	
 			
+			// System.out.println(currentUserId);
 			// getmysch호출 전에 strtoYYYYMMDD를 2018-04-01 23:59:59 로 변환 필요
 			//String strtoYYYYMMDD = strtoYYYYMMDD + " 23:59:59";
-			List<SchBean> sch_list = iScheduleService.getmysch(strfromYYYYMMDD, strtoYYYYMMDD,currentUserId, pageNo);
+			 List<SchBean> sch_list = null;		
+				
+			if(deviceType.equals("mobile")){
+				 sch_list = iScheduleService.getmysch_m(strfromYYYYMMDD,strtoYYYYMMDD,currentUserId);
+			}else{
+				 sch_list = iScheduleService.getmysch(strfromYYYYMMDD,strtoYYYYMMDD,currentUserId,1);
+			}	
+				
 			List<CateBean> cat_list = iCateService.getcate();
 			List<DbmsBean> dbms_list = iDbmsService.getdbms();
 			List<CustomerNmBean> cus_list = iCustomerService.getcusNminfo2();
@@ -223,21 +279,16 @@ public class ScheduleController {
 			modelAndView.addObject("year", year);
 			modelAndView.addObject("from_day", fromMM_YY);
 			modelAndView.addObject("to_day", toMM_YY);
-			
-			Device device = DeviceUtils.getCurrentDevice(request);    
-			
-		    String deviceType = "unknown";
+			modelAndView.addObject("weeks1", weeks[0]);
+			modelAndView.addObject("weeks2", weeks[1]);
+			modelAndView.addObject("weeks3", weeks[2]);
+			modelAndView.addObject("weeks4", weeks[3]);
+			modelAndView.addObject("weeks5", weeks[4]);
+			modelAndView.addObject("weeks6", weeks[5])	;
+			modelAndView.addObject("weeks7", weeks[6]);			
 		    
-	        if (device.isNormal()) {
-	            deviceType = "nomal";
-	        } else if (device.isMobile()) {
-	            deviceType = "mobile";
-	        } else if (device.isTablet()) {
-	            deviceType = "tablet";
-	        }
-		    
-	        /*System.out.println(deviceType);
-	        */
+	        //System.out.println(deviceType);
+	        
 	        if(deviceType.equals("mobile")){
 	        	modelAndView.setViewName("schedule/my_schedule_m");
 	        }else{
@@ -255,15 +306,20 @@ public class ScheduleController {
 		
 		HttpSession session=request.getSession();
 		
+		
+		
 		if(session.getAttribute("sUserId")==null) {
 			throw new UserNotFoundException("자동 로그아웃 됐습니다.");
 		} else {
 			// 로그인한 유저의 본부를 확인 후 해당본부로 선택하여 조회되도록 한다.
 			String myId = (String) session.getAttribute("sUserId");
+			String deviceType = (String) session.getAttribute("sUserDevice");	
+			
 			List<MypageBean> mypage_info = iMypageService.getUserinfo(myId);
 			int deptId = Integer.parseInt( mypage_info.get(0).getUserDeptId() ) ;
 			
 			String YYYYMMDDYYYYMMDD = iScheduleService.getThisWeek();
+			String[] weeks = iScheduleService.weekCalendar("");
 			String strfromYYYYMMDD = YYYYMMDDYYYYMMDD.substring(0, 10);
 			String strtoYYYYMMDD = YYYYMMDDYYYYMMDD.substring(10, 20);
 //			System.out.println( "---------------------------------------------------  strfromYYYYMMDD :" + strfromYYYYMMDD );
@@ -274,7 +330,16 @@ public class ScheduleController {
 			
 			// getsch호출 전에 strtoYYYYMMDD를 2018-04-01 23:59:59 로 변환 필요
 			//String strtoYYYYMMDD = strtoYYYYMMDD + " 23:59:59";
-			List<SchBean> sch_list = iScheduleService.getTeamsch(strfromYYYYMMDD, strtoYYYYMMDD,1, 0, deptId);
+			List<SchBean> sch_list = null;		
+			
+			if(deviceType.equals("mobile")){
+				 sch_list = iScheduleService.getTeamsch_m(strfromYYYYMMDD, strtoYYYYMMDD, 0, deptId);
+			}else{
+				 sch_list = iScheduleService.getTeamsch(strfromYYYYMMDD, strtoYYYYMMDD,1, 0, deptId);
+			}	
+			
+			//List<SchBean> sch_list = iScheduleService.getTeamsch(strfromYYYYMMDD, strtoYYYYMMDD,1, 0, deptId);
+			
 			List<CateBean> cat_list = iCateService.getcate();
 			List<DbmsBean> dbms_list = iDbmsService.getdbms();
 			List<CustomerNmBean> cus_list = iCustomerService.getcusNminfo2();
@@ -300,7 +365,20 @@ public class ScheduleController {
 			modelAndView.addObject("mem_list", mem_list);
 			modelAndView.addObject("deptFilter", deptId);
 			
-			modelAndView.setViewName("schedule/team_schedule");
+			modelAndView.addObject("weeks1", weeks[0]);
+			modelAndView.addObject("weeks2", weeks[1]);
+			modelAndView.addObject("weeks3", weeks[2]);
+			modelAndView.addObject("weeks4", weeks[3]);
+			modelAndView.addObject("weeks5", weeks[4]);
+			modelAndView.addObject("weeks6", weeks[5]);
+			modelAndView.addObject("weeks7", weeks[6]);		
+			
+			
+			if(deviceType.equals("mobile")){
+	        	modelAndView.setViewName("schedule/team_schedule_m");
+	        }else{
+	        	modelAndView.setViewName("schedule/team_schedule");
+	        }
 		}
 				
 		return modelAndView;
@@ -339,10 +417,15 @@ public class ScheduleController {
 
 		HttpSession session=request.getSession();
 		
+		String YYYYMMDD =  year+fromMM_YY.substring(0, 2)+fromMM_YY.substring(3, 5);
+		
+		String[] weeks = iScheduleService.weekCalendar(YYYYMMDD);
+		
 		if(session.getAttribute("sUserId")==null) {
 			throw new UserNotFoundException("자동 로그아웃 됐습니다.");
 		} else {
 			
+			String deviceType = (String) session.getAttribute("sUserDevice");	
 			//List<SchBean> sch_list = iScheduleService.getsch(selectBtnVal,cusNm,pageNo);
 			//List<SchBean> sch_list = iScheduleService.getsch(strfromYYYYMMDD, strtoYYYYMMDD, pageNo);
 			
@@ -350,9 +433,17 @@ public class ScheduleController {
 			////String strtoYYYYMMDD = strtoYYYYMMDD + " 23:59:59";
 			List<SchBean> sch_list;
 			if(teamFilter != -1) { // team이 선택된 경우
-				sch_list = iScheduleService.getTeamsch(strfromYYYYMMDD, strtoYYYYMMDD, pageNo, teamFilter, 0);
+				if(deviceType.equals("mobile")){
+					 sch_list = iScheduleService.getTeamsch_m(strfromYYYYMMDD, strtoYYYYMMDD, teamFilter, 0);
+				}else{
+					sch_list = iScheduleService.getTeamsch(strfromYYYYMMDD, strtoYYYYMMDD, pageNo, teamFilter, 0);
+				}	
 			} else { //본부만 선택한 경우
-				sch_list = iScheduleService.getTeamsch(strfromYYYYMMDD, strtoYYYYMMDD, pageNo, 0, deptFilter);
+				if(deviceType.equals("mobile")){
+					 sch_list = iScheduleService.getTeamsch_m(strfromYYYYMMDD, strtoYYYYMMDD, 0, deptFilter);
+				}else{
+					sch_list = iScheduleService.getTeamsch(strfromYYYYMMDD, strtoYYYYMMDD, pageNo, 0, deptFilter);
+				}				
 			}
 				
 			List<CateBean> cat_list = iCateService.getcate();
@@ -393,8 +484,20 @@ public class ScheduleController {
 			
 			modelAndView.addObject("teamFilter", teamFilter);
 			modelAndView.addObject("deptFilter", strDeptFilter);
+			modelAndView.addObject("weeks1", weeks[0]);
+			modelAndView.addObject("weeks2", weeks[1]);
+			modelAndView.addObject("weeks3", weeks[2]);
+			modelAndView.addObject("weeks4", weeks[3]);
+			modelAndView.addObject("weeks5", weeks[4]);
+			modelAndView.addObject("weeks6", weeks[5]);
+			modelAndView.addObject("weeks7", weeks[6]);					
+						
+			if(deviceType.equals("mobile")){
+	        	modelAndView.setViewName("schedule/team_schedule_m");
+	        }else{
+	        	modelAndView.setViewName("schedule/team_schedule");
+	        }
 			
-			modelAndView.setViewName("schedule/team_schedule");
 		}
 				
 		return modelAndView;

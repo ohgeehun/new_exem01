@@ -11,6 +11,9 @@ public interface IScheduleService {
 	/*내 일정정보 조회*/
 	public List<SchBean> getmysch(String strfromYYYYMMDD, String strtoYYYYMMDD, String currentUserId, int i)  throws Throwable;
 	
+	/*내 일정정보 조회_모바일용*/
+	public List<SchBean> getmysch_m(String strfromYYYYMMDD, String strtoYYYYMMDD, String currentUserId)  throws Throwable;
+	
 	/*내 일정 등록 insertSchInfo 이벤트*/
 	public String insertSchinfo(String user_id,String customer_id, String project_id,
 								String dbms_id,String category_id,
@@ -28,13 +31,19 @@ public interface IScheduleService {
 								String contents, String chkId) throws Throwable ;
 	
 	/*금주 계산 유틸리티 */
-	public String getThisWeek();
-
+	public String getThisWeek()throws Throwable;
+	
+	public String[] weekCalendar(String yyyymmdd)throws Throwable;
+	
 	public List<SchBean> getTeamsch(String strfromYYYYMMDD, String strtoYYYYMMDD, int pageNo, int teamFilter, int deptFilter) throws Throwable;
 	
-	public LineBoardBean getTeamNCount(String fromYYYYMMDD, String toYYYYMMDD, int nowPage, int teamFilter, int deptFilter) throws Throwable;
+	public List<SchBean> getTeamsch_m(String strfromYYYYMMDD, String strtoYYYYMMDD, int teamFilter, int deptFilter) throws Throwable;
+	
+		public LineBoardBean getTeamNCount(String fromYYYYMMDD, String toYYYYMMDD, int nowPage, int teamFilter, int deptFilter) throws Throwable;
 	
 	/*내 일정 삭제 */
 	public String deleteSchinfo(String chkId) throws Throwable ;
+	
+	public List<SchBean> getmysch_m_edit(String supoId) throws Throwable;
 
 }

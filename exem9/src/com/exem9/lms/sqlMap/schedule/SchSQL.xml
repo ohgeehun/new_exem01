@@ -76,6 +76,47 @@
 		</isEmpty>
 	</select>  	
 	
+	<select id="getsch_m" parameterClass="java.util.HashMap" resultMap="SchMap">
+		SELECT s.support_history_id as support_id,        m.user_id, m.user_name,       s.team_id, t.team_name,      
+			s.customer_id, c.customer_name,       s.project_id, p.project_name,       s.dbms_id, d.dbms_name,     
+			s.category_id, ca.category_name,        s.start_time, s.end_time, s.contents
+			FROM xm_support_history s  
+			left outer join xm_member m on upper(s.user_id) = upper(m.user_id) 
+			left outer join xm_team t on s.team_id = t.team_id 
+			left outer join xm_customer c on s.customer_id = c.customer_id  
+			left outer join xm_project p on s.project_id = p.project_id  
+			left outer join xm_dbms d on s.dbms_id = d.dbms_id  
+			left outer join xm_category_code ca on s.category_id = ca.category_id
+			where 1=1 
+			<isNotEmpty property="fromYYYYMMDD">
+					and s.start_time &gt;= #fromYYYYMMDD#
+			</isNotEmpty>
+			<isNotEmpty property="toYYYYMMDD">
+					and s.start_time &lt;= #toYYYYMMDD#
+			</isNotEmpty>
+			<isNotEmpty property="userId">
+					and m.user_id = #userId# 
+			</isNotEmpty>
+			
+			<isNotEmpty property="teamFilter">
+				<isNotEqual property="teamFilter" compareValue="-1">
+						and s.team_id = #teamFilter#
+				</isNotEqual>
+			</isNotEmpty>
+			
+			<isNotEmpty property="deptFilter">
+				and t.department_id = #deptFilter#
+			</isNotEmpty>
+			
+			<isNotEmpty property="supoId">
+				and s.support_history_id = #supoId#
+			</isNotEmpty>
+			<!-- and s.start_time &gt;= '2018-02-22'  -->
+			<!-- and s.end_time &lt;= '2018-02-24'  -->
+			order by s.start_time
+		
+	</select>  	
+	
 	<select id="getNCount" parameterClass="java.util.HashMap" resultClass="Integer">
 		SELECT count(s.support_history_id)   
 		FROM xm_support_history s  

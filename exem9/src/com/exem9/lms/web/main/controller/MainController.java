@@ -36,7 +36,16 @@ public class MainController {
 	public ModelAndView cus_mianupview(HttpServletRequest request, 
 			 				           HttpServletResponse response,
 			 				    	   ModelAndView modelAndView) throws Throwable{
-		modelAndView.setViewName("common/common_upmain");
+		
+		HttpSession session=request.getSession();		
+		String deviceType = (String) session.getAttribute("sUserDevice");	
+		
+		if(deviceType.equals("mobile")){
+				modelAndView.setViewName("common/common_upmain_m");
+        }else{
+	        	modelAndView.setViewName("common/common_upmain");
+        }	
+	
 		return modelAndView;
 	}
 	@RequestMapping(value="/main_botview")

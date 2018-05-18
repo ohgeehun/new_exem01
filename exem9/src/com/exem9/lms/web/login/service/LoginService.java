@@ -17,6 +17,9 @@ import com.exem9.lms.util.BCrypt;
 import com.exem9.lms.web.login.bean.LoginBean;
 import com.exem9.lms.web.login.dao.ILoginDao;
 
+import org.springframework.mobile.device.Device;
+import org.springframework.mobile.device.DeviceUtils;
+
 @RemoteProxy(name ="ILoginService")
 @Service(value="ILoginService")
 public class LoginService implements ILoginService {
@@ -42,6 +45,18 @@ public class LoginService implements ILoginService {
 		List<LoginBean> ulist = iLoginDao.getUserInfo(params);
 		String userId ="";
 		
+		Device device = DeviceUtils.getCurrentDevice(request);   
+		
+	    String deviceType = "unknown";
+	    
+	    if (device.isNormal()) {
+            deviceType = "nomal";
+        } else if (device.isMobile()) {
+            deviceType = "mobile";
+        } else if (device.isTablet()) {
+            deviceType = "tablet";
+        }
+        
 		if (ulist.isEmpty() == false){
 			userId = ulist.get(0).getUserId();					
 			
@@ -56,6 +71,7 @@ public class LoginService implements ILoginService {
 				session.setAttribute("sUserName", ulist.get(0).getUserNm());
 				session.setAttribute("sUserDbms", ulist.get(0).getUserDbms());
 				session.setAttribute("sUserFlag", ulist.get(0).getUserFlag());
+				session.setAttribute("sUserDevice", deviceType);
 				
 				
 				userId = ulist.get(0).getUserId();
