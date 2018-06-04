@@ -91,7 +91,7 @@ public class ScheduleService implements IScheduleService{
 		java.sql.Timestamp toYYYYMMDD=null;
 		
 		//System.out.println( "---------------------------------------------------   : strFromYYYYMMDD : " +  strfromYYYYMMDD);
-		System.out.println( "---------------------------------------------------   : strtoYYYYMMDD : " +  strtoYYYYMMDD);
+		//System.out.println( "---------------------------------------------------   : strtoYYYYMMDD : " +  strtoYYYYMMDD);
 		
 		try {
 			  // String 타입을 java.util.Date 로 변환한다.
@@ -105,7 +105,7 @@ public class ScheduleService implements IScheduleService{
 
 			} catch (Exception ex) {
 			  // Exception 에 대한 오류처리를 한다.
-				System.out.println( "---------------------------------------------------   : datetime convert Error" );
+				//System.out.println( "---------------------------------------------------   : datetime convert Error" );
 			}
 		
 		params.put("fromYYYYMMDD", fromYYYYMMDD);
@@ -137,7 +137,7 @@ public List<SchBean> getmysch_m(String strfromYYYYMMDD, String strtoYYYYMMDD, St
 		java.sql.Timestamp toYYYYMMDD=null;
 		
 		//System.out.println( "---------------------------------------------------   : strFromYYYYMMDD : " +  strfromYYYYMMDD);
-		System.out.println( "---------------------------------------------------   : strtoYYYYMMDD : " +  strtoYYYYMMDD);
+		//System.out.println( "---------------------------------------------------   : strtoYYYYMMDD : " +  strtoYYYYMMDD);
 		
 		try {
 			  // String 타입을 java.util.Date 로 변환한다.
@@ -151,7 +151,7 @@ public List<SchBean> getmysch_m(String strfromYYYYMMDD, String strtoYYYYMMDD, St
 
 			} catch (Exception ex) {
 			  // Exception 에 대한 오류처리를 한다.
-				System.out.println( "---------------------------------------------------   : datetime convert Error" );
+				//System.out.println( "---------------------------------------------------   : datetime convert Error" );
 			}
 		
 		params.put("fromYYYYMMDD", fromYYYYMMDD);

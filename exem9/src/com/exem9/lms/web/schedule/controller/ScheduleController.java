@@ -93,6 +93,7 @@ public class ScheduleController {
 			List<CustomerPjtNmBean> cusPjtNm_list = iCustomerService.getcusPjtNminfo();
 			List<CateBean> cate_list = iCateService.getcate();
 			
+			
 			modelAndView.addObject("dbms_list", dbms_list);
 			modelAndView.addObject("cusNm_list", cusNm_list);
 			modelAndView.addObject("cusPjtNm_list", cusPjtNm_list);
@@ -111,9 +112,9 @@ public class ScheduleController {
 		
 		HttpSession session=request.getSession();
 		
-		String supoId  = (String) request.getParameter("supoId");
-		
-	    System.out.println("-----------------------------------------------"+supoId);
+		String supoId  = (String) request.getParameter("supoId");		
+		 
+	   System.out.println("-----------------------------------------"+supoId);
 		
 		if(session.getAttribute("sUserId")==null) {
 			throw new UserNotFoundException("자동 로그아웃 됐습니다.");
@@ -124,6 +125,7 @@ public class ScheduleController {
 				List<CustomerPjtNmBean> cusPjtNm_list = iCustomerService.getcusPjtNminfo();
 				List<CateBean> cate_list = iCateService.getcate();
 				
+				
 				modelAndView.addObject("dbms_list", dbms_list);
 				modelAndView.addObject("cusNm_list", cusNm_list);
 				modelAndView.addObject("cusPjtNm_list", cusPjtNm_list);
@@ -131,7 +133,18 @@ public class ScheduleController {
 			}else{
 				List<SchBean> sch_list = iScheduleService.getmysch_m_edit(supoId);
 				 
-			     modelAndView.addObject("sch_list", sch_list);
+				List<DbmsBean> dbms_list = iDbmsService.getdbms();
+				List<CustomerNmBean> cusNm_list = iCustomerService.getcusNminfo2();
+				List<CustomerPjtNmBean> cusPjtNm_list = iCustomerService.getcusPjtNminfo();
+				List<CateBean> cate_list = iCateService.getcate();
+				
+				
+				modelAndView.addObject("dbms_list", dbms_list);
+				modelAndView.addObject("cusNm_list", cusNm_list);
+				modelAndView.addObject("cusPjtNm_list", cusPjtNm_list);
+				modelAndView.addObject("cate_list", cate_list);
+				
+			    modelAndView.addObject("sch_list", sch_list);
 			}		
 			
 			modelAndView.setViewName("schedule/schedule_edit_m");

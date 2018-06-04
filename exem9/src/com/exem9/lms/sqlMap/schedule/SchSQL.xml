@@ -205,8 +205,8 @@
     		#customer_id#, #project_id#, #dbms_id#, #category_id#, 
             to_timestamp(#start_time#, 'YYYY-MM-DD HH24:MI:22'), 
             to_timestamp(#end_time#, 'YYYY-MM-DD HH24:MI:22'), 
-            #contents#)
-            where support_history_id = #chkId#
+            #contents#)            
+            where support_history_id = #chkId#            
 	 </update>
 	 
 	<!-- 내 일정 삭제 -->

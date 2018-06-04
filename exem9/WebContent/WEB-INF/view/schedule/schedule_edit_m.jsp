@@ -95,7 +95,7 @@ $(document).ready(function(){
           formatDate:'YYYY-MM-DD'
     });
 	
-	$('#customer_name_id').bind('change', function() {
+	$('#cusNm_id').bind('change', function() {
 		var customer_id = $(this).val();
 		ICustomerService.getProinfo2(customer_id, getProinfoCallBack);
 	});
@@ -104,18 +104,18 @@ $(document).ready(function(){
     $("#edit_update_btn").bind("click", function(){   	
     	
     	var user_id = userId;    // 세션에서 가져와야 함
-    	var customer_id = $("#cusName_hidden_id").val();
-    	var project_id = $("#cusPro_hidden_id").val();
+    	var customer_id = $("#cusNm_id").val();
+    	var project_id = $("#pjtNm_id").val();
     	var dbms_id = $("#dbms_id").val();
     	var category_id = $("#category_id").val();
     	var start_time = $("#startDate").val();
     	var end_time = $("#endDate").val();
     	var contents = $("#etc_id").val();
+    	var chkId = $("#supo_hidden_id").val();
     	
-    	//alert(customer_id);
-    	//alert(project_id);
+    	alert(chkId);
     	
-     	if(user_id == ""){     		
+        if(user_id == ""){     		
      		alert("세션에 사용자ID값이 없습니다.");	   		
      	}else{
 			if(customer_id == ""){
@@ -125,22 +125,24 @@ $(document).ready(function(){
 				alert("고객사 프로젝트명을 선택하세요.");
      		}
 			else{
-     			IScheduleService.insertSchinfo(
-     					user_id, 
-     					customer_id,
-						project_id,
-						dbms_id, 
-						category_id, 
-						start_time,
-						end_time,
-						contents,
-						insertSchinfoCallBack
-				)
+				
+   	         	IScheduleService.updateSchinfo(
+  					user_id, 
+  					customer_id,
+  					project_id,
+  					dbms_id, 
+  					category_id, 
+  					start_time,
+  					end_time,
+  					contents,
+  					chkId,
+					updateSchinfoCallBack
+				);     	
      		}     	
-     	}    	
+     	}    	 
     });
 	
-	$("#customer_name_id").shieldComboBox({
+	/* $("#customer_name_id").shieldComboBox({
     	dataSource: {
             data: ""
         },        	        
@@ -152,15 +154,15 @@ $(document).ready(function(){
             data: ""
         },        	        
         enabled: false
-	});  
+	});   */
  	
 	 /* 고객사 등록 시 기존 고객사명 리스트를 가져오는 이벤트 */
-	ICustomerService.getcusNminfo(cusNminfoCallBack);
+	//ICustomerService.getcusNminfo(cusNminfoCallBack);
 	
 
 });
 
-function cusNminfoCallBack(res){
+/* function cusNminfoCallBack(res){
 	var availableTags = [];
 	
 	for(var i = 0; i < res.length; i++){	
@@ -252,9 +254,9 @@ function cusNmProinfoCallBack(res){
             }
     	}); 
 	}	
-}
+} */
 
-function getCusProCheckCallBack(res){
+/* function getCusProCheckCallBack(res){
 	if(res.length > 0){
 		for(var i = 0; i < res.length; i++){	
 			 $("#cusPro_hidden_id").val(res[i].pjtId); 
@@ -263,7 +265,7 @@ function getCusProCheckCallBack(res){
 		  $("#cusPro_hidden_id").val("0");	        
 	}
 
-}
+} */
 
 function insertSchinfoCallBack(res){
 	if(res == "FAILED"){
@@ -276,15 +278,25 @@ function insertSchinfoCallBack(res){
 }
 
 function getProinfoCallBack(arrayList){
-	$("#customer_project_id").html("");
+	$("#pjtNm_id").html("");
 	if(arrayList.length > 0) { // arrayList에 프로젝트목록이 들어온다. customer_project_id 셀렉트박스목록을 갱신한다.
 		for(var i=0; i<arrayList.length; i++)
 		{
 		    var testObj = arrayList[i];
-		    $('#customer_project_id').append('<option value='+testObj.proId+'>'+testObj.proNm+'</option>');
+		    $('#pjtNm_id').append('<option value='+testObj.proId+'>'+testObj.proNm+'</option>');
 		}
 	} else {
 		alert("선택한 고객사에 등록된 프로젝트가 없습니다.");
+	}
+}
+
+function updateSchinfoCallBack(res){
+	if(res == "FAILED"){
+		//alert("실패");
+		location.href = "my_schedule";
+	}else if(res == "SUCCESS"){
+		//alert("성공");
+		location.href = "my_schedule";
 	}
 }
 
@@ -345,69 +357,110 @@ th, td {
 					<li class="input_title input_06 inputTxtFont">종료일시</li>
 					<li class="input_title input_07 inputTxtFont">요청내역 및 지원목적</li>
 
-					<!-- input type="text" name="customer" class="input_txt input_01 inputTxtFont"-->
-					<div class="input_txt_01 input1_01 inputTxtFont">	
-						<input type="hidden" id="cusName_hidden_id"> 
-						<!-- <input class="sui-input" id='cusName_id' value=""  style='text-transform: uppercase' onblur="onblur_event();"></input> -->
-						<input id='customer_name_id'></input>
-						<!-- <span id="idSpan" class="redText"></span> -->			
-					</div>
+					<c:forEach var="sch" items="${sch_list}">	
+						<input type="hidden" id="supo_hidden_id" value="${sch.schId}"> 						
+						<!-- input type="text" name="customer" class="input_txt input_01 inputTxtFont"-->						
+						<select id="cusNm_id" name="select_cust" class="input_txt input1_01 inputTxtFont">
+							<c:forEach var="cus" items="${cusNm_list}">
+								<c:choose>
+									<c:when test="${cus.cusId  == sch.schCusId}">
+										<option value="${cus.cusId}" selected>${cus.cusNm}</option>											
+									</c:when>
+									<c:otherwise>
+										<option value="${cus.cusId}">${cus.cusNm}</option>	
+									</c:otherwise>
+								</c:choose>
 							
-					<div class="input_txt_01 input1_02 inputTxtFont">	
-						<input type="hidden" id="cusPro_hidden_id"> 
-						<input class="input_txt_03 input_02_01 inputTxtFont sui-input"  id='customer_project_id' >	
-					</div>	
-				
-				
-					<%-- <select id='customer_name_id' class="input_txt input_01 inputTxtFont">
-								<option value="0" selected>지정필요</option>
-							    <c:forEach var="cusNm" items="${cusNm_list}">
-				 	    			<option value="${cusNm.cusId}">${cusNm.cusNm}</option>		 	    	
-				 	    		</c:forEach>	
-					</select> --%>
-					<!-- input type="text" name="project" class="input_txt input_02 inputTxtFont"-->
-					<%-- <select id='customer_project_id' class="input_txt input_02 inputTxtFont">
-								<option value="0" selected>지정필요</option>
-							    
-							    <c:forEach var="cusPjtNm" items="${cusPjtNm_list}">
-				 	    			<option value="${cusPjtNm.pjtId}">${cusPjtNm.pjtNm}</option>		 	    	
-				 	    		</c:forEach>
-				 	    		
-					</select> --%>
-					<!-- input type="text" name="product" class="input_txt input_03 inputTxtFont"-->
-					<select id='dbms_id' class="input_txt input1_03 inputTxtFont">
+							</c:forEach>										
+						</select>	
+						<%-- <input type="hidden" id="cusName_hidden_id" value="${sch.schCusId}"> --%> 	
+						
+						<select id="pjtNm_id" name="select_pjt" class="input_txt input1_02 inputTxtFont" >								
+							<c:forEach var="pjt" items="${cusPjtNm_list}">
+								<!-- script>console.log( 'pjt.cusId: ' + <c:out value="${pjt.cusId}"></c:out> );</script-->
+									<c:choose>
+										<c:when test="${pjt.pjtId  == sch.schPjtId}">
+											<option value="${pjt.pjtId}" selected>${pjt.pjtNm}</option>										
+										</c:when>
+										<%-- c:otherwise>
+											<option value="${pjt.pjtId}">${pjt.pjtNm}</option>	
+										</c:otherwise --%>
+									</c:choose>
+							</c:forEach>			
+						</select>
+						<%-- <input type="hidden" id="cusPro_hidden_id" value="${sch.schPjtId}"> --%> 	
+							
+						<%-- <select id='customer_name_id' class="input_txt input_01 inputTxtFont">
+									<option value="0" selected>지정필요</option>
+								    <c:forEach var="cusNm" items="${cusNm_list}">
+					 	    			<option value="${cusNm.cusId}">${cusNm.cusNm}</option>		 	    	
+					 	    		</c:forEach>	
+						</select> --%>
+						<!-- input type="text" name="project" class="input_txt input_02 inputTxtFont"-->
+						<%-- <select id='customer_project_id' class="input_txt input_02 inputTxtFont">
+									<option value="0" selected>지정필요</option>
+								    
+								    <c:forEach var="cusPjtNm" items="${cusPjtNm_list}">
+					 	    			<option value="${cusPjtNm.pjtId}">${cusPjtNm.pjtNm}</option>		 	    	
+					 	    		</c:forEach>
+					 	    		
+						</select> --%>
+						<!-- input type="text" name="product" class="input_txt input_03 inputTxtFont"-->
+						<select id='dbms_id' class="input_txt input1_03 inputTxtFont">
+							<c:if test="${sch.dbms_id == ''}">
+								<option value="0" selected>지정필요.</option>
+							</c:if>
+							<c:forEach var="dbms" items="${dbms_list}">
+										<c:choose>
+											<c:when test="${dbms.dbmsId  == sch.dbms_id}">
+												<option value="${dbms.dbmsId}" selected>${dbms.dbmsNm}</option>
+											</c:when>
+											<c:otherwise>
+												<option value="${dbms.dbmsId}">${dbms.dbmsNm}</option>	
+											</c:otherwise>
+										</c:choose>
+							</c:forEach>
+									<%-- <option value="0" selected>지정하지않음.</option>
+								    <c:forEach var="dbms" items="${dbms_list}">
+					 	    			<option value="${dbms.dbmsId}">${dbms.dbmsNm}</option>		 	    	
+					 	    		</c:forEach> --%>	
+						</select>
+						<!-- input type="text" name="support" class="input_txt input_04 inputTxtFont"-->
+						<select id='category_id' class="input_txt input1_04 inputTxtFont">
+							<c:if test="${sch.category_id == 0}">
 								<option value="0" selected>지정하지않음.</option>
-							    <c:forEach var="dbms" items="${dbms_list}">
-				 	    			<option value="${dbms.dbmsId}">${dbms.dbmsNm}</option>		 	    	
-				 	    		</c:forEach>	
-					</select>
-					<!-- input type="text" name="support" class="input_txt input_04 inputTxtFont"-->
-					<select id='category_id' class="input_txt input1_04 inputTxtFont">
-						<option value="0" selected>지정하지않음.</option>
-					    <c:forEach var="cate" items="${cate_list}">
-					    	<c:choose>
-					    		<c:when test="${cate.small_group eq '0' }">
-					    			<optgroup label="${cate.catNm}"></optgroup>
-					    		</c:when>
-					    		<c:otherwise>
-		 	    					<option value="${cate.catId}">${cate.catNm}</option>
-		 	    				</c:otherwise>
-		 	    			</c:choose>		 	    	
-		 	    		</c:forEach>	
-					</select>
-					<!-- input type="text" name="start" class="input_txt input_05 inputTxtFont"-->
-					<input id="startDate" type="text" class="input_txt input1_05 inputTxtFont datetimepicker" readonly="readonly">
-					<!-- input type="text" name="end" class="input_txt input_06 inputTxtFont"-->
-					<input id="endDate" type="text" class="input_txt input1_06 inputTxtFont datetimepicker" readonly="readonly">
-					<!-- textarea name="content" class="text_area"></textarea-->
-					<textarea id="etc_id" name="contents" class="text_area"></textarea>
-
-					<div class="cal_start"></div>
-					<div class="cal_end"></div>
-
-					<!-- input type="submit" name="OK" class="input_submit inBtt_OK" value="일정등록하기"-->
-					<input type="button" id="edit_update_btn" name="OK" class="input_submit inBtt_OK" value="일정등록하기"></input>
-					
+							</c:if>
+						    <c:forEach var="cat" items="${cate_list}">
+						    	<c:choose>
+						    		<c:when test="${cat.catId  == sch.category_id}">
+										<option value="${cat.catId}" selected>${cat.catNm}</option>
+									</c:when>
+						    		<c:otherwise>
+										<c:choose>
+								    		<c:when test="${cat.small_group eq '0' }">
+								    			<optgroup label="${cat.catNm}"></optgroup>
+								    		</c:when>
+								    		<c:otherwise>
+					 	    					<option value="${cat.catId}">${cat.catNm}</option>
+					 	    				</c:otherwise>
+					 	    			</c:choose>
+									</c:otherwise>
+		 	    				</c:choose>		 	    	
+			 	    		</c:forEach>	 				 	    		
+						</select> 				
+						<!-- input type="text" name="start" class="input_txt input_05 inputTxtFont"-->
+						<input id="startDate" type="text" class="input_txt input1_05 inputTxtFont datetimepicker" readonly="readonly" value="${fn:substring(sch.start_time,0,16)}">
+						<!-- input type="text" name="end" class="input_txt input_06 inputTxtFont"-->
+						<input id="endDate" type="text" class="input_txt input1_06 inputTxtFont datetimepicker" readonly="readonly" value="${fn:substring(sch.end_time,0,16)}">
+						<!-- textarea name="content" class="text_area"></textarea-->
+						<textarea id="etc_id" name="contents" class="text_area">${sch.contents}</textarea>
+	
+						<div class="cal_start"></div>
+						<div class="cal_end"></div>
+	
+						<!-- input type="submit" name="OK" class="input_submit inBtt_OK" value="일정등록하기"-->
+						<input type="button" id="edit_update_btn" name="OK" class="input_submit inBtt_OK" value="일정수정하기"></input>
+					</c:forEach>
 				</div>
 			</div>
 	

@@ -144,7 +144,7 @@ $(document).ready(function(){
 					contents,
 					chkId,
 					updateSchinfoCallBack
-				)
+				);
 	   	    });	
 		}
 	});

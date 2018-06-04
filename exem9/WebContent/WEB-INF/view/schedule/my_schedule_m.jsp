@@ -102,12 +102,28 @@ $(document).ready(function(){
 	   	location.href = "my_schedule";
 	});
 	
-	$("#sch_edit").bind("click", function(){
-		$("#form2").submit();
-	   	/* location.href = "schedule_insert"; */
+	$("ul").on("click", "li", function(){
+		
+		/* $.post("schedule_edit_m",{supoId:$(this).val()});  */
+		/* location.href = "schedule_edit_m"; */
+	  	/* var supoId = {"supoId":$(this).val()}; */
+		 $.ajax({   
+			   type: "POST"  
+			  ,url: "schedule_edit_m"
+			  ,data: {supoId: $(this).val()}
+			  ,success:function(data){
+			    alert("성공");
+			  } 
+			  ,error:function(data){
+				    alert("error");
+			  }
+		  });  
+		 
+ 		/* alert($(this).val());
+		
+		$(this).submit(); */
 	});
-	
-	
+		
 	/* 체크박스 이벤트 */
 	$("#checkall").click(function(){
         //클릭되었으면
@@ -428,14 +444,14 @@ function listViewClick(e) {
 					<input type="hidden" id="supo_day"  name="supo_day"/>
 			</div>  
 		</form>	
-		<form id="form2" method="post" action="schedule_edit_m">		
+		<form id="form2" method="post" action="schedule_edit_m">	
 			<div id="schedule_list" data-role="content" class="content">		
 				   <ul data-role="listview" data-inset="true" data-click="listViewClick">					
 					        <li data-role="list-divider" data-split-icon="plus">월 ( ${weeks1} )<a href="#" ></a></li>		 
 					      	 <c:forEach var="sch" items="${sch_list}" >
 		        	 				 <c:choose>
 										<c:when test="${fn:substring(sch.start_time,5,10)  == weeks1}">
-											<li><a href="#" id="sch_edit">
+											<li><a href="#">
 												 <h3>${sch.schCusNm} - ${sch.schPjtNm}</h3>
 												 <p>${sch.category_name}</p></b>
 								                 <p> - ${sch.contents}</p>
@@ -450,11 +466,12 @@ function listViewClick(e) {
 				      	   <c:forEach var="sch" items="${sch_list}">
 		        	 				 <c:choose>
 										<c:when test="${fn:substring(sch.start_time,5,10)  == weeks2}">
-											<li><a href="#" id="sch_edit">
+											<li><a href="#">
 												 <h3>${sch.schCusNm} - ${sch.schPjtNm}</h3>
 												 <p>${sch.category_name}</p></b>
 								                 <p> - ${sch.contents}</p>
 								                 <p class="ui-li-aside">${fn:substring(sch.start_time,11,16)}-${fn:substring(sch.end_time,11,16)}</p>
+								                 <input type="hidden" id="supoId_${sch.schId}"  name="supoId" value="${sch.schId}"/> 
 							            	 </a> </li>
 										</c:when>									
 									</c:choose>						        	 
@@ -463,11 +480,12 @@ function listViewClick(e) {
 						   <c:forEach var="sch" items="${sch_list}">
 		        	 				 <c:choose>
 										<c:when test="${fn:substring(sch.start_time,5,10)  == weeks3}">
-											<li><a href="#" id="sch_edit">
+											<li><a href="#">
 												 <h3>${sch.schCusNm} - ${sch.schPjtNm}</h3>
 												 <p>${sch.category_name}</p></b>
 								                 <p> - ${sch.contents}</p>
 								                 <p class="ui-li-aside">${fn:substring(sch.start_time,11,16)}-${fn:substring(sch.end_time,11,16)}</p>
+								                 <input type="hidden" id="supoId_${sch.schId}"  name="supoId" value="${sch.schId}"/>
 							            	 </a> </li>
 										</c:when>									
 									</c:choose>						        	 
@@ -476,11 +494,12 @@ function listViewClick(e) {
 						   <c:forEach var="sch" items="${sch_list}">
 		        	 				 <c:choose>
 										<c:when test="${fn:substring(sch.start_time,5,10)  == weeks4}">
-											<li><a href="#" id="sch_edit">
+											<li value="${sch.schId}"><a href="#">
 												 <h3>${sch.schCusNm} - ${sch.schPjtNm}</h3>
 												 <p>${sch.category_name}</p></b>
 								                 <p> - ${sch.contents}</p>
 								                 <p class="ui-li-aside">${fn:substring(sch.start_time,11,16)}-${fn:substring(sch.end_time,11,16)}</p>
+								                 <input type="hidden" id="supoId_${sch.schId}"  name="supoId" value="${sch.schId}"/>
 							            	 </a> </li>
 										</c:when>									
 									</c:choose>						        	 
@@ -489,11 +508,12 @@ function listViewClick(e) {
 						   <c:forEach var="sch" items="${sch_list}">
 		        	 				 <c:choose>
 										<c:when test="${fn:substring(sch.start_time,5,10)  == weeks5}">
-											<li><a href="#" id="sch_edit">
+											<li value="${sch.schId}"><a href="#">
 												 <h3>${sch.schCusNm} - ${sch.schPjtNm}</h3>
 												 <p>${sch.category_name}</p></b>
 								                 <p> - ${sch.contents}</p>
 								                 <p class="ui-li-aside">${fn:substring(sch.start_time,11,16)}-${fn:substring(sch.end_time,11,16)}</p>
+								                 <input type="hidden" id="supoId_${sch.schId}"  name="supoId" value="${sch.schId}"/>
 							            	 </a> </li>
 										</c:when>									
 									</c:choose>						        	 
@@ -502,11 +522,12 @@ function listViewClick(e) {
 						   <c:forEach var="sch" items="${sch_list}">
 		        	 				 <c:choose>
 										<c:when test="${fn:substring(sch.start_time,5,10)  == weeks6}">
-											<li><a href="#" id="sch_edit">
+											<li value="${sch.schId}"><a href="#">
 												 <h3>${sch.schCusNm} - ${sch.schPjtNm}</h3>
 												 <p>${sch.category_name}</p></b>
 								                 <p> - ${sch.contents}</p>
 								                 <p class="ui-li-aside">${fn:substring(sch.start_time,11,16)}-${fn:substring(sch.end_time,11,16)}</p>
+								                 <input type="hidden" id="supoId_${sch.schId}"  name="supoId" value="${sch.schId}"/>
 							            	 </a> </li>
 										</c:when>									
 									</c:choose>						        	 
@@ -515,11 +536,12 @@ function listViewClick(e) {
 						   <c:forEach var="sch" items="${sch_list}">
 		        	 				 <c:choose>
 										<c:when test="${fn:substring(sch.start_time,5,10)  == weeks7}">
-											<li><a href="#" id="sch_edit">
+											<li value="${sch.schId}"><a href="#">
 												 <h3>${sch.schCusNm} - ${sch.schPjtNm}</h3>
 												 <p>${sch.category_name}</p></b>
 								                 <p> - ${sch.contents}</p>
 								                 <p class="ui-li-aside">${fn:substring(sch.start_time,11,16)}-${fn:substring(sch.end_time,11,16)}</p>
+								                 <input type="hidden" id="supoId_${sch.schId}"  name="supoId" value="${sch.schId}"/>
 							            	 </a> </li>
 										</c:when>									
 									</c:choose>						        	 
